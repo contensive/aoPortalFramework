@@ -1,0 +1,17 @@
+SCC = This is a Source Code Control file
+
+[reportUtil.csproj]
+SCC_Aux_Path = "\\s10.kma.net\fileserver\vss"
+SCC_Project_Name = "$/reportUtil/reportUtil", BPMCAAAA
+
+[reportUtil.sln]
+SCC_Aux_Path = "\\s10.kma.net\fileserver\vss"
+SCC_Project_Name = "$/reportUtil/reportUtil", BPMCAAAA
+
+[aoAdminFramework.csproj]
+SCC_Aux_Path = "\\s10.kma.net\fileserver\vss"
+SCC_Project_Name = "$/aoAdminFramework/aoAdminFramework", YSMCAAAA
+
+[aoAdminFramework.sln]
+SCC_Aux_Path = "\\s10.kma.net\fileserver\vss"
+SCC_Project_Name = "$/aoAdminFramework/aoAdminFramework", YSMCAAAA

@@ -1,0 +1,253 @@
+#desktop {
+    background-color: #ccc;
+}
+
+#afw {
+    font-family: arial;   
+    font-size: 13px;    
+    font-weight: normal;
+    line-height: 20px;
+}
+#afw .afwHeader {
+    background-color: #554488;
+    color: #FFFFFF;
+    font-size: 15px;
+    font-weight: bold;
+    padding: 10px;
+    margin: 0;
+}
+#afw #afwTitle {
+}
+#afw #afwSubTitle {
+}
+#afw div#afwBody {
+    margin:0;
+    padding: 20px;
+}
+/*
+* Main Nav
+*/
+#afw ul#afwNav {
+	list-style-type: none; 
+	padding: 0; 
+	margin: 0;
+	height: 30px;
+}
+#afw ul#afwNav li {
+    float: left;
+    margin: 0;
+    padding: 0;
+}
+#afw ul#afwNav li a { 
+	background-color: #ddd;
+	color: #333;
+	border-left: 1px solid #99BBDD;
+	display: block;
+	line-height: 14px;
+	padding: 8px 10px;
+	text-decoration: none;
+	border-radius: 0 0 5px 5px;
+}
+#afw ul#afwNav li a:hover {
+	color: #111; 
+}
+#afw ul#afwNav li.afwNavActive a {
+	background-color: #fff;
+	color: #222;
+}
+/*
+* Accounts
+*/
+#afw #afwBodyContent{
+	clear: both;
+	background-color: #fff;
+	padding: 0;
+}
+/*
+* Tabbed Body
+*/
+#afw .afwTabbedBody {
+	padding:0;
+	margin: 0;
+}
+#afw .afwTabbedBody ul.afwBodyTabs {
+	list-style-type: none; 
+	padding: 0; 
+	margin: 0;
+	height: 30px;
+}
+#afw .afwTabbedBody li {
+	float: left;
+	padding: 0;
+	margin: 0;
+}
+#afw .afwTabbedBody li a { 
+    background-color: #888;
+    border-radius: 10px 5px 0 0;
+    color: #eee;
+    display: block;
+    line-height: 30px;
+    padding: 0 10px;
+    margin: 0 1px 0 0;
+    text-decoration: none;
+}
+#afw .afwTabbedBody li a:hover {
+	color: #fff; 
+}
+#afw .afwTabbedBody li.afwTabActive a {
+	background-color: #fff;
+	color: #222;
+	border-bottom: none;
+}
+/*
+*
+*/
+#afw .afwButtonCon {
+	padding: 10px;
+	border-bottom: 1px solid #bbb;
+	background-color: #ddd;
+}
+#afw .afwBodyPad {
+	padding: 20px;
+}
+#afw .afwFormRow {
+    height: 30px;
+    line-height: 30px;
+    vertical-align: middle;
+}
+#afw .afwFormCaption {
+    width: 120px;
+}
+
+#afw .afwFormCaption
+,#afw .afwFormCaptionShort {
+    height: 30px;
+    line-height: 30px;
+    float: left;
+    text-align: right;
+    padding: 0 10px 0 0;
+}
+#afw .afwFormCaptionShort {
+    width: 50px;
+}
+#afw .afwFormCaption:after
+,#afw .afwFormCaptionShort:after {
+	content:":"
+}
+#afw .afwFormValue
+,#afw .afwFormDateValue
+,#afw .afwFormValueShort {
+    height: 30px;
+    line-height: 30px;
+    float: left;       
+}
+#afw .afwFormValue {
+    width: 200px;
+}
+#afw .afwFormDateValue {
+    width: 200px;
+}
+#afw .afwFormValueShort{
+    width: 50px;
+}
+#afw .afwFormDateValue input {
+    width: 150px;
+}
+#afw .afwFormValue input {
+    width: 190px;
+}
+#afw .afwFormValueShort input{
+    width: 40px;
+}
+#afw textarea {
+	width: 100%;
+	height: 200px;;
+}
+/*
+* report styles
+*/
+#afw .afwListReportCon {
+}
+#afw .afwListReportBody {
+	background-color: #fff;
+	color: #444;
+	padding:20px;
+}
+#afw .afwListReportTable {
+	width:100%;
+	border-spacing: 0;
+}
+#afw .afwLeftSideHtml {
+	float:left;
+	width:100px;
+}
+#afw .afwRightSideHtml {
+	margin: 0 0 0 100px;
+}
+#afw .afwListReportTable > thead {
+}
+#afw .afwListReportTable > thead > tr > th {
+	padding: 4px 8px;
+	border-bottom: 1px solid #ddd;
+	border-right: 1px solid white;
+	background-color:#888;
+	color:#eee;
+	font-weight:bold;
+}
+#afw .afwListReportTable > tbody {
+	background-color: #f8f8f8;
+}
+#afw .afwListReportTable > tbody > tr.afwOdd {
+	background-color: #e8e8e8;
+}
+#afw .afwListReportTable > tbody > tr > td {
+	padding: 4px 8px;
+	border-bottom: 1px solid #ddd;
+	border-right: 1px solid white;
+}
+#afw .afwListReportCon .afwButtonBar {
+	padding: 10px;
+	border-bottom: 1px solid #bbb;
+	background-color: #ddd;
+}
+#afw .afwListReportCon h2.afwTitle {}
+#afw .afwListReportCon p.afwDescription {}
+
+
+/*
+* Manager table cell widths
+*/
+#afw .afwWidth10 { width: 10% }
+#afw .afwWidth20 { width: 20% }
+#afw .afwWidth30 { width: 30% }
+#afw .afwWidth40 { width: 40% }
+#afw .afwWidth50 { width: 50% }
+#afw .afwWidth60 { width: 60% }
+#afw .afwWidth70 { width: 70% }
+#afw .afwWidth80 { width: 80% }
+#afw .afwWidth90 { width: 90% }
+#afw .afwWidth100 { width: 100% }
+/*
+*/
+#afw .afwWidth10px { width: 10px }
+#afw .afwWidth20px { width: 20px }
+#afw .afwWidth30px { width: 30px }
+#afw .afwWidth40px { width: 40px }
+#afw .afwWidth50px { width: 50px }
+#afw .afwWidth60px { width: 60px }
+#afw .afwWidth70px { width: 70px }
+#afw .afwWidth80px { width: 80px }
+#afw .afwWidth90px { width: 90px }
+
+#afw .afwWidth100px { width: 100px }
+#afw .afwWidth200px { width: 200px }
+#afw .afwWidth300px { width: 300px }
+#afw .afwWidth400px { width: 400px }
+#afw .afwWidth500px { width: 500px }
+/*
+*/
+#afw .afwMaginLeft100px { margin-left: 100px }
+#afw .afwMaginLeft200px { margin-left: 200px }
+#afw .afwMaginLeft300px { margin-left: 300px }
+#afw .afwMaginLeft400px { margin-left: 400px }
+#afw .afwMaginLeft500px { margin-left: 500px }
