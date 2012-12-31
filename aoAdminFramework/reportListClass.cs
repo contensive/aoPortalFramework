@@ -269,15 +269,19 @@ namespace adminFramework
         //
         public void addFormButton(string buttonValue)
         {
-            addFormButton(buttonValue, "button", "");
+            addFormButton(buttonValue, "button", "", "");
         }
         public void addFormButton(string buttonValue, string buttonName)
         {
-            addFormButton(buttonValue, buttonName, "");
+            addFormButton(buttonValue, buttonName, "", "");
         }
         public void addFormButton(string buttonValue, string buttonName, string buttonId)
         {
-            localButtonList += cr + "<input type=\"submit\" name=\"" + buttonName + "\" value=\"" + buttonValue + "\" id=\"" + buttonId + "\" class=\"afwButton\">";
+            addFormButton(buttonValue, buttonName, buttonId, "");
+        }
+        public void addFormButton(string buttonValue, string buttonName, string buttonId, string buttonClass)
+        {
+            localButtonList += cr + "<input type=\"submit\" name=\"" + buttonName + "\" value=\"" + buttonValue + "\" id=\"" + buttonId + "\" class=\"afwButton " + buttonClass + "\">";
             localIncludeForm = true;
         }
         //
