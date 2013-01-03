@@ -29,6 +29,20 @@
 #afw #afwTitle 
 {
 }
+#afw #afwDescription
+{
+}
+#afw #afwWarning
+{
+	border: 1px dashed red;
+	padding: 10px;
+	margin: 5px 0 5px 0;
+	background-color: #EEE;
+}
+#afw #afwWarning p.ccError
+{
+	margin-top: 5px;
+}
 #afw #afwSubTitle 
 {
 }

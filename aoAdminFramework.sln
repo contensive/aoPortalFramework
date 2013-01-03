@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "aoAdminFramework", "aoAdminFramework.csproj", "{BC682012-AFBD-4A22-BEC8-E9CACBE8B7D6}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "aoAdminFramework", "aoAdminFramework\aoAdminFramework.csproj", "{BC682012-AFBD-4A22-BEC8-E9CACBE8B7D6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

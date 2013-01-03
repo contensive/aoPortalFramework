@@ -27,6 +27,7 @@ namespace adminFramework
         //
         string localBody = "";
         string localTitle = "";
+        string localWarning = "";
         string localDescription = "";
         //
         //-------------------------------------------------
@@ -83,6 +84,22 @@ namespace adminFramework
             set
             {
                 localTitle = value;
+            }
+        }
+        //
+        //-------------------------------------------------
+        // Warning
+        //-------------------------------------------------
+        //
+        public string warning
+        {
+            get
+            {
+                return localWarning;
+            }
+            set
+            {
+                localWarning = value;
             }
         }
         //
@@ -184,7 +201,16 @@ namespace adminFramework
         {
             string s = "";
             string list = "";
-            string item = ""; 
+            string item = "";
+            string userErrors;
+            //
+            // add user errors
+            //
+            userErrors = cp.Utils.EncodeText(cp.UserError.GetList());
+            if (userErrors != "")
+            {
+                warning = userErrors;
+            }
             //
             for (tabPtr = 0; tabPtr <= tabMax; tabPtr++)
             {
@@ -218,11 +244,15 @@ namespace adminFramework
             //
             if (localDescription != "")
             {
-                s = cr + "<p class=\"afwDescription\">" + localDescription + "</p>" + s;
+                s = cr + "<p id=\"afwDescription\">" + localDescription + "</p>" + s;
+            }
+            if (localWarning != "")
+            {
+                s = cr + "<div id=\"afwWarning\">" + localWarning + "</div>" + s;
             }
             if (localTitle != "")
             {
-                s = cr + "<h2 class=\"afwTitle\">" + localTitle + "</h2>" + s;
+                s = cr + "<h2 id=\"afwTitle\">" + localTitle + "</h2>" + s;
             }
             if (localBody != "")
             {

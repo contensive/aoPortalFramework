@@ -23,6 +23,7 @@ namespace adminFramework
         //
         string localBody = "";
         string localTitle = "";
+        string localWarning = "";
         string localDescription = "";
         //
         //-------------------------------------------------
@@ -78,6 +79,22 @@ namespace adminFramework
             set
             {
                 localTitle = value;
+            }
+        }
+        //
+        //-------------------------------------------------
+        // Warning
+        //-------------------------------------------------
+        //
+        public string warning
+        {
+            get
+            {
+                return localWarning;
+            }
+            set
+            {
+                localWarning = value;
             }
         }
         //
@@ -180,6 +197,15 @@ namespace adminFramework
             string s = "";
             string navList = "";
             string navItem = "";
+            string userErrors;
+            //
+            // add user errors
+            //
+            userErrors = cp.Utils.EncodeText(cp.UserError.GetList());
+            if (userErrors != "")
+            {
+                warning = userErrors;
+            }
             //
             // title at top
             //
@@ -227,6 +253,10 @@ namespace adminFramework
             if (localDescription != "")
             {
                 s += cr + "<div class=\"afwManagerDescription\">" + localDescription + "</div>";
+            }
+            if (localWarning != "")
+            {
+                s += cr + "<div id=\"afwWarning\">" + localWarning + "</div>";
             }
             //
             // body

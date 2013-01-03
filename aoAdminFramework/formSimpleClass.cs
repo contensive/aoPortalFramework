@@ -20,6 +20,7 @@ namespace adminFramework
         string localFormActionQueryString = "";
         bool localIncludeForm = false;
         string localDescription = "";
+        string localWarning = "";
         string localTitle = "";
         //
         //-------------------------------------------------
@@ -35,6 +36,22 @@ namespace adminFramework
             set
             {
                 localTitle = value;
+            }
+        }
+        //
+        //-------------------------------------------------
+        // Warning
+        //-------------------------------------------------
+        //
+        public string warning
+        {
+            get
+            {
+                return localWarning;
+            }
+            set
+            {
+                localWarning = value;
             }
         }
         //
@@ -73,6 +90,15 @@ namespace adminFramework
         public string getHtml(CPBaseClass cp)
         {
             string s = "";
+            string userErrors;
+            //
+            // add user errors
+            //
+            userErrors = cp.Utils.EncodeText(cp.UserError.GetList());
+            if (userErrors != "")
+            {
+                warning = userErrors;
+            }
             //
             if (localBody != "")
             {
@@ -89,11 +115,15 @@ namespace adminFramework
             //
             if (localDescription != "")
             {
-                s = cr + "<p class=\"afwDescription\">" + localDescription + "</p>" + s;
+                s = cr + "<p id=\"afwDescription\">" + localDescription + "</p>" + s;
+            }
+            if (localWarning != "")
+            {
+                s = cr + "<div id=\"afwWarning\">" + localWarning + "</div>" + s;
             }
             if (localTitle != "")
             {
-                s = cr + "<h2 class=\"afwTitle\">" + localTitle + "</h2>" + s;
+                s = cr + "<h2 id=\"afwTitle\">" + localTitle + "</h2>" + s;
             }
             //
             // add form

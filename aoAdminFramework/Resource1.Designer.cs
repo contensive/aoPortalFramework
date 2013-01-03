@@ -92,10 +92,9 @@ namespace adminFramework {
         ///#afw #afwTitle 
         ///{
         ///}
-        ///#afw #afwSubTitle 
+        ///#afw #afwWarning
         ///{
-        ///}
-        ///#afw .afwBu [rest of string was truncated]&quot;;.
+        ///	border: 1px das [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string styles {
             get {
