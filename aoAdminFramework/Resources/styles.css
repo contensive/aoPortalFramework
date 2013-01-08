@@ -123,8 +123,18 @@
 */
 #afw .afwTabbedBody 
 {
+	/*
 	padding:0;
 	margin: 0;
+	*/
+	padding: 20px 20px 0 20px;
+	margin: 0;
+	background-color: #eee;
+}
+#afw .afwTabbedBody>h2
+{
+	color: #555;
+	margin-top: 0;
 }
 #afw .afwTabbedBody ul.afwBodyTabs 
 {
@@ -141,7 +151,10 @@
 }
 #afw .afwTabbedBody li a 
 {
+	/*
 	background-color: #ddd;
+	*/
+	background-color: #d4d4d4;
     border-radius: 10px 5px 0 0;
     color: #222;
     display: block;
