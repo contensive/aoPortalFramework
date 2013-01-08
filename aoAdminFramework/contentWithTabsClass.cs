@@ -29,6 +29,23 @@ namespace adminFramework
         string localTitle = "";
         string localWarning = "";
         string localDescription = "";
+        bool localIsOuterContainer = false;
+        //
+        //-------------------------------------------------
+        //
+        //-------------------------------------------------
+        //
+        public bool isOuterContainer
+        {
+            get
+            {
+                return localIsOuterContainer;
+            }
+            set
+            {
+                localIsOuterContainer = value;
+            }
+        }
         //
         //-------------------------------------------------
         //
@@ -51,7 +68,20 @@ namespace adminFramework
         {
             get
             {
-                return adminFramework.Resource1.styles.ToString();
+                return Properties.Resources.styles;
+                //return adminFramework.Resource1.styles.ToString();
+            }
+        }
+        //
+        //-------------------------------------------------
+        //
+        //-------------------------------------------------
+        //
+        public string javascript
+        {
+            get
+            {
+                return Properties.Resources.javascript;
             }
         }
         //
@@ -204,6 +234,14 @@ namespace adminFramework
             string item = "";
             string userErrors;
             //
+            // if outer container, add styles and javascript
+            //
+            if (localIsOuterContainer)
+            {
+                cp.Doc.AddHeadJavascript(Properties.Resources.javascript);
+                cp.Doc.AddHeadStyle(Properties.Resources.styles);
+            }
+            //
             // add user errors
             //
             userErrors = cp.Utils.EncodeText(cp.UserError.GetList());
@@ -262,6 +300,18 @@ namespace adminFramework
                 + cr + "<div class=\"afwTabbedBody\">"
                 + indent(s)
                 + cr + "</div>";
+            //
+            // if outer container, add styles and javascript
+            //
+            if (localIsOuterContainer)
+            {
+                cp.Doc.AddHeadJavascript(Properties.Resources.javascript);
+                cp.Doc.AddHeadStyle(Properties.Resources.styles);
+                s = ""
+                    + cr + "<div id=\"afw\">"
+                    + indent(s)
+                    + cr + "</div>";
+            }
             return s;
         }
         //

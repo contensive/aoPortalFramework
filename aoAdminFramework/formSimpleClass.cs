@@ -22,6 +22,23 @@ namespace adminFramework
         string localDescription = "";
         string localWarning = "";
         string localTitle = "";
+        bool localIsOuterContainer = false;
+        //
+        //-------------------------------------------------
+        //
+        //-------------------------------------------------
+        //
+        public bool isOuterContainer
+        {
+            get
+            {
+                return localIsOuterContainer;
+            }
+            set
+            {
+                localIsOuterContainer = value;
+            }
+        }
         //
         //-------------------------------------------------
         // Title
@@ -79,7 +96,20 @@ namespace adminFramework
         {
             get
             {
-                return adminFramework.Resource1.styles.ToString();
+                return Properties.Resources.styles;
+                //return adminFramework.Resource1.styles.ToString();
+            }
+        }
+        //
+        //-------------------------------------------------
+        //
+        //-------------------------------------------------
+        //
+        public string javascript
+        {
+            get
+            {
+                return Properties.Resources.javascript;
             }
         }
         //
@@ -148,6 +178,18 @@ namespace adminFramework
             //
             s = cp.Html.div(s, "", "afwBodyPad", "");
             s = cp.Html.div(s, "", "afwBodyColor", "");
+            //
+            // if outer container, add styles and javascript
+            //
+            if (localIsOuterContainer)
+            {
+                cp.Doc.AddHeadJavascript(Properties.Resources.javascript);
+                cp.Doc.AddHeadStyle(Properties.Resources.styles);
+                s = ""
+                    + cr + "<div id=\"afw\">"
+                    + indent(s)
+                    + cr + "</div>";
+            }
             return s;
         }
         //

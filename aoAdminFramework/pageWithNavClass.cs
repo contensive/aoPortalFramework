@@ -25,6 +25,23 @@ namespace adminFramework
         string localTitle = "";
         string localWarning = "";
         string localDescription = "";
+        bool localIsOuterContainer = false;
+        //
+        //-------------------------------------------------
+        //
+        //-------------------------------------------------
+        //
+        public bool isOuterContainer
+        {
+            get
+            {
+                return localIsOuterContainer;
+            }
+            set
+            {
+                localIsOuterContainer = value;
+            }
+        }
         //
         //-------------------------------------------------
         //
@@ -46,7 +63,20 @@ namespace adminFramework
         {
             get
             {
-                return adminFramework.Resource1.styles.ToString();
+                return Properties.Resources.styles;
+                //return adminFramework.Resource1.styles.ToString();
+            }
+        }
+        //
+        //-------------------------------------------------
+        //
+        //-------------------------------------------------
+        //
+        public string javascript
+        {
+            get
+            {
+                return Properties.Resources.javascript;
             }
         }
         //
@@ -275,12 +305,17 @@ namespace adminFramework
                  */
             }
             //
-            // wrapper
+            // if outer container, add styles and javascript
             //
-            s = ""
-                + cr + "<div id=\"afw\">"
-                + indent( s )
-                + cr + "</div>";
+            if (localIsOuterContainer)
+            {
+                cp.Doc.AddHeadJavascript(Properties.Resources.javascript);
+                cp.Doc.AddHeadStyle(Properties.Resources.styles);
+                s = ""
+                    + cr + "<div id=\"afw\">"
+                    + indent(s)
+                    + cr + "</div>";
+            }
         return s;
         }
         //
