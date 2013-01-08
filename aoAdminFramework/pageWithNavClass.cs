@@ -25,7 +25,7 @@ namespace adminFramework
         string localTitle = "";
         string localWarning = "";
         string localDescription = "";
-        bool localIsOuterContainer = false;
+        bool localIsOuterContainer = true;
         //
         //-------------------------------------------------
         //
