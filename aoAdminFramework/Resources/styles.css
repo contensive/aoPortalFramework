@@ -139,20 +139,20 @@
 	color: #555;
 	margin-top: 0;
 }
-#afw .afwTabbedBody ul.afwBodyTabs 
+#afw ul.afwBodyTabs 
 {
 	list-style-type: none; 
 	padding: 0; 
 	margin: 0;
 	height: 30px;
 }
-#afw .afwTabbedBody li 
+#afw ul.afwBodyTabs li 
 {
 	float: left;
 	padding: 0;
 	margin: 0;
 }
-#afw .afwTabbedBody li a 
+#afw ul.afwBodyTabs li a 
 {
 	/*
 	background-color: #ddd;
@@ -303,11 +303,11 @@
 #afw .afwWidth500px { width: 500px }
 /*
 */
-#afw .afwMaginLeft100px { margin-left: 100px }
-#afw .afwMaginLeft200px { margin-left: 200px }
-#afw .afwMaginLeft300px { margin-left: 300px }
-#afw .afwMaginLeft400px { margin-left: 400px }
-#afw .afwMaginLeft500px { margin-left: 500px }
+#afw .afwMarginLeft100px { margin-left: 100px }
+#afw .afwMarginLeft200px { margin-left: 200px }
+#afw .afwMarginLeft300px { margin-left: 300px }
+#afw .afwMarginLeft400px { margin-left: 400px }
+#afw .afwMarginLeft500px { margin-left: 500px }
 /*
 */
 #afw .afwTextAlignRight { text-align:right }
