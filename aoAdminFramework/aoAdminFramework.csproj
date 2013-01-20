@@ -43,6 +43,12 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>adminFrameword.snk</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="CPBase">
       <HintPath>..\..\..\..\..\..\h\Contensive\4.1\CPBase\bin\Release\CPBase.dll</HintPath>
@@ -82,6 +88,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <None Include="adminFrameword.snk" />
     <None Include="Resources\styles.css" />
   </ItemGroup>
   <ItemGroup>
