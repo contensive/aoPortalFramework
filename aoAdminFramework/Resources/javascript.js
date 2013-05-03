@@ -23,8 +23,8 @@ function cjFrameUpdate( remoteMethodName, frameHtmlId, qs ) {
 // attach this to the contensive cj object
 //
 function cjFrame() {
-this.submitForm=cjFrameSubmitForm;
-this.update=cjFrameUpdate;
+    this.submitForm=cjFrameSubmitForm;
+    this.update=cjFrameUpdate;
 }
 cj.frame = new cjFrame();
 //
