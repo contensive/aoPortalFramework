@@ -101,8 +101,7 @@ namespace adminFramework
             int rowPtr = 0;
             string userErrors;
             string jsonData = "";
-            Random ransom = new Random();
-            string pieHtmlId = "afwPieChart" + ransom.Next(10000,99999);
+            string chartHtmlId = "afwChart" + (new Random()).Next(10000,99999);
             double total = 0;
 
             //
@@ -145,7 +144,7 @@ namespace adminFramework
                     + "";
             }
             returnHtml += ""
-                + cr + "<div id=\"" + pieHtmlId + "\" class=\"afwPieChart\"></div>"
+                + cr + "<div id=\"" + chartHtmlId + "\" class=\"afwPieChart\"></div>"
                 + cr + "<div class=\"afwPieData\">"
                 + indent(rowList)
                 + cr + "</div>"
@@ -226,7 +225,7 @@ namespace adminFramework
                 + cr + "data.addColumn('number', 'Slices');"
                 + cr + "data.addRows([" + jsonData + "]);"
                 + cr + "var options = {'title':'" + localChartTitle + "','width':500,'height':400};"
-                + cr + "var chart = new google.visualization.PieChart(document.getElementById('" + pieHtmlId + "'));"
+                + cr + "var chart = new google.visualization.PieChart(document.getElementById('" + chartHtmlId + "'));"
                 + cr + "chart.draw(data, options);"
                 + cr + "}"
                 + cr + "";

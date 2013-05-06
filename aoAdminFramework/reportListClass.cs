@@ -527,6 +527,7 @@ namespace adminFramework
             {
                 rowCnt += 1;
             }
+            checkColumnPtr();
             columnPtr = 0;
         }
         //

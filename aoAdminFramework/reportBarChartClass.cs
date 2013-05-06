@@ -20,7 +20,15 @@ namespace adminFramework
             public string cellClass;
         }
         columnStruct[] columns = new columnStruct[columnSize];
-        bool formIncludeHeader = false;
+        //
+        struct rowStruct
+        {
+            public string caption;
+        }
+        rowStruct[] rows = new rowStruct[rowSize];
+        //
+        bool gridIncludeHeaderRow = false;
+        bool gridIncludesCaptionColumn = false;
         //
         int columnMax = -1;
         int columnPtr = -1;
@@ -44,9 +52,43 @@ namespace adminFramework
         //int localPageSize = 20;
         //int localPageNumber = 1;
         //
-        string[,] cells = new string[rowSize,columnSize];
+        string localXAxisCaption = "";
+        string localYAxisCaption = "";
+        int[,] barHeights = new int[rowSize,columnSize];
         //
         bool localIsOuterContainer = false;
+        //
+        //-------------------------------------------------
+        //
+        //-------------------------------------------------
+        //
+        public string yAxisCaption
+        {
+            get
+            {
+                return localYAxisCaption;
+            }
+            set
+            {
+                localYAxisCaption = value;
+            }
+        }
+        //
+        //-------------------------------------------------
+        //
+        //-------------------------------------------------
+        //
+        public string xAxisCaption
+        {
+            get
+            {
+                return localXAxisCaption;
+            }
+            set
+            {
+                localXAxisCaption = value;
+            }
+        }
         //
         //-------------------------------------------------
         //
@@ -106,6 +148,8 @@ namespace adminFramework
             string returnHeadJs = "";
             string jsonData = "";
             string jsonRow = "";
+            string chartHtmlId = "afwChart" + (new Random()).Next(10000, 99999);
+            string captionColumn;
             //
             // add user errors
             //
@@ -117,26 +161,30 @@ namespace adminFramework
             //
             // headers
             //
-            jsonRow = "";
-            if (formIncludeHeader)
+            jsonRow = "'" + localXAxisCaption + "'";
+            rowList = "";
+            if (gridIncludesCaptionColumn)
             {
-                rowList = "";
-                for (colPtr = 0; colPtr <= columnMax; colPtr++)
+                rowList += cr + "<th>" + localXAxisCaption + "</th>";
+            }
+            for (colPtr = 0; colPtr <= columnMax; colPtr++)
+            {
+                styleClass = columns[colPtr].captionClass;
+                if (styleClass != "")
                 {
-                    styleClass = columns[colPtr].captionClass;
-                    if (styleClass != "")
-                    {
-                        styleClass = " class=\"" + styleClass + "\"";
-                    }
-                    content = columns[colPtr].caption;
-                    if (content == "")
-                    {
-                        content = "&nbsp;";
-                    }
-                    rowList += cr + "<th" + styleClass + ">" + content + "</th>";
-                    jsonRow += ",'" + content  + "'";
+                    styleClass = " class=\"" + styleClass + "\"";
                 }
-                jsonData = "[" + jsonRow.Substring(1) + "]";
+                content = columns[colPtr].caption;
+                if (content == "")
+                {
+                    content = "&nbsp;";
+                }
+                rowList += cr + "<th" + styleClass + ">" + content + "</th>";
+                jsonRow += ",'" + content + "'";
+            }
+            jsonData = cr + "[" + jsonRow + "]";
+            if (gridIncludeHeaderRow)
+            {
                 s += ""
                     + cr + "<thead>"
                     + cr2 + "<tr>"
@@ -144,9 +192,6 @@ namespace adminFramework
                     + cr2 + "</tr>"
                     + cr + "</thead>"
                     + "";
-            }
-            else
-            {
             }
             //
             // body
@@ -173,7 +218,16 @@ namespace adminFramework
                     //
                     // first column is a text caption
                     //
-                    jsonRow = "'" + cells[rowPtr, colPtr] + "'";
+                    jsonRow = "'" + rows[rowPtr].caption + "'";
+                    if (gridIncludesCaptionColumn)
+                    {
+                        captionColumn = rows[rowPtr].caption;
+                        if (captionColumn=="")
+                        {
+                            captionColumn = "&nbsp;";
+                        }
+                        row += cr + "<th>" + captionColumn + "</th>";
+                    }
                     //
                     // additional columns are numeric
                     //
@@ -184,10 +238,10 @@ namespace adminFramework
                         {
                             styleClass = " class=\"" + styleClass + "\"";
                         }
-                        row += cr + "<td" + styleClass + ">" + cells[rowPtr, colPtr] + "</td>";
-                        jsonRow += "," + cells[rowPtr, colPtr];
+                        row += cr + "<td" + styleClass + ">" + barHeights[rowPtr, colPtr] + "</td>";
+                        jsonRow += "," + barHeights[rowPtr, colPtr];
                     }
-                    jsonData += ",[" + jsonRow + "]";
+                    jsonData += cr + ",[" + jsonRow + "]";
                     if (rowPtr % 2 == 0)
                     {
                         styleClass = "";
@@ -214,7 +268,7 @@ namespace adminFramework
             //
             // bar chart
             //
-            s = cr + "<div id=\"chart_div\" style=\"width: 900px; height: 500px;\"></div>" + s;
+            s = cr + "<div id=\"" + chartHtmlId + "\" style=\"width: 900px; height: 500px;\"></div>" + s;
             //
             if (localHtmlLeftOfTable != "")
             {
@@ -294,11 +348,11 @@ namespace adminFramework
                 + cr + "google.load(\"visualization\", \"1\", {packages:[\"corechart\"]});"
                 + cr + "google.setOnLoadCallback(drawChart);"
                 + cr + "function drawChart() {"
-                + cr + "var data = google.visualization.arrayToDataTable(" + jsonData + ");"
-                + cr + "var options={title:'Company Performance',hAxis:{title:'Year',titleTextStyle:{color: 'red'}}};"
-                + cr + "var chart = new google.visualization.ColumnChart(document.getElementById('chart_div'));"
+                + cr + "var data = google.visualization.arrayToDataTable([" + jsonData + "]);"
+                + cr + "var options={title:'" + localYAxisCaption + "',hAxis:{title:'" + localYAxisCaption + "',titleTextStyle:{color: 'red'}}};"
+                + cr + "var chart = new google.visualization.ColumnChart(document.getElementById('" + chartHtmlId + "'));"
                 + cr + "chart.draw(data, options);"
-                + cr + "";
+                + cr + "}";
             cp.Doc.AddHeadJavascript(returnHeadJs);
             return s;
         }
@@ -484,7 +538,7 @@ namespace adminFramework
                 if (value != "")
                 {
                     checkColumnPtr();
-                    formIncludeHeader = true;
+                    gridIncludeHeaderRow = true;
                     columns[columnPtr].caption = value;
                 }
             }
@@ -505,7 +559,7 @@ namespace adminFramework
             {
                 if (value != "")
                 {
-                    formIncludeHeader = true;
+                    gridIncludeHeaderRow = true;
                     checkColumnPtr();
                     columns[columnPtr].captionClass = value;
                 }
@@ -550,6 +604,28 @@ namespace adminFramework
         }
         //
         //-------------------------------------------------
+        // column properties
+        //-------------------------------------------------
+        //
+        public string rowCaption
+        {
+            get
+            {
+                checkRowCnt();
+                return rows[rowCnt].caption;
+            }
+            set
+            {
+                if (value != "")
+                {
+                    checkRowCnt();
+                    rows[rowCnt].caption = value;
+                    gridIncludesCaptionColumn = true;
+                }
+            }
+        }
+        //
+        //-------------------------------------------------
         // add a row
         //-------------------------------------------------
         //
@@ -560,6 +636,7 @@ namespace adminFramework
             {
                 rowCnt += 1;
             }
+            checkColumnPtr();
             columnPtr = 0;
         }
         //
@@ -567,12 +644,12 @@ namespace adminFramework
         // populate a cell
         //-------------------------------------------------
         //
-        public void setCell(string content)
+        public void setCell(int barHeight)
         {
             localIsEmptyReport = false;
             checkColumnPtr();
             checkRowCnt();
-            cells[rowCnt, columnPtr] = content;
+            barHeights[rowCnt, columnPtr] = barHeight;
             if (columnPtr < columnMax)
             {
                 columnPtr += 1;
