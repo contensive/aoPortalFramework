@@ -12,10 +12,12 @@ namespace adminFramework
         const int rowSize = 9999;
         const string cr = "\r\n\t";
         const string cr2 = cr + "\t";
+        const string cr3 = cr2 + "\t";
         //
         struct columnStruct
         {
             public string caption;
+            //public string captionClass;
             public double value;
         }
         //columnStruct[] columns = new columnStruct[columnSize];
@@ -47,6 +49,15 @@ namespace adminFramework
         columnStruct[] row = new columnStruct[rowSize];
         //
         bool localIsOuterContainer = false;
+        //
+        //bool gridIncludeHeaderRow = false;
+        bool gridIncludesCaptionColumn = false;
+        string localgridCaptionHeader = "Slice";
+        string localgridValueHeader = "Size";
+        int localChartWidth = 600;
+        int localChartHeight = 500;
+        string localgridCaptionClass = "";
+        string localgridValueClass = "";
         //
         //-------------------------------------------------
         //
@@ -97,12 +108,16 @@ namespace adminFramework
         {
             string returnHtml = "";
             string returnHeadJs = "";
-            string rowList = "";
+            string gridRowList = "";
             int rowPtr = 0;
             string userErrors;
             string jsonData = "";
             string chartHtmlId = "afwChart" + (new Random()).Next(10000,99999);
             double total = 0;
+            string grid="";
+            string gridRow = "";
+            string gridRowClass = "";
+            string captionColumn = "";
 
             //
             // add user errors
@@ -112,10 +127,24 @@ namespace adminFramework
             {
                 warning = userErrors;
             }
+
+            //--- imported from bar chart
+            //
+            // headers
+            //
+            gridRowList += cr + "<th>" + localgridCaptionHeader + "</th>";
+            gridRowList += cr + "<th>" + localgridValueHeader + "</th>";
+            gridRowList = ""
+                + cr + "<thead>"
+                + cr2 + "<tr>"
+                + indent(indent(gridRowList))
+                + cr2 + "</tr>"
+                + cr + "</thead>"
+                + "";
+            //---
             //
             // body
             //
-            rowList = "";
             if (localIsEmptyReport)
             {
             }
@@ -123,12 +152,47 @@ namespace adminFramework
             {
                 for (rowPtr = 0; rowPtr <= rowCnt; rowPtr++)
                 {
-                    rowList += ""
-                        + cr + "<div class=\"afwPieDataRow\">"
-                        + cr2 + "<div class=\"afwPieDataValue\">" + row[rowPtr].value + "</div>"
-                        + cr2 + "<div class=\"afwPieDataCaption\">" + row[rowPtr].caption + "</div>"
-                        + cr + "</div>"
-                        + "";
+                    //
+                    //--- imported from bar chart
+                    //
+                    gridRow = "";
+                    //
+                    // first column is a text caption
+                    //
+                    if (gridIncludesCaptionColumn)
+                    {
+                        captionColumn = row[rowPtr].caption;
+                        if (captionColumn == "")
+                        {
+                            captionColumn = "&nbsp;";
+                        }
+                        gridRow += cr + "<th class=\"" + localgridCaptionClass + "\">" + captionColumn + "</th>";
+                    }
+                    //
+                    // additional columns are numeric
+                    //
+                    gridRow += cr + "<td class=\"" + localgridValueClass + "\">" + row[rowPtr].value.ToString()  + "</td>";
+                    if (rowPtr % 2 == 0)
+                    {
+                        gridRowClass = "";
+                    }
+                    else
+                    {
+                        gridRowClass = " class=\"afwOdd\"";
+                    }
+                    gridRowList += ""
+                        + cr + "<tr" + gridRowClass + ">"
+                        + indent(gridRow)
+                        + cr + "</tr>";
+                    ////
+                    ////--- the pie chart code
+                    ////
+                    //gridRowList += ""
+                    //    + cr + "<div class=\"afwPieDataRow\">"
+                    //    + cr2 + "<div class=\"afwPieDataValue\">" + row[rowPtr].value + "</div>"
+                    //    + cr2 + "<div class=\"afwPieDataCaption\">" + row[rowPtr].caption + "</div>"
+                    //    + cr + "</div>"
+                    //    + "";
                     total += row[rowPtr].value;
                     jsonData += ",['" + row[rowPtr].caption + "', " + row[rowPtr].value + "]";
                 }
@@ -136,19 +200,41 @@ namespace adminFramework
             if (jsonData != "")
             {
                 jsonData = jsonData.Substring(1);
-                rowList += ""
-                    + cr + "<div class=\"afwPieTotalRow\">"
-                    + cr2 + "<div class=\"afwPieDataValue\">" + total + "</div>"
-                    + cr2 + "<div class=\"afwPieDataCaption\">Total</div>"
-                    + cr + "</div>"
+                gridRowList += ""
+                    + cr + "<tfoot>"
+                    + cr2+ "<tr>"
+                    + cr3 + "<th class=\"" + localgridCaptionClass + "\">Total</th>"
+                    + cr3 + "<td class=\"" + gridValueClass + "\">" + total + "</td>"
+                    + cr2 + "</tr>"
+                    + cr + "</tfoot>"
                     + "";
             }
-            returnHtml += ""
-                + cr + "<div id=\"" + chartHtmlId + "\" class=\"afwPieChart\"></div>"
-                + cr + "<div class=\"afwPieData\">"
-                + indent(rowList)
-                + cr + "</div>"
+            grid += ""
+                + cr + "<tbody>"
+                + indent(gridRowList)
+                + cr + "</tbody>"
                 + "";
+            grid = ""
+                + cr + "<table class=\"afwListReportTableCollapse\">"
+                + indent(grid)
+                + cr + "</table>";
+            grid = ""
+                + cr + "<div class=\"afwGridCon\">"
+                + indent(grid)
+                + cr + "</div>";
+            returnHtml = ""
+                + cr + "<div class=\"afwChartCon\" style=\"width:" + localChartWidth + "px;\">"
+                + cr2 + "<div id=\"" + chartHtmlId + "\"></div>"
+                + cr + "</div>"
+                +cr + "<div class=\"afwGridCon\">" 
+                + indent(grid) 
+                + cr + "</div>";
+            //returnHtml += ""
+            //    + cr + "<div id=\"" + chartHtmlId + "\" class=\"afwPieChart\"></div>"
+            //    + cr + "<div class=\"afwPieData\">"
+            //    + indent(grid)
+            //    + cr + "</div>"
+            //    + "";
             returnHtml = ""
                 + cr + "<div class=\"afwPieCon\">"
                 + indent(returnHtml)
@@ -224,7 +310,7 @@ namespace adminFramework
                 + cr + "data.addColumn('string', 'Topping');"
                 + cr + "data.addColumn('number', 'Slices');"
                 + cr + "data.addRows([" + jsonData + "]);"
-                + cr + "var options = {'title':'" + localChartTitle + "','width':500,'height':400};"
+                + cr + "var options = {'title':'" + localChartTitle + "','width':" + localChartWidth + ",'height':" + localChartHeight + "};"
                 + cr + "var chart = new google.visualization.PieChart(document.getElementById('" + chartHtmlId + "'));"
                 + cr + "chart.draw(data, options);"
                 + cr + "}"
@@ -508,42 +594,6 @@ namespace adminFramework
         //}
         //
         //-------------------------------------------------
-        // add a row
-        //-------------------------------------------------
-        //
-        public void addRow()
-        {
-            localIsEmptyReport = false;
-            if (rowCnt < rowSize)
-            {
-                rowCnt += 1;
-            }
-            //columnPtr = 0;
-        }
-        //
-        //-------------------------------------------------
-        // populate a row caption
-        //-------------------------------------------------
-        //
-        public void setRowCaption(string content)
-        {
-            localIsEmptyReport = false;
-            checkRowCnt();
-            row[rowCnt].caption = content;
-        }
-        //
-        //-------------------------------------------------
-        // populate a row value
-        //-------------------------------------------------
-        //
-        public void setRowValue(double  content)
-        {
-            localIsEmptyReport = false;
-            checkRowCnt();
-            row[rowCnt].value = content;
-        }
-        //
-        //-------------------------------------------------
         //
         //-------------------------------------------------
         //
@@ -575,5 +625,185 @@ namespace adminFramework
                 addRow();
             }
         }
+        //
+        //-------------------------------------------------
+        // chart width
+        //-------------------------------------------------
+        //
+        public int chartWidth
+        {
+            get
+            {
+                return localChartWidth;
+            }
+            set
+            {
+                localChartWidth = value;
+            }
+        }
+        //
+        //-------------------------------------------------
+        // chart height
+        //-------------------------------------------------
+        //
+        public int chartHeight
+        {
+            get
+            {
+                return localChartHeight;
+            }
+            set
+            {
+                localChartHeight = value;
+            }
+        }
+        //
+        //-------------------------------------------------
+        //
+        //-------------------------------------------------
+        //
+        public string gridCaptionHeader
+        {
+            get
+            {
+                return localgridCaptionHeader;
+            }
+            set
+            {
+                localgridCaptionHeader = value;
+                //gridIncludeHeaderRow = true;
+            }
+        }
+        //
+        //-------------------------------------------------
+        //
+        //-------------------------------------------------
+        //
+        public string gridValueHeader
+        {
+            get
+            {
+                return localgridValueHeader;
+            }
+            set
+            {
+                localgridValueHeader = value;
+                //gridIncludeHeaderRow = true;
+            }
+        }
+        //
+        //-------------------------------------------------
+        // row Caption for grid
+        //-------------------------------------------------
+        //
+        public string rowCaption
+        {
+            get
+            {
+                checkRowCnt();
+                return row[rowCnt].caption;
+            }
+            set
+            {
+                if (value != "")
+                {
+                    checkRowCnt();
+                    row[rowCnt].caption = value;
+                    gridIncludesCaptionColumn = true;
+                    localIsEmptyReport = false;
+                }
+            }
+        }
+        //
+        //-------------------------------------------------
+        // row Caption Class for grid
+        //-------------------------------------------------
+        //
+        public string gridCaptionClass
+        {
+            get
+            {
+                return localgridCaptionClass;
+            }
+            set
+            {
+                localgridCaptionClass = value;
+            }
+        }
+        //
+        //-------------------------------------------------
+        // row Value
+        //-------------------------------------------------
+        //
+        public double rowValue
+        {
+            get
+            {
+                checkRowCnt();
+                return row[rowCnt].value;
+            }
+            set
+            {
+                checkRowCnt();
+                row[rowCnt].value = value;
+                gridIncludesCaptionColumn = true;
+                localIsEmptyReport = false;
+            }
+        }
+        //
+        //-------------------------------------------------
+        // row Caption Class for grid
+        //-------------------------------------------------
+        //
+        public string gridValueClass
+        {
+            get
+            {
+                return localgridValueClass;
+            }
+            set
+            {
+                if (value != "")
+                {
+                    localgridValueClass = value;
+                }
+            }
+        }
+        //
+        //-------------------------------------------------
+        // add a row
+        //-------------------------------------------------
+        //
+        public void addRow()
+        {
+            localIsEmptyReport = false;
+            if (rowCnt < rowSize)
+            {
+                rowCnt += 1;
+            }
+            //columnPtr = 0;
+        }
+        ////
+        ////-------------------------------------------------
+        //// populate a row caption
+        ////-------------------------------------------------
+        ////
+        //public void setRowCaption(string content)
+        //{
+        //    localIsEmptyReport = false;
+        //    checkRowCnt();
+        //    row[rowCnt].caption = content;
+        //}
+        ////
+        ////-------------------------------------------------
+        //// populate a row value
+        ////-------------------------------------------------
+        ////
+        //public void setRowValue(double content)
+        //{
+        //    localIsEmptyReport = false;
+        //    checkRowCnt();
+        //    row[rowCnt].value = content;
+        //}
     }
 }

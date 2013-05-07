@@ -24,6 +24,7 @@ namespace adminFramework
         struct rowStruct
         {
             public string caption;
+            public string captionClass;
         }
         rowStruct[] rows = new rowStruct[rowSize];
         //
@@ -55,6 +56,9 @@ namespace adminFramework
         string localXAxisCaption = "";
         string localYAxisCaption = "";
         int[,] barHeights = new int[rowSize,columnSize];
+        //
+        int localChartWidth = 600;
+        int localChartHeight = 500;
         //
         bool localIsOuterContainer = false;
         //
@@ -226,7 +230,7 @@ namespace adminFramework
                         {
                             captionColumn = "&nbsp;";
                         }
-                        row += cr + "<th>" + captionColumn + "</th>";
+                        row += cr + "<th class=\"" + rows[rowPtr].captionClass + "\">" + captionColumn + "</th>";
                     }
                     //
                     // additional columns are numeric
@@ -262,13 +266,17 @@ namespace adminFramework
                 + cr + "</tbody>"
                 + "";
             s = ""
-                + cr + "<table class=\"afwListReportTable\">"
+                + cr + "<table class=\"afwListReportTableCollapse\">"
                 + indent(s)
                 + cr + "</table>";
+            s = ""
+                + cr + "<div class=\"afwGridCon\">"
+                + indent(s)
+                + cr + "</div>";
             //
             // bar chart
             //
-            s = cr + "<div id=\"" + chartHtmlId + "\" style=\"width: 900px; height: 500px;\"></div>" + s;
+            s = cr + "<div id=\"" + chartHtmlId + "\" class=\"afwChartCon\" style=\"width:" + localChartWidth.ToString() + "px; height:" + localChartHeight.ToString() + "px;\"></div>" + s;
             //
             if (localHtmlLeftOfTable != "")
             {
@@ -349,7 +357,7 @@ namespace adminFramework
                 + cr + "google.setOnLoadCallback(drawChart);"
                 + cr + "function drawChart() {"
                 + cr + "var data = google.visualization.arrayToDataTable([" + jsonData + "]);"
-                + cr + "var options={title:'" + localYAxisCaption + "',hAxis:{title:'" + localYAxisCaption + "',titleTextStyle:{color: 'red'}}};"
+                + cr + "var options={title:'" + localTitle + "',hAxis:{title:'" + localXAxisCaption + "',titleTextStyle:{color: 'red'}}};"
                 + cr + "var chart = new google.visualization.ColumnChart(document.getElementById('" + chartHtmlId + "'));"
                 + cr + "chart.draw(data, options);"
                 + cr + "}";
@@ -604,7 +612,7 @@ namespace adminFramework
         }
         //
         //-------------------------------------------------
-        // column properties
+        // row Caption for grid
         //-------------------------------------------------
         //
         public string rowCaption
@@ -622,6 +630,60 @@ namespace adminFramework
                     rows[rowCnt].caption = value;
                     gridIncludesCaptionColumn = true;
                 }
+            }
+        }
+        //
+        //-------------------------------------------------
+        // row Caption Class for grid
+        //-------------------------------------------------
+        //
+        public string rowCaptionClass
+        {
+            get
+            {
+                checkRowCnt();
+                return rows[rowCnt].captionClass;
+            }
+            set
+            {
+                if (value != "")
+                {
+                    checkRowCnt();
+                    rows[rowCnt].captionClass = value;
+                    gridIncludesCaptionColumn = true;
+                }
+            }
+        }
+        //
+        //-------------------------------------------------
+        // chart width
+        //-------------------------------------------------
+        //
+        public int chartWidth
+        {
+            get
+            {
+                return localChartWidth;
+            }
+            set
+            {
+                localChartWidth = value;
+            }
+        }
+        //
+        //-------------------------------------------------
+        // chart height
+        //-------------------------------------------------
+        //
+        public int chartHeight
+        {
+            get
+            {
+                return localChartHeight;
+            }
+            set
+            {
+                localChartHeight = value;
             }
         }
         //
