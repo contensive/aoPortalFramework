@@ -1,0 +1,381 @@
+#desktop 
+{
+    background-color: #999;
+}
+#afw 
+{
+    font-family: arial;   
+    font-size: 13px;    
+    font-weight: normal;
+    line-height: 20px;
+}
+#afw .afwManagerTitle 
+{
+    background-color: #1F70BD;
+    color: #FFFFFF;
+    font-size: 15px;
+    font-weight: bold;
+    padding: 10px;
+    margin: 0;
+}
+#afw .afwManagerDescription 
+{
+    background-color: #bbb;
+    color: #444;
+    padding: 20px;
+    margin: 20px;
+}
+#afw #afwTitle 
+{
+}
+#afw #afwDescription
+{
+}
+#afw #afwWarning
+{
+	border: 1px dashed red;
+	padding: 10px;
+	margin: 5px 0 5px 0;
+	background-color: #EEE;
+}
+#afw #afwWarning p.ccError
+{
+	margin-top: 5px;
+}
+#afw #afwSubTitle 
+{
+}
+#afw .afwButtonCon 
+{
+	padding: 10px 10px 8px;
+	border-bottom: 1px solid #aaa;
+	background-color: #ccc;
+	border-radius: 3px;
+	clear: both;
+}
+#afw .afwButton 
+{
+    background-color: #f8f8f8;
+    border-color: #eee #bbb #bbb #eee;
+    border-style: solid;
+    border-width: 1px;
+	border-radius: 2px;
+    color: #666;
+    font-family: "Lucida Grande",Tahoma,Arial,Verdana,sans-serif;
+    font-size: 12px;
+    font-weight: bold;
+    line-height: 130%;
+    margin: 0 2px 0 0;
+    padding: 4px 8px 5px 6px;
+    cursor: pointer;
+}
+#afw .afwBodyPad 
+{
+	clear: both;
+    margin:0;
+	padding: 20px;
+}
+#afw .afwBodyColor
+{
+	clear: both;
+	color: #444;
+	background-color: #fff;
+    margin:0;
+	padding: 0;
+	border-left: 1px solid rgba(0, 0, 0, 0.1);
+	border-right: 1px solid rgba(0, 0, 0, 0.1);
+	border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+#afw ul.afwNav 
+{
+	list-style-type: none; 
+	padding: 0; 
+	margin: 0;
+	height: 30px;
+}
+#afw ul.afwNav li 
+{
+    float: left;
+    margin: 0;
+    padding: 0;
+}
+#afw ul.afwNav li a 
+{ 
+	background-color: #ddd;
+	color: #222;
+	border-left: 1px solid #99BBDD;
+	display: block;
+	line-height: 14px;
+	padding: 8px 10px;
+	text-decoration: none;
+	border-radius: 0 0 5px 5px;
+	box-shadow: 1px 1px 2px 1px rgba(0, 0, 0, 0.4);
+}
+#afw ul.afwNav li a:hover 
+{
+	color: #111; 
+}
+#afw ul.afwNav li.afwNavActive a 
+{
+	background-color: #fff;
+	color: #222;
+}
+/*
+* Tabbed Body
+*/
+#afw .afwTabbedBody 
+{
+	/*
+	padding:0;
+	margin: 0;
+	*/
+	padding: 20px 20px 0 20px;
+	margin: 0;
+	background-color: #eee;
+}
+#afw .afwTabbedBody>h2
+{
+	color: #555;
+	margin-top: 0;
+}
+#afw ul.afwBodyTabs 
+{
+	list-style-type: none; 
+	padding: 0; 
+	margin: 0;
+	height: 30px;
+}
+#afw ul.afwBodyTabs li 
+{
+	float: left;
+	padding: 0;
+	margin: 0;
+}
+#afw ul.afwBodyTabs li a 
+{
+	/*
+	background-color: #ddd;
+	*/
+	background-color: #d4d4d4;
+    border-radius: 10px 5px 0 0;
+    color: #222;
+    display: block;
+    line-height: 30px;
+    padding: 0 10px;
+    margin: 0 1px 0 0;
+    text-decoration: none;
+	border-left: 1px solid rgba(0, 0, 0, 0.1);
+}
+#afw .afwTabbedBody li a:hover 
+{
+	color: #111; 
+}
+#afw .afwTabbedBody li.afwTabActive a 
+{
+	background-color: #fff;
+	color: #222;
+	border-bottom: none;
+}
+/*
+* name-value forms
+*/
+#afw .afwFormRow 
+{
+	display: table;
+	width:100%;
+    min-height: 30px;
+    vertical-align: middle;
+}
+#afw .afwFormRowName 
+{
+    line-height: 30px;
+    text-align: right;
+    padding: 7px 10px 0 0;
+    display: table-cell;
+    width: 140px;
+    vertical-align: top;
+    font-weight: bold;
+}
+#afw .afwFormRowValue 
+{
+    background-color: #F8F8F8;
+    border-top: 2px solid #FFFFFF;
+    display: table-cell;
+    margin: 15px;
+    padding: 7px 5px 5px;
+    vertical-align: middle;
+}
+#afw .afwFormRowValue input[type="text"] 
+{
+	width: 200px;
+}
+#afw .afwFormRowValue textarea 
+{
+	width: 100%;
+	height: 200px;
+}
+#afw .aftFieldSet 
+{
+	background-color:#f8f8f8;
+}
+/*
+* report styles
+*/
+#afw .afwListReportTable 
+{
+	width:100%;
+	border-spacing: 0;
+	margin: 0 0 20px;
+}
+#afw .afwListReportTableCollapse
+{
+	border-spacing: 0;
+	margin: 0 auto 20px auto;
+}
+#afw .afwLeftSideHtml 
+{
+    float: left;
+    overflow: hidden;
+    padding: 0 0 20px 0;
+    width: 150px;
+}
+#afw .afwRightSideHtml 
+{
+	margin: 0 0 0 150px;
+}
+#afw .afwListReportTable > thead
+,#afw .afwListReportTableCollapse > thead
+ 
+{
+}
+#afw .afwListReportTable > thead > tr > th 
+,#afw .afwListReportTableCollapse > thead > tr > th 
+{
+	padding: 4px 8px;
+	border-bottom: 1px solid #ddd;
+	border-right: 1px solid white;
+	background-color:#888;
+	color:#eee;
+	font-weight:bold;
+}
+#afw .afwListReportTable > tfoot > tr > td 
+,#afw .afwListReportTable > tfoot > tr > th 
+,#afw .afwListReportTableCollapse > tfoot > tr > td 
+,#afw .afwListReportTableCollapse > tfoot > tr > th 
+{
+	padding: 4px 8px;
+	border-top: 1px solid #444;
+	border-right: 1px solid white;
+	font-weight:bold;
+}
+#afw .afwListReportTable > tbody 
+,#afw .afwListReportTableCollapse > tbody 
+{
+	background-color: #f8f8f8;
+}
+#afw .afwListReportTable > tbody > tr.afwOdd 
+,#afw .afwListReportTableCollapse > tbody > tr.afwOdd 
+{
+	background-color: #e8e8e8;
+}
+#afw .afwListReportTable > tbody > tr > th
+,#afw .afwListReportTableCollapse > tbody > tr > th
+{
+	padding: 4px 8px;
+	border-bottom: 1px solid #ddd;
+	border-right: 1px solid white;
+	font-weight:bold;
+}
+#afw .afwListReportTable > tbody > tr > td 
+,#afw .afwListReportTableCollapse > tbody > tr > td 
+{
+	padding: 4px 8px;
+	border-bottom: 1px solid #ddd;
+	border-right: 1px solid white;
+}
+#afw .afwListReportCon h2.afwTitle 
+{
+}
+#afw .afwListReportCon p.afwDescription 
+{
+}
+/*
+* Manager table cell widths
+*/
+#afw .afwWidth10 { width: 10% }
+#afw .afwWidth20 { width: 20% }
+#afw .afwWidth30 { width: 30% }
+#afw .afwWidth40 { width: 40% }
+#afw .afwWidth50 { width: 50% }
+#afw .afwWidth60 { width: 60% }
+#afw .afwWidth70 { width: 70% }
+#afw .afwWidth80 { width: 80% }
+#afw .afwWidth90 { width: 90% }
+#afw .afwWidth100 { width: 100% }
+/*
+*/
+#afw .afwWidth10px { width: 10px }
+#afw .afwWidth20px { width: 20px }
+#afw .afwWidth30px { width: 30px }
+#afw .afwWidth40px { width: 40px }
+#afw .afwWidth50px { width: 50px }
+#afw .afwWidth60px { width: 60px }
+#afw .afwWidth70px { width: 70px }
+#afw .afwWidth80px { width: 80px }
+#afw .afwWidth90px { width: 90px }
+
+#afw .afwWidth100px { width: 100px }
+#afw .afwWidth200px { width: 200px }
+#afw .afwWidth300px { width: 300px }
+#afw .afwWidth400px { width: 400px }
+#afw .afwWidth500px { width: 500px }
+/*
+*/
+#afw .afwMarginLeft100px { margin-left: 100px }
+#afw .afwMarginLeft200px { margin-left: 200px }
+#afw .afwMarginLeft300px { margin-left: 300px }
+#afw .afwMarginLeft400px { margin-left: 400px }
+#afw .afwMarginLeft500px { margin-left: 500px }
+/*
+*/
+#afw .afwTextAlignRight { text-align:right }
+#afw .afwTextAlignLeft { text-align:left }
+#afw .afwTextAlignCenter { text-align:center }
+/*
+* Reports with Charts and Grids (Pie, Bar, Line)
+*/
+#afw .afwChartCon {
+	margin: 0 auto 40px auto;
+    border: 1px solid #CCCCCC;
+	}
+#afw .afwGridCon {
+	padding: 0 0 40px;
+}
+#afw .afwPieCon {
+	padding: 20px;
+}
+#afw .afwPieChart {
+    margin: 0 auto;
+    width: 500px;}
+#afw .afwPieData {
+    margin: 0 auto;
+    width: 500px;}
+#afw .afwPieDataRow {}
+#afw .afwPieTotalRow {
+    border-top: 1px solid #888888;
+    margin: 5px 0 0;
+    padding: 5px 0 0;
+}
+#afw .afwPieTotalRow .afwPieDataValue {}
+#afw .afwPieDataValue {
+    display: inline-block;
+    padding: 0 10px 0 0;
+    text-align: right;
+    width: 100px;
+	}
+#afw .afwPieDataCaption {
+    display: inline-block;
+    padding: 0;
+    text-align: left;
+    width: 280px;
+	}
