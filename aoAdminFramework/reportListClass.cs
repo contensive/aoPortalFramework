@@ -30,7 +30,7 @@ namespace adminFramework
         string localTitle = "";
         string localWarning = "";
         string localDescription = "";
-        string localRqs = "";
+        //string localRqs = "";
         string localHiddenList = "";
         string localButtonList = "";
         string localFormId = "";
@@ -370,22 +370,22 @@ namespace adminFramework
                 localIncludeForm = true;
             }
         }
-        //
-        //-------------------------------------------------
-        // Refresh Query String
-        //-------------------------------------------------
-        //
-        public string refreshQueryString
-        {
-            get
-            {
-                return localRqs;
-            }
-            set
-            {
-                localRqs = value;
-            }
-        }
+        ////
+        ////-------------------------------------------------
+        //// Refresh Query String
+        ////-------------------------------------------------
+        ////
+        //public string refreshQueryString
+        //{
+        //    get
+        //    {
+        //        return localRqs;
+        //    }
+        //    set
+        //    {
+        //        localRqs = value;
+        //    }
+        //}
         //
         //-------------------------------------------------
         // Title

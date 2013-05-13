@@ -32,7 +32,7 @@ namespace adminFramework
         string localChartTitle = "";
         string localWarning = "";
         string localDescription = "";
-        string localRqs = "";
+        //string localRqs = "";
         string localHiddenList = "";
         string localButtonList = "";
         string localFormId = "";
@@ -58,6 +58,7 @@ namespace adminFramework
         int localChartHeight = 500;
         string localgridCaptionClass = "";
         string localgridValueClass = "";
+        string localFilterListItems = "";
         //
         //-------------------------------------------------
         //
@@ -240,6 +241,12 @@ namespace adminFramework
                 + indent(returnHtml)
                 + cr + "</div>"
                 + "";
+            if (localFilterListItems != "")
+            {
+                localHtmlLeftOfContent += ""
+                    + cp.Html.ul( cr + "<h3>Filter Options</h3>" + cr + localFilterListItems,"","afwFilterList")
+                    + "";
+            }
             if (localHtmlLeftOfContent != "")
             {
                 returnHtml = ""
@@ -303,18 +310,21 @@ namespace adminFramework
             returnHtml = cp.Html.div(returnHtml, "", "afwBodyPad", "");
             returnHtml = cp.Html.div(returnHtml, "", "afwBodyColor", "");
             returnHeadJs += ""
-                + cr + "google.load('visualization', '1.0', {'packages':['corechart']});"
-                + cr + "google.setOnLoadCallback(drawChart);"
                 + cr + "function drawChart() {"
-                + cr + "var data = new google.visualization.DataTable();"
-                + cr + "data.addColumn('string', 'Topping');"
-                + cr + "data.addColumn('number', 'Slices');"
-                + cr + "data.addRows([" + jsonData + "]);"
-                + cr + "var options = {'title':'" + localChartTitle + "','width':" + localChartWidth + ",'height':" + localChartHeight + "};"
-                + cr + "var chart = new google.visualization.PieChart(document.getElementById('" + chartHtmlId + "'));"
-                + cr + "chart.draw(data, options);"
+                + cr2 + "var data = new google.visualization.DataTable();"
+                + cr2 + "data.addColumn('string', 'Caption');"
+                + cr2 + "data.addColumn('number', 'Values');"
+                + cr2 + "data.addRows([" + jsonData + "]);"
+                + cr2 + "var options = {'title':'" + localChartTitle + "','width':" + localChartWidth + ",'height':" + localChartHeight + "};"
+                + cr2 + "var chart = new google.visualization.PieChart(document.getElementById('" + chartHtmlId + "'));"
+                + cr2 + "chart.draw(data, options);"
                 + cr + "}"
+                + cr + "google.load('visualization', '1.0', {'packages':['corechart']});"
+                + cr + "jQuery(document).ready(drawChart);"
+                + cr + "//google.setOnLoadCallback(drawChart);"
                 + cr + "";
+            returnHtml += "<script Language=\"JavaScript\" type=\"text/javascript\">" + returnHeadJs + "</script>";
+            returnHeadJs = "";
             //
             // if outer container, add styles and javascript
             //
@@ -327,6 +337,7 @@ namespace adminFramework
                     + cr + "</div>";
             }
             //cp.Doc.AddHeadTag("<script type=\"text/javascript\" src=\"https://www.google.com/jsapi\"></script>");
+            //cp.Doc.AddHeadJavascript("alert('hello world')");
             cp.Doc.AddHeadJavascript(returnHeadJs);
             return returnHtml;
         }
@@ -436,17 +447,17 @@ namespace adminFramework
         // Refresh Query String
         //-------------------------------------------------
         //
-        public string refreshQueryString
-        {
-            get
-            {
-                return localRqs;
-            }
-            set
-            {
-                localRqs = value;
-            }
-        }
+        //public string refreshQueryString
+        //{
+        //    get
+        //    {
+        //        return localRqs;
+        //    }
+        //    set
+        //    {
+        //        localRqs = value;
+        //    }
+        //}
         //
         //-------------------------------------------------
         // Title
@@ -783,27 +794,23 @@ namespace adminFramework
             }
             //columnPtr = 0;
         }
-        ////
-        ////-------------------------------------------------
-        //// populate a row caption
-        ////-------------------------------------------------
-        ////
-        //public void setRowCaption(string content)
-        //{
-        //    localIsEmptyReport = false;
-        //    checkRowCnt();
-        //    row[rowCnt].caption = content;
-        //}
-        ////
-        ////-------------------------------------------------
-        //// populate a row value
-        ////-------------------------------------------------
-        ////
-        //public void setRowValue(double content)
-        //{
-        //    localIsEmptyReport = false;
-        //    checkRowCnt();
-        //    row[rowCnt].value = content;
-        //}
+        //
+        //-------------------------------------------------
+        // add a filter caption
+        //-------------------------------------------------
+        //
+        public void addFilterCaption( string caption )
+        {
+            localFilterListItems+= cr + "<li class=\"afwFilterCaption\">" + caption + "</li>";
+        }
+        //
+        //-------------------------------------------------
+        // add a filter input
+        //-------------------------------------------------
+        //
+        public void addFilterInput(string formInput)
+        {
+            localFilterListItems += cr + "<li class=\"afwFilterInput\">" + formInput + "</li>";
+        }
     }
 }

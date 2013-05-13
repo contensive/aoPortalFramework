@@ -19,13 +19,19 @@ namespace adminFramework
             public string captionClass;
             public string cellClass;
         }
-        columnStruct[] columns = new columnStruct[columnSize];
         //
         struct rowStruct
         {
             public string caption;
             public string captionClass;
         }
+        struct barDataStruct
+        {
+            public int height;
+            public string clickLink;
+        }
+        barDataStruct[,] barData = new barDataStruct[rowSize, columnSize];
+        columnStruct[] columns = new columnStruct[columnSize];
         rowStruct[] rows = new rowStruct[rowSize];
         //
         bool gridIncludeHeaderRow = false;
@@ -39,7 +45,7 @@ namespace adminFramework
         string localTitle = "";
         string localWarning = "";
         string localDescription = "";
-        string localRqs = "";
+        //string localRqs = "";
         string localHiddenList = "";
         string localButtonList = "";
         string localFormId = "";
@@ -55,7 +61,6 @@ namespace adminFramework
         //
         string localXAxisCaption = "";
         string localYAxisCaption = "";
-        int[,] barHeights = new int[rowSize,columnSize];
         //
         int localChartWidth = 600;
         int localChartHeight = 500;
@@ -154,6 +159,7 @@ namespace adminFramework
             string jsonRow = "";
             string chartHtmlId = "afwChart" + (new Random()).Next(10000, 99999);
             string captionColumn;
+            string clickLink;
             //
             // add user errors
             //
@@ -242,8 +248,16 @@ namespace adminFramework
                         {
                             styleClass = " class=\"" + styleClass + "\"";
                         }
-                        row += cr + "<td" + styleClass + ">" + barHeights[rowPtr, colPtr] + "</td>";
-                        jsonRow += "," + barHeights[rowPtr, colPtr];
+                        clickLink = barData[rowPtr, colPtr].clickLink;
+                        if (clickLink == "")
+                        {
+                            row += cr + "<td" + styleClass + ">" + barData[rowPtr, colPtr].height + "</td>";
+                        }
+                        else
+                        {
+                            row += cr + "<td" + styleClass + " onclick=\"location.href='"+clickLink+"';\" style=\"cursor:pointer;\">" + barData[rowPtr, colPtr].height + "</td>";
+                        }
+                        jsonRow += "," + barData[rowPtr, colPtr].height;
                     }
                     jsonData += cr + ",[" + jsonRow + "]";
                     if (rowPtr % 2 == 0)
@@ -470,17 +484,17 @@ namespace adminFramework
         // Refresh Query String
         //-------------------------------------------------
         //
-        public string refreshQueryString
-        {
-            get
-            {
-                return localRqs;
-            }
-            set
-            {
-                localRqs = value;
-            }
-        }
+        //public string refreshQueryString
+        //{
+        //    get
+        //    {
+        //        return localRqs;
+        //    }
+        //    set
+        //    {
+        //        localRqs = value;
+        //    }
+        //}
         //
         //-------------------------------------------------
         // Title
@@ -706,16 +720,21 @@ namespace adminFramework
         // populate a cell
         //-------------------------------------------------
         //
-        public void setCell(int barHeight)
+        public void setCell(int barHeight, string clickLink)
         {
             localIsEmptyReport = false;
             checkColumnPtr();
             checkRowCnt();
-            barHeights[rowCnt, columnPtr] = barHeight;
+            barData[rowCnt, columnPtr].height = barHeight;
+            barData[rowCnt, columnPtr].clickLink = clickLink;
             if (columnPtr < columnMax)
             {
                 columnPtr += 1;
             }
+        }
+        public void setCell(int barHeight)
+        {
+            setCell(barHeight, "");
         }
         //
         //-------------------------------------------------
