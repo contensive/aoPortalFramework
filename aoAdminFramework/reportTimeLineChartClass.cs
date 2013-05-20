@@ -6,7 +6,7 @@ using Contensive.BaseClasses;
 
 namespace adminFramework
 {
-    public class reportLineChartClass
+    public class reportTimeLineChartClass
     {
         const int columnSize = 99;
         const int rowSize = 9999;
@@ -22,15 +22,15 @@ namespace adminFramework
         //
         struct rowStruct
         {
-            public string caption;
+            public DateTime date;
             public string captionClass;
         }
-        struct barDataStruct
+        struct chartDataStruct
         {
-            public int height;
-            public string clickLink;
+            public double yValue;
+            //public string clickLink;
         }
-        barDataStruct[,] chartData = new barDataStruct[rowSize, columnSize];
+        chartDataStruct[,] chartData = new chartDataStruct[rowSize, columnSize];
         columnStruct[] columns = new columnStruct[columnSize];
         rowStruct[] rows = new rowStruct[rowSize];
         //
@@ -226,12 +226,14 @@ namespace adminFramework
                 {
                     row = "";
                     //
-                    // first column is a text caption
+                    // first column is the date
                     //
-                    jsonRow = "'" + rows[rowPtr].caption + "'";
+                    DateTime rowDate;
+                    rowDate = rows[rowPtr].date;
+                    jsonRow = "new Date(" + rowDate.Year + "," + rowDate.Month + "," + rowDate.Day + ")";
                     if (gridIncludesCaptionColumn)
                     {
-                        captionColumn = rows[rowPtr].caption;
+                        captionColumn = rows[rowPtr].date.ToShortDateString();
                         if (captionColumn == "")
                         {
                             captionColumn = "&nbsp;";
@@ -248,16 +250,8 @@ namespace adminFramework
                         {
                             styleClass = " class=\"" + styleClass + "\"";
                         }
-                        clickLink = chartData[rowPtr, colPtr].clickLink;
-                        if (clickLink == "")
-                        {
-                            row += cr + "<td" + styleClass + ">" + chartData[rowPtr, colPtr].height + "</td>";
-                        }
-                        else
-                        {
-                            row += cr + "<td" + styleClass + " onclick=\"location.href='" + clickLink + "';\" style=\"cursor:pointer;\">" + chartData[rowPtr, colPtr].height + "</td>";
-                        }
-                        jsonRow += "," + chartData[rowPtr, colPtr].height;
+                        row += cr + "<td" + styleClass + ">" + chartData[rowPtr, colPtr].yValue + "</td>";
+                        jsonRow += "," + chartData[rowPtr, colPtr].yValue;
                     }
                     jsonData += cr + ",[" + jsonRow + "]";
                     if (rowPtr % 2 == 0)
@@ -288,7 +282,7 @@ namespace adminFramework
                 + indent(s)
                 + cr + "</div>";
             //
-            // bar chart
+            // chart
             //
             s = cr + "<div id=\"" + chartHtmlId + "\" class=\"afwChartCon\" style=\"width:" + localChartWidth.ToString() + "px; height:" + localChartHeight.ToString() + "px;\"></div>" + s;
             //
@@ -369,11 +363,11 @@ namespace adminFramework
             returnHeadJs += ""
                 + cr + "function drawChart() {"
                 + cr + "var data = google.visualization.arrayToDataTable([" + jsonData + "]);"
-                + cr + "var options={title:'" + localTitle + "',hAxis:{title:'" + localXAxisCaption + "',titleTextStyle:{color: 'red'}}};"
-                + cr + "var chart = new google.visualization.LineChart(document.getElementById('" + chartHtmlId + "'));"
+                + cr + "var options={title:'" + localTitle + "',hAxis:{title:'" + localXAxisCaption + "',titleTextStyle:{color: 'red'}},displayAnnotations: true};"
+                + cr + "var chart = new google.visualization.AnnotatedTimeLine(document.getElementById('" + chartHtmlId + "'));"
                 + cr + "chart.draw(data, options);"
                 + cr + "}"
-                + cr + "google.load(\"visualization\", \"1\", {packages:[\"corechart\"]});"
+                + cr + "google.load(\"visualization\", \"1\", {packages:[\"annotatedtimeline\"]});"
                 + cr + "jQuery(document).ready(drawChart);"
                 + cr + "//google.setOnLoadCallback(drawChart);"
                 + "";
@@ -631,21 +625,18 @@ namespace adminFramework
         // row Caption for grid
         //-------------------------------------------------
         //
-        public string rowCaption
+        public DateTime rowDate
         {
             get
             {
                 checkRowCnt();
-                return rows[rowCnt].caption;
+                return rows[rowCnt].date;
             }
             set
             {
-                if (value != "")
-                {
-                    checkRowCnt();
-                    rows[rowCnt].caption = value;
-                    gridIncludesCaptionColumn = true;
-                }
+                checkRowCnt();
+                rows[rowCnt].date = value;
+                gridIncludesCaptionColumn = true;
             }
         }
         //
@@ -722,21 +713,17 @@ namespace adminFramework
         // populate a cell
         //-------------------------------------------------
         //
-        public void setCell(int barHeight, string clickLink)
+        public void setCell(double yValue)
         {
             localIsEmptyReport = false;
             checkColumnPtr();
             checkRowCnt();
-            chartData[rowCnt, columnPtr].height = barHeight;
-            chartData[rowCnt, columnPtr].clickLink = clickLink;
+            chartData[rowCnt, columnPtr].yValue = yValue;
+            //chartData[rowCnt, columnPtr].clickLink = clickLink;
             if (columnPtr < columnMax)
             {
                 columnPtr += 1;
             }
-        }
-        public void setCell(int barHeight)
-        {
-            setCell(barHeight, "");
         }
         //
         //-------------------------------------------------

@@ -67,7 +67,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="reportBarChartClass.cs" />
-    <Compile Include="reportLineChartClass.cs" />
+    <Compile Include="reportTimeLineChartClass.cs" />
     <Compile Include="reportPieChartClass.cs" />
     <Compile Include="Resource1.Designer.cs">
       <DesignTime>True</DesignTime>
