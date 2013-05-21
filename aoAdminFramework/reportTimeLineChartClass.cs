@@ -146,7 +146,7 @@ namespace adminFramework
         //
         public string getHtml(CPBaseClass cp)
         {
-            string s = "";
+            string returnHtml = "";
             string row = "";
             string rowList = "";
             int rowPtr = 0;
@@ -159,7 +159,8 @@ namespace adminFramework
             string jsonRow = "";
             string chartHtmlId = "afwChart" + (new Random()).Next(10000, 99999);
             string captionColumn;
-            string clickLink;
+            //string clickLink;
+            string jsonRowList = "";
             //
             // add user errors
             //
@@ -171,7 +172,7 @@ namespace adminFramework
             //
             // headers
             //
-            jsonRow = "'" + localXAxisCaption + "'";
+            jsonData += cr + "data.addColumn('date', 'Date');";
             rowList = "";
             if (gridIncludesCaptionColumn)
             {
@@ -190,12 +191,10 @@ namespace adminFramework
                     content = "&nbsp;";
                 }
                 rowList += cr + "<th" + styleClass + ">" + content + "</th>";
-                jsonRow += ",'" + content + "'";
-            }
-            jsonData = cr + "[" + jsonRow + "]";
+                jsonData += cr + "data.addColumn('number', '" + content + "');";            }
             if (gridIncludeHeaderRow)
             {
-                s += ""
+                returnHtml += ""
                     + cr + "<thead>"
                     + cr2 + "<tr>"
                     + indent(indent(rowList))
@@ -207,6 +206,7 @@ namespace adminFramework
             // body
             //
             rowList = "";
+            jsonRowList = "";
             if (localIsEmptyReport)
             {
                 styleClass = columns[0].cellClass;
@@ -253,7 +253,7 @@ namespace adminFramework
                         row += cr + "<td" + styleClass + ">" + chartData[rowPtr, colPtr].yValue + "</td>";
                         jsonRow += "," + chartData[rowPtr, colPtr].yValue;
                     }
-                    jsonData += cr + ",[" + jsonRow + "]";
+                    jsonRowList += "," + cr + "[" + jsonRow + "]";
                     if (rowPtr % 2 == 0)
                     {
                         styleClass = "";
@@ -268,47 +268,60 @@ namespace adminFramework
                         + cr + "</tr>";
                 }
             }
-            s += ""
+            if (jsonRowList != "")
+            {
+                jsonData += cr + "data.addRows([" + jsonRowList.Substring(1) + "]);";
+            }
+            returnHtml += ""
                 + cr + "<tbody>"
                 + indent(rowList)
                 + cr + "</tbody>"
                 + "";
-            s = ""
+            returnHtml = ""
                 + cr + "<table class=\"afwListReportTableCollapse\">"
-                + indent(s)
+                + indent(returnHtml)
                 + cr + "</table>";
-            s = ""
+            returnHtml = ""
                 + cr + "<div class=\"afwGridCon\">"
-                + indent(s)
+                + indent(returnHtml)
                 + cr + "</div>";
             //
             // chart
             //
-            s = cr + "<div id=\"" + chartHtmlId + "\" class=\"afwChartCon\" style=\"width:" + localChartWidth.ToString() + "px; height:" + localChartHeight.ToString() + "px;\"></div>" + s;
+            returnHtml = ""
+                + cr + "<div id=\"" + chartHtmlId + "\" class=\"afwChartCon\" style=\"width:" + localChartWidth.ToString() + "px; height:" + localChartHeight.ToString() + "px;\"></div>"
+                + returnHtml;
+            //
+            // reportCon
+            //
+            returnHtml = ""
+                + cr + "<div class=\"afwReportCon\">"
+                + indent( returnHtml )
+                + cr + "</div>";
             //
             if (localHtmlLeftOfTable != "")
             {
-                s = ""
+                returnHtml = ""
                     + cr + "<div class=\"afwLeftSideHtml\">"
                     + indent(localHtmlLeftOfTable)
                     + cr + "</div>"
                     + cr + "<div class=\"afwRightSideHtml\">"
-                    + indent(s)
+                    + indent(returnHtml)
                     + cr + "</div>"
                     + cr + "<div style=\"clear:both\"></div>"
                     + "";
             }
             if (localHtmlBeforeTable != "")
             {
-                s = ""
+                returnHtml = ""
                     + localHtmlBeforeTable
-                    + s
+                    + returnHtml
                     + "";
             }
             if (localHtmlAfterTable != "")
             {
-                s = ""
-                    + s
+                returnHtml = ""
+                    + returnHtml
                     + localHtmlAfterTable
                     + "";
             }
@@ -317,15 +330,15 @@ namespace adminFramework
             //
             if (localDescription != "")
             {
-                s = cr + "<p id=\"afwDescription\">" + localDescription + "</p>" + s;
+                returnHtml = cr + "<p id=\"afwDescription\">" + localDescription + "</p>" + returnHtml;
             }
             if (localWarning != "")
             {
-                s = cr + "<div id=\"afwWarning\">" + localWarning + "</div>" + s;
+                returnHtml = cr + "<div id=\"afwWarning\">" + localWarning + "</div>" + returnHtml;
             }
             if (localTitle != "")
             {
-                s = cr + "<h2 id=\"afwTitle\">" + localTitle + "</h2>" + s;
+                returnHtml = cr + "<h2 id=\"afwTitle\">" + localTitle + "</h2>" + returnHtml;
             }
             //
             // add form
@@ -339,15 +352,15 @@ namespace adminFramework
                         + indent(localButtonList)
                         + cr + "</div>";
                 }
-                s = cr + cp.Html.Form(localButtonList + s + localButtonList + localHiddenList, "", "", "", localFormActionQueryString, "");
+                returnHtml = cr + cp.Html.Form(localButtonList + returnHtml + localButtonList + localHiddenList, "", "", "", localFormActionQueryString, "");
                 //body = ""
                 //    + cr + cp.Html.Form( localButtonList + body + localHiddenList )
                 //    + cr + "<form action=\"" + localFormAction + "\" method=\"post\" enctype=\"MULTIPART/FORM-DATA\">"
                 //    + indent(localButtonList + body + localHiddenList)
                 //    + cr + "</form>";
             }
-            s = cp.Html.div(s, "", "afwBodyPad", "");
-            s = cp.Html.div(s, "", "afwBodyColor", "");
+            returnHtml = cp.Html.div(returnHtml, "", "afwBodyPad", "");
+            returnHtml = cp.Html.div(returnHtml, "", "afwBodyColor", "");
             //
             // if outer container, add styles and javascript
             //
@@ -355,14 +368,15 @@ namespace adminFramework
             {
                 cp.Doc.AddHeadJavascript(Properties.Resources.javascript);
                 cp.Doc.AddHeadStyle(Properties.Resources.styles);
-                s = ""
+                returnHtml = ""
                     + cr + "<div id=\"afw\">"
-                    + indent(s)
+                    + indent(returnHtml)
                     + cr + "</div>";
             }
             returnHeadJs += ""
                 + cr + "function drawChart() {"
-                + cr + "var data = google.visualization.arrayToDataTable([" + jsonData + "]);"
+                + cr + "var data = new google.visualization.DataTable();" 
+                + jsonData
                 + cr + "var options={title:'" + localTitle + "',hAxis:{title:'" + localXAxisCaption + "',titleTextStyle:{color: 'red'}},displayAnnotations: true};"
                 + cr + "var chart = new google.visualization.AnnotatedTimeLine(document.getElementById('" + chartHtmlId + "'));"
                 + cr + "chart.draw(data, options);"
@@ -371,8 +385,10 @@ namespace adminFramework
                 + cr + "jQuery(document).ready(drawChart);"
                 + cr + "//google.setOnLoadCallback(drawChart);"
                 + "";
+            returnHtml += "<script Language=\"JavaScript\" type=\"text/javascript\">" + returnHeadJs + "</script>";
+            returnHeadJs = "";
             cp.Doc.AddHeadJavascript(returnHeadJs);
-            return s;
+            return returnHtml;
         }
         //
         //-------------------------------------------------
