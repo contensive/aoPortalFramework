@@ -191,7 +191,8 @@ namespace adminFramework
                     content = "&nbsp;";
                 }
                 rowList += cr + "<th" + styleClass + ">" + content + "</th>";
-                jsonData += cr + "data.addColumn('number', '" + content + "');";            }
+                jsonData += cr + "data.addColumn('number', '" + content + "');";
+            }
             if (gridIncludeHeaderRow)
             {
                 returnHtml += ""
@@ -230,7 +231,7 @@ namespace adminFramework
                     //
                     DateTime rowDate;
                     rowDate = rows[rowPtr].date;
-                    jsonRow = "new Date(" + rowDate.Year + "," + rowDate.Month + "," + rowDate.Day + ")";
+                    jsonRow = "new Date(" + rowDate.Year + "," + (rowDate.Month-1) + "," + rowDate.Day + ")";
                     if (gridIncludesCaptionColumn)
                     {
                         captionColumn = rows[rowPtr].date.ToShortDateString();
