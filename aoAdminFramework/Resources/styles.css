@@ -1,9 +1,8 @@
-
 #desktop 
 {
     background-color: #999;
 }
-#afw 
+#afw ,#afw p,#afw div,#afw td,#afw li
 {
     font-family: arial;   
     font-size: 13px;    
@@ -224,10 +223,14 @@
 */
 #afw .afwListReportTable 
 {
-	/* width:100%; */
+	width:100%;
+	border-spacing: 0;
+	margin: 0 0 20px;
+}
+#afw .afwListReportTableCollapse
+{
 	border-spacing: 0;
 	margin: 0 auto 20px auto;
-	/* margin: 0 0 20px; */
 }
 #afw .afwLeftSideHtml 
 {
@@ -240,10 +243,13 @@
 {
 	margin: 0 0 0 150px;
 }
-#afw .afwListReportTable > thead 
+#afw .afwListReportTable > thead
+,#afw .afwListReportTableCollapse > thead
+ 
 {
 }
 #afw .afwListReportTable > thead > tr > th 
+,#afw .afwListReportTableCollapse > thead > tr > th 
 {
 	padding: 4px 8px;
 	border-bottom: 1px solid #ddd;
@@ -252,15 +258,36 @@
 	color:#eee;
 	font-weight:bold;
 }
+#afw .afwListReportTable > tfoot > tr > td 
+,#afw .afwListReportTable > tfoot > tr > th 
+,#afw .afwListReportTableCollapse > tfoot > tr > td 
+,#afw .afwListReportTableCollapse > tfoot > tr > th 
+{
+	padding: 4px 8px;
+	border-top: 1px solid #444;
+	border-right: 1px solid white;
+	font-weight:bold;
+}
 #afw .afwListReportTable > tbody 
+,#afw .afwListReportTableCollapse > tbody 
 {
 	background-color: #f8f8f8;
 }
 #afw .afwListReportTable > tbody > tr.afwOdd 
+,#afw .afwListReportTableCollapse > tbody > tr.afwOdd 
 {
 	background-color: #e8e8e8;
 }
+#afw .afwListReportTable > tbody > tr > th
+,#afw .afwListReportTableCollapse > tbody > tr > th
+{
+	padding: 4px 8px;
+	border-bottom: 1px solid #ddd;
+	border-right: 1px solid white;
+	font-weight:bold;
+}
 #afw .afwListReportTable > tbody > tr > td 
+,#afw .afwListReportTableCollapse > tbody > tr > td 
 {
 	padding: 4px 8px;
 	border-bottom: 1px solid #ddd;
@@ -314,3 +341,75 @@
 #afw .afwTextAlignRight { text-align:right }
 #afw .afwTextAlignLeft { text-align:left }
 #afw .afwTextAlignCenter { text-align:center }
+/*
+* Reports with Charts and Grids (Pie, Bar, Line)
+*/
+#afw .afwChartCon {
+	margin: 0 auto 40px auto;
+    border: 1px solid #CCCCCC;
+	}
+#afw .afwGridCon {
+	padding: 0 0 40px;
+}
+#afw .afwPieCon {
+	/*padding: 20px;*/
+}
+#afw .afwPieChart {
+    margin: 0 auto;
+    width: 500px;}
+#afw .afwPieData {
+    margin: 0 auto;
+    width: 500px;}
+#afw .afwPieDataRow {}
+#afw .afwPieTotalRow {
+    border-top: 1px solid #888888;
+    margin: 5px 0 0;
+    padding: 5px 0 0;
+}
+#afw .afwPieTotalRow .afwPieDataValue {}
+#afw .afwPieDataValue {
+    display: inline-block;
+    padding: 0 10px 0 0;
+    text-align: right;
+    width: 100px;
+	}
+#afw .afwPieDataCaption {
+    display: inline-block;
+    padding: 0;
+    text-align: left;
+    width: 280px;
+	}
+/*
+* Report Filter List
+*/
+#afw ul.afwFilterList {
+	background-color: #eee;
+	border: 1px solid #fff;
+	padding: 10px 5px;
+    border-radius: 5px;
+}
+#afw ul.afwFilterList h3 {
+	padding: 0;
+	margin: 0 0 10px 0;
+	color: #666;
+	font-size: 13px;
+}
+#afw li.afwFilterInput{
+	margin:0;
+	padding:0;
+	width:100%;
+}
+#afw li.afwFilterInput input[type="text"] {
+	margin:0;
+	padding:0;
+	width:100%;
+}
+#afw li.afwFilterInput input[type="checkbox"] {
+	margin:0;
+	padding:0;
+}
+#afw ul.afwFilterList li select {
+	margin:0;
+	padding:0;
+	width:100%;
+}
