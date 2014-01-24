@@ -302,6 +302,8 @@
 /*
 * Manager table cell widths
 */
+#afw .afwDisplayNone { display:none; }
+/* */
 #afw .afwWidth10 { width: 10% }
 #afw .afwWidth20 { width: 20% }
 #afw .afwWidth30 { width: 30% }
