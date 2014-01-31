@@ -58,6 +58,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="adminFrameworkReportsClass.cs" />
     <Compile Include="commonClass.cs" />
     <Compile Include="pageWithNavClass.cs" />
     <Compile Include="formNameValueRowsClass.cs" />

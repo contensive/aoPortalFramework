@@ -579,5 +579,60 @@ namespace adminFramework
                 addRow();
             }
         }
+        //
+        //-------------------------------------------------
+        // initialize
+        //  read the report and column settings from the Db
+        //  if the report does not exist in teh Db, use the input values
+        //-------------------------------------------------
+        //
+        public void init(CPBaseClass cp, adminFrameworkReportsClass rpt )
+        {
+            CPCSBaseClass cs = cp.CSNew();
+            int reportId;
+            bool isFirstColumn = true ;
+            //
+            if(!cs.Open("Admin Framework Reports",  "ccguid=" + cp.Db.EncodeSQLText( rpt.guid ) + ")"  ))
+            {
+                cs.Close();
+                cs.Insert("Admin Framework reports");
+                cs.SetField("ccguid",  rpt.guid);
+                cs.SetField("name",  rpt.name);
+                cs.SetField("title", rpt.title);
+            }
+            reportId = cs.GetInteger("id");
+            rpt.name = cs.GetText("name");
+            rpt.title = cs.GetText("title");
+            cs.Close();
+            //
+            foreach ( adminFrameworkReportColumnClass col in rpt.column)
+            {
+                if(!cs.Open("Admin Framework Report Columns","(reportId=" + reportId.ToString() + ")and(name=" + cp.Db.EncodeSQLText(col.name) + ")", "sortorder,id"))
+                {
+                    cs.Close();
+                    cs.Insert("Admin Framework Report Columns");
+                    cs.SetField("name", col.name );
+                    cs.SetField("sortOrder", col.sortOrder );
+                    cs.SetField("captionClass", col.captionClass );
+                    cs.SetField("cellClass", col.cellClass );
+                }else{
+                    col.sortOrder = cs.GetText( "sortorder" );
+                    col.captionClass = cs.GetText( "captionClass" );
+                    col.cellClass= cs.GetText( "cellClass" );
+                }
+                cs.Close();
+                if (isFirstColumn)
+                {
+                    isFirstColumn = false;
+                }
+                else
+                {
+                    addColumn();
+                }
+                columnCaption = col.name;
+                columnCaptionClass = col.captionClass;
+                columnCellClass = col.cellClass;
+            }
+        }
     }
 }
