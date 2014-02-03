@@ -52,7 +52,9 @@
   <ItemGroup>
     <Reference Include="CPBase">
       <HintPath>..\..\..\..\..\..\Program Files (x86)\kma\Contensive\CPBase.DLL</HintPath>
+      <Private>False</Private>
     </Reference>
+    <Reference Include="Microsoft.VisualBasic" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />

@@ -15,6 +15,7 @@ namespace adminFramework
         //
         struct columnStruct
         {
+            public string name;
             public string caption;
             public string captionClass;
             public string cellClass;
@@ -27,6 +28,8 @@ namespace adminFramework
         //
         int rowCnt = -1;
         //
+        string localGuid = "";
+        string localName = "";
         string localTitle = "";
         string localWarning = "";
         string localDescription = "";
@@ -103,6 +106,10 @@ namespace adminFramework
             string styleClass;
             string content;
             string userErrors;
+            //
+            // initialize - setup Db and/or read Db values
+            //
+            init(cp);
             //
             // add user errors
             //
@@ -388,6 +395,38 @@ namespace adminFramework
         //}
         //
         //-------------------------------------------------
+        // Guid
+        //-------------------------------------------------
+        //
+        public string guid
+        {
+            get
+            {
+                return localGuid;
+            }
+            set
+            {
+                localGuid = value;
+            }
+        }
+        //
+        //-------------------------------------------------
+        // Name
+        //-------------------------------------------------
+        //
+        public string name
+        {
+            get
+            {
+                return localName;
+            }
+            set
+            {
+                localName = value;
+            }
+        }
+        //
+        //-------------------------------------------------
         // Title
         //-------------------------------------------------
         //
@@ -432,6 +471,28 @@ namespace adminFramework
             set
             {
                 localDescription = value;
+            }
+        }
+        //
+        //-------------------------------------------------
+        // column properties
+        //-------------------------------------------------
+        //
+        public string columnName
+        {
+            get
+            {
+                checkColumnPtr();
+                return columns[columnPtr].name;
+            }
+            set
+            {
+                if (value != "")
+                {
+                    checkColumnPtr();
+                    //formIncludeHeader = true;
+                    columns[columnPtr].name = value;
+                }
             }
         }
         //
@@ -506,6 +567,7 @@ namespace adminFramework
             if (columnPtr < columnSize)
             {
                 columnPtr += 1;
+                columns[columnPtr].name = "";
                 columns[columnPtr].caption = "";
                 columns[columnPtr].captionClass = "";
                 columns[columnPtr].cellClass = "";
@@ -583,56 +645,105 @@ namespace adminFramework
         //-------------------------------------------------
         // initialize
         //  read the report and column settings from the Db
+        //  if no localGuid set, sync to Db does not work
         //  if the report does not exist in teh Db, use the input values
         //-------------------------------------------------
         //
-        public void init(CPBaseClass cp, adminFrameworkReportsClass rpt )
+        public void init(CPBaseClass cp)
         {
-            CPCSBaseClass cs = cp.CSNew();
-            int reportId;
-            bool isFirstColumn = true ;
-            //
-            if(!cs.Open("Admin Framework Reports",  "ccguid=" + cp.Db.EncodeSQLText( rpt.guid ) + ")"  ))
+            try
             {
-                cs.Close();
-                cs.Insert("Admin Framework reports");
-                cs.SetField("ccguid",  rpt.guid);
-                cs.SetField("name",  rpt.name);
-                cs.SetField("title", rpt.title);
-            }
-            reportId = cs.GetInteger("id");
-            rpt.name = cs.GetText("name");
-            rpt.title = cs.GetText("title");
-            cs.Close();
-            //
-            foreach ( adminFrameworkReportColumnClass col in rpt.column)
-            {
-                if(!cs.Open("Admin Framework Report Columns","(reportId=" + reportId.ToString() + ")and(name=" + cp.Db.EncodeSQLText(col.name) + ")", "sortorder,id"))
+                int colPtr;
+                string colName;
+                string colCaption;
+                string colSortOrder;
+                string colCaptionClass;
+                string colCellClass;
+                CPCSBaseClass cs = cp.CSNew();
+                int reportId;
+                string sqlCriteria;
+                //
+                if (localGuid != "")
                 {
+                    sqlCriteria = "ccguid=" + cp.Db.EncodeSQLText(localGuid);
+                    if (!cs.Open("Admin Framework Reports", sqlCriteria))
+                    {
+                        cs.Close();
+                        if(localName=="")
+                        {
+                            localName=localTitle;
+                        }
+                        cs.Insert("Admin Framework reports");
+                        cs.SetField("ccguid", localGuid);
+                        cs.SetField("name", localName );
+                        cs.SetField("title", localTitle);
+                        cs.SetField("description", localDescription);
+                    }
+                    reportId = cs.GetInteger("id");
+                    localName = cs.GetText("name");
+                    localTitle = cs.GetText("title");
+                    localDescription = cs.GetText("description");
+                    // tmp solution for reports created with a name and no title
+                    if((localTitle=="")&&(localName!=""))
+                    {
+                        localTitle = localName;
+                    }
                     cs.Close();
-                    cs.Insert("Admin Framework Report Columns");
-                    cs.SetField("name", col.name );
-                    cs.SetField("sortOrder", col.sortOrder );
-                    cs.SetField("captionClass", col.captionClass );
-                    cs.SetField("cellClass", col.cellClass );
-                }else{
-                    col.sortOrder = cs.GetText( "sortorder" );
-                    col.captionClass = cs.GetText( "captionClass" );
-                    col.cellClass= cs.GetText( "cellClass" );
+                    //
+                    //
+                    for (colPtr = 0; colPtr <= columnMax; colPtr++)
+                    {
+                        colCaption = columns[colPtr].caption;
+                        colName = columns[colPtr].name;
+                        colSortOrder = (colPtr * 10).ToString();
+                        colSortOrder = colSortOrder.PadLeft(4 - colSortOrder.Length, '0');
+                        colCaptionClass = columns[colPtr].captionClass;
+                        colCellClass = columns[colPtr].cellClass;
+                        if (colName == "")
+                        {
+                            colName = colCaption;
+                        }
+                        if ((colName != "") && (reportId != 0))
+                        {
+                            if (!cs.Open("Admin Framework Report Columns", "(reportId=" + reportId.ToString() + ")and(name=" + cp.Db.EncodeSQLText(colName) + ")", "id"))
+                            {
+                                cs.Close();
+                                cs.Insert("Admin Framework Report Columns");
+                                cs.SetField("reportId", reportId.ToString());
+                                cs.SetField("name", colName);
+                                cs.SetField("caption", colCaption);
+                                cs.SetField("sortOrder", colSortOrder);
+                                cs.SetField("captionClass", colCaptionClass);
+                                cs.SetField("cellClass", colCellClass);
+                            }
+                            else
+                            {
+                                // tmp - if name but not caption, use the other
+                                colCaption = cs.GetText("caption");
+                                colName = cs.GetText("name");
+                                if (colCaption == "")
+                                {
+                                    colCaption = colName;
+                                }
+                                else if (colName == "")
+                                {
+                                    colName = colCaption;
+                                }
+                                columns[colPtr].name = colName;
+                                columns[colPtr].caption = colCaption;
+                                columns[colPtr].captionClass = cs.GetText("captionClass");
+                                columns[colPtr].cellClass = cs.GetText("cellClass");
+                            }
+                            cs.Close();
+                        }
+                    }
                 }
-                cs.Close();
-                if (isFirstColumn)
-                {
-                    isFirstColumn = false;
-                }
-                else
-                {
-                    addColumn();
-                }
-                columnCaption = col.name;
-                columnCaptionClass = col.captionClass;
-                columnCellClass = col.cellClass;
+            } 
+            catch(Exception ex) 
+            {
+                cp.Site.ErrorReport(ex, "Exception in reportListClass.init");
             }
+
         }
     }
 }
