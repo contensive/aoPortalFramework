@@ -109,7 +109,7 @@ namespace adminFramework
             //
             // initialize - setup Db and/or read Db values
             //
-            init(cp);
+            // init(cp);
             //
             // add user errors
             //
@@ -649,7 +649,7 @@ namespace adminFramework
         //  if the report does not exist in teh Db, use the input values
         //-------------------------------------------------
         //
-        public void init(CPBaseClass cp)
+        public reportListClass(CPBaseClass cp)
         {
             try
             {
