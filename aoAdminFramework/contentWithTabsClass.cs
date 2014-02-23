@@ -20,6 +20,7 @@ namespace adminFramework
             public string caption;
             public string link;
             public bool active;
+            public string styleClass;
         }
         navStruct[] navs = new navStruct[tabSize];
         int tabMax = -1;
@@ -171,6 +172,24 @@ namespace adminFramework
         // 
         //-------------------------------------------------
         //
+        public string tabStyleClass
+        {
+            get
+            {
+                checkTabPtr();
+                return navs[tabPtr].styleClass;
+            }
+            set
+            {
+                checkTabPtr();
+                navs[tabPtr].styleClass = value;
+            }
+        }
+        //
+        //-------------------------------------------------
+        // 
+        //-------------------------------------------------
+        //
         public string tabLink
         {
             get
@@ -233,6 +252,7 @@ namespace adminFramework
             string list = "";
             string item = "";
             string userErrors;
+            string tabStyleClass;
             //
             // if outer container, add styles and javascript
             //
@@ -255,18 +275,20 @@ namespace adminFramework
                 item = navs[tabPtr].caption;
                 if (item != "")
                 {
+                    tabStyleClass = navs[tabPtr].styleClass;
                     if (navs[tabPtr].link != "")
                     {
                         item = "<a href=\"" + navs[tabPtr].link + "\">" + item + "</a>";
                     }
                     if (navs[tabPtr].active)
                     {
-                        item = "<li class=\"afwTabActive\">" + item + "</li>";
+                        tabStyleClass += " afwTabActive";
                     }
-                    else
+                    if (tabStyleClass != "")
                     {
-                        item = cr + "<li>" + item + "</li>";
+                        tabStyleClass = " class=\"" + tabStyleClass + "\"";
                     }
+                    item = cr + "<li"+tabStyleClass+">" + item + "</li>";
                     list += item;
                 }
             }
