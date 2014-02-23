@@ -47,7 +47,9 @@ namespace adminFramework
         //int localPageSize = 20;
         //int localPageNumber = 1;
         //
-        string[,] cells = new string[rowSize,columnSize];
+        string[,] cells = new string[rowSize, columnSize];
+        //
+        string[] rowClasses = new string[rowSize];
         //
         bool localIsOuterContainer = false;
         //
@@ -177,13 +179,14 @@ namespace adminFramework
                         }
                         row += cr + "<td" + styleClass + ">" + cells[rowPtr, colPtr] + "</td>";
                     }
-                    if (rowPtr % 2 == 0)
+                    styleClass = rowClasses[rowPtr];
+                    if (rowPtr % 2 != 0)
                     {
-                        styleClass = "";
+                        styleClass += " afwOdd";
                     }
-                    else
+                    if (styleClass != "" )
                     {
-                        styleClass = " class=\"afwOdd\"";
+                        styleClass = " class=\"" + styleClass + "\"";
                     }
                     rowList += ""
                         + cr + "<tr" + styleClass + ">"
@@ -591,6 +594,18 @@ namespace adminFramework
             }
             checkColumnPtr();
             columnPtr = 0;
+        }
+        //
+        //-------------------------------------------------
+        // add a row class
+        //-------------------------------------------------
+        //
+        public void addRowClass( string styleClass )
+        {
+            localIsEmptyReport = false;
+            checkColumnPtr();
+            checkRowCnt();
+            rowClasses[rowCnt] += " " + styleClass;
         }
         //
         //-------------------------------------------------
