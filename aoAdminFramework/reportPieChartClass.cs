@@ -119,6 +119,7 @@ namespace adminFramework
             string gridRow = "";
             string gridRowClass = "";
             string captionColumn = "";
+            string percentText = "";
 
             //
             // add user errors
@@ -135,6 +136,7 @@ namespace adminFramework
             //
             gridRowList += cr + "<th>" + localgridCaptionHeader + "</th>";
             gridRowList += cr + "<th>" + localgridValueHeader + "</th>";
+            gridRowList += cr + "<th>%</th>";
             gridRowList = ""
                 + cr + "<thead>"
                 + cr2 + "<tr>"
@@ -151,6 +153,10 @@ namespace adminFramework
             }
             else
             {
+                for (rowPtr = 0; rowPtr <= rowCnt; rowPtr++)
+                {
+                    total += row[rowPtr].value;
+                }
                 for (rowPtr = 0; rowPtr <= rowCnt; rowPtr++)
                 {
                     //
@@ -172,7 +178,16 @@ namespace adminFramework
                     //
                     // additional columns are numeric
                     //
-                    gridRow += cr + "<td class=\"" + localgridValueClass + "\">" + row[rowPtr].value.ToString()  + "</td>";
+                    gridRow += cr + "<td class=\"" + localgridValueClass + "\">" + row[rowPtr].value.ToString() + "</td>";
+                    if (total > 0)
+                    {
+                        percentText = (row[rowPtr].value / total).ToString("p1");
+                    }
+                    else
+                    {
+                        percentText = "n/a";
+                    }
+                    gridRow += cr + "<td class=\"" + localgridValueClass + "\">" + percentText + "</td>";
                     if (rowPtr % 2 == 0)
                     {
                         gridRowClass = "";
@@ -194,7 +209,7 @@ namespace adminFramework
                     //    + cr2 + "<div class=\"afwPieDataCaption\">" + row[rowPtr].caption + "</div>"
                     //    + cr + "</div>"
                     //    + "";
-                    total += row[rowPtr].value;
+                    //total += row[rowPtr].value;
                     jsonData += ",['" + row[rowPtr].caption + "', " + row[rowPtr].value + "]";
                 }
             }
@@ -206,6 +221,7 @@ namespace adminFramework
                     + cr2+ "<tr>"
                     + cr3 + "<th class=\"" + localgridCaptionClass + "\">Total</th>"
                     + cr3 + "<td class=\"" + gridValueClass + "\">" + total + "</td>"
+                    + cr3 + "<td class=\"" + gridValueClass + "\">&nbsp;</td>"
                     + cr2 + "</tr>"
                     + cr + "</tfoot>"
                     + "";
