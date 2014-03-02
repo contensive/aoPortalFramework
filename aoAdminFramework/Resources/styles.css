@@ -2,12 +2,37 @@
 {
     background-color: #999;
 }
-#afw ,#afw p,#afw div,#afw td,#afw li
+#afw,#afw p,#afw div,#afw td,#afw li
 {
     font-family: arial;   
     font-size: 13px;    
     font-weight: normal;
     line-height: 20px;
+}
+#afw h1,#afw h2,#afw h3,#afw h3
+{
+    font-family: arial;   
+    font-weight: bold;
+}
+#afw h1
+{
+    font:normal bold 20px/30px Arial, san-serif;
+    margin: 20px 0 10px 0;
+}
+#afw h2
+{
+    font:normal bold 18px/24px Arial, san-serif;
+    margin: 15px 0 5px 0;
+}
+#afw h3
+{
+    font:normal bold 15px/20px Arial, san-serif;
+    margin: 15px 0 5px 0;
+}
+#afw h4
+{
+    font:normal bold 13px/20px Arial, san-serif;
+    margin: 15px 0 5px 0;
 }
 #afw .afwManagerTitle 
 {
@@ -258,6 +283,14 @@
 	color:#eee;
 	font-weight:bold;
 }
+#afw .afwListReportTable > thead > tr > th > a
+,#afw .afwListReportTableCollapse > thead > tr > th > a:visited
+,#afw .afwListReportTableCollapse > thead > tr > th > a:hover
+{
+	color:#eee;
+	text-decoration: underline;
+}
+
 #afw .afwListReportTable > tfoot > tr > td 
 ,#afw .afwListReportTable > tfoot > tr > th 
 ,#afw .afwListReportTableCollapse > tfoot > tr > td 

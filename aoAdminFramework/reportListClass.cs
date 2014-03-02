@@ -19,6 +19,7 @@ namespace adminFramework
             public string caption;
             public string captionClass;
             public string cellClass;
+            public bool sortable;
         }
         columnStruct[] columns = new columnStruct[columnSize];
         bool formIncludeHeader = false;
@@ -33,7 +34,8 @@ namespace adminFramework
         string localTitle = "";
         string localWarning = "";
         string localDescription = "";
-        //string localRqs = "";
+        string localFrameRqs = "";
+        bool localFrameRqsSet = false;
         string localHiddenList = "";
         string localButtonList = "";
         string localFormId = "";
@@ -108,6 +110,9 @@ namespace adminFramework
             string styleClass;
             string content;
             string userErrors;
+            string sortLink;
+            string columnSort = cp.Doc.GetText("columnSort");
+            string sortField="";
             //
             // initialize - setup Db and/or read Db values
             //
@@ -134,9 +139,26 @@ namespace adminFramework
                         styleClass = " class=\"" + styleClass + "\"";
                     }
                     content = columns[colPtr].caption;
+                    sortField = content;
                     if (content == "")
                     {
                         content = "&nbsp;";
+                    }
+                    else if (columns[colPtr].sortable)
+                    {
+                        if (localFrameRqsSet ) 
+                        {
+                            sortLink = "?" + localFrameRqs + "&columnSort=" + sortField;
+                        }
+                        else
+                        {
+                            sortLink = "?" + cp.Doc.RefreshQueryString + "&columnSort=" + sortField;
+                        }
+                        if (columnSort == sortField)
+                        {
+                            sortLink += "Desc";
+                        }
+                        content = "<a href=\"" + sortLink + "\">" + content + "</a>";
                     }
                     rowList += cr + "<th" + styleClass + ">" + content + "</th>";
                 }
@@ -380,22 +402,23 @@ namespace adminFramework
                 localIncludeForm = true;
             }
         }
-        ////
-        ////-------------------------------------------------
-        //// Refresh Query String
-        ////-------------------------------------------------
-        ////
-        //public string refreshQueryString
-        //{
-        //    get
-        //    {
-        //        return localRqs;
-        //    }
-        //    set
-        //    {
-        //        localRqs = value;
-        //    }
-        //}
+        //
+        //-------------------------------------------------
+        // Refresh Query String
+        //-------------------------------------------------
+        //
+        public string refreshQueryString
+        {
+            get
+            {
+                return localFrameRqs;
+            }
+            set
+            {
+                localFrameRqs = value;
+                localFrameRqsSet = true;
+            }
+        }
         //
         //-------------------------------------------------
         // Guid
@@ -562,6 +585,25 @@ namespace adminFramework
         }
         //
         //-------------------------------------------------
+        // set the column sortable
+        //  this creates as a link on the caption
+        //-------------------------------------------------
+        //
+        public bool columnSortable
+        {
+            get
+            {
+                checkColumnPtr();
+                return columns[columnPtr].sortable;
+            }
+            set
+            {
+                checkColumnPtr();
+                columns[columnPtr].sortable = value;
+            }
+        }
+        //
+        //-------------------------------------------------
         // add a column
         //-------------------------------------------------
         //
@@ -574,6 +616,7 @@ namespace adminFramework
                 columns[columnPtr].caption = "";
                 columns[columnPtr].captionClass = "";
                 columns[columnPtr].cellClass = "";
+                columns[columnPtr].sortable = false;
                 if (columnPtr > columnMax)
                 {
                     columnMax = columnPtr;
@@ -674,6 +717,7 @@ namespace adminFramework
                 string colSortOrder;
                 string colCaptionClass;
                 string colCellClass;
+                bool colSortable;
                 CPCSBaseClass cs = cp.CSNew();
                 int reportId;
                 string sqlCriteria;
@@ -714,6 +758,7 @@ namespace adminFramework
                         colSortOrder = colSortOrder.PadLeft(4 - colSortOrder.Length, '0');
                         colCaptionClass = columns[colPtr].captionClass;
                         colCellClass = columns[colPtr].cellClass;
+                        colSortable = columns[colPtr].sortable; // not part of Db config
                         if (colName == "")
                         {
                             colName = colCaption;

@@ -13,7 +13,7 @@ namespace adminFramework
         const string cr2 = cr + "\t";
         //
         string localBody = "";
-        //string localRqs = "";
+        //string localFrameRqs = "";
         string localHiddenList = "";
         string localButtonList = "";
         string localFormId = "";
@@ -262,11 +262,11 @@ namespace adminFramework
         //{
         //    get
         //    {
-        //        return localRqs;
+        //        return localFrameRqs;
         //    }
         //    set
         //    {
-        //        localRqs = value;
+        //        localFrameRqs = value;
         //    }
         //}
         //

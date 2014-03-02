@@ -45,7 +45,7 @@ namespace adminFramework
         string localTitle = "";
         string localWarning = "";
         string localDescription = "";
-        //string localRqs = "";
+        //string localFrameRqs = "";
         string localHiddenList = "";
         string localButtonList = "";
         string localFormId = "";
@@ -501,11 +501,11 @@ namespace adminFramework
         //{
         //    get
         //    {
-        //        return localRqs;
+        //        return localFrameRqs;
         //    }
         //    set
         //    {
-        //        localRqs = value;
+        //        localFrameRqs = value;
         //    }
         //}
         //
