@@ -48,6 +48,7 @@ namespace adminFramework
         bool localIsEmptyReport = true;
         //int localPageSize = 20;
         //int localPageNumber = 1;
+        bool localAddCsvDownloadCurrentPage = false;
         //
         string[,] cells = new string[rowSize, columnSize];
         //
@@ -113,6 +114,10 @@ namespace adminFramework
             string sortLink;
             string columnSort = cp.Doc.GetText("columnSort");
             string sortField="";
+            string csvDownload = "";
+            CPCSBaseClass cs = cp.CSNew();
+            string csvFilename = "";
+            DateTime rightNow = DateTime.Now;
             //
             // initialize - setup Db and/or read Db values
             //
@@ -169,6 +174,14 @@ namespace adminFramework
                     + cr2 + "</tr>"
                     + cr + "</thead>"
                     + "";
+                if (localAddCsvDownloadCurrentPage)
+                {
+                    csvDownload = "\"" + columns[0].caption.Replace("\"", "\"\"") + "\"";
+                    for (colPtr = 1; colPtr <= columnMax; colPtr++)
+                    {
+                        csvDownload += ",\"" + columns[colPtr].caption.Replace("\"", "\"\"") + "\"";
+                    }
+                }
             }
             //
             // body
@@ -200,6 +213,20 @@ namespace adminFramework
                             styleClass = " class=\"" + styleClass + "\"";
                         }
                         row += cr + "<td" + styleClass + ">" + cells[rowPtr, colPtr] + "</td>";
+
+                        if (localAddCsvDownloadCurrentPage)
+                        {
+                            if (colPtr == 0)
+                            {
+                                csvDownload += Environment.NewLine + "\"" + cells[rowPtr, colPtr].Replace("\"", "\"\"") + "\"";
+                            }
+                            else
+                            {
+                                csvDownload += ",\"" + cells[rowPtr, colPtr].Replace("\"", "\"\"") + "\"";
+                            }
+                        }
+                    
+                    
                     }
                     styleClass = rowClasses[rowPtr];
                     if (rowPtr % 2 != 0)
@@ -215,6 +242,22 @@ namespace adminFramework
                         + indent(row)
                         + cr + "</tr>";
                 }
+            }
+
+            if (localAddCsvDownloadCurrentPage)
+            {
+                if (cs.Insert("tasks"))
+                {
+                    csvFilename = cs.GetFilename("filename", "export.csv");
+                    cp.File.SaveVirtual(csvFilename, csvDownload);
+                    cs.SetField("Name", "Export: " + localTitle + ", " + rightNow.ToShortDateString());
+                    cs.SetField("command", "BuildCSV");
+                    cs.SetField("filename", csvFilename);
+                    cs.SetField( "DateCompleted", rightNow.ToShortDateString());
+                    cs.SetField("DateStarted", rightNow.ToShortDateString());
+                    cs.SetField("ResultMessage", "OK");
+                }
+                cs.Close();
             }
             s += ""
                 + cr + "<tbody>"
@@ -254,6 +297,10 @@ namespace adminFramework
             //
             // headers
             //
+            if (localAddCsvDownloadCurrentPage)
+            {
+                s = cr + "<p id=\"afwDescription\"><a href=\"" + cp.Site.FilePath + csvFilename + "\">Click here</a> to download the data, or access it in the future from the <a href=\"?af=30\">Download Manager</a>.</p>" + s;
+            }
             if (localDescription != "")
             {
                 s = cr + "<p id=\"afwDescription\">" + localDescription + "</p>" + s;
@@ -697,6 +744,22 @@ namespace adminFramework
             if (rowCnt < 0)
             {
                 addRow();
+            }
+        }
+        //
+        //-------------------------------------------------
+        // create csv download as form is build
+        //-------------------------------------------------
+        //
+        public bool addCsvDownloadCurrentPage
+        {
+            get
+            {
+                return localAddCsvDownloadCurrentPage;
+            }
+            set
+            {
+                localAddCsvDownloadCurrentPage = value;
             }
         }
         //
