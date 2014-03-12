@@ -20,6 +20,7 @@ namespace adminFramework
             public string captionClass;
             public string cellClass;
             public bool sortable;
+            public bool visible;
         }
         columnStruct[] columns = new columnStruct[columnSize];
         bool formIncludeHeader = false;
@@ -138,34 +139,37 @@ namespace adminFramework
                 rowList = "";
                 for (colPtr = 0; colPtr <= columnMax; colPtr++)
                 {
-                    styleClass = columns[colPtr].captionClass;
-                    if (styleClass != "")
+                    if (columns[colPtr].visible)
                     {
-                        styleClass = " class=\"" + styleClass + "\"";
-                    }
-                    content = columns[colPtr].caption;
-                    sortField = content;
-                    if (content == "")
-                    {
-                        content = "&nbsp;";
-                    }
-                    else if (columns[colPtr].sortable)
-                    {
-                        if (localFrameRqsSet ) 
+                        styleClass = columns[colPtr].captionClass;
+                        if (styleClass != "")
                         {
-                            sortLink = "?" + localFrameRqs + "&columnSort=" + sortField;
+                            styleClass = " class=\"" + styleClass + "\"";
                         }
-                        else
+                        content = columns[colPtr].caption;
+                        sortField = content;
+                        if (content == "")
                         {
-                            sortLink = "?" + cp.Doc.RefreshQueryString + "&columnSort=" + sortField;
+                            content = "&nbsp;";
                         }
-                        if (columnSort == sortField)
+                        else if (columns[colPtr].sortable)
                         {
-                            sortLink += "Desc";
+                            if (localFrameRqsSet)
+                            {
+                                sortLink = "?" + localFrameRqs + "&columnSort=" + sortField;
+                            }
+                            else
+                            {
+                                sortLink = "?" + cp.Doc.RefreshQueryString + "&columnSort=" + sortField;
+                            }
+                            if (columnSort == sortField)
+                            {
+                                sortLink += "Desc";
+                            }
+                            content = "<a href=\"" + sortLink + "\">" + content + "</a>";
                         }
-                        content = "<a href=\"" + sortLink + "\">" + content + "</a>";
+                        rowList += cr + "<th" + styleClass + ">" + content + "</th>";
                     }
-                    rowList += cr + "<th" + styleClass + ">" + content + "</th>";
                 }
                 s += ""
                     + cr + "<thead>"
@@ -208,12 +212,14 @@ namespace adminFramework
                     for (colPtr = 0; colPtr <= columnMax; colPtr++)
                     {
                         styleClass = columns[colPtr].cellClass;
-                        if (styleClass != "")
+                        if (columns[colPtr].visible)
                         {
-                            styleClass = " class=\"" + styleClass + "\"";
+                            if (styleClass != "")
+                            {
+                                styleClass = " class=\"" + styleClass + "\"";
+                            }
+                            row += cr + "<td" + styleClass + ">" + cells[rowPtr, colPtr] + "</td>";
                         }
-                        row += cr + "<td" + styleClass + ">" + cells[rowPtr, colPtr] + "</td>";
-
                         if (localAddCsvDownloadCurrentPage)
                         {
                             if (colPtr == 0)
@@ -225,8 +231,6 @@ namespace adminFramework
                                 csvDownload += ",\"" + cells[rowPtr, colPtr].Replace("\"", "\"\"") + "\"";
                             }
                         }
-                    
-                    
                     }
                     styleClass = rowClasses[rowPtr];
                     if (rowPtr % 2 != 0)
@@ -651,6 +655,25 @@ namespace adminFramework
         }
         //
         //-------------------------------------------------
+        // set the column visible
+        //  displays in report (always in export)
+        //-------------------------------------------------
+        //
+        public bool columnVisible
+        {
+            get
+            {
+                checkColumnPtr();
+                return columns[columnPtr].visible;
+            }
+            set
+            {
+                checkColumnPtr();
+                columns[columnPtr].visible = value;
+            }
+        }
+        //
+        //-------------------------------------------------
         // add a column
         //-------------------------------------------------
         //
@@ -664,6 +687,7 @@ namespace adminFramework
                 columns[columnPtr].captionClass = "";
                 columns[columnPtr].cellClass = "";
                 columns[columnPtr].sortable = false;
+                columns[columnPtr].visible = true ;
                 if (columnPtr > columnMax)
                 {
                     columnMax = columnPtr;
@@ -780,7 +804,9 @@ namespace adminFramework
                 string colSortOrder;
                 string colCaptionClass;
                 string colCellClass;
-                bool colSortable;
+                bool colSortable = false ;
+                bool colVisible = true ;
+                string textVisible = "";
                 CPCSBaseClass cs = cp.CSNew();
                 int reportId;
                 string sqlCriteria;
@@ -822,6 +848,7 @@ namespace adminFramework
                         colCaptionClass = columns[colPtr].captionClass;
                         colCellClass = columns[colPtr].cellClass;
                         colSortable = columns[colPtr].sortable; // not part of Db config
+                        colVisible = columns[colPtr].visible;
                         if (colName == "")
                         {
                             colName = colCaption;
@@ -838,6 +865,7 @@ namespace adminFramework
                                 cs.SetField("sortOrder", colSortOrder);
                                 cs.SetField("captionClass", colCaptionClass);
                                 cs.SetField("cellClass", colCellClass);
+                                cs.SetField("visible", colVisible.ToString());
                             }
                             else
                             {
@@ -856,6 +884,16 @@ namespace adminFramework
                                 columns[colPtr].caption = colCaption;
                                 columns[colPtr].captionClass = cs.GetText("captionClass");
                                 columns[colPtr].cellClass = cs.GetText("cellClass");
+                                textVisible = cs.GetText("visible");
+                                if (textVisible == "")
+                                {
+                                    cs.SetField("visible", colVisible.ToString());
+                                }
+                                else
+                                {
+                                    columns[colPtr].visible = cp.Utils.EncodeBoolean(  textVisible);
+                                }
+                                    
                             }
                             cs.Close();
                         }
