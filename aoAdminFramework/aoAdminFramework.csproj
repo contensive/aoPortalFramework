@@ -51,8 +51,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="CPBase">
-      <HintPath>..\..\..\..\..\..\Program Files (x86)\kma\Contensive\CPBase.DLL</HintPath>
-      <Private>False</Private>
+      <HintPath>..\..\Release\CPBase.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.VisualBasic" />
     <Reference Include="System" />
