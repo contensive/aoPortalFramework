@@ -17,4 +17,8 @@ Global
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		BuildVersion_UseGlobalSettings = True
+		BuildVersion_AssemblyInfoFilename = aoAdminFramework\Properties\AssemblyInfo.cs
+	EndGlobalSection
 EndGlobal
