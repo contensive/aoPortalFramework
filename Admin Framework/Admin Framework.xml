@@ -20,39 +20,45 @@
 		<IsInline>No</IsInline>
 		<JavascriptOnLoad></JavascriptOnLoad>
 		<JavascriptInHead><![CDATA[//
-// adminFramework javascript
+// adminFramework javascript - moved to admin framework resources addon
+// This is necessary because report charts require the google jsapi collection
+// and pushing this all to addons resolves the duplicate issues
 //
-function cjFrameSubmitForm( remoteMethodName, frameHtmlId, formHtmlId ) {
-		jQuery('#'+frameHtmlId).block();
-		cj.ajax.addon(
+document.write('<scr' + 'ipt type="text/javascript" src="https://www.google.com/jsapi"></scr' + 'ipt>')
+if (typeof cjFrameSubmitForm != 'function') {
+alert( 'This feature is dependent on the Admin Framework Resources addon from the Addon Framework Collection. It does not appear to be installed correctly.' )
+}
+function cjFrameSubmitForm(remoteMethodName, frameHtmlId, formHtmlId) {
+    jQuery('#' + frameHtmlId).block();
+    cj.ajax.addon(
 			remoteMethodName
-			,'frameName='+frameHtmlId
-			,formHtmlId
-			,frameHtmlId
+			, 'frameName=' + frameHtmlId
+			, formHtmlId
+			, frameHtmlId
 			)
 }
-function cjFrameUpdate( remoteMethodName, frameHtmlId, qs ) {
-		jQuery('#'+frameHtmlId).block();
-		cj.ajax.addon(
+function cjFrameUpdate(remoteMethodName, frameHtmlId, qs) {
+    jQuery('#' + frameHtmlId).block();
+    cj.ajax.addon(
 			remoteMethodName
-			,qs+'&frameName='+frameHtmlId
-			,''
-			,frameHtmlId
+			, qs + '&frameName=' + frameHtmlId
+			, ''
+			, frameHtmlId
 			)
 }
 //
 // attach this to the contensive cj object
 //
 function cjFrame() {
-    this.submitForm=cjFrameSubmitForm;
-    this.update=cjFrameUpdate;
+    this.submitForm = cjFrameSubmitForm;
+    this.update = cjFrameUpdate;
 }
 cj.frame = new cjFrame();
 //
 // legacy names
 //
-function afwPostFrame( remoteMethodName, formHtmlId, frameHtmlId ) {cj.frame.submitForm( remoteMethodName, frameHtmlId, formHtmlId )}
-function afwUpdateFrame(remoteMethodName, qs, frameHtmlId) {cj.frame.update(remoteMethodName, frameHtmlId, qs)}
+function afwPostFrame(remoteMethodName, formHtmlId, frameHtmlId) { cj.frame.submitForm(remoteMethodName, frameHtmlId, formHtmlId) }
+function afwUpdateFrame(remoteMethodName, qs, frameHtmlId) { cj.frame.update(remoteMethodName, frameHtmlId, qs) }
 ]]></JavascriptInHead>
 		<JavascriptBodyEnd></JavascriptBodyEnd>
 		<MetaDescription></MetaDescription>
@@ -70,36 +76,59 @@ function afwUpdateFrame(remoteMethodName, qs, frameHtmlId) {cj.frame.update(remo
 		<ProcessInterval>0</ProcessInterval>
 		<PageTitle></PageTitle>
 		<RemoteAssetLink></RemoteAssetLink>
-		<Styles><![CDATA[
-
-#desktop 
+		<Styles><![CDATA[#desktop 
 {
-    background-color: #999;
+    background-color: #999;
 }
-#afw ,#afw p,#afw div,#afw td,#afw li
+#afw,#afw p,#afw div,#afw td,#afw li
 {
-    font-family: arial;   
-    font-size: 13px;    
-    font-weight: normal;
-    line-height: 20px;
+    font-family: arial;   
+    font-size: 13px;    
+    font-weight: normal;
+    line-height: 20px;
 }
-#afw .afwManagerTitle 
+#afw h1,#afw h2,#afw h3,#afw h3
 {
-    background-color: #1F70BD;
-    color: #FFFFFF;
-    font-size: 15px;
-    font-weight: bold;
-    padding: 10px;
-    margin: 0;
+    font-family: arial;   
+    font-weight: bold;
 }
-#afw .afwManagerDescription 
+#afw h1
 {
-    background-color: #bbb;
-    color: #444;
-    padding: 20px;
-    margin: 20px;
+    font:normal bold 20px/30px Arial, san-serif;
+    margin: 20px 0 10px 0;
 }
-#afw #afwTitle 
+#afw h2
+{
+    font:normal bold 18px/24px Arial, san-serif;
+    margin: 15px 0 5px 0;
+}
+#afw h3
+{
+    font:normal bold 15px/20px Arial, san-serif;
+    margin: 15px 0 5px 0;
+}
+#afw h4
+{
+    font:normal bold 13px/20px Arial, san-serif;
+    margin: 15px 0 5px 0;
+}
+#afw .afwManagerTitle 
+{
+    background-color: #1F70BD;
+    color: #FFFFFF;
+    font-size: 15px;
+    font-weight: bold;
+    padding: 10px;
+    margin: 0;
+}
+#afw .afwManagerDescription 
+{
+    background-color: #bbb;
+    color: #444;
+    padding: 20px;
+    margin: 20px;
+}
+#afw #afwTitle 
 {
 }
 #afw #afwDescription
@@ -116,10 +145,10 @@ function afwUpdateFrame(remoteMethodName, qs, frameHtmlId) {cj.frame.update(remo
 {
 	margin-top: 5px;
 }
-#afw #afwSubTitle 
+#afw #afwSubTitle 
 {
 }
-#afw .afwButtonCon 
+#afw .afwButtonCon 
 {
 	padding: 10px 10px 8px;
 	border-bottom: 1px solid #aaa;
@@ -127,26 +156,27 @@ function afwUpdateFrame(remoteMethodName, qs, frameHtmlId) {cj.frame.update(remo
 	border-radius: 3px;
 	clear: both;
 }
-#afw .afwButton 
+#afw .afwButton 
 {
-    background-color: #f8f8f8;
-    border-color: #eee #bbb #bbb #eee;
-    border-style: solid;
-    border-width: 1px;
+    background-color: #f8f8f8;
+    border-color: #eee #bbb #bbb #eee;
+    border-style: solid;
+    border-width: 1px;
 	border-radius: 2px;
-    color: #666;
-    font-family: "Lucida Grande",Tahoma,Arial,Verdana,sans-serif;
-    font-size: 12px;
-    font-weight: bold;
-    line-height: 130%;
-    margin: 0 2px 0 0;
-    padding: 4px 8px 5px 6px;
-    cursor: pointer;
+    color: #666;
+    font-family: "Lucida Grande",Tahoma,Arial,Verdana,sans-serif;
+    font-size: 12px;
+    font-weight: bold;
+    line-height: 130%;
+    margin: 0 2px 0 0;
+    padding: 4px 8px 5px 6px;
+    cursor: pointer;
+    display: inline-block;
 }
-#afw .afwBodyPad 
+#afw .afwBodyPad 
 {
 	clear: both;
-    margin:0;
+    margin:0;
 	padding: 20px;
 }
 #afw .afwBodyColor
@@ -154,27 +184,27 @@ function afwUpdateFrame(remoteMethodName, qs, frameHtmlId) {cj.frame.update(remo
 	clear: both;
 	color: #444;
 	background-color: #fff;
-    margin:0;
+    margin:0;
 	padding: 0;
 	border-left: 1px solid rgba(0, 0, 0, 0.1);
 	border-right: 1px solid rgba(0, 0, 0, 0.1);
 	border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 }
-#afw ul.afwNav 
+#afw ul.afwNav 
 {
-	list-style-type: none; 
-	padding: 0; 
+	list-style-type: none; 
+	padding: 0; 
 	margin: 0;
 	height: 30px;
 }
-#afw ul.afwNav li 
+#afw ul.afwNav li 
 {
-    float: left;
-    margin: 0;
-    padding: 0;
+    float: left;
+    margin: 0;
+    padding: 0;
 }
-#afw ul.afwNav li a 
-{ 
+#afw ul.afwNav li a 
+{ 
 	background-color: #ddd;
 	color: #222;
 	border-left: 1px solid #99BBDD;
@@ -185,11 +215,11 @@ function afwUpdateFrame(remoteMethodName, qs, frameHtmlId) {cj.frame.update(remo
 	border-radius: 0 0 5px 5px;
 	box-shadow: 1px 1px 2px 1px rgba(0, 0, 0, 0.4);
 }
-#afw ul.afwNav li a:hover 
+#afw ul.afwNav li a:hover 
 {
-	color: #111; 
+	color: #111; 
 }
-#afw ul.afwNav li.afwNavActive a 
+#afw ul.afwNav li.afwNavActive a 
 {
 	background-color: #fff;
 	color: #222;
@@ -197,7 +227,7 @@ function afwUpdateFrame(remoteMethodName, qs, frameHtmlId) {cj.frame.update(remo
 /*
 * Tabbed Body
 */
-#afw .afwTabbedBody 
+#afw .afwTabbedBody 
 {
 	/*
 	padding:0;
@@ -212,39 +242,39 @@ function afwUpdateFrame(remoteMethodName, qs, frameHtmlId) {cj.frame.update(remo
 	color: #555;
 	margin-top: 0;
 }
-#afw ul.afwBodyTabs 
+#afw ul.afwBodyTabs 
 {
-	list-style-type: none; 
-	padding: 0; 
+	list-style-type: none; 
+	padding: 0; 
 	margin: 0;
 	height: 30px;
 }
-#afw ul.afwBodyTabs li 
+#afw ul.afwBodyTabs li 
 {
 	float: left;
 	padding: 0;
 	margin: 0;
 }
-#afw ul.afwBodyTabs li a 
+#afw ul.afwBodyTabs li a 
 {
 	/*
 	background-color: #ddd;
 	*/
 	background-color: #d4d4d4;
-    border-radius: 10px 5px 0 0;
-    color: #222;
-    display: block;
-    line-height: 30px;
-    padding: 0 10px;
-    margin: 0 1px 0 0;
-    text-decoration: none;
+    border-radius: 10px 5px 0 0;
+    color: #222;
+    display: block;
+    line-height: 30px;
+    padding: 0 10px;
+    margin: 0 1px 0 0;
+    text-decoration: none;
 	border-left: 1px solid rgba(0, 0, 0, 0.1);
 }
-#afw .afwTabbedBody li a:hover 
+#afw .afwTabbedBody li a:hover 
 {
-	color: #111; 
+	color: #111; 
 }
-#afw .afwTabbedBody li.afwTabActive a 
+#afw .afwTabbedBody li.afwTabActive a 
 {
 	background-color: #fff;
 	color: #222;
@@ -253,49 +283,49 @@ function afwUpdateFrame(remoteMethodName, qs, frameHtmlId) {cj.frame.update(remo
 /*
 * name-value forms
 */
-#afw .afwFormRow 
+#afw .afwFormRow 
 {
 	display: table;
 	width:100%;
-    min-height: 30px;
-    vertical-align: middle;
+    min-height: 30px;
+    vertical-align: middle;
 }
-#afw .afwFormRowName 
+#afw .afwFormRowName 
 {
-    line-height: 30px;
-    text-align: right;
-    padding: 7px 10px 0 0;
-    display: table-cell;
-    width: 140px;
-    vertical-align: top;
-    font-weight: bold;
+    line-height: 30px;
+    text-align: right;
+    padding: 7px 10px 0 0;
+    display: table-cell;
+    width: 140px;
+    vertical-align: top;
+    font-weight: bold;
 }
-#afw .afwFormRowValue 
+#afw .afwFormRowValue 
 {
-    background-color: #F8F8F8;
-    border-top: 2px solid #FFFFFF;
-    display: table-cell;
-    margin: 15px;
-    padding: 7px 5px 5px;
-    vertical-align: middle;
+    background-color: #F8F8F8;
+    border-top: 2px solid #FFFFFF;
+    display: table-cell;
+    margin: 15px;
+    padding: 7px 5px 5px;
+    vertical-align: middle;
 }
-#afw .afwFormRowValue input[type="text"] 
+#afw .afwFormRowValue input[type="text"] 
 {
 	width: 200px;
 }
-#afw .afwFormRowValue textarea 
+#afw .afwFormRowValue textarea 
 {
 	width: 100%;
 	height: 200px;
 }
-#afw .aftFieldSet 
+#afw .aftFieldSet 
 {
 	background-color:#f8f8f8;
 }
 /*
 * report styles
 */
-#afw .afwListReportTable 
+#afw .afwListReportTable 
 {
 	width:100%;
 	border-spacing: 0;
@@ -306,24 +336,24 @@ function afwUpdateFrame(remoteMethodName, qs, frameHtmlId) {cj.frame.update(remo
 	border-spacing: 0;
 	margin: 0 auto 20px auto;
 }
-#afw .afwLeftSideHtml 
+#afw .afwLeftSideHtml 
 {
-    float: left;
-    overflow: hidden;
-    padding: 0 0 20px 0;
-    width: 150px;
+    float: left;
+    overflow: hidden;
+    padding: 0 0 20px 0;
+    width: 150px;
 }
-#afw .afwRightSideHtml 
+#afw .afwRightSideHtml 
 {
-	margin: 0 0 0 150px;
+	margin: 0 0 0 170px;
 }
 #afw .afwListReportTable > thead
 ,#afw .afwListReportTableCollapse > thead
- 
+ 
 {
 }
-#afw .afwListReportTable > thead > tr > th 
-,#afw .afwListReportTableCollapse > thead > tr > th 
+#afw .afwListReportTable > thead > tr > th 
+,#afw .afwListReportTableCollapse > thead > tr > th 
 {
 	padding: 4px 8px;
 	border-bottom: 1px solid #ddd;
@@ -332,23 +362,34 @@ function afwUpdateFrame(remoteMethodName, qs, frameHtmlId) {cj.frame.update(remo
 	color:#eee;
 	font-weight:bold;
 }
-#afw .afwListReportTable > tfoot > tr > td 
-,#afw .afwListReportTable > tfoot > tr > th 
-,#afw .afwListReportTableCollapse > tfoot > tr > td 
-,#afw .afwListReportTableCollapse > tfoot > tr > th 
+#afw .afwListReportTable > thead > tr > th > a
+,#afw .afwListReportTableCollapse > thead > tr > th > a:visited
+,#afw .afwListReportTableCollapse > thead > tr > th > a:hover
+{
+	color:#eee;
+	text-decoration: underline;
+}
+
+
+
+
+#afw .afwListReportTable > tfoot > tr > td 
+,#afw .afwListReportTable > tfoot > tr > th 
+,#afw .afwListReportTableCollapse > tfoot > tr > td 
+,#afw .afwListReportTableCollapse > tfoot > tr > th 
 {
 	padding: 4px 8px;
 	border-top: 1px solid #444;
 	border-right: 1px solid white;
 	font-weight:bold;
 }
-#afw .afwListReportTable > tbody 
-,#afw .afwListReportTableCollapse > tbody 
+#afw .afwListReportTable > tbody 
+,#afw .afwListReportTableCollapse > tbody 
 {
 	background-color: #f8f8f8;
 }
-#afw .afwListReportTable > tbody > tr.afwOdd 
-,#afw .afwListReportTableCollapse > tbody > tr.afwOdd 
+#afw .afwListReportTable > tbody > tr.afwOdd 
+,#afw .afwListReportTableCollapse > tbody > tr.afwOdd 
 {
 	background-color: #e8e8e8;
 }
@@ -360,22 +401,24 @@ function afwUpdateFrame(remoteMethodName, qs, frameHtmlId) {cj.frame.update(remo
 	border-right: 1px solid white;
 	font-weight:bold;
 }
-#afw .afwListReportTable > tbody > tr > td 
-,#afw .afwListReportTableCollapse > tbody > tr > td 
+#afw .afwListReportTable > tbody > tr > td 
+,#afw .afwListReportTableCollapse > tbody > tr > td 
 {
 	padding: 4px 8px;
 	border-bottom: 1px solid #ddd;
 	border-right: 1px solid white;
 }
-#afw .afwListReportCon h2.afwTitle 
+#afw .afwListReportCon h2.afwTitle 
 {
 }
-#afw .afwListReportCon p.afwDescription 
+#afw .afwListReportCon p.afwDescription 
 {
 }
 /*
 * Manager table cell widths
 */
+#afw .afwDisplayNone { display:none; }
+/* */
 #afw .afwWidth10 { width: 10% }
 #afw .afwWidth20 { width: 20% }
 #afw .afwWidth30 { width: 30% }
@@ -397,6 +440,9 @@ function afwUpdateFrame(remoteMethodName, qs, frameHtmlId) {cj.frame.update(remo
 #afw .afwWidth70px { width: 70px }
 #afw .afwWidth80px { width: 80px }
 #afw .afwWidth90px { width: 90px }
+
+
+
 
 #afw .afwWidth100px { width: 100px }
 #afw .afwWidth200px { width: 200px }
@@ -420,7 +466,7 @@ function afwUpdateFrame(remoteMethodName, qs, frameHtmlId) {cj.frame.update(remo
 */
 #afw .afwChartCon {
 	margin: 0 auto 40px auto;
-    border: 1px solid #CCCCCC;
+    border: 1px solid #CCCCCC;
 	}
 #afw .afwGridCon {
 	padding: 0 0 40px;
@@ -429,29 +475,29 @@ function afwUpdateFrame(remoteMethodName, qs, frameHtmlId) {cj.frame.update(remo
 	/*padding: 20px;*/
 }
 #afw .afwPieChart {
-    margin: 0 auto;
-    width: 500px;}
+    margin: 0 auto;
+    width: 500px;}
 #afw .afwPieData {
-    margin: 0 auto;
-    width: 500px;}
+    margin: 0 auto;
+    width: 500px;}
 #afw .afwPieDataRow {}
 #afw .afwPieTotalRow {
-    border-top: 1px solid #888888;
-    margin: 5px 0 0;
-    padding: 5px 0 0;
+    border-top: 1px solid #888888;
+    margin: 5px 0 0;
+    padding: 5px 0 0;
 }
 #afw .afwPieTotalRow .afwPieDataValue {}
 #afw .afwPieDataValue {
-    display: inline-block;
-    padding: 0 10px 0 0;
-    text-align: right;
-    width: 100px;
+    display: inline-block;
+    padding: 0 10px 0 0;
+    text-align: right;
+    width: 100px;
 	}
 #afw .afwPieDataCaption {
-    display: inline-block;
-    padding: 0;
-    text-align: left;
-    width: 280px;
+    display: inline-block;
+    padding: 0;
+    text-align: left;
+    width: 280px;
 	}
 /*
 * Report Filter List
@@ -490,41 +536,40 @@ border-radius: 5px;
 ]]></Styles>
 		<Scripting Language="" EntryPoint="" Timeout="5000"/>
 	</Addon>
-	<CDef Name="Admin Framework Report Columns" Active="1" AdminOnly="0" AllowAdd="1" AllowCalendarEvents="0" AllowContentChildTool="0" AllowContentTracking="0" AllowDelete="1" AllowMetaContent="0" AllowTopicRules="0" AllowWorkflowAuthoring="0" AuthoringDataSourceName="Default" AuthoringTableName="adminFrameworkReportColumns" ContentDataSourceName="Default" ContentTableName="adminFrameworkReportColumns" DefaultSortMethod="" DeveloperOnly="0" DropDownFieldList="Name" EditorGroupName="" Parent="" IconLink="" IconHeight="0" IconWidth="0" IconSprites="0" isbasecontent="" guid="{9BE04402-D81B-4648-8EF4-6A53CDF6595B}" >
-		<Field Name="Name" active="True" AdminOnly="False" Authorable="True" Caption="Name" DeveloperOnly="False" EditSortPriority="110" FieldType="Text" HTMLContent="False" IndexColumn="10" IndexSortDirection="0" IndexSortOrder="99" IndexWidth="21" RedirectID="0" RedirectPath="" Required="False" TextBuffered="False" UniqueName="False" DefaultValue="" RSSTitle="False" RSSDescription="False" MemberSelectGroupID="0" EditTab="" Scramble="False" LookupList="" NotEditable="False" Password="False" ReadOnly="True" ManyToManyRulePrimaryField="" ManyToManyRuleSecondaryField="" IsModified="True" IsBaseField="False" LookupContent="" RedirectContent="" ManyToManyContent="" ManyToManyRuleContent="" editorAddonId="" >
-			<HelpDefault>The name of the field. This name does NOT appear on the report.</HelpDefault>
-		</Field>
-		<Field Name="Active" active="True" AdminOnly="False" Authorable="False" Caption="Active" DeveloperOnly="False" EditSortPriority="9999" FieldType="Boolean" HTMLContent="False" IndexColumn="0" IndexSortDirection="" IndexSortOrder="0" IndexWidth="0" RedirectID="0" RedirectPath="" Required="False" TextBuffered="False" UniqueName="False" DefaultValue="1" RSSTitle="False" RSSDescription="False" MemberSelectGroupID="0" EditTab="" Scramble="False" LookupList="" NotEditable="False" Password="False" ReadOnly="False" ManyToManyRulePrimaryField="" ManyToManyRuleSecondaryField="" IsModified="False" IsBaseField="False" LookupContent="" RedirectContent="" ManyToManyContent="" ManyToManyRuleContent="" editorAddonId="" ></Field>
-		<Field Name="SortOrder" active="True" AdminOnly="False" Authorable="False" Caption="Alpha Sort Order" DeveloperOnly="False" EditSortPriority="9999" FieldType="Text" HTMLContent="False" IndexColumn="0" IndexSortDirection="0" IndexSortOrder="0" IndexWidth="0" RedirectID="0" RedirectPath="" Required="False" TextBuffered="False" UniqueName="False" DefaultValue="" RSSTitle="False" RSSDescription="False" MemberSelectGroupID="0" EditTab="" Scramble="False" LookupList="" NotEditable="False" Password="False" ReadOnly="False" ManyToManyRulePrimaryField="" ManyToManyRuleSecondaryField="" IsModified="True" IsBaseField="False" LookupContent="" RedirectContent="" ManyToManyContent="" ManyToManyRuleContent="" editorAddonId="" ></Field>
-		<Field Name="captionClass" active="True" AdminOnly="False" Authorable="True" Caption="Caption Class" DeveloperOnly="False" EditSortPriority="1000" FieldType="Text" HTMLContent="False" IndexColumn="30" IndexSortDirection="0" IndexSortOrder="99" IndexWidth="15" RedirectID="" RedirectPath="" Required="False" TextBuffered="False" UniqueName="False" DefaultValue="" RSSTitle="False" RSSDescription="False" MemberSelectGroupID="" EditTab="" Scramble="False" LookupList="" NotEditable="False" Password="False" ReadOnly="False" ManyToManyRulePrimaryField="" ManyToManyRuleSecondaryField="" IsModified="True" IsBaseField="False" LookupContent="" RedirectContent="" ManyToManyContent="" ManyToManyRuleContent="" editorAddonId="" >
-			<HelpDefault>The html class used in the caption for this column.</HelpDefault>
-		</Field>
-		<Field Name="cellClass" active="True" AdminOnly="False" Authorable="True" Caption="Cell Class" DeveloperOnly="False" EditSortPriority="1010" FieldType="Text" HTMLContent="False" IndexColumn="40" IndexSortDirection="0" IndexSortOrder="99" IndexWidth="20" RedirectID="" RedirectPath="" Required="False" TextBuffered="False" UniqueName="False" DefaultValue="" RSSTitle="False" RSSDescription="False" MemberSelectGroupID="" EditTab="" Scramble="False" LookupList="" NotEditable="False" Password="False" ReadOnly="False" ManyToManyRulePrimaryField="" ManyToManyRuleSecondaryField="" IsModified="True" IsBaseField="False" LookupContent="" RedirectContent="" ManyToManyContent="" ManyToManyRuleContent="" editorAddonId="" >
-			<HelpDefault>The html class used in each cell of this column.</HelpDefault>
-		</Field>
-		<Field Name="reportId" active="True" AdminOnly="False" Authorable="True" Caption="Report" DeveloperOnly="False" EditSortPriority="100" FieldType="Lookup" HTMLContent="False" IndexColumn="0" IndexSortDirection="0" IndexSortOrder="99" IndexWidth="20" RedirectID="" RedirectPath="" Required="False" TextBuffered="False" UniqueName="False" DefaultValue="" RSSTitle="False" RSSDescription="False" MemberSelectGroupID="" EditTab="" Scramble="False" LookupList="" NotEditable="False" Password="False" ReadOnly="False" ManyToManyRulePrimaryField="" ManyToManyRuleSecondaryField="" IsModified="True" IsBaseField="False" LookupContent="Admin Framework Reports" RedirectContent="" ManyToManyContent="" ManyToManyRuleContent="" editorAddonId="" >
-			<HelpDefault>The report that uses this column</HelpDefault>
-		</Field>
-		<Field Name="caption" active="True" AdminOnly="False" Authorable="True" Caption="Caption" DeveloperOnly="False" EditSortPriority="200" FieldType="Text" HTMLContent="False" IndexColumn="20" IndexSortDirection="1" IndexSortOrder="99" IndexWidth="20" RedirectID="" RedirectPath="" Required="False" TextBuffered="False" UniqueName="False" DefaultValue="" RSSTitle="False" RSSDescription="False" MemberSelectGroupID="" EditTab="" Scramble="False" LookupList="" NotEditable="False" Password="False" ReadOnly="False" ManyToManyRulePrimaryField="" ManyToManyRuleSecondaryField="" IsModified="True" IsBaseField="False" LookupContent="" RedirectContent="" ManyToManyContent="" ManyToManyRuleContent="" editorAddonId="" >
-			<HelpDefault>The caption that appears in the header for this report field.</HelpDefault>
-		</Field>
-		<Field Name="visible" active="True" AdminOnly="False" Authorable="True" Caption="Column Visible" DeveloperOnly="False" EditSortPriority="1020" FieldType="Boolean" HTMLContent="False" IndexColumn="50" IndexSortDirection="0" IndexSortOrder="99" IndexWidth="20" RedirectID="" RedirectPath="" Required="False" TextBuffered="False" UniqueName="False" DefaultValue="" RSSTitle="False" RSSDescription="False" MemberSelectGroupID="" EditTab="" Scramble="False" LookupList="" NotEditable="False" Password="False" ReadOnly="False" ManyToManyRulePrimaryField="" ManyToManyRuleSecondaryField="" IsModified="True" IsBaseField="False" LookupContent="" RedirectContent="" ManyToManyContent="" ManyToManyRuleContent="" editorAddonId="" >
-			<HelpDefault>Set true to prevent the field from displaying on the report, but will still be included in an export.</HelpDefault>
-		</Field>
-	</CDef>
-	<CDef Name="Admin Framework Reports" Active="1" AdminOnly="0" AllowAdd="1" AllowCalendarEvents="0" AllowContentChildTool="0" AllowContentTracking="0" AllowDelete="1" AllowMetaContent="0" AllowTopicRules="0" AllowWorkflowAuthoring="0" AuthoringDataSourceName="Default" AuthoringTableName="adminFrameworkReports" ContentDataSourceName="Default" ContentTableName="adminFrameworkReports" DefaultSortMethod="" DeveloperOnly="0" DropDownFieldList="Name" EditorGroupName="" Parent="" IconLink="" IconHeight="0" IconWidth="0" IconSprites="0" isbasecontent="" guid="{A123090F-E2D2-44F1-9F03-32437D1EC3AD}" >
-		<Field Name="Name" active="True" AdminOnly="False" Authorable="True" Caption="Name" DeveloperOnly="False" EditSortPriority="110" FieldType="Text" HTMLContent="False" IndexColumn="0" IndexSortDirection="" IndexSortOrder="0" IndexWidth="0" RedirectID="0" RedirectPath="" Required="False" TextBuffered="False" UniqueName="False" DefaultValue="" RSSTitle="False" RSSDescription="False" MemberSelectGroupID="0" EditTab="" Scramble="False" LookupList="" NotEditable="False" Password="False" ReadOnly="False" ManyToManyRulePrimaryField="" ManyToManyRuleSecondaryField="" IsModified="False" IsBaseField="False" LookupContent="" RedirectContent="" ManyToManyContent="" ManyToManyRuleContent="" editorAddonId="" >
+	<CDef Name="Admin Framework Reports" Active="1" AdminOnly="0" AllowAdd="1" AllowCalendarEvents="0" AllowContentChildTool="0" AllowContentTracking="0" AllowDelete="1" AllowMetaContent="0" AllowTopicRules="0" AllowWorkflowAuthoring="0" AuthoringDataSourceName="Default" AuthoringTableName="adminFrameworkReports" ContentDataSourceName="Default" ContentTableName="adminFrameworkReports" DefaultSortMethod="By Name" DeveloperOnly="0" DropDownFieldList="Name" EditorGroupName="" Parent="" IconLink="" IconHeight="0" IconWidth="0" IconSprites="0" isbasecontent="0" guid="{A123090F-E2D2-44F1-9F03-32437D1EC3AD}" >
+		<Field Name="Name" active="True" AdminOnly="False" Authorable="True" Caption="Name" DeveloperOnly="False" EditSortPriority="110" FieldType="Text" HTMLContent="False" IndexColumn="0" IndexSortDirection="" IndexSortOrder="0" IndexWidth="0" RedirectID="0" RedirectPath="" Required="False" TextBuffered="False" UniqueName="False" DefaultValue="" RSSTitle="False" RSSDescription="False" MemberSelectGroupID="0" EditTab="" Scramble="False" LookupList="" NotEditable="False" Password="False" ReadOnly="False" ManyToManyRulePrimaryField="" ManyToManyRuleSecondaryField="" IsModified="False" IsBaseField="False" LookupContent="" RedirectContent="" ManyToManyContent="" ManyToManyRuleContent="" >
 			<HelpDefault>The name used to identify this report record. This name does NOT appear on the report.</HelpDefault>
 		</Field>
-		<Field Name="Active" active="True" AdminOnly="False" Authorable="False" Caption="Active" DeveloperOnly="False" EditSortPriority="9999" FieldType="Boolean" HTMLContent="False" IndexColumn="0" IndexSortDirection="" IndexSortOrder="0" IndexWidth="0" RedirectID="0" RedirectPath="" Required="False" TextBuffered="False" UniqueName="False" DefaultValue="1" RSSTitle="False" RSSDescription="False" MemberSelectGroupID="0" EditTab="" Scramble="False" LookupList="" NotEditable="False" Password="False" ReadOnly="False" ManyToManyRulePrimaryField="" ManyToManyRuleSecondaryField="" IsModified="False" IsBaseField="False" LookupContent="" RedirectContent="" ManyToManyContent="" ManyToManyRuleContent="" editorAddonId="" ></Field>
-		<Field Name="SortOrder" active="True" AdminOnly="False" Authorable="False" Caption="Alpha Sort Order" DeveloperOnly="False" EditSortPriority="2000" FieldType="Text" HTMLContent="False" IndexColumn="0" IndexSortDirection="" IndexSortOrder="0" IndexWidth="0" RedirectID="0" RedirectPath="" Required="False" TextBuffered="False" UniqueName="False" DefaultValue="" RSSTitle="False" RSSDescription="False" MemberSelectGroupID="0" EditTab="" Scramble="False" LookupList="" NotEditable="False" Password="False" ReadOnly="False" ManyToManyRulePrimaryField="" ManyToManyRuleSecondaryField="" IsModified="False" IsBaseField="False" LookupContent="" RedirectContent="" ManyToManyContent="" ManyToManyRuleContent="" editorAddonId="" ></Field>
-		<Field Name="title" active="True" AdminOnly="False" Authorable="True" Caption="Title" DeveloperOnly="False" EditSortPriority="200" FieldType="Text" HTMLContent="False" IndexColumn="" IndexSortDirection="" IndexSortOrder="" IndexWidth="" RedirectID="" RedirectPath="" Required="False" TextBuffered="False" UniqueName="False" DefaultValue="" RSSTitle="False" RSSDescription="False" MemberSelectGroupID="" EditTab="" Scramble="False" LookupList="" NotEditable="False" Password="False" ReadOnly="False" ManyToManyRulePrimaryField="" ManyToManyRuleSecondaryField="" IsModified="True" IsBaseField="False" LookupContent="" RedirectContent="" ManyToManyContent="" ManyToManyRuleContent="" editorAddonId="" >
+		<Field Name="Active" active="True" AdminOnly="False" Authorable="False" Caption="Active" DeveloperOnly="False" EditSortPriority="9999" FieldType="Boolean" HTMLContent="False" IndexColumn="0" IndexSortDirection="" IndexSortOrder="0" IndexWidth="0" RedirectID="0" RedirectPath="" Required="False" TextBuffered="False" UniqueName="False" DefaultValue="1" RSSTitle="False" RSSDescription="False" MemberSelectGroupID="0" EditTab="" Scramble="False" LookupList="" NotEditable="False" Password="False" ReadOnly="False" ManyToManyRulePrimaryField="" ManyToManyRuleSecondaryField="" IsModified="False" IsBaseField="False" LookupContent="" RedirectContent="" ManyToManyContent="" ManyToManyRuleContent="" ></Field>
+		<Field Name="SortOrder" active="True" AdminOnly="False" Authorable="False" Caption="Alpha Sort Order" DeveloperOnly="False" EditSortPriority="2000" FieldType="Text" HTMLContent="False" IndexColumn="0" IndexSortDirection="" IndexSortOrder="0" IndexWidth="0" RedirectID="0" RedirectPath="" Required="False" TextBuffered="False" UniqueName="False" DefaultValue="" RSSTitle="False" RSSDescription="False" MemberSelectGroupID="0" EditTab="" Scramble="False" LookupList="" NotEditable="False" Password="False" ReadOnly="False" ManyToManyRulePrimaryField="" ManyToManyRuleSecondaryField="" IsModified="False" IsBaseField="False" LookupContent="" RedirectContent="" ManyToManyContent="" ManyToManyRuleContent="" ></Field>
+		<Field Name="title" active="True" AdminOnly="False" Authorable="True" Caption="Title" DeveloperOnly="False" EditSortPriority="200" FieldType="Text" HTMLContent="False" IndexColumn="0" IndexSortDirection="" IndexSortOrder="0" IndexWidth="" RedirectID="" RedirectPath="" Required="False" TextBuffered="False" UniqueName="False" DefaultValue="" RSSTitle="False" RSSDescription="False" MemberSelectGroupID="0" EditTab="" Scramble="False" LookupList="" NotEditable="False" Password="False" ReadOnly="False" ManyToManyRulePrimaryField="" ManyToManyRuleSecondaryField="" IsModified="False" IsBaseField="False" LookupContent="" RedirectContent="" ManyToManyContent="" ManyToManyRuleContent="" >
 			<HelpDefault>The Title used as the top of the report.</HelpDefault>
 		</Field>
-		<Field Name="description" active="True" AdminOnly="False" Authorable="True" Caption="Description" DeveloperOnly="False" EditSortPriority="300" FieldType="HTML" HTMLContent="False" IndexColumn="" IndexSortDirection="" IndexSortOrder="" IndexWidth="" RedirectID="" RedirectPath="" Required="False" TextBuffered="False" UniqueName="False" DefaultValue="" RSSTitle="False" RSSDescription="False" MemberSelectGroupID="" EditTab="" Scramble="False" LookupList="" NotEditable="False" Password="False" ReadOnly="False" ManyToManyRulePrimaryField="" ManyToManyRuleSecondaryField="" IsModified="True" IsBaseField="False" LookupContent="" RedirectContent="" ManyToManyContent="" ManyToManyRuleContent="" editorAddonId="" >
+		<Field Name="description" active="True" AdminOnly="False" Authorable="True" Caption="Description" DeveloperOnly="False" EditSortPriority="300" FieldType="HTML" HTMLContent="False" IndexColumn="0" IndexSortDirection="" IndexSortOrder="0" IndexWidth="" RedirectID="" RedirectPath="" Required="False" TextBuffered="False" UniqueName="False" DefaultValue="" RSSTitle="False" RSSDescription="False" MemberSelectGroupID="0" EditTab="" Scramble="False" LookupList="" NotEditable="False" Password="False" ReadOnly="False" ManyToManyRulePrimaryField="" ManyToManyRuleSecondaryField="" IsModified="False" IsBaseField="False" LookupContent="" RedirectContent="" ManyToManyContent="" ManyToManyRuleContent="" >
 			<HelpDefault>The description that appears immediately below the report title.</HelpDefault>
 		</Field>
 	</CDef>
+	<CDef Name="Admin Framework Report Columns" Active="1" AdminOnly="0" AllowAdd="1" AllowCalendarEvents="0" AllowContentChildTool="0" AllowContentTracking="0" AllowDelete="1" AllowMetaContent="0" AllowTopicRules="0" AllowWorkflowAuthoring="0" AuthoringDataSourceName="Default" AuthoringTableName="adminFrameworkReportColumns" ContentDataSourceName="Default" ContentTableName="adminFrameworkReportColumns" DefaultSortMethod="By Name" DeveloperOnly="0" DropDownFieldList="Name" EditorGroupName="" Parent="" IconLink="" IconHeight="0" IconWidth="0" IconSprites="0" isbasecontent="0" guid="{9BE04402-D81B-4648-8EF4-6A53CDF6595B}" >
+		<Field Name="Name" active="True" AdminOnly="False" Authorable="True" Caption="Name" DeveloperOnly="False" EditSortPriority="110" FieldType="Text" HTMLContent="False" IndexColumn="10" IndexSortDirection="" IndexSortOrder="99" IndexWidth="21" RedirectID="0" RedirectPath="" Required="False" TextBuffered="False" UniqueName="False" DefaultValue="" RSSTitle="False" RSSDescription="False" MemberSelectGroupID="0" EditTab="" Scramble="False" LookupList="" NotEditable="False" Password="False" ReadOnly="True" ManyToManyRulePrimaryField="" ManyToManyRuleSecondaryField="" IsModified="False" IsBaseField="False" LookupContent="" RedirectContent="" ManyToManyContent="" ManyToManyRuleContent="" >
+			<HelpDefault>The name of the field. This name does NOT appear on the report.</HelpDefault>
+		</Field>
+		<Field Name="Active" active="True" AdminOnly="False" Authorable="False" Caption="Active" DeveloperOnly="False" EditSortPriority="9999" FieldType="Boolean" HTMLContent="False" IndexColumn="0" IndexSortDirection="" IndexSortOrder="0" IndexWidth="0" RedirectID="0" RedirectPath="" Required="False" TextBuffered="False" UniqueName="False" DefaultValue="1" RSSTitle="False" RSSDescription="False" MemberSelectGroupID="0" EditTab="" Scramble="False" LookupList="" NotEditable="False" Password="False" ReadOnly="False" ManyToManyRulePrimaryField="" ManyToManyRuleSecondaryField="" IsModified="False" IsBaseField="False" LookupContent="" RedirectContent="" ManyToManyContent="" ManyToManyRuleContent="" ></Field>
+		<Field Name="SortOrder" active="True" AdminOnly="False" Authorable="False" Caption="Alpha Sort Order" DeveloperOnly="False" EditSortPriority="9999" FieldType="Text" HTMLContent="False" IndexColumn="0" IndexSortDirection="" IndexSortOrder="0" IndexWidth="0" RedirectID="0" RedirectPath="" Required="False" TextBuffered="False" UniqueName="False" DefaultValue="" RSSTitle="False" RSSDescription="False" MemberSelectGroupID="0" EditTab="" Scramble="False" LookupList="" NotEditable="False" Password="False" ReadOnly="False" ManyToManyRulePrimaryField="" ManyToManyRuleSecondaryField="" IsModified="False" IsBaseField="False" LookupContent="" RedirectContent="" ManyToManyContent="" ManyToManyRuleContent="" ></Field>
+		<Field Name="captionClass" active="True" AdminOnly="False" Authorable="True" Caption="Caption Class" DeveloperOnly="False" EditSortPriority="1000" FieldType="Text" HTMLContent="False" IndexColumn="30" IndexSortDirection="" IndexSortOrder="99" IndexWidth="15" RedirectID="" RedirectPath="" Required="False" TextBuffered="False" UniqueName="False" DefaultValue="" RSSTitle="False" RSSDescription="False" MemberSelectGroupID="0" EditTab="" Scramble="False" LookupList="" NotEditable="False" Password="False" ReadOnly="False" ManyToManyRulePrimaryField="" ManyToManyRuleSecondaryField="" IsModified="False" IsBaseField="False" LookupContent="" RedirectContent="" ManyToManyContent="" ManyToManyRuleContent="" >
+			<HelpDefault>The html class used in the caption for this column.</HelpDefault>
+		</Field>
+		<Field Name="cellClass" active="True" AdminOnly="False" Authorable="True" Caption="Cell Class" DeveloperOnly="False" EditSortPriority="1010" FieldType="Text" HTMLContent="False" IndexColumn="40" IndexSortDirection="" IndexSortOrder="99" IndexWidth="20" RedirectID="" RedirectPath="" Required="False" TextBuffered="False" UniqueName="False" DefaultValue="" RSSTitle="False" RSSDescription="False" MemberSelectGroupID="0" EditTab="" Scramble="False" LookupList="" NotEditable="False" Password="False" ReadOnly="False" ManyToManyRulePrimaryField="" ManyToManyRuleSecondaryField="" IsModified="False" IsBaseField="False" LookupContent="" RedirectContent="" ManyToManyContent="" ManyToManyRuleContent="" >
+			<HelpDefault>The html class used in each cell of this column.</HelpDefault>
+		</Field>
+		<Field Name="reportId" active="True" AdminOnly="False" Authorable="True" Caption="Report" DeveloperOnly="False" EditSortPriority="100" FieldType="Lookup" HTMLContent="False" IndexColumn="0" IndexSortDirection="" IndexSortOrder="99" IndexWidth="20" RedirectID="" RedirectPath="" Required="False" TextBuffered="False" UniqueName="False" DefaultValue="" RSSTitle="False" RSSDescription="False" MemberSelectGroupID="0" EditTab="" Scramble="False" LookupList="" NotEditable="False" Password="False" ReadOnly="False" ManyToManyRulePrimaryField="" ManyToManyRuleSecondaryField="" IsModified="False" IsBaseField="False" LookupContent="Admin Framework Reports" RedirectContent="" ManyToManyContent="" ManyToManyRuleContent="" >
+			<HelpDefault>The report that uses this column</HelpDefault>
+		</Field>
+		<Field Name="caption" active="True" AdminOnly="False" Authorable="True" Caption="Caption" DeveloperOnly="False" EditSortPriority="200" FieldType="Text" HTMLContent="False" IndexColumn="20" IndexSortDirection="" IndexSortOrder="99" IndexWidth="20" RedirectID="" RedirectPath="" Required="False" TextBuffered="False" UniqueName="False" DefaultValue="" RSSTitle="False" RSSDescription="False" MemberSelectGroupID="0" EditTab="" Scramble="False" LookupList="" NotEditable="False" Password="False" ReadOnly="False" ManyToManyRulePrimaryField="" ManyToManyRuleSecondaryField="" IsModified="False" IsBaseField="False" LookupContent="" RedirectContent="" ManyToManyContent="" ManyToManyRuleContent="" >
+			<HelpDefault>The caption that appears in the header for this report field.</HelpDefault>
+		</Field>
+		<Field Name="visible" active="True" AdminOnly="False" Authorable="True" Caption="Column Visible" DeveloperOnly="False" EditSortPriority="1020" FieldType="Boolean" HTMLContent="False" IndexColumn="50" IndexSortDirection="" IndexSortOrder="99" IndexWidth="20" RedirectID="" RedirectPath="" Required="False" TextBuffered="False" UniqueName="False" DefaultValue="0" RSSTitle="False" RSSDescription="False" MemberSelectGroupID="0" EditTab="" Scramble="False" LookupList="" NotEditable="False" Password="False" ReadOnly="False" ManyToManyRulePrimaryField="" ManyToManyRuleSecondaryField="" IsModified="False" IsBaseField="False" LookupContent="" RedirectContent="" ManyToManyContent="" ManyToManyRuleContent="" >
+			<HelpDefault>Set true to prevent the field from displaying on the report, but will still be included in an export.</HelpDefault>
+		</Field>
+	</CDef>
 	<ImportCollection name="Google jsapi">{B071E394-A381-41E2-B3F9-7E2CC509A8C5}</ImportCollection>
-	<Resource name="adminframework.dll" type="executable" path="" />
 </Collection>
