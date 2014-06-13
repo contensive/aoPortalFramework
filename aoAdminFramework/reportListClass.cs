@@ -104,9 +104,9 @@ namespace adminFramework
         //
         public string getHtml(CPBaseClass cp)
         {
-            string s = "";
+            StringBuilder s = new StringBuilder( "" );
             string row = "";
-            string rowList = "";
+            StringBuilder rowList = new StringBuilder("");
             int rowPtr = 0;
             int colPtr = 0;
             string styleClass;
@@ -136,7 +136,7 @@ namespace adminFramework
             //
             if (formIncludeHeader)
             {
-                rowList = "";
+                rowList = new StringBuilder("");
                 for (colPtr = 0; colPtr <= columnMax; colPtr++)
                 {
                     if (columns[colPtr].visible)
@@ -168,16 +168,16 @@ namespace adminFramework
                             }
                             content = "<a href=\"" + sortLink + "\">" + content + "</a>";
                         }
-                        rowList += cr + "<th" + styleClass + ">" + content + "</th>";
+                        rowList.Append( cr + "<th" + styleClass + ">" + content + "</th>" );
                     }
                 }
-                s += ""
+                s.Append (""
                     + cr + "<thead>"
                     + cr2 + "<tr>"
-                    + indent(indent(rowList))
+                    + indent(indent(rowList.ToString() ))
                     + cr2 + "</tr>"
                     + cr + "</thead>"
-                    + "";
+                    + "" );
                 if (localAddCsvDownloadCurrentPage)
                 {
                     csvDownload = "\"" + columns[0].caption.Replace("\"", "\"\"") + "\"";
@@ -190,7 +190,7 @@ namespace adminFramework
             //
             // body
             //
-            rowList = "";
+            rowList = new StringBuilder( "" );
             if (localIsEmptyReport)
             {
                 styleClass = columns[0].cellClass;
@@ -199,10 +199,10 @@ namespace adminFramework
                     styleClass = " class=\"" + styleClass + "\"";
                 }
                 row = cr + "<td style=\"text-align:left\" " + styleClass + " colspan=\"" + (columnMax+1) + "\">[empty]</td>";
-                rowList += ""
+                rowList.Append( ""
                     + cr + "<tr>"
                     + indent(row)
-                    + cr + "</tr>";
+                    + cr + "</tr>" );
             }
             else
             {
@@ -241,10 +241,10 @@ namespace adminFramework
                     {
                         styleClass = " class=\"" + styleClass + "\"";
                     }
-                    rowList += ""
+                    rowList.Append( ""
                         + cr + "<tr" + styleClass + ">"
                         + indent(row)
-                        + cr + "</tr>";
+                        + cr + "</tr>" );
                 }
             }
 
@@ -263,59 +263,56 @@ namespace adminFramework
                 }
                 cs.Close();
             }
-            s += ""
+            s.Append( ""
                 + cr + "<tbody>"
-                + indent(rowList)
+                + indent(rowList.ToString() )
                 + cr + "</tbody>"
-                + "";
-            s = ""
+                + "" );
+            s = new StringBuilder( ""
                 + cr + "<table class=\"afwListReportTable\">"
-                + indent(s)
-                + cr + "</table>";
+                + indent(s.ToString())
+                + cr + "</table>" );
             if (localHtmlLeftOfTable != "")
             {
-                s = ""
-                    + cr + "<div class=\"afwLeftSideHtml\">"
-                    + indent(localHtmlLeftOfTable)
-                    + cr + "</div>"
-                    + cr + "<div class=\"afwRightSideHtml\">"
-                    + indent(s)
-                    + cr + "</div>"
-                    + cr + "<div style=\"clear:both\"></div>"
-                    + "";
+                s = new StringBuilder(""
+                        + cr + "<div class=\"afwLeftSideHtml\">"
+                        + indent(localHtmlLeftOfTable)
+                        + cr + "</div>"
+                        + cr + "<div class=\"afwRightSideHtml\">"
+                        + indent(s.ToString())
+                        + cr + "</div>"
+                        + cr + "<div style=\"clear:both\"></div>"
+                        + "");
             }
             if (localHtmlBeforeTable != "")
             {
-                s = ""
+                s = new StringBuilder(""
                     + localHtmlBeforeTable
-                    + s
-                    + "";
+                    + s.ToString()
+                    + "") ;
             }
             if (localHtmlAfterTable != "")
             {
-                s = ""
-                    + s
-                    + localHtmlAfterTable
-                    + "";
+                s.Append(localHtmlAfterTable);
             }
             //
             // headers
             //
             if (localAddCsvDownloadCurrentPage)
             {
-                s = cr + "<p id=\"afwDescription\"><a href=\"" + cp.Site.FilePath + csvFilename + "\">Click here</a> to download the data, or access it in the future from the <a href=\"?af=30\">Download Manager</a>.</p>" + s;
+                s = new StringBuilder( cr + "<p id=\"afwDescription\"><a href=\"" + cp.Site.FilePath + csvFilename + "\">Click here</a> to download the data, or access it in the future from the <a href=\"?af=30\">Download Manager</a>.</p>" + s.ToString()  );
             }
             if (localDescription != "")
             {
-                s = cr + "<p id=\"afwDescription\">" + localDescription + "</p>" + s;
+                s = new StringBuilder( cr + "<p id=\"afwDescription\">" + localDescription + "</p>" + s.ToString());
             }
             if (localWarning != "")
             {
-                s = cr + "<div id=\"afwWarning\">" + localWarning + "</div>" + s;
+                s = new StringBuilder( cr + "<div id=\"afwWarning\">" + localWarning + "</div>" + s.ToString());
             }
             if (localTitle != "")
             {
-                s = cr + "<h2 id=\"afwTitle\">" + localTitle + "</h2>" + s;
+                s = new StringBuilder( cr + "<h2 id=\"afwTitle\">" + localTitle + "</h2>" + s.ToString()) ;
             }
             //
             // add form
@@ -329,15 +326,15 @@ namespace adminFramework
                         + indent(localButtonList)
                         + cr + "</div>";
                 }
-                s = cr + cp.Html.Form(localButtonList + s + localButtonList + localHiddenList, "", "", "", localFormActionQueryString, "");
+                s = new StringBuilder( cr + cp.Html.Form(localButtonList + s.ToString()  + localButtonList + localHiddenList, "", "", "", localFormActionQueryString, ""));
                 //body = ""
                 //    + cr + cp.Html.Form( localButtonList + body + localHiddenList )
                 //    + cr + "<form action=\"" + localFormAction + "\" method=\"post\" enctype=\"MULTIPART/FORM-DATA\">"
                 //    + indent(localButtonList + body + localHiddenList)
                 //    + cr + "</form>";
             }
-            s = cp.Html.div(s, "", "afwBodyPad", "");
-            s = cp.Html.div(s, "", "afwBodyColor", "");
+            s = new StringBuilder( cp.Html.div(s.ToString() , "", "afwBodyPad", ""));
+            s = new StringBuilder( cp.Html.div(s.ToString() , "", "afwBodyColor", ""));
             //
             // if outer container, add styles and javascript
             //
@@ -345,12 +342,12 @@ namespace adminFramework
             {
                 cp.Doc.AddHeadJavascript(Properties.Resources.javascript);
                 cp.Doc.AddHeadStyle(Properties.Resources.styles);
-                s = ""
+                s = new StringBuilder(  ""
                     + cr + "<div id=\"afw\">"
-                    + indent(s)
-                    + cr + "</div>";
+                    + indent(s.ToString() )
+                    + cr + "</div>" );
             }
-            return s;
+            return s.ToString() ;
         }
         //
         //-------------------------------------------------
