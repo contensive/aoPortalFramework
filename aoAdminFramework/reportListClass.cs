@@ -51,9 +51,12 @@ namespace adminFramework
         //int localPageNumber = 1;
         bool localAddCsvDownloadCurrentPage = false;
         //
-        string[,] cells = new string[rowSize, columnSize];
+        string[,] localReportCells = new string[rowSize, columnSize];
+        string[,] localDownloadData = new string[rowSize, columnSize];
         //
-        string[] rowClasses = new string[rowSize];
+        string[] localRowClasses = new string[rowSize];
+        //
+        bool[] localExcludeRowFromDownload = new bool[rowSize];
         //
         bool localIsOuterContainer = false;
         //
@@ -218,21 +221,21 @@ namespace adminFramework
                             {
                                 styleClass = " class=\"" + styleClass + "\"";
                             }
-                            row += cr + "<td" + styleClass + ">" + cells[rowPtr, colPtr] + "</td>";
+                            row += cr + "<td" + styleClass + ">" + localReportCells[rowPtr, colPtr] + "</td>";
                         }
-                        if (localAddCsvDownloadCurrentPage)
+                        if (localAddCsvDownloadCurrentPage && !localExcludeRowFromDownload[rowPtr])
                         {
                             if (colPtr == 0)
                             {
-                                csvDownload += Environment.NewLine + "\"" + cells[rowPtr, colPtr].Replace("\"", "\"\"") + "\"";
+                                csvDownload += Environment.NewLine + "\"" + localDownloadData[rowPtr, colPtr].Replace("\"", "\"\"") + "\"";
                             }
                             else
                             {
-                                csvDownload += ",\"" + cells[rowPtr, colPtr].Replace("\"", "\"\"") + "\"";
+                                csvDownload += ",\"" + localDownloadData[rowPtr, colPtr].Replace("\"", "\"\"") + "\"";
                             }
                         }
                     }
-                    styleClass = rowClasses[rowPtr];
+                    styleClass = localRowClasses[rowPtr];
                     if (rowPtr % 2 != 0)
                     {
                         styleClass += " afwOdd";
@@ -702,10 +705,34 @@ namespace adminFramework
             if (rowCnt < rowSize)
             {
                 rowCnt += 1;
+                localExcludeRowFromDownload[rowCnt] = false;
+                localRowClasses[rowCnt] = "";
             }
             checkColumnPtr();
             columnPtr = 0;
         }
+        //
+        //-------------------------------------------------
+        // mark this row to exclude from data download
+        //-------------------------------------------------
+        //
+        public bool excludeRowFromDownload
+        {
+            get
+            {
+                checkColumnPtr();
+                checkRowCnt();
+                return localExcludeRowFromDownload[rowCnt];
+            }
+            set
+            {
+                checkColumnPtr();
+                checkRowCnt();
+                localExcludeRowFromDownload[rowCnt] = value;
+            }
+        }
+
+        
         //
         //-------------------------------------------------
         // add a row class
@@ -716,7 +743,7 @@ namespace adminFramework
             localIsEmptyReport = false;
             checkColumnPtr();
             checkRowCnt();
-            rowClasses[rowCnt] += " " + styleClass;
+            localRowClasses[rowCnt] += " " + styleClass;
         }
         //
         //-------------------------------------------------
@@ -725,10 +752,15 @@ namespace adminFramework
         //
         public void setCell(string content)
         {
+            setCell(content, content);
+        }
+        public void setCell(string reportContent, string downloadContent)
+        {
             localIsEmptyReport = false;
             checkColumnPtr();
             checkRowCnt();
-            cells[rowCnt, columnPtr] = content;
+            localReportCells[rowCnt, columnPtr] = reportContent;
+            localDownloadData[rowCnt, columnPtr] = downloadContent;
             if (columnPtr < columnMax)
             {
                 columnPtr += 1;
