@@ -41,6 +41,7 @@ namespace adminFramework
         string localButtonList = "";
         string localFormId = "";
         string localFormActionQueryString = "";
+        bool localFormActionQueryStringSet = false;
         //string localPreForm = "";
         string localHtmlBeforeTable = "";
         string localHtmlAfterTable = "";
@@ -125,7 +126,14 @@ namespace adminFramework
             //
             // initialize - setup Db and/or read Db values
             //
-            // init(cp);
+            if (!localFrameRqsSet)
+            {
+                refreshQueryString = cp.Doc.RefreshQueryString;
+            }
+            if (!localFormActionQueryStringSet)
+            {
+                formActionQueryString = localFrameRqs;
+            }
             //
             // add user errors
             //
@@ -329,7 +337,7 @@ namespace adminFramework
                         + indent(localButtonList)
                         + cr + "</div>";
                 }
-                s = new StringBuilder( cr + cp.Html.Form(localButtonList + s.ToString()  + localButtonList + localHiddenList, "", "", "", localFormActionQueryString, ""));
+                s = new StringBuilder( cr + cp.Html.Form(  localButtonList + s.ToString()  + localButtonList + localHiddenList, "", "",  "",  localFormActionQueryString, ""));
                 //body = ""
                 //    + cr + cp.Html.Form( localButtonList + body + localHiddenList )
                 //    + cr + "<form action=\"" + localFormAction + "\" method=\"post\" enctype=\"MULTIPART/FORM-DATA\">"
@@ -426,7 +434,7 @@ namespace adminFramework
         }
         //
         //-------------------------------------------------
-        // setForm
+        //  Action for the form. If not set it uses the Refresh Query String
         //-------------------------------------------------
         //
         public string formActionQueryString
@@ -438,6 +446,7 @@ namespace adminFramework
             set
             {
                 localFormActionQueryString = value;
+                localFormActionQueryStringSet = true;
                 localIncludeForm = true;
             }
         }
@@ -455,7 +464,7 @@ namespace adminFramework
         }
         //
         //-------------------------------------------------
-        // Refresh Query String
+        // Refresh Query String. if not set, the cp.doc.refreshQuerystring is used
         //-------------------------------------------------
         //
         public string refreshQueryString
