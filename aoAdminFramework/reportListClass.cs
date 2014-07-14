@@ -132,7 +132,10 @@ namespace adminFramework
             }
             if (!localFormActionQueryStringSet)
             {
-                formActionQueryString = localFrameRqs;
+                // set locals not public property bc public also sets the includeForm
+                localFormActionQueryString = localFrameRqs;
+                localFormActionQueryStringSet = true;
+                //formActionQueryString = localFrameRqs;
             }
             //
             // add user errors
