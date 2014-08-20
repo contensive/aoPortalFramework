@@ -21,6 +21,7 @@ namespace adminFramework
             public string cellClass;
             public bool sortable;
             public bool visible;
+            public bool downloadable;
         }
         columnStruct[] columns = new columnStruct[columnSize];
         bool formIncludeHeader = false;
@@ -113,6 +114,7 @@ namespace adminFramework
             StringBuilder rowList = new StringBuilder("");
             int rowPtr = 0;
             int colPtr = 0;
+            int colPtrDownload = 0;
             string styleClass;
             string content;
             string userErrors;
@@ -194,10 +196,21 @@ namespace adminFramework
                     + "" );
                 if (localAddCsvDownloadCurrentPage)
                 {
-                    csvDownload = "\"" + columns[0].caption.Replace("\"", "\"\"") + "\"";
-                    for (colPtr = 1; colPtr <= columnMax; colPtr++)
+                    colPtrDownload = 0;
+                    for (colPtr = 0; colPtr <= columnMax; colPtr++)
                     {
-                        csvDownload += ",\"" + columns[colPtr].caption.Replace("\"", "\"\"") + "\"";
+                        if (columns[colPtr].downloadable)
+                        {
+                            if (colPtrDownload == 0)
+                            {
+                                csvDownload += "\"" + columns[colPtr].caption.Replace("\"", "\"\"") + "\"";
+                            }
+                            else
+                            {
+                                csvDownload += ",\"" + columns[colPtr].caption.Replace("\"", "\"\"") + "\"";
+                            }
+                            colPtrDownload += 1;
+                        }
                     }
                 }
             }
@@ -223,6 +236,7 @@ namespace adminFramework
                 for (rowPtr = 0; rowPtr <= rowCnt; rowPtr++)
                 {
                     row = "";
+                    colPtrDownload = 0;
                     for (colPtr = 0; colPtr <= columnMax; colPtr++)
                     {
                         styleClass = columns[colPtr].cellClass;
@@ -236,14 +250,20 @@ namespace adminFramework
                         }
                         if (localAddCsvDownloadCurrentPage && !localExcludeRowFromDownload[rowPtr])
                         {
-                            if (colPtr == 0)
+                            if (columns[colPtr].downloadable)
                             {
-                                csvDownload += Environment.NewLine + "\"" + localDownloadData[rowPtr, colPtr].Replace("\"", "\"\"") + "\"";
+                                if (colPtrDownload == 0)
+                                {
+                                    csvDownload += Environment.NewLine;
+                                }
+                                else
+                                {
+                                    csvDownload += ",";
+                                }
+                                csvDownload += "\"" + localDownloadData[rowPtr, colPtr].Replace("\"", "\"\"") + "\"";
+                                colPtrDownload += 1;
                             }
-                            else
-                            {
-                                csvDownload += ",\"" + localDownloadData[rowPtr, colPtr].Replace("\"", "\"\"") + "\"";
-                            }
+
                         }
                     }
                     styleClass = localRowClasses[rowPtr];
@@ -668,7 +688,7 @@ namespace adminFramework
         //
         //-------------------------------------------------
         // set the column visible
-        //  displays in report (always in export)
+        //  displays in report
         //-------------------------------------------------
         //
         public bool columnVisible
@@ -682,6 +702,25 @@ namespace adminFramework
             {
                 checkColumnPtr();
                 columns[columnPtr].visible = value;
+            }
+        }
+        //
+        //-------------------------------------------------
+        // set the column downloadable
+        //  hides from export
+        //-------------------------------------------------
+        //
+        public bool columnDownloadable
+        {
+            get
+            {
+                checkColumnPtr();
+                return columns[columnPtr].downloadable;
+            }
+            set
+            {
+                checkColumnPtr();
+                columns[columnPtr].downloadable = value;
             }
         }
         //
@@ -700,6 +739,7 @@ namespace adminFramework
                 columns[columnPtr].cellClass = "";
                 columns[columnPtr].sortable = false;
                 columns[columnPtr].visible = true ;
+                columns[columnPtr].downloadable = true;
                 if (columnPtr > columnMax)
                 {
                     columnMax = columnPtr;
@@ -846,8 +886,10 @@ namespace adminFramework
                 string colCaptionClass;
                 string colCellClass;
                 bool colSortable = false ;
-                bool colVisible = true ;
+                bool colVisible = true;
+                bool colDownloadable = true;
                 string textVisible = "";
+                string textDownloadable = "";
                 CPCSBaseClass cs = cp.CSNew();
                 int reportId;
                 string sqlCriteria;
@@ -890,6 +932,7 @@ namespace adminFramework
                         colCellClass = columns[colPtr].cellClass;
                         colSortable = columns[colPtr].sortable; // not part of Db config
                         colVisible = columns[colPtr].visible;
+                        colDownloadable = columns[colPtr].downloadable;
                         if (colName == "")
                         {
                             colName = colCaption;
@@ -907,6 +950,8 @@ namespace adminFramework
                                 cs.SetField("captionClass", colCaptionClass);
                                 cs.SetField("cellClass", colCellClass);
                                 cs.SetField("visible", colVisible.ToString());
+                                // for another day
+                                //cs.SetField("downloadable", colDownloadable.ToString());
                             }
                             else
                             {
@@ -934,7 +979,16 @@ namespace adminFramework
                                 {
                                     columns[colPtr].visible = cp.Utils.EncodeBoolean(  textVisible);
                                 }
-                                    
+                                // for another day
+                                //textDownloadable = cs.GetText("downloadable");
+                                //if (textDownloadable == "")
+                                //{
+                                //    cs.SetField("downloadable", textDownloadable.ToString());
+                                //}
+                                //else
+                                //{
+                                //    columns[colPtr].visible = cp.Utils.EncodeBoolean(textDownloadable);
+                                //}
                             }
                             cs.Close();
                         }
