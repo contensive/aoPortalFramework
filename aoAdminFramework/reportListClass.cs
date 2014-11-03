@@ -460,6 +460,9 @@ namespace adminFramework
         //  Action for the form. If not set it uses the Refresh Query String
         //-------------------------------------------------
         //
+        /// <summary>
+        /// Set the same as the refresh query string, except exclude all form inputs within the form. For instance, if the form has a filter that include 'dateTo', add dateTo to the RQS so heading sorts retain the value, but do not add it to formAction because the input box in the filter already has that value.
+        /// </summary>
         public string formActionQueryString
         {
             get
@@ -490,6 +493,9 @@ namespace adminFramework
         // Refresh Query String. if not set, the cp.doc.refreshQuerystring is used
         //-------------------------------------------------
         //
+        /// <summary>
+        /// Include all nameValue pairs required to refresh the page if someone clicks on a header. For example, if there is a filter dateTo that is not empty, add dateTo=1/1/2000 to the RQS
+        /// </summary>
         public string refreshQueryString
         {
             get
