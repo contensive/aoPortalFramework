@@ -1,9 +1,10 @@
 //
-// adminFramework javascript - moved to admin framework resources addon
-// This is necessary because report charts require the google jsapi collection
-// and pushing this all to addons resolves the duplicate issues
+// adminFramework javascript
+//  reference to google jsapi moved to admin framework resources addon
+//  necessary to prevent duplicate reference error
 //
-document.write('<scr' + 'ipt type="text/javascript" src="https://www.google.com/jsapi"></scr' + 'ipt>')
+// document.write('<scr' + 'ipt type="text/javascript" src="https://www.google.com/jsapi"></scr' + 'ipt>')
+//
 if (typeof cjFrameSubmitForm != 'function') {
 alert( 'This feature is dependent on the Admin Framework Resources addon from the Addon Framework Collection. It does not appear to be installed correctly.' )
 }

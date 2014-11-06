@@ -1,3 +1,8 @@
+/*
+
+AdminFramework is a referenced assembly resource so styles and js must come from exactly the same build that is referenced by the consumer.
+
+*/
 #desktop 
 {
     background-color: #999;
@@ -263,7 +268,7 @@
     float: left;
     overflow: hidden;
     padding: 0 0 20px 0;
-    width: 150px;
+    width: 160px;
 }
 #afw .afwRightSideHtml 
 {
