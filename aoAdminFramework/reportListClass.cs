@@ -9,7 +9,7 @@ namespace adminFramework
     public class reportListClass
     {
         const int columnSize = 99;
-        const int rowSize = 9999;
+        const int rowSize = 19999;
         const string cr = "\r\n\t";
         const string cr2 = cr + "\t";
         //
