@@ -67,6 +67,7 @@
   <ItemGroup>
     <Reference Include="CPBase">
       <HintPath>..\..\Release\CPBase.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="Microsoft.VisualBasic" />
     <Reference Include="System" />
@@ -76,6 +77,7 @@
   <ItemGroup>
     <Compile Include="adminFrameworkReportsClass.cs" />
     <Compile Include="commonClass.cs" />
+    <Compile Include="managerClass.cs" />
     <Compile Include="pageWithNavClass.cs" />
     <Compile Include="formNameValueRowsClass.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
