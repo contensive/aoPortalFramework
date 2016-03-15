@@ -118,7 +118,7 @@ namespace adminFramework
 					//
 					//Assemble
 					//
-					innerForm.body = CP.Html.div(body, "" ,"" , "abBodyFrame");
+					innerForm.body = CP.Html.div(body, "" ,"" , "afwBodyFrame");
 					innerForm.title = manager.name;
 					innerForm.isOuterContainer = true;
 					returnHtml = innerForm.getHtml(CP);
@@ -126,7 +126,7 @@ namespace adminFramework
 					// assemble body
 					//
 					CP.Doc.AddHeadStyle(innerForm.styleSheet);
-					CP.Doc.AddHeadJavascript("var abFrameRqs='" + frameRqs + "';");
+					CP.Doc.AddHeadJavascript("var afwFrameRqs='" + frameRqs + "';");
 				}
 			} catch (Exception ex) {
 				CP.Site.ErrorReport(ex, "error in Contensive.Addons.aoAccountBilling.adminClass.execute");

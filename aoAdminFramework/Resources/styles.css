@@ -223,7 +223,7 @@ AdminFramework is a referenced assembly resource so styles and js must come from
     text-align: right;
     padding: 7px 10px 0 0;
     display: table-cell;
-    width: 140px;
+    width: 160px;
     vertical-align: top;
     font-weight: bold;
 }
