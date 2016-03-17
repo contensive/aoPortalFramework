@@ -1,7 +1,5 @@
 /*
-
-AdminFramework is a referenced assembly resource so styles and js must come from exactly the same build that is referenced by the consumer.
-
+* AdminFramework assembly referenced resources
 */
 #desktop 
 {
@@ -427,7 +425,7 @@ AdminFramework is a referenced assembly resource so styles and js must come from
 	background-color: #eee;
 	border: 1px solid #fff;
 	padding: 10px 5px;
-border-radius: 5px;
+    border-radius: 5px;
 }
 #afw ul.afwFilterList h3 {
 	padding: 0;
@@ -453,4 +451,24 @@ border-radius: 5px;
 	margin:0;
 	padding:0;
 	width:100%;
+}
+#afw ul.afwButtonList 
+{
+	list-style: none;
+}
+#afw ul.afwButtonList li {
+	width: 280px;
+	display: inline-block;
+	vertical-align: top;
+}
+#afw ul.afwButtonList li a {
+	text-decoration: none;
+	color: #111;
+	background-color: #ddd;
+	border: 1px solid #bbb;
+	border-radius: 5px;
+	padding: 15px;
+	margin: 5px;
+	display: block;
+	width: 200px;
 }

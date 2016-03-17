@@ -1,12 +1,8 @@
 //
-// adminFramework javascript
-//  reference to google jsapi moved to admin framework resources addon
-//  necessary to prevent duplicate reference error
+// adminFramework assembly referenced js
 //
-// document.write('<scr' + 'ipt type="text/javascript" src="https://www.google.com/jsapi"></scr' + 'ipt>')
-//
-if (typeof cjFrameSubmitForm != 'function') {
-alert( 'This feature is dependent on the Admin Framework Resources addon from the Addon Framework Collection. It does not appear to be installed correctly.' )
+if (typeof (google) != 'object') {
+    document.write('<scr' + 'ipt type="text/javascript" src="https://www.google.com/jsapi"></scr' + 'ipt>')
 }
 function cjFrameSubmitForm(remoteMethodName, frameHtmlId, formHtmlId) {
     jQuery('#' + frameHtmlId).block();
