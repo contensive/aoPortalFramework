@@ -120,6 +120,13 @@ namespace adminFramework
                                     if (parentFeature.id == feature.parentFeatureId)
                                     {
                                         activeNavHeading = parentFeature.heading;
+                                        //
+                                        // if feature returned empty and it is in a feature list, execute the feature list
+                                        //
+                                        if (string.IsNullOrEmpty(body))
+                                        {
+                                            body = getFeatureList(CP, portal, parentFeature, frameRqs);
+                                        }
                                     }
                                 }
                             }
@@ -140,36 +147,7 @@ namespace adminFramework
                             //
                             // this is a feature list, display the feature list
                             //
-                            activeNavHeading = feature.heading;
-                            formSimpleClass content = new formSimpleClass();
-                            foreach ( KeyValuePair< string, portalFeatureDataClass> kvp in portal.featureList ) {
-                                portalFeatureDataClass liFeature = kvp.Value;
-                                if ((liFeature.parentFeatureId == feature.id) && (liFeature.parentFeatureId != 0))
-                                {
-                                    string featureHeading = liFeature.heading;
-                                    if (string.IsNullOrEmpty(featureHeading)) 
-                                    {
-                                        featureHeading = liFeature.name;
-                                    }
-                                    if (liFeature.dataContentId != 0)
-                                    {
-                                        qs = frameRqs;
-                                        qs = CP.Utils.ModifyQueryString(qs, "addonid", "", false);
-                                        qs = CP.Utils.ModifyQueryString(qs, rnDstFeatureGuid, "",false );
-                                        qs = CP.Utils.ModifyQueryString(qs, "cid", liFeature.dataContentId.ToString());
-                                        items += "<li><a target=\"_blank\" href=\"?" + qs + "\">" + featureHeading + "</a></li>";
-                                    }
-                                    else
-                                    {
-                                        qs = frameRqs;
-                                        qs = CP.Utils.ModifyQueryString(qs, rnDstFeatureGuid, liFeature.guid);
-                                        items += "<li><a href=\"?" + qs + "\">" + featureHeading + "</a></li>";
-                                    }
-                                }
-                            }
-                            content.title = feature.heading;
-                            content.body = "<ul class=\"afwButtonList\">" + items + "</ul>";
-                            body = content.getHtml(CP);
+                            body = getFeatureList(CP, portal, feature, frameRqs );
                         }
 					}
 					if (string.IsNullOrEmpty(body)) {
@@ -670,6 +648,58 @@ namespace adminFramework
                 CP.Site.ErrorReport(ex, "exception in loadPortal");
             }
             return body;
+        }
+        //====================================================================================================
+        /// <summary>
+        /// create a feature list box
+        /// </summary>
+        /// <param name="CP"></param>
+        /// <param name="feature"></param>
+        /// <returns></returns>
+        string getFeatureList(CPBaseClass CP, portalDataClass portal,  portalFeatureDataClass feature, string frameRqs )
+        {
+            string returnBody = "";
+            string items = "";
+            string qs;
+            try
+            {
+                string activeNavHeading;
+                activeNavHeading = feature.heading;
+                formSimpleClass content = new formSimpleClass();
+                foreach (KeyValuePair<string, portalFeatureDataClass> kvp in portal.featureList)
+                {
+                    portalFeatureDataClass liFeature = kvp.Value;
+                    if ((liFeature.parentFeatureId == feature.id) && (liFeature.parentFeatureId != 0))
+                    {
+                        string featureHeading = liFeature.heading;
+                        if (string.IsNullOrEmpty(featureHeading))
+                        {
+                            featureHeading = liFeature.name;
+                        }
+                        if (liFeature.dataContentId != 0)
+                        {
+                            qs = frameRqs;
+                            qs = CP.Utils.ModifyQueryString(qs, "addonid", "", false);
+                            qs = CP.Utils.ModifyQueryString(qs, rnDstFeatureGuid, "", false);
+                            qs = CP.Utils.ModifyQueryString(qs, "cid", liFeature.dataContentId.ToString());
+                            items += "<li><a target=\"_blank\" href=\"?" + qs + "\">" + featureHeading + "</a></li>";
+                        }
+                        else
+                        {
+                            qs = frameRqs;
+                            qs = CP.Utils.ModifyQueryString(qs, rnDstFeatureGuid, liFeature.guid);
+                            items += "<li><a href=\"?" + qs + "\">" + featureHeading + "</a></li>";
+                        }
+                    }
+                }
+                content.title = feature.heading;
+                content.body = "<ul class=\"afwButtonList\">" + items + "</ul>";
+                returnBody = content.getHtml(CP);
+            }
+            catch (Exception ex)
+            {
+            }
+            return returnBody;
         }
     }
 	//
