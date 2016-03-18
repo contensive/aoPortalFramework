@@ -574,6 +574,7 @@ namespace adminFramework
         public string name;
         public string guid;
         public int id;
+        public string defaultFeatureGuid;
 		public Dictionary<string, managerFeatureDataClass> featureList;
 		public managerFeatureDataClass defaultFeature;
 	}
