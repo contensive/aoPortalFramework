@@ -16,6 +16,7 @@ namespace adminFramework
         const string rnPortalId = "portalId";
         const string devToolGuid = "{13511AA1-3A58-4742-B98F-D92AF853989F}";
         const string rnSetPortalId = "setPortalId";
+        const string rnSetPortalGuid = "setPortalGuid";
         //====================================================================================================
         /// <summary>
         /// Addon interface. Run addon from doc property PortalGuid or PortalId (form, querystring, doc.setProperty())
@@ -43,45 +44,59 @@ namespace adminFramework
                 }
                 else
                 {
-                    portalId = cp.Visit.GetInteger(visitPropertyName);
-                    if (portalId == 0)
+                    portalGuid = cp.Doc.GetText(rnSetPortalGuid);
+                    if (!string.IsNullOrEmpty(portalGuid))
                     {
-                        // try portal guid argument
-                        portalGuid = cp.Doc.GetText("PortalGuid");
-                        if (!string.IsNullOrEmpty(portalGuid))
+                        CPCSBaseClass cs = cp.CSNew();
+                        if (cs.Open("portals", "ccguid=" + cp.Db.EncodeSQLText(portalGuid), "id", true, "id"))
                         {
-                            //
-                            // try guid, comes from addon argument list in distributed addons
-                            //
-                            CPCSBaseClass cs = cp.CSNew();
-                            if (cs.Open("portals", "ccguid=" + cp.Db.EncodeSQLText(portalGuid), "id", true, "id"))
-                            {
-                                portalId = cs.GetInteger("id");
-                            }
-                            cs.Close();
+                            portalId = cs.GetInteger("id");
                         }
+                        cs.Close();
+                        cp.Visit.SetProperty(visitPropertyName, portalId.ToString());
+                    }
+                    else
+                    {
+                        portalId = cp.Visit.GetInteger(visitPropertyName);
                         if (portalId == 0)
                         {
-                            //
-                            // try value from addon argument
-                            //
-                            portalId = cp.Doc.GetInteger("Portal");
-                            if (portalId == 0)
+                            // try portal guid argument
+                            portalGuid = cp.Doc.GetText("PortalGuid");
+                            if (!string.IsNullOrEmpty(portalGuid))
                             {
                                 //
-                                // use the first portal in the list
+                                // try guid, comes from addon argument list in distributed addons
                                 //
                                 CPCSBaseClass cs = cp.CSNew();
-                                if (cs.Open("portals", "", "id", true, "id"))
+                                if (cs.Open("portals", "ccguid=" + cp.Db.EncodeSQLText(portalGuid), "id", true, "id"))
                                 {
                                     portalId = cs.GetInteger("id");
                                 }
                                 cs.Close();
                             }
-                        }
-                        if (portalId != 0)
-                        {
-                            cp.Visit.SetProperty(visitPropertyName, portalId.ToString());
+                            if (portalId == 0)
+                            {
+                                //
+                                // try value from addon argument
+                                //
+                                portalId = cp.Doc.GetInteger("Portal");
+                                if (portalId == 0)
+                                {
+                                    //
+                                    // use the first portal in the list
+                                    //
+                                    CPCSBaseClass cs = cp.CSNew();
+                                    if (cs.Open("portals", "", "id", true, "id"))
+                                    {
+                                        portalId = cs.GetInteger("id");
+                                    }
+                                    cs.Close();
+                                }
+                            }
+                            if (portalId != 0)
+                            {
+                                cp.Visit.SetProperty(visitPropertyName, portalId.ToString());
+                            }
                         }
                     }
                 }
@@ -131,6 +146,7 @@ namespace adminFramework
 					// build portal
 					//
                     portalDataClass portal = loadPortalFromDb(CP, portalSelectSqlCriteria);
+                    frameRqs = CP.Utils.ModifyQueryString(frameRqs, rnSetPortalId, portal.id.ToString(), true);
 					//
 					// portal interface - add tabs
 					//
@@ -201,28 +217,28 @@ namespace adminFramework
                                 CP.Doc.SetProperty(rnFrameRqs, frameRqs);
                                 CP.Doc.AddRefreshQueryString(rnDstFeatureGuid, feature.guid);
                                 body = CP.Utils.ExecuteAddon(feature.addonId.ToString());
-                                if (feature.parentFeatureId == 0)
-                                {
-                                    activeNavHeading = feature.heading;
-                                }
-                                else
-                                {
-                                    foreach (KeyValuePair<string, portalFeatureDataClass> kvp in portal.featureList)
-                                    {
-                                        portalFeatureDataClass parentFeature = kvp.Value;
-                                        if (parentFeature.id == feature.parentFeatureId)
-                                        {
-                                            activeNavHeading = parentFeature.heading;
-                                            //
-                                            // if feature returned empty and it is in a feature list, execute the feature list
-                                            //
-                                            if (string.IsNullOrEmpty(body))
-                                            {
-                                                body = getFeatureList(CP, portal, parentFeature, frameRqs);
-                                            }
-                                        }
-                                    }
-                                }
+                                //if (feature.parentFeatureId == 0)
+                                //{
+                                //    activeNavHeading = feature.heading;
+                                //}
+                                //else
+                                //{
+                                //    foreach (KeyValuePair<string, portalFeatureDataClass> kvp in portal.featureList)
+                                //    {
+                                //        portalFeatureDataClass parentFeature = kvp.Value;
+                                //        if (parentFeature.id == feature.parentFeatureId)
+                                //        {
+                                //            activeNavHeading = parentFeature.heading;
+                                //            //
+                                //            // if feature returned empty and it is in a feature list, execute the feature list
+                                //            //
+                                //            if (string.IsNullOrEmpty(body))
+                                //            {
+                                //                body = getFeatureList(CP, portal, parentFeature, frameRqs);
+                                //            }
+                                //        }
+                                //    }
+                                //}
                             }
                             else if (feature.dataContentId != 0)
                             {
@@ -241,6 +257,31 @@ namespace adminFramework
                                 // this is a feature list, display the feature list
                                 //
                                 body = getFeatureList(CP, portal, feature, frameRqs);
+                            }
+                            //
+                            // set active heading
+                            //
+                            if (feature.parentFeatureId == 0)
+                            {
+                                activeNavHeading = feature.heading;
+                            }
+                            else
+                            {
+                                foreach (KeyValuePair<string, portalFeatureDataClass> kvp in portal.featureList)
+                                {
+                                    portalFeatureDataClass parentFeature = kvp.Value;
+                                    if (parentFeature.id == feature.parentFeatureId)
+                                    {
+                                        activeNavHeading = parentFeature.heading;
+                                        //
+                                        // if feature returned empty and it is in a feature list, execute the feature list
+                                        //
+                                        if (string.IsNullOrEmpty(body))
+                                        {
+                                            body = getFeatureList(CP, portal, parentFeature, frameRqs);
+                                        }
+                                    }
+                                }
                             }
                         }
                     }

@@ -1,3 +1,4 @@
+
 /*
 * AdminFramework assembly referenced resources
 */
@@ -98,6 +99,12 @@
     cursor: pointer;
     display: inline-block;
 }
+#afw .afwButton:hover
+{
+    background-color: #27c;
+    border-color: #27c;
+    color: #fff;
+}
 #afw .afwBodyPad 
 {
 	clear: both;
@@ -130,24 +137,28 @@
 }
 #afw ul.afwNav li a 
 { 
-	background-color: #ddd;
-	color: #222;
+	background-color: #f8f8f8;
+	color: #666;
 	border-left: 1px solid #99BBDD;
 	display: block;
 	line-height: 14px;
 	padding: 8px 10px;
 	text-decoration: none;
 	border-radius: 0 0 5px 5px;
-	box-shadow: 1px 1px 2px 1px rgba(0, 0, 0, 0.4);
+	box-shadow: 1px 1px .5px .5px rgba(0, 0, 0, 0.4);
+	font-weight: bold;
 }
 #afw ul.afwNav li a:hover 
 {
-	color: #111; 
+    color: #fff;
+    background-color: #1F70BD;
+	border-left: 1px solid #1F70BD;
 }
 #afw ul.afwNav li.afwNavActive a 
 {
-	background-color: #fff;
-	color: #222;
+    color: #f8f8f8;
+    background-color: #1F70BD;
+	border-left: 1px solid #1F70BD;
 }
 /*
 * Tabbed Body
@@ -183,7 +194,7 @@
 #afw ul.afwBodyTabs li a 
 {
 	/*
-	background-color: #ddd;
+	background-color: #f8f8f8;
 	*/
 	background-color: #d4d4d4;
     border-radius: 10px 5px 0 0;
@@ -197,13 +208,13 @@
 }
 #afw .afwTabbedBody li a:hover 
 {
-	color: #111; 
+    color: #fff;
+    background-color: #1F70BD;
 }
 #afw .afwTabbedBody li.afwTabActive a 
 {
-	background-color: #fff;
-	color: #222;
-	border-bottom: none;
+    color: #f8f8f8;
+    background-color: #1F70BD;
 }
 /*
 * name-value forms
@@ -281,7 +292,7 @@
 ,#afw .afwListReportTableCollapse > thead > tr > th 
 {
 	padding: 4px 8px;
-	border-bottom: 1px solid #ddd;
+	border-bottom: 1px solid #f8f8f8;
 	border-right: 1px solid white;
 	background-color:#888;
 	color:#eee;
@@ -291,7 +302,7 @@
 ,#afw .afwListReportTableCollapse > thead > tr > th > a:visited
 ,#afw .afwListReportTableCollapse > thead > tr > th > a:hover
 {
-	color:#eee;
+	color:#fff;
 	text-decoration: underline;
 }
 
@@ -319,7 +330,7 @@
 ,#afw .afwListReportTableCollapse > tbody > tr > th
 {
 	padding: 4px 8px;
-	border-bottom: 1px solid #ddd;
+	border-bottom: 1px solid #f8f8f8;
 	border-right: 1px solid white;
 	font-weight:bold;
 }
@@ -327,7 +338,7 @@
 ,#afw .afwListReportTableCollapse > tbody > tr > td 
 {
 	padding: 4px 8px;
-	border-bottom: 1px solid #ddd;
+	border-bottom: 1px solid #f8f8f8;
 	border-right: 1px solid white;
 }
 #afw .afwListReportCon h2.afwTitle 
@@ -463,12 +474,20 @@
 }
 #afw ul.afwButtonList li a {
 	text-decoration: none;
-	color: #111;
-	background-color: #ddd;
+	color: #666;
+	background-color: #f8f8f8;
 	border: 1px solid #bbb;
 	border-radius: 5px;
 	padding: 15px;
 	margin: 5px;
 	display: block;
 	width: 200px;
+    font-weight: bold;
 }
+#afw ul.afwButtonList li a:hover {
+    color: #fff;
+    background-color: #1F70BD;
+    border: 1px solid #1F70BD;
+}
+
+
