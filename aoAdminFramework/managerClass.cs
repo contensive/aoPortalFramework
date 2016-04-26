@@ -140,6 +140,7 @@ namespace adminFramework
 					portalFeatureDataClass feature;
 					int portalid = CP.Doc.GetInteger(rnPortalId);
                     string activeNavHeading = "";
+                    string qs;
                     //string items = "";
                     //string qs = "";
                     //
@@ -196,7 +197,7 @@ namespace adminFramework
                         // execute developer tools
                         //
                         CP.Doc.AddRefreshQueryString(rnDstFeatureGuid, devToolGuid);
-                        body = getDevTool(CP, portal);
+                        body = getDevTool(CP, portal, frameRqs );
                         activeNavHeading = "Developer Tool";
                     }
                     else
@@ -675,7 +676,7 @@ namespace adminFramework
         /// </summary>
         /// <param name="CP"></param>
         /// <returns></returns>
-        string getDevTool(CPBaseClass CP, portalDataClass portal ) 
+        string getDevTool(CPBaseClass CP, portalDataClass portal, string frameRqs ) 
         {
             string body = "Hello World";
             try
@@ -713,7 +714,7 @@ namespace adminFramework
                 section += "<li><a href=\"?cid=" + CP.Content.GetID("Portals") + "\">Portals</a></li>";
                 section += "<li><a href=\"?cid=" + CP.Content.GetID("Portal Features") + "\">Portal Features</a></li>";
                 section += "</ul>";
-                section = CP.Html.Form(section);
+                section = CP.Html.Form(section,"","","",frameRqs);
                 content.body += section;
                 //
                 //
