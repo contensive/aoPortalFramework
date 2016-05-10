@@ -111,6 +111,7 @@ namespace adminFramework
             }
             catch (Exception ex)
             {
+                cp.Site.ErrorReport(ex, "adminFramework.portalClass exception");
             }
             return returnHtml;
         }
@@ -140,7 +141,7 @@ namespace adminFramework
 					portalFeatureDataClass feature;
 					int portalid = CP.Doc.GetInteger(rnPortalId);
                     string activeNavHeading = "";
-                    string qs;
+                    //string qs;
                     //string items = "";
                     //string qs = "";
                     //
@@ -511,7 +512,7 @@ namespace adminFramework
                         if (string.IsNullOrEmpty(feature.addonGuid))
                         {
                             feature.addonGuid = CP.Utils.CreateGuid();
-                            cs2.SetField("ccguild", feature.addonGuid);
+                            cs2.SetField("ccguid", feature.addonGuid);
                         }
                     }
                     cs2.Close();
@@ -541,7 +542,7 @@ namespace adminFramework
                         if (string.IsNullOrEmpty(feature.parentFeatureGuid))
                         {
                             feature.parentFeatureGuid = CP.Utils.CreateGuid();
-                            cs2.SetField("ccguild", feature.parentFeatureGuid);
+                            cs2.SetField("ccguid", feature.parentFeatureGuid);
                         }
                     }
                     cs2.Close();
@@ -776,6 +777,7 @@ namespace adminFramework
             }
             catch (Exception ex)
             {
+                CP.Site.ErrorReport(ex, "adminFramework.portalClass.getFeatureList exception");
             }
             return returnBody;
         }

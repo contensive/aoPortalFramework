@@ -128,6 +128,8 @@ namespace adminFramework
             //
             // initialize - setup Db and/or read Db values
             //
+            reportDbInit(cp);
+            //
             if (!localFrameRqsSet)
             {
                 refreshQueryString = cp.Doc.RefreshQueryString;
@@ -508,11 +510,11 @@ namespace adminFramework
                 localFrameRqsSet = true;
             }
         }
-        //
-        //-------------------------------------------------
-        // Guid
-        //-------------------------------------------------
-        //
+        ////
+        ////-------------------------------------------------
+        //// Guid
+        ////-------------------------------------------------
+        ////
         public string guid
         {
             get
@@ -883,6 +885,9 @@ namespace adminFramework
         //
         public reportListClass(CPBaseClass cp)
         {
+        }
+        private void reportDbInit(CPBaseClass cp)
+        {
             try
             {
                 int colPtr;
@@ -895,7 +900,7 @@ namespace adminFramework
                 bool colVisible = true;
                 bool colDownloadable = true;
                 string textVisible = "";
-                string textDownloadable = "";
+                //string textDownloadable = "";
                 CPCSBaseClass cs = cp.CSNew();
                 int reportId;
                 string sqlCriteria;
@@ -1007,5 +1012,6 @@ namespace adminFramework
             }
 
         }
+
     }
 }
