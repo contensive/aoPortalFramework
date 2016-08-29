@@ -919,12 +919,12 @@ namespace adminFramework
                         cs.SetField("ccguid", localGuid);
                         cs.SetField("name", localName );
                         cs.SetField("title", localTitle);
-                        cs.SetField("description", localDescription);
+                        //cs.SetField("description", localDescription);
                     }
                     reportId = cs.GetInteger("id");
                     localName = cs.GetText("name");
                     localTitle = cs.GetText("title");
-                    localDescription = cs.GetText("description");
+                    //localDescription = cs.GetText("description");
                     // tmp solution for reports created with a name and no title
                     if((localTitle=="")&&(localName!=""))
                     {
