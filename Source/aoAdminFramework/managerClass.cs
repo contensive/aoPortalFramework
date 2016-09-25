@@ -127,8 +127,6 @@ namespace adminFramework
 			string returnHtml = "";
 			//
 			try {
-				//Return "test 1"
-				//Exit Function
 				if (!CP.User.IsAdmin) {
 					returnHtml = blockedMessage;
 				} else {
@@ -141,9 +139,6 @@ namespace adminFramework
 					portalFeatureDataClass feature;
 					int portalid = CP.Doc.GetInteger(rnPortalId);
                     string activeNavHeading = "";
-                    //string qs;
-                    //string items = "";
-                    //string qs = "";
                     //
 					// build portal
 					//
@@ -285,6 +280,10 @@ namespace adminFramework
                                     }
                                 }
                             }
+                            if (feature.addPadding)
+                            {
+                                body = CP.Html.div(body, "", "afwBodyPad", "");
+                            }
                         }
                     }
 					if (string.IsNullOrEmpty(body)) {
@@ -299,6 +298,10 @@ namespace adminFramework
                             CP.Doc.SetProperty(rnFrameRqs, frameRqs);
                             CP.Doc.AddRefreshQueryString(rnDstFeatureGuid, feature.guid);
                             body = CP.Utils.ExecuteAddon(feature.addonId.ToString());
+                            if (feature.addPadding)
+                            {
+                                body = CP.Html.div(body, "", "afwBodyPad", "");
+                            }
                         }
                         if(string.IsNullOrEmpty(body))
                         {
@@ -373,7 +376,6 @@ namespace adminFramework
                     portal.guid = csMan.GetText("ccguid");
                     portal.id = csMan.GetInteger("id");
                     int portalDefaultFeatureId = csMan.GetInteger("defaultFeatureId");
-
                     defaultConfigJson = csMan.GetText("defaultConfigJson");
                     csMan.Close();
                     //
@@ -423,6 +425,7 @@ namespace adminFramework
                             feature.name = "Demo";
                             feature.parentFeatureId = 0;
                             feature.sortOrder = "";
+                            feature.addPadding = false;
                         }
                         else
                         {
@@ -492,6 +495,7 @@ namespace adminFramework
                 feature.name = csFeature.GetText("name");
                 feature.heading = csFeature.GetText("heading");
                 feature.sortOrder = csFeature.GetText("sortOrder");
+                feature.addPadding = csFeature.GetBoolean("addPadding");
                 if (string.IsNullOrEmpty(feature.heading))
                 {
                     feature.heading = feature.name;
@@ -809,5 +813,6 @@ namespace adminFramework
         public string dataContentGuid;
         public string addonGuid;
         public string sortOrder;
+        public bool addPadding;
     }
 }

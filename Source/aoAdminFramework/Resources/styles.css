@@ -6,6 +6,10 @@
 {
     background-color: #999;
 }
+#afw #afwBodyFrame 
+{
+    background-color: white;
+}
 #afw,#afw p,#afw div,#afw td,#afw li
 {
     font-family: arial;   
