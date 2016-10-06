@@ -165,7 +165,7 @@ namespace adminFramework
                             styleClass = " class=\"" + styleClass + "\"";
                         }
                         content = columns[colPtr].caption;
-                        sortField = content;
+                        sortField = columns[colPtr].name;
                         if (content == "")
                         {
                             content = "&nbsp;";
