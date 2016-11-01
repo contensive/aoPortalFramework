@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+    <metadata>
+        <id>Contensive.portalApi</id>
+        <version>1.0.0</version>
+        <title>Contensive Portal API</title>
+        <authors>Contensive</authors>
+        <owners>Contensive</owners>
+        <licenseUrl>http://clib.io/</licenseUrl>
+        <projectUrl>http://clib.io/portals</projectUrl>
+        <iconUrl>http://clib.io/img/ContensiveLogo2-385x60.png</iconUrl>
+        <requireLicenseAcceptance>false</requireLicenseAcceptance>
+        <description>This package installs references for the Contensive Portal API, making it easier to create portal collections.</description>
+        <releaseNotes>Initial public release.</releaseNotes>
+        <copyright>Copyright 2016</copyright>
+        <tags>Contensive,portal,dotnet,clib,cclib</tags>
+        <dependencies>
+            <dependency id="Contensive.clib" version="4.1.2" />
+        </dependencies>
+    </metadata>
+    <files>
+        <file src="bin\Debug\adminFramework.dll" target="lib\net35\adminFramework.dll" />
+        <file src="readme.txt" target="readme.txt" />
+    </files>
+</package>
