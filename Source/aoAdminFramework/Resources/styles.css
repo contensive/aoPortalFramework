@@ -249,6 +249,10 @@
     padding: 7px 5px 5px;
     vertical-align: middle;
 }
+#afw .afwFormRowValue .afwFormRowValueHelp
+{
+    margin: 10px 10px 10px 40px;
+}
 #afw .afwFormRowValue input[type="text"] 
 {
 	width: 200px;
