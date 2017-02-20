@@ -326,7 +326,7 @@ namespace adminFramework
                     CP.Doc.AddHeadJavascript(Properties.Resources.javascript);
                 }
 			} catch (Exception ex) {
-				CP.Site.ErrorReport(ex, "error in Contensive.Addons.aoAccountBilling.adminClass.execute");
+				CP.Site.ErrorReport(ex, "portalClass");
 			}
 			return returnHtml;
 		}
