@@ -75,27 +75,27 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="adminFrameworkReportsClass.cs" />
-    <Compile Include="commonClass.cs" />
-    <Compile Include="managerClass.cs" />
-    <Compile Include="pageWithNavClass.cs" />
-    <Compile Include="formNameValueRowsClass.cs" />
+    <Compile Include="Legacy\adminFrameworkReportsClass.cs" />
+    <Compile Include="Legacy\commonClass.cs" />
+    <Compile Include="Legacy\managerClass.cs" />
+    <Compile Include="Legacy\pageWithNavClass.cs" />
+    <Compile Include="Legacy\formNameValueRowsClass.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="reportBarChartClass.cs" />
-    <Compile Include="reportTimeLineChartClass.cs" />
-    <Compile Include="reportPieChartClass.cs" />
+    <Compile Include="Legacy\reportBarChartClass.cs" />
+    <Compile Include="Legacy\reportTimeLineChartClass.cs" />
+    <Compile Include="Legacy\reportPieChartClass.cs" />
     <Compile Include="Resource1.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>Resource1.resx</DependentUpon>
     </Compile>
-    <Compile Include="formSimpleClass.cs" />
-    <Compile Include="contentWithTabsClass.cs" />
-    <Compile Include="reportListClass.cs" />
+    <Compile Include="Legacy\formSimpleClass.cs" />
+    <Compile Include="Legacy\contentWithTabsClass.cs" />
+    <Compile Include="Legacy\reportListClass.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -133,6 +133,15 @@
       <ProductName>Windows Installer 3.1</ProductName>
       <Install>true</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="blank\" />
+    <Folder Include="Controllers\" />
+    <Folder Include="Interfaces\Addons\" />
+    <Folder Include="Interfaces\Events\" />
+    <Folder Include="Interfaces\Remotes\" />
+    <Folder Include="Models\" />
+    <Folder Include="Views\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>

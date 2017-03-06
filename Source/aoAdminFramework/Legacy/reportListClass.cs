@@ -262,7 +262,9 @@ namespace adminFramework
                                 {
                                     csvDownload += ",";
                                 }
-                                csvDownload += "\"" + localDownloadData[rowPtr, colPtr].Replace("\"", "\"\"") + "\"";
+                                if (!string.IsNullOrEmpty(localDownloadData[rowPtr, colPtr])) {
+                                    csvDownload += "\"" + localDownloadData[rowPtr, colPtr].Replace("\"", "\"\"") + "\"";
+                                }
                                 colPtrDownload += 1;
                             }
 
