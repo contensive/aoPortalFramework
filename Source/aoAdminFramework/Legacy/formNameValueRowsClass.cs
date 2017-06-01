@@ -33,6 +33,7 @@ namespace adminFramework
         {
             public string name;
             public string value;
+            public string help;
             public string htmlId;
         }
         rowStruct[] rows = new rowStruct[rowSize];
@@ -49,6 +50,36 @@ namespace adminFramework
         string localFormActionQueryString = "";
         bool localIncludeForm = false;
         bool localIsOuterContainer = false;
+        //
+        //-------------------------------------------------
+        //
+        public bool includeBodyPadding
+        {
+            get
+            {
+                return _includeBodyPadding;
+            }
+            set
+            {
+                _includeBodyPadding = value;
+            }
+        }
+        bool _includeBodyPadding = true;
+        //
+        //-------------------------------------------------
+        //
+        public bool includeBodyColor
+        {
+            get
+            {
+                return _includeBodyColor;
+            }
+            set
+            {
+                _includeBodyColor = value;
+            }
+        }
+        bool _includeBodyColor = true;
         //
         //-------------------------------------------------
         //
@@ -177,7 +208,7 @@ namespace adminFramework
         //
         public string getHtml(CPBaseClass cp)
         {
-            string s = "";
+            string result = "";
             int rowPtr = 0;
             int fieldSetPtr = 0;
             string row = "";
@@ -197,7 +228,7 @@ namespace adminFramework
             //
             if (localBody != "")
             {
-                s += localBody;
+                result += localBody;
                 /*
                 body += ""
                     + cr + "<div class=\"afwBodyColor\">"
@@ -214,10 +245,10 @@ namespace adminFramework
                 {
                     if (fieldSets[fieldSetPtr].rowOpen == rowPtr)
                     {
-                        s += cr + "<fieldset class=\"afwFieldSet\">";
+                        result += cr + "<fieldset class=\"afwFieldSet\">";
                         if (fieldSets[fieldSetPtr].caption != "")
                         {
-                            s += cr + "<legend>" + fieldSets[fieldSetPtr].caption + "</legend>";
+                            result += cr + "<legend>" + fieldSets[fieldSetPtr].caption + "</legend>";
                         }
                     }
                 }
@@ -227,8 +258,9 @@ namespace adminFramework
                 row += cr + cp.Html.div(rowName, "", "afwFormRowName", "");
                 rowValue = rows[rowPtr].value;
                 if (rowValue == "") rowValue = "&nbsp;";
+                if (!string.IsNullOrEmpty(rows[rowPtr].help)) rowValue += cr + cp.Html.div(rows[rowPtr].help, "", ".afwFormRowValuehelp");
                 row += cr + cp.Html.div(rowValue, "", "afwFormRowValue", "");
-                s += cr + cp.Html.div(row, "", "afwFormRow", rows[rowPtr].htmlId);
+                result += cr + cp.Html.div(row, "", "afwFormRow", rows[rowPtr].htmlId);
                 //
                 // check for fieldSetCloses
                 //
@@ -236,7 +268,7 @@ namespace adminFramework
                 {
                     if (fieldSets[fieldSetPtr].rowClose == rowPtr)
                     {
-                        s += cr + "</fieldset>";
+                        result += cr + "</fieldset>";
                     }
                 }
             }
@@ -245,15 +277,15 @@ namespace adminFramework
             //
             if (localDescription != "")
             {
-                s = cr + "<p id=\"afwDescription\">" + localDescription + "</p>" + s;
+                result = cr + "<p id=\"afwDescription\">" + localDescription + "</p>" + result;
             }
             if (localWarning != "")
             {
-                s = cr + "<div id=\"afwWarning\">" + localWarning + "</div>" + s;
+                result = cr + "<div id=\"afwWarning\">" + localWarning + "</div>" + result;
             }
             if (localTitle != "")
             {
-                s = cr + "<h2 id=\"afwTitle\">" + localTitle + "</h2>" + s;
+                result = cr + "<h2 id=\"afwTitle\">" + localTitle + "</h2>" + result;
             }
             //
             // add form
@@ -267,7 +299,7 @@ namespace adminFramework
                         + indent(localButtonList)
                         + cr + "</div>";
                 }
-                s = cr + cp.Html.Form(localButtonList + s + localButtonList + localHiddenList, "", "", "", localFormActionQueryString, "");
+                result = cr + cp.Html.Form(localButtonList + result + localButtonList + localHiddenList, "", "", "", localFormActionQueryString, "");
                 //body = ""
                 //    + cr + "<form action=\"" + localFormAction + "\" method=\"post\" enctype=\"MULTIPART/FORM-DATA\">"
                 //    + indent(localButtonList + body + localHiddenList)
@@ -276,8 +308,8 @@ namespace adminFramework
             //
             // body padding and color
             //
-            s = cp.Html.div(s, "",  "afwBodyPad", "");
-            s = cp.Html.div(s, "", "afwBodyColor", "");
+            if (_includeBodyPadding) { result = cp.Html.div(result, "", "afwBodyPad", ""); };
+            if (_includeBodyColor) { result = cp.Html.div(result, "", "afwBodyColor", ""); };
             //
             // if outer container, add styles and javascript
             //
@@ -285,12 +317,12 @@ namespace adminFramework
             {
                 cp.Doc.AddHeadJavascript(Properties.Resources.javascript);
                 cp.Doc.AddHeadStyle(Properties.Resources.styles);
-                s = ""
+                result = ""
                     + cr + "<div id=\"afw\">"
-                    + indent(s)
+                    + indent(result)
                     + cr + "</div>";
             }
-            return s;
+            return result;
         }
         //
         //-------------------------------------------------
@@ -452,6 +484,22 @@ namespace adminFramework
             {
                 checkRowCnt();
                 rows[rowCnt].value = value;
+            }
+        }
+        //
+        //-------------------------------------------------
+        //
+        public string rowHelp
+        {
+            get
+            {
+                checkRowCnt();
+                return rows[rowCnt].help;
+            }
+            set
+            {
+                checkRowCnt();
+                rows[rowCnt].help = value;
             }
         }
         //

@@ -29,6 +29,34 @@ namespace adminFramework
         //
         //-------------------------------------------------
         //
+        public bool includeBodyPadding
+        {
+            get
+            {
+                return _includeBodyPadding;
+            }
+            set
+            {
+                _includeBodyPadding = value;
+            }
+        }
+        bool _includeBodyPadding = true;
+        //
+        //-------------------------------------------------
+        //
+        public bool includeBodyColor
+        {
+            get
+            {
+                return _includeBodyColor;
+            }
+            set
+            {
+                _includeBodyColor = value;
+            }
+        }
+        bool _includeBodyColor = true;
+        //
         //-------------------------------------------------
         //
         public bool isOuterContainer
@@ -224,7 +252,7 @@ namespace adminFramework
         //
         public string getHtml(CPBaseClass cp)
         {
-            string s = "";
+            string result = "";
             string navList = "";
             string navItem = "";
             string userErrors;
@@ -241,7 +269,7 @@ namespace adminFramework
             //
             if (localTitle != "")
             {
-                s += cr + "<h2 class=\"afwManagerTitle\">" + localTitle + "</h2>";
+                result += cr + "<h2 class=\"afwManagerTitle\">" + localTitle + "</h2>";
             }
             //
             // build nav
@@ -272,7 +300,7 @@ namespace adminFramework
             }
             if (navList != "") 
             { 
-                s += ""
+                result += ""
                     + cr + "<ul class=\"afwNav\">"
                     + indent( navList )
                     + cr + "</ul>";
@@ -282,11 +310,11 @@ namespace adminFramework
             //
             if (localDescription != "")
             {
-                s += cr + "<div class=\"afwManagerDescription\">" + localDescription + "</div>";
+                result += cr + "<div class=\"afwManagerDescription\">" + localDescription + "</div>";
             }
             if (localWarning != "")
             {
-                s += cr + "<div id=\"afwWarning\">" + localWarning + "</div>";
+                result += cr + "<div id=\"afwWarning\">" + localWarning + "</div>";
             }
             //
             // body
@@ -296,13 +324,15 @@ namespace adminFramework
                 //
                 // body padding and color
                 //
-                s += cp.Html.div(localBody, "", "afwBodyPad", "");
-                /*
-                s += ""
-                    + cr + "<div class=\"afwBodyPad\">"
-                    + indent(  )
-                    + cr + "</ul>";
-                 */
+                if (_includeBodyPadding) { result = cp.Html.div(result, "", "afwBodyPad", ""); };
+                if (_includeBodyColor) { result = cp.Html.div(result, "", "afwBodyColor", ""); };
+                //s += cp.Html.div(localBody, "", "afwBodyPad", "");
+                ///*
+                //s += ""
+                //    + cr + "<div class=\"afwBodyPad\">"
+                //    + indent(  )
+                //    + cr + "</ul>";
+                // */
             }
             //
             // if outer container, add styles and javascript
@@ -311,12 +341,12 @@ namespace adminFramework
             {
                 cp.Doc.AddHeadJavascript(Properties.Resources.javascript);
                 cp.Doc.AddHeadStyle(Properties.Resources.styles);
-                s = ""
+                result = ""
                     + cr + "<div id=\"afw\">"
-                    + indent(s)
+                    + indent(result)
                     + cr + "</div>";
             }
-        return s;
+        return result;
         }
         //
         //-------------------------------------------------

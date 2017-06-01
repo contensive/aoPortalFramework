@@ -64,6 +64,34 @@ namespace adminFramework
         //
         //-------------------------------------------------
         //
+        public bool includeBodyPadding
+        {
+            get
+            {
+                return _includeBodyPadding;
+            }
+            set
+            {
+                _includeBodyPadding = value;
+            }
+        }
+        bool _includeBodyPadding = true;
+        //
+        //-------------------------------------------------
+        //
+        public bool includeBodyColor
+        {
+            get
+            {
+                return _includeBodyColor;
+            }
+            set
+            {
+                _includeBodyColor = value;
+            }
+        }
+        bool _includeBodyColor = true;
+        //
         //-------------------------------------------------
         //
         public bool isOuterContainer
@@ -371,8 +399,8 @@ namespace adminFramework
                 //    + indent(localButtonList + body + localHiddenList)
                 //    + cr + "</form>";
             }
-            s = new StringBuilder( cp.Html.div(s.ToString() , "", "afwBodyPad", ""));
-            s = new StringBuilder( cp.Html.div(s.ToString() , "", "afwBodyColor", ""));
+            if (_includeBodyPadding) { s = new StringBuilder(cp.Html.div(s.ToString(), "", "afwBodyPad", ""));  };
+            if (_includeBodyColor) { s = new StringBuilder(cp.Html.div(s.ToString(), "", "afwBodyColor", "")); };
             //
             // if outer container, add styles and javascript
             //

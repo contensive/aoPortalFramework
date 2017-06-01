@@ -62,6 +62,34 @@ namespace adminFramework
         //
         //-------------------------------------------------
         //
+        public bool includeBodyPadding
+        {
+            get
+            {
+                return _includeBodyPadding;
+            }
+            set
+            {
+                _includeBodyPadding = value;
+            }
+        }
+        bool _includeBodyPadding = true;
+        //
+        //-------------------------------------------------
+        //
+        public bool includeBodyColor
+        {
+            get
+            {
+                return _includeBodyColor;
+            }
+            set
+            {
+                _includeBodyColor = value;
+            }
+        }
+        bool _includeBodyColor = true;
+        //
         //-------------------------------------------------
         //
         public bool isOuterContainer
@@ -107,7 +135,7 @@ namespace adminFramework
         //
         public string getHtml(CPBaseClass cp)
         {
-            string returnHtml = "";
+            string result = "";
             string returnHeadJs = "";
             string gridRowList = "";
             int rowPtr = 0;
@@ -239,7 +267,7 @@ namespace adminFramework
                 + cr + "<div class=\"afwGridCon\">"
                 + indent(grid)
                 + cr + "</div>";
-            returnHtml = ""
+            result = ""
                 + cr + "<div class=\"afwChartCon\" style=\"width:" + localChartWidth + "px;\">"
                 + cr2 + "<div id=\"" + chartHtmlId + "\"></div>"
                 + cr + "</div>"
@@ -252,9 +280,9 @@ namespace adminFramework
             //    + indent(grid)
             //    + cr + "</div>"
             //    + "";
-            returnHtml = ""
+            result = ""
                 + cr + "<div class=\"afwPieCon\">"
-                + indent(returnHtml)
+                + indent(result)
                 + cr + "</div>"
                 + "";
             if (localFilterListItems != "")
@@ -265,27 +293,27 @@ namespace adminFramework
             }
             if (localHtmlLeftOfContent != "")
             {
-                returnHtml = ""
+                result = ""
                     + cr + "<div class=\"afwLeftSideHtml\">"
                     + indent(localHtmlLeftOfContent)
                     + cr + "</div>"
                     + cr + "<div class=\"afwRightSideHtml\">"
-                    + indent(returnHtml)
+                    + indent(result)
                     + cr + "</div>"
                     + cr + "<div style=\"clear:both\"></div>"
                     + "";
             }
             if (localHtmlBeforeContent != "")
             {
-                returnHtml = ""
+                result = ""
                     + localHtmlBeforeContent
-                    + returnHtml
+                    + result
                     + "";
             }
             if (localHtmlAfterContent != "")
             {
-                returnHtml = ""
-                    + returnHtml
+                result = ""
+                    + result
                     + localHtmlAfterContent
                     + "";
             }
@@ -294,15 +322,15 @@ namespace adminFramework
             //
             if (localDescription != "")
             {
-                returnHtml = cr + "<p id=\"afwDescription\">" + localDescription + "</p>" + returnHtml;
+                result = cr + "<p id=\"afwDescription\">" + localDescription + "</p>" + result;
             }
             if (localWarning != "")
             {
-                returnHtml = cr + "<div id=\"afwWarning\">" + localWarning + "</div>" + returnHtml;
+                result = cr + "<div id=\"afwWarning\">" + localWarning + "</div>" + result;
             }
             if (localTitle != "")
             {
-                returnHtml = cr + "<h2 id=\"afwTitle\">" + localTitle + "</h2>" + returnHtml;
+                result = cr + "<h2 id=\"afwTitle\">" + localTitle + "</h2>" + result;
             }
             //
             // add form
@@ -316,15 +344,15 @@ namespace adminFramework
                         + indent(localButtonList)
                         + cr + "</div>";
                 }
-                returnHtml = cr + cp.Html.Form(localButtonList + returnHtml + localButtonList + localHiddenList, "", "", "", localFormActionQueryString, "");
+                result = cr + cp.Html.Form(localButtonList + result + localButtonList + localHiddenList, "", "", "", localFormActionQueryString, "");
                 //body = ""
                 //    + cr + cp.Html.Form( localButtonList + body + localHiddenList )
                 //    + cr + "<form action=\"" + localFormAction + "\" method=\"post\" enctype=\"MULTIPART/FORM-DATA\">"
                 //    + indent(localButtonList + body + localHiddenList)
                 //    + cr + "</form>";
             }
-            returnHtml = cp.Html.div(returnHtml, "", "afwBodyPad", "");
-            returnHtml = cp.Html.div(returnHtml, "", "afwBodyColor", "");
+            if (_includeBodyPadding) { result = cp.Html.div(result, "", "afwBodyPad", ""); };
+            if (_includeBodyColor) { result = cp.Html.div(result, "", "afwBodyColor", ""); };
             returnHeadJs += ""
                 + cr + "function drawChart() {"
                 + cr2 + "var data = new google.visualization.DataTable();"
@@ -339,7 +367,7 @@ namespace adminFramework
                 + cr + "jQuery(document).ready(drawChart);"
                 + cr + "//google.setOnLoadCallback(drawChart);"
                 + cr + "";
-            returnHtml += "<script Language=\"JavaScript\" type=\"text/javascript\">" + returnHeadJs + "</script>";
+            result += "<script Language=\"JavaScript\" type=\"text/javascript\">" + returnHeadJs + "</script>";
             returnHeadJs = "";
             //
             // if outer container, add styles and javascript
@@ -347,15 +375,15 @@ namespace adminFramework
             if (localIsOuterContainer)
             {
                 cp.Doc.AddHeadStyle(Properties.Resources.styles);
-                returnHtml = ""
+                result = ""
                     + cr + "<div id=\"afw\">"
-                    + indent(returnHtml)
+                    + indent(result)
                     + cr + "</div>";
             }
             //cp.Doc.AddHeadTag("<script type=\"text/javascript\" src=\"https://www.google.com/jsapi\"></script>");
             //cp.Doc.AddHeadJavascript("alert('hello world')");
             cp.Doc.AddHeadJavascript(returnHeadJs);
-            return returnHtml;
+            return result;
         }
         //
         //-------------------------------------------------

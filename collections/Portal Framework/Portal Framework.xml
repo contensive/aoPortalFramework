@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="windows-1252"?>
 <Collection name="Portal Framework" guid="{87249F75-A065-4F2F-8DCD-FBBF2CA0DCCD}" system="No" updatable="Yes" blockNavigatorNode="No">
+	<HelpLink></HelpLink>
 	<Help></Help>
 	<Addon name="afw Legacy Resources" guid="{6A0FEACA-BBB0-40C0-90EC-594867C26621}" type="Add-on">
 		<Copy></Copy>
@@ -162,5 +163,7 @@
 		<Field Name="portalLinks" active="True" AdminOnly="False" Authorable="True" Caption="Include Link To" DeveloperOnly="False" EditSortPriority="1000" FieldType="ManyToMany" HTMLContent="False" IndexColumn="0" IndexSortDirection="" IndexSortOrder="0" IndexWidth="" RedirectID="" RedirectPath="" Required="False" TextBuffered="False" UniqueName="False" DefaultValue="" RSSTitle="False" RSSDescription="False" MemberSelectGroupID="0" EditTab="Portal Links" Scramble="False" LookupList="" NotEditable="False" Password="False" ReadOnly="False" ManyToManyRulePrimaryField="fromPortalId" ManyToManyRuleSecondaryField="toPortalId" IsModified="False" IsBaseField="False" LookupContent="" RedirectContent="" ManyToManyContent="Portals" ManyToManyRuleContent="Portal Links" ></Field>
 	</CDef>
 	<ImportCollection name="Google jsapi">{B071E394-A381-41E2-B3F9-7E2CC509A8C5}</ImportCollection>
+	<ImportCollection name="JQuery">{A435BF70-041B-43D1-8A8D-5D9D59A7FCD0}</ImportCollection>
+	<ImportCollection name="jQuery BlockUI">{A7AFC023-DF2A-4CB3-BD0F-FAA9DA521901}</ImportCollection>
 	<Resource name="adminframework.dll" type="executable" path="" />
 </Collection>

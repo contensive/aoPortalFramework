@@ -69,6 +69,34 @@ namespace adminFramework
         //
         //-------------------------------------------------
         //
+        public bool includeBodyPadding
+        {
+            get
+            {
+                return _includeBodyPadding;
+            }
+            set
+            {
+                _includeBodyPadding = value;
+            }
+        }
+        bool _includeBodyPadding = true;
+        //
+        //-------------------------------------------------
+        //
+        public bool includeBodyColor
+        {
+            get
+            {
+                return _includeBodyColor;
+            }
+            set
+            {
+                _includeBodyColor = value;
+            }
+        }
+        bool _includeBodyColor = true;
+        //
         //-------------------------------------------------
         //
         public string yAxisCaption
@@ -146,7 +174,7 @@ namespace adminFramework
         //
         public string getHtml(CPBaseClass cp)
         {
-            string returnHtml = "";
+            string result = "";
             string row = "";
             string rowList = "";
             int rowPtr = 0;
@@ -195,7 +223,7 @@ namespace adminFramework
             jsonData = cr + "[" + jsonRow + "]";
             if (gridIncludeHeaderRow)
             {
-                returnHtml += ""
+                result += ""
                     + cr + "<thead>"
                     + cr2 + "<tr>"
                     + indent(indent(rowList))
@@ -274,47 +302,47 @@ namespace adminFramework
                         + cr + "</tr>";
                 }
             }
-            returnHtml += ""
+            result += ""
                 + cr + "<tbody>"
                 + indent(rowList)
                 + cr + "</tbody>"
                 + "";
-            returnHtml = ""
+            result = ""
                 + cr + "<table class=\"afwListReportTableCollapse\">"
-                + indent(returnHtml)
+                + indent(result)
                 + cr + "</table>";
-            returnHtml = ""
+            result = ""
                 + cr + "<div class=\"afwGridCon\">"
-                + indent(returnHtml)
+                + indent(result)
                 + cr + "</div>";
             //
             // bar chart
             //
-            returnHtml = cr + "<div id=\"" + chartHtmlId + "\" class=\"afwChartCon\" style=\"width:" + localChartWidth.ToString() + "px; height:" + localChartHeight.ToString() + "px;\"></div>" + returnHtml;
+            result = cr + "<div id=\"" + chartHtmlId + "\" class=\"afwChartCon\" style=\"width:" + localChartWidth.ToString() + "px; height:" + localChartHeight.ToString() + "px;\"></div>" + result;
             //
             if (localHtmlLeftOfTable != "")
             {
-                returnHtml = ""
+                result = ""
                     + cr + "<div class=\"afwLeftSideHtml\">"
                     + indent(localHtmlLeftOfTable)
                     + cr + "</div>"
                     + cr + "<div class=\"afwRightSideHtml\">"
-                    + indent(returnHtml)
+                    + indent(result)
                     + cr + "</div>"
                     + cr + "<div style=\"clear:both\"></div>"
                     + "";
             }
             if (localHtmlBeforeTable != "")
             {
-                returnHtml = ""
+                result = ""
                     + localHtmlBeforeTable
-                    + returnHtml
+                    + result
                     + "";
             }
             if (localHtmlAfterTable != "")
             {
-                returnHtml = ""
-                    + returnHtml
+                result = ""
+                    + result
                     + localHtmlAfterTable
                     + "";
             }
@@ -323,15 +351,15 @@ namespace adminFramework
             //
             if (localDescription != "")
             {
-                returnHtml = cr + "<p id=\"afwDescription\">" + localDescription + "</p>" + returnHtml;
+                result = cr + "<p id=\"afwDescription\">" + localDescription + "</p>" + result;
             }
             if (localWarning != "")
             {
-                returnHtml = cr + "<div id=\"afwWarning\">" + localWarning + "</div>" + returnHtml;
+                result = cr + "<div id=\"afwWarning\">" + localWarning + "</div>" + result;
             }
             if (localTitle != "")
             {
-                returnHtml = cr + "<h2 id=\"afwTitle\">" + localTitle + "</h2>" + returnHtml;
+                result = cr + "<h2 id=\"afwTitle\">" + localTitle + "</h2>" + result;
             }
             //
             // add form
@@ -345,15 +373,15 @@ namespace adminFramework
                         + indent(localButtonList)
                         + cr + "</div>";
                 }
-                returnHtml = cr + cp.Html.Form(localButtonList + returnHtml + localButtonList + localHiddenList, "", "", "", localFormActionQueryString, "");
+                result = cr + cp.Html.Form(localButtonList + result + localButtonList + localHiddenList, "", "", "", localFormActionQueryString, "");
                 //body = ""
                 //    + cr + cp.Html.Form( localButtonList + body + localHiddenList )
                 //    + cr + "<form action=\"" + localFormAction + "\" method=\"post\" enctype=\"MULTIPART/FORM-DATA\">"
                 //    + indent(localButtonList + body + localHiddenList)
                 //    + cr + "</form>";
             }
-            returnHtml = cp.Html.div(returnHtml, "", "afwBodyPad", "");
-            returnHtml = cp.Html.div(returnHtml, "", "afwBodyColor", "");
+            if (_includeBodyPadding) { result = cp.Html.div(result, "", "afwBodyPad", ""); };
+            if (_includeBodyColor) { result = cp.Html.div(result, "", "afwBodyColor", ""); };
             //
             // if outer container, add styles and javascript
             //
@@ -361,9 +389,9 @@ namespace adminFramework
             {
                 cp.Doc.AddHeadJavascript(Properties.Resources.javascript);
                 cp.Doc.AddHeadStyle(Properties.Resources.styles);
-                returnHtml = ""
+                result = ""
                     + cr + "<div id=\"afw\">"
-                    + indent(returnHtml)
+                    + indent(result)
                     + cr + "</div>";
             }
             returnHeadJs += ""
@@ -375,10 +403,10 @@ namespace adminFramework
                 + cr + "var chart = new google.visualization.ColumnChart(document.getElementById('" + chartHtmlId + "'));"
                 + cr + "chart.draw(data, options);"
                 + cr + "}";
-            returnHtml += "<script Language=\"JavaScript\" type=\"text/javascript\">" + returnHeadJs + "</script>";
+            result += "<script Language=\"JavaScript\" type=\"text/javascript\">" + returnHeadJs + "</script>";
             returnHeadJs = "";
             //cp.Doc.AddHeadJavascript(returnHeadJs);
-            return returnHtml;
+            return result;
         }
         //
         //-------------------------------------------------
