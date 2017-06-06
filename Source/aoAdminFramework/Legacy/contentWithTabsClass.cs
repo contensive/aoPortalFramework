@@ -248,7 +248,7 @@ namespace adminFramework
         //
         public string getHtml(CPBaseClass cp)
         {
-            string s = "";
+            string result = "";
             string list = "";
             string item = "";
             string userErrors;
@@ -294,7 +294,7 @@ namespace adminFramework
             }
             if (list != "")
             {
-                s += ""
+                result += ""
                     + cr + "<ul class=\"afwBodyTabs\">"
                     + indent(list)
                     + cr + "</ul>";
@@ -304,23 +304,23 @@ namespace adminFramework
             //
             if (localDescription != "")
             {
-                s = cr + "<p id=\"afwDescription\">" + localDescription + "</p>" + s;
+                result = cr + "<p id=\"afwDescription\">" + localDescription + "</p>" + result;
             }
             if (localWarning != "")
             {
-                s = cr + "<div id=\"afwWarning\">" + localWarning + "</div>" + s;
+                result = cr + "<div id=\"afwWarning\">" + localWarning + "</div>" + result;
             }
             if (localTitle != "")
             {
-                s = cr + "<h2 id=\"afwTitle\">" + localTitle + "</h2>" + s;
+                result = cr + "<h2 id=\"afwTitle\">" + localTitle + "</h2>" + result;
             }
             if (localBody != "")
             {
-                s += localBody;
+                result += localBody;
             }
-            s = ""
+            result = ""
                 + cr + "<div class=\"afwTabbedBody\">"
-                + indent(s)
+                + indent(result)
                 + cr + "</div>";
             //
             // if outer container, add styles and javascript
@@ -329,12 +329,12 @@ namespace adminFramework
             {
                 cp.Doc.AddHeadJavascript(Properties.Resources.javascript);
                 cp.Doc.AddHeadStyle(Properties.Resources.styles);
-                s = ""
+                result = ""
                     + cr + "<div id=\"afw\">"
-                    + indent(s)
+                    + indent(result)
                     + cr + "</div>";
             }
-            return s;
+            return result;
         }
         //
         //-------------------------------------------------

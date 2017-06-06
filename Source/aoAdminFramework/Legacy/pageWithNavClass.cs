@@ -55,7 +55,7 @@ namespace adminFramework
                 _includeBodyColor = value;
             }
         }
-        bool _includeBodyColor = true;
+        bool _includeBodyColor = false;
         //
         //-------------------------------------------------
         //
@@ -324,8 +324,9 @@ namespace adminFramework
                 //
                 // body padding and color
                 //
-                if (_includeBodyPadding) { result = cp.Html.div(result, "", "afwBodyPad", ""); };
-                if (_includeBodyColor) { result = cp.Html.div(result, "", "afwBodyColor", ""); };
+                if (_includeBodyPadding) { localBody = cp.Html.div(localBody, "", "afwBodyPad", ""); };
+                if (_includeBodyColor) { localBody = cp.Html.div(localBody, "", "afwBodyColor", ""); };
+                result += localBody;
                 //s += cp.Html.div(localBody, "", "afwBodyPad", "");
                 ///*
                 //s += ""
