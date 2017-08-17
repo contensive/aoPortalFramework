@@ -738,10 +738,10 @@ namespace adminFramework
         /// <summary>
         /// create a feature list box
         /// </summary>
-        /// <param name="CP"></param>
+        /// <param name="cp"></param>
         /// <param name="feature"></param>
         /// <returns></returns>
-        string getFeatureList(CPBaseClass CP, portalDataClass portal,  portalFeatureDataClass feature, string frameRqs )
+        string getFeatureList(CPBaseClass cp, portalDataClass portal,  portalFeatureDataClass feature, string frameRqs )
         {
             string returnBody = "";
             string items = "";
@@ -763,27 +763,36 @@ namespace adminFramework
                         }
                         if (liFeature.dataContentId != 0)
                         {
-                            qs = frameRqs;
-                            qs = CP.Utils.ModifyQueryString(qs, "addonid", "", false);
-                            qs = CP.Utils.ModifyQueryString(qs, rnDstFeatureGuid, "", false);
-                            qs = CP.Utils.ModifyQueryString(qs, "cid", liFeature.dataContentId.ToString());
-                            items += "<li><a target=\"_blank\" href=\"?" + qs + "\">" + featureHeading + "</a></li>";
+                            //
+                            // -- display content button if content is not developeronly, or if this is a developer
+                            Models.contentModel featureContent = Models.contentModel.create(cp, liFeature.dataContentId);
+                            if (featureContent != null)
+                            {
+                                if ((!featureContent.DeveloperOnly) || (cp.User.IsDeveloper))
+                                {
+                                    qs = frameRqs;
+                                    qs = cp.Utils.ModifyQueryString(qs, "addonid", "", false);
+                                    qs = cp.Utils.ModifyQueryString(qs, rnDstFeatureGuid, "", false);
+                                    qs = cp.Utils.ModifyQueryString(qs, "cid", liFeature.dataContentId.ToString());
+                                    items += "<li><a target=\"_blank\" href=\"?" + qs + "\">" + featureHeading + "</a></li>";
+                                }
+                            }
                         }
                         else
                         {
                             qs = frameRqs;
-                            qs = CP.Utils.ModifyQueryString(qs, rnDstFeatureGuid, liFeature.guid);
+                            qs = cp.Utils.ModifyQueryString(qs, rnDstFeatureGuid, liFeature.guid);
                             items += "<li><a href=\"?" + qs + "\">" + featureHeading + "</a></li>";
                         }
                     }
                 }
                 content.title = feature.heading;
                 content.body = "<ul class=\"afwButtonList\">" + items + "</ul>";
-                returnBody = content.getHtml(CP);
+                returnBody = content.getHtml(cp);
             }
             catch (Exception ex)
             {
-                CP.Site.ErrorReport(ex, "adminFramework.portalClass.getFeatureList exception");
+                cp.Site.ErrorReport(ex, "adminFramework.portalClass.getFeatureList exception");
             }
             return returnBody;
         }

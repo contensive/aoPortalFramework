@@ -81,6 +81,9 @@
     <Compile Include="Legacy\managerClass.cs" />
     <Compile Include="Legacy\pageWithNavClass.cs" />
     <Compile Include="Legacy\formNameValueRowsClass.cs" />
+    <Compile Include="Models\baseModel.cs" />
+    <Compile Include="Models\contentModel.cs" />
+    <Compile Include="Models\_blankModel.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -142,8 +145,10 @@
     <Folder Include="Interfaces\Addons\" />
     <Folder Include="Interfaces\Events\" />
     <Folder Include="Interfaces\Remotes\" />
-    <Folder Include="Models\" />
     <Folder Include="Views\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Models\modelData.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>
