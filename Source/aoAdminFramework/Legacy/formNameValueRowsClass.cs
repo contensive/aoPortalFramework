@@ -258,7 +258,7 @@ namespace adminFramework
                 row += cr + cp.Html.div(rowName, "", "afwFormRowName", "");
                 rowValue = rows[rowPtr].value;
                 if (rowValue == "") rowValue = "&nbsp;";
-                if (!string.IsNullOrEmpty(rows[rowPtr].help)) rowValue += cr + cp.Html.div(rows[rowPtr].help, "", ".afwFormRowValuehelp");
+                if (!string.IsNullOrEmpty(rows[rowPtr].help)) rowValue += cr + cp.Html.div(rows[rowPtr].help, "", "afwFormRowValuehelp");
                 row += cr + cp.Html.div(rowValue, "", "afwFormRowValue", "");
                 result += cr + cp.Html.div(row, "", "afwFormRow", rows[rowPtr].htmlId);
                 //
