@@ -109,6 +109,10 @@
     border-color: #27c;
     color: #fff;
 }
+#afw .afwButton.afwButtonDisable {
+    color: #bbb;
+    background-color: #eee;
+}
 #afw .afwBodyPad 
 {
 	clear: both;
