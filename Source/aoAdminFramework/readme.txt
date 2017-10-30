@@ -1,1 +1,1 @@
-The Contensive Portal Framework (aka AdminFramework) is an interface to help create Portals. A portal is a group of addons and functionalities that might be helpful as a collection.
+Portal Framework (aka AdminFramework) is an interface to help create Admin Portals. A portal is a group of addons and functionalities.

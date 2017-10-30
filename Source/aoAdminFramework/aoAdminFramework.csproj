@@ -62,12 +62,12 @@
     <SignAssembly>true</SignAssembly>
   </PropertyGroup>
   <PropertyGroup>
-    <AssemblyOriginatorKeyFile>adminFrameword.snk</AssemblyOriginatorKeyFile>
+    <AssemblyOriginatorKeyFile>adminFramework-1-0-12.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="CPBase, Version=4.1.2.0, Culture=neutral, PublicKeyToken=10b3c53389b845fb, processorArchitecture=MSIL">
       <HintPath>..\packages\contensive.clib.4.1.2\lib\net35\CPBase.dll</HintPath>
-      <Private>True</Private>
+      <Private>False</Private>
     </Reference>
     <Reference Include="Microsoft.VisualBasic" />
     <Reference Include="System" />
@@ -116,6 +116,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="adminFrameword.snk" />
+    <None Include="adminFramework-1-0-12.snk" />
     <None Include="packages.config" />
     <None Include="Resources\styles.css" />
   </ItemGroup>
@@ -157,7 +158,9 @@
     </VisualStudio>
   </ProjectExtensions>
   <PropertyGroup>
-    <PostBuildEvent>copy "$(TargetDir)*.dll" "C:\Program Files (x86)\kma\Contensive\Addons"</PostBuildEvent>
+    <PostBuildEvent>copy "$(TargetDir)*.dll" "C:\Program Files (x86)\kma\Contensive\Addons"
+copy "$(TargetDir)*.dll" "C:\ProgramData\Contensive\AddonAssemblyBypass"
+</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
