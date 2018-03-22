@@ -23,6 +23,7 @@ namespace adminFramework
             public bool visible;
             public bool downloadable;
         }
+        bool ReportTooLong = false;
         columnStruct[] columns = new columnStruct[columnSize];
         bool formIncludeHeader = false;
         //
@@ -61,6 +62,18 @@ namespace adminFramework
         bool[] localExcludeRowFromDownload = new bool[rowSize];
         //
         bool localIsOuterContainer = false;
+        //
+        //-------------------------------------------------
+        /// <summary>
+        /// The maximum number of rows allowed
+        /// </summary>
+        public int reportRowLimit
+        {
+            get
+            {
+                return rowSize;
+            }
+        }
         //
         //-------------------------------------------------
         //
@@ -137,7 +150,7 @@ namespace adminFramework
         //
         public string getHtml(CPBaseClass cp)
         {
-            StringBuilder s = new StringBuilder( "" );
+            StringBuilder s = new StringBuilder("");
             string row = "";
             StringBuilder rowList = new StringBuilder("");
             int rowPtr = 0;
@@ -148,7 +161,7 @@ namespace adminFramework
             string userErrors;
             string sortLink;
             string columnSort = cp.Doc.GetText("columnSort");
-            string sortField="";
+            string sortField = "";
             string csvDownload = "";
             CPCSBaseClass cs = cp.CSNew();
             string csvFilename = "";
@@ -172,8 +185,8 @@ namespace adminFramework
             //
             // add user errors
             //
-            userErrors = cp.Utils.EncodeText(  cp.UserError.GetList());
-            if ( userErrors!="")
+            userErrors = cp.Utils.EncodeText(cp.UserError.GetList());
+            if (userErrors != "")
             {
                 warning = userErrors;
             }
@@ -214,16 +227,16 @@ namespace adminFramework
                             }
                             content = "<a href=\"" + sortLink + "\">" + content + "</a>";
                         }
-                        rowList.Append( cr + "<th" + styleClass + ">" + content + "</th>" );
+                        rowList.Append(cr + "<th" + styleClass + ">" + content + "</th>");
                     }
                 }
-                s.Append (""
+                s.Append(""
                     + cr + "<thead>"
                     + cr2 + "<tr>"
-                    + indent(indent(rowList.ToString() ))
+                    + indent(indent(rowList.ToString()))
                     + cr2 + "</tr>"
                     + cr + "</thead>"
-                    + "" );
+                    + "");
                 if (localAddCsvDownloadCurrentPage)
                 {
                     colPtrDownload = 0;
@@ -247,7 +260,7 @@ namespace adminFramework
             //
             // body
             //
-            rowList = new StringBuilder( "" );
+            rowList = new StringBuilder("");
             if (localIsEmptyReport)
             {
                 styleClass = columns[0].cellClass;
@@ -255,14 +268,29 @@ namespace adminFramework
                 {
                     styleClass = " class=\"" + styleClass + "\"";
                 }
-                row = cr + "<td style=\"text-align:left\" " + styleClass + " colspan=\"" + (columnMax+1) + "\">[empty]</td>";
-                rowList.Append( ""
+                row = cr + "<td style=\"text-align:left\" " + styleClass + " colspan=\"" + (columnMax + 1) + "\">[empty]</td>";
+                rowList.Append(""
                     + cr + "<tr>"
                     + indent(row)
-                    + cr + "</tr>" );
+                    + cr + "</tr>");
+            }
+            else if (ReportTooLong)
+            {
+                // -- report is too long
+                styleClass = columns[0].cellClass;
+                if (styleClass != "")
+                {
+                    styleClass = " class=\"" + styleClass + "\"";
+                }
+                row = cr + "<td style=\"text-align:left\" " + styleClass + " colspan=\"" + (columnMax + 1) + "\">There are too many rows in this report. Please consider filtering the data.</td>";
+                rowList.Append(""
+                    + cr + "<tr>"
+                    + indent(row)
+                    + cr + "</tr>");
             }
             else
             {
+                // -- display th report
                 for (rowPtr = 0; rowPtr <= rowCnt; rowPtr++)
                 {
                     row = "";
@@ -290,7 +318,8 @@ namespace adminFramework
                                 {
                                     csvDownload += ",";
                                 }
-                                if (!string.IsNullOrEmpty(localDownloadData[rowPtr, colPtr])) {
+                                if (!string.IsNullOrEmpty(localDownloadData[rowPtr, colPtr]))
+                                {
                                     csvDownload += "\"" + localDownloadData[rowPtr, colPtr].Replace("\"", "\"\"") + "\"";
                                 }
                                 colPtrDownload += 1;
@@ -303,14 +332,14 @@ namespace adminFramework
                     {
                         styleClass += " afwOdd";
                     }
-                    if (styleClass != "" )
+                    if (styleClass != "")
                     {
                         styleClass = " class=\"" + styleClass + "\"";
                     }
-                    rowList.Append( ""
+                    rowList.Append(""
                         + cr + "<tr" + styleClass + ">"
                         + indent(row)
-                        + cr + "</tr>" );
+                        + cr + "</tr>");
                 }
             }
 
@@ -323,21 +352,21 @@ namespace adminFramework
                     cs.SetField("Name", "Export: " + localTitle + ", " + rightNow.ToShortDateString());
                     cs.SetField("command", "BuildCSV");
                     cs.SetField("filename", csvFilename);
-                    cs.SetField( "DateCompleted", rightNow.ToShortDateString());
+                    cs.SetField("DateCompleted", rightNow.ToShortDateString());
                     cs.SetField("DateStarted", rightNow.ToShortDateString());
                     cs.SetField("ResultMessage", "OK");
                 }
                 cs.Close();
             }
-            s.Append( ""
+            s.Append(""
                 + cr + "<tbody>"
-                + indent(rowList.ToString() )
+                + indent(rowList.ToString())
                 + cr + "</tbody>"
-                + "" );
-            s = new StringBuilder( ""
+                + "");
+            s = new StringBuilder(""
                 + cr + "<table class=\"afwListReportTable\">"
                 + indent(s.ToString())
-                + cr + "</table>" );
+                + cr + "</table>");
             if (localHtmlLeftOfTable != "")
             {
                 s = new StringBuilder(""
@@ -355,7 +384,7 @@ namespace adminFramework
                 s = new StringBuilder(""
                     + localHtmlBeforeTable
                     + s.ToString()
-                    + "") ;
+                    + "");
             }
             if (localHtmlAfterTable != "")
             {
@@ -366,19 +395,19 @@ namespace adminFramework
             //
             if (localAddCsvDownloadCurrentPage)
             {
-                s = new StringBuilder( cr + "<p id=\"afwDescription\"><a href=\"" + cp.Site.FilePath + csvFilename + "\">Click here</a> to download the data, or access it in the future from the <a href=\"?af=30\">Download Manager</a>.</p>" + s.ToString()  );
+                s = new StringBuilder(cr + "<p id=\"afwDescription\"><a href=\"" + cp.Site.FilePath + csvFilename + "\">Click here</a> to download the data, or access it in the future from the <a href=\"?af=30\">Download Manager</a>.</p>" + s.ToString());
             }
             if (localDescription != "")
             {
-                s = new StringBuilder( cr + "<p id=\"afwDescription\">" + localDescription + "</p>" + s.ToString());
+                s = new StringBuilder(cr + "<p id=\"afwDescription\">" + localDescription + "</p>" + s.ToString());
             }
             if (localWarning != "")
             {
-                s = new StringBuilder( cr + "<div id=\"afwWarning\">" + localWarning + "</div>" + s.ToString());
+                s = new StringBuilder(cr + "<div id=\"afwWarning\">" + localWarning + "</div>" + s.ToString());
             }
             if (localTitle != "")
             {
-                s = new StringBuilder( cr + "<h2 id=\"afwTitle\">" + localTitle + "</h2>" + s.ToString()) ;
+                s = new StringBuilder(cr + "<h2 id=\"afwTitle\">" + localTitle + "</h2>" + s.ToString());
             }
             //
             // add form
@@ -392,14 +421,14 @@ namespace adminFramework
                         + indent(localButtonList)
                         + cr + "</div>";
                 }
-                s = new StringBuilder( cr + cp.Html.Form(  localButtonList + s.ToString()  + localButtonList + localHiddenList, "", "",  "",  localFormActionQueryString, ""));
+                s = new StringBuilder(cr + cp.Html.Form(localButtonList + s.ToString() + localButtonList + localHiddenList, "", "", "", localFormActionQueryString, ""));
                 //body = ""
                 //    + cr + cp.Html.Form( localButtonList + body + localHiddenList )
                 //    + cr + "<form action=\"" + localFormAction + "\" method=\"post\" enctype=\"MULTIPART/FORM-DATA\">"
                 //    + indent(localButtonList + body + localHiddenList)
                 //    + cr + "</form>";
             }
-            if (_includeBodyPadding) { s = new StringBuilder(cp.Html.div(s.ToString(), "", "afwBodyPad", ""));  };
+            if (_includeBodyPadding) { s = new StringBuilder(cp.Html.div(s.ToString(), "", "afwBodyPad", "")); };
             if (_includeBodyColor) { s = new StringBuilder(cp.Html.div(s.ToString(), "", "afwBodyColor", "")); };
             //
             // if outer container, add styles and javascript
@@ -408,12 +437,12 @@ namespace adminFramework
             {
                 cp.Doc.AddHeadJavascript(Properties.Resources.javascript);
                 cp.Doc.AddHeadStyle(Properties.Resources.styles);
-                s = new StringBuilder(  ""
+                s = new StringBuilder(""
                     + cr + "<div id=\"afw\">"
-                    + indent(s.ToString() )
-                    + cr + "</div>" );
+                    + indent(s.ToString())
+                    + cr + "</div>");
             }
-            return s.ToString() ;
+            return s.ToString();
         }
         //
         //-------------------------------------------------
@@ -776,7 +805,7 @@ namespace adminFramework
                 columns[columnPtr].captionClass = "";
                 columns[columnPtr].cellClass = "";
                 columns[columnPtr].sortable = false;
-                columns[columnPtr].visible = true ;
+                columns[columnPtr].visible = true;
                 columns[columnPtr].downloadable = true;
                 if (columnPtr > columnMax)
                 {
@@ -792,11 +821,15 @@ namespace adminFramework
         public void addRow()
         {
             localIsEmptyReport = false;
-            if (rowCnt < rowSize)
+            if (rowCnt < (rowSize + 1))
             {
                 rowCnt += 1;
                 localExcludeRowFromDownload[rowCnt] = false;
                 localRowClasses[rowCnt] = "";
+            }
+            else
+            {
+                ReportTooLong = true;
             }
             checkColumnPtr();
             columnPtr = 0;
@@ -822,13 +855,13 @@ namespace adminFramework
             }
         }
 
-        
+
         //
         //-------------------------------------------------
         // add a row class
         //-------------------------------------------------
         //
-        public void addRowClass( string styleClass )
+        public void addRowClass(string styleClass)
         {
             localIsEmptyReport = false;
             checkColumnPtr();
@@ -846,11 +879,14 @@ namespace adminFramework
         }
         public void setCell(string reportContent, string downloadContent)
         {
-            localIsEmptyReport = false;
-            checkColumnPtr();
-            checkRowCnt();
-            localReportCells[rowCnt, columnPtr] = reportContent;
-            localDownloadData[rowCnt, columnPtr] = downloadContent;
+            if (!ReportTooLong)
+            {
+                localIsEmptyReport = false;
+                checkColumnPtr();
+                checkRowCnt();
+                localReportCells[rowCnt, columnPtr] = reportContent;
+                localDownloadData[rowCnt, columnPtr] = downloadContent;
+            }
             if (columnPtr < columnMax)
             {
                 columnPtr += 1;
@@ -926,7 +962,7 @@ namespace adminFramework
                 string colSortOrder;
                 string colCaptionClass;
                 string colCellClass;
-                bool colSortable = false ;
+                bool colSortable = false;
                 bool colVisible = true;
                 bool colDownloadable = true;
                 string textVisible = "";
@@ -941,13 +977,13 @@ namespace adminFramework
                     if (!cs.Open("Admin Framework Reports", sqlCriteria))
                     {
                         cs.Close();
-                        if(localName=="")
+                        if (localName == "")
                         {
-                            localName=localTitle;
+                            localName = localTitle;
                         }
                         cs.Insert("Admin Framework reports");
                         cs.SetField("ccguid", localGuid);
-                        cs.SetField("name", localName );
+                        cs.SetField("name", localName);
                         cs.SetField("title", localTitle);
                         //cs.SetField("description", localDescription);
                     }
@@ -956,7 +992,7 @@ namespace adminFramework
                     localTitle = cs.GetText("title");
                     //localDescription = cs.GetText("description");
                     // tmp solution for reports created with a name and no title
-                    if((localTitle=="")&&(localName!=""))
+                    if ((localTitle == "") && (localName != ""))
                     {
                         localTitle = localName;
                     }
@@ -1018,7 +1054,7 @@ namespace adminFramework
                                 }
                                 else
                                 {
-                                    columns[colPtr].visible = cp.Utils.EncodeBoolean(  textVisible);
+                                    columns[colPtr].visible = cp.Utils.EncodeBoolean(textVisible);
                                 }
                                 // for another day
                                 //textDownloadable = cs.GetText("downloadable");
@@ -1035,8 +1071,8 @@ namespace adminFramework
                         }
                     }
                 }
-            } 
-            catch(Exception ex) 
+            }
+            catch (Exception ex)
             {
                 cp.Site.ErrorReport(ex, "Exception in reportListClass.init");
             }

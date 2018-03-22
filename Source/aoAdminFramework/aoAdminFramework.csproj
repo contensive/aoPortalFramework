@@ -67,7 +67,7 @@
   <ItemGroup>
     <Reference Include="CPBase, Version=4.1.2.0, Culture=neutral, PublicKeyToken=10b3c53389b845fb, processorArchitecture=MSIL">
       <HintPath>..\packages\contensive.clib.4.1.2\lib\net35\CPBase.dll</HintPath>
-      <Private>False</Private>
+      <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.VisualBasic" />
     <Reference Include="System" />
