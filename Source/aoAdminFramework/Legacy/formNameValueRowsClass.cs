@@ -5,10 +5,8 @@ using System.Collections.Generic;
 using System.Text;
 using Contensive.BaseClasses;
 
-namespace adminFramework
-{
-    public class formNameValueRowsClass
-    {
+namespace adminFramework {
+    public class formNameValueRowsClass {
         //
         const string cr = "\r\n\t";
         const string cr2 = cr + "\t";
@@ -16,8 +14,7 @@ namespace adminFramework
         const int fieldSetSize = 999;
         int fieldSetMax = -1;
         int fieldSetPtr = -1;
-        struct fieldSetStruct
-        {
+        struct fieldSetStruct {
             public string caption;
             public int rowOpen;
             public int rowClose;
@@ -29,8 +26,7 @@ namespace adminFramework
         //
         const int rowSize = 999;
         int rowCnt = -1;
-        struct rowStruct
-        {
+        struct rowStruct {
             public string name;
             public string value;
             public string help;
@@ -53,14 +49,11 @@ namespace adminFramework
         //
         //-------------------------------------------------
         //
-        public bool includeBodyPadding
-        {
-            get
-            {
+        public bool includeBodyPadding {
+            get {
                 return _includeBodyPadding;
             }
-            set
-            {
+            set {
                 _includeBodyPadding = value;
             }
         }
@@ -68,14 +61,11 @@ namespace adminFramework
         //
         //-------------------------------------------------
         //
-        public bool includeBodyColor
-        {
-            get
-            {
+        public bool includeBodyColor {
+            get {
                 return _includeBodyColor;
             }
-            set
-            {
+            set {
                 _includeBodyColor = value;
             }
         }
@@ -85,14 +75,11 @@ namespace adminFramework
         //
         //-------------------------------------------------
         //
-        public bool isOuterContainer
-        {
-            get
-            {
+        public bool isOuterContainer {
+            get {
                 return localIsOuterContainer;
             }
-            set
-            {
+            set {
                 localIsOuterContainer = value;
             }
         }
@@ -101,14 +88,11 @@ namespace adminFramework
         // Title
         //-------------------------------------------------
         //
-        public string title
-        {
-            get
-            {
+        public string title {
+            get {
                 return localTitle;
             }
-            set
-            {
+            set {
                 localTitle = value;
             }
         }
@@ -117,14 +101,11 @@ namespace adminFramework
         // Warning
         //-------------------------------------------------
         //
-        public string warning
-        {
-            get
-            {
+        public string warning {
+            get {
                 return localWarning;
             }
-            set
-            {
+            set {
                 localWarning = value;
             }
         }
@@ -133,14 +114,11 @@ namespace adminFramework
         // Description
         //-------------------------------------------------
         //
-        public string description
-        {
-            get
-            {
+        public string description {
+            get {
                 return localDescription;
             }
-            set
-            {
+            set {
                 localDescription = value;
             }
         }
@@ -149,10 +127,8 @@ namespace adminFramework
         //
         //-------------------------------------------------
         //
-        public string styleSheet
-        {
-            get
-            {
+        public string styleSheet {
+            get {
                 return Properties.Resources.styles;
                 //return adminFramework.Resource1.styles.ToString();
             }
@@ -162,10 +138,8 @@ namespace adminFramework
         //
         //-------------------------------------------------
         //
-        public string javascript
-        {
-            get
-            {
+        public string javascript {
+            get {
                 return Properties.Resources.javascript;
             }
         }
@@ -174,30 +148,25 @@ namespace adminFramework
         // open a FieldSet
         //-------------------------------------------------
         //
-        public void openFieldSet(string caption)
-        {
+        public void openFieldSet(string caption) {
             fieldSetPtrStack.Push(fieldSetPtr);
-            if (fieldSetMax < fieldSetSize)
-            {
+            if (fieldSetMax < fieldSetSize) {
                 fieldSetMax += 1;
             }
             fieldSetPtr = fieldSetMax;
             fieldSets[fieldSetPtr].caption = caption;
-            fieldSets[fieldSetPtr].rowOpen = rowCnt+1;
+            fieldSets[fieldSetPtr].rowOpen = rowCnt + 1;
         }
         //
         //-------------------------------------------------
         // close a FieldSet
         //-------------------------------------------------
         //
-        public void closeFieldSet()
-        {
-            if (fieldSetPtr >= 0)
-            {
+        public void closeFieldSet() {
+            if (fieldSetPtr >= 0) {
                 fieldSets[fieldSetPtr].rowClose = rowCnt;
             }
-            if (fieldSetPtrStack.Count > 0)
-            {
+            if (fieldSetPtrStack.Count > 0) {
                 fieldSetPtr = (int)fieldSetPtrStack.Pop();
             }
         }
@@ -206,8 +175,7 @@ namespace adminFramework
         // get
         //-------------------------------------------------
         //
-        public string getHtml(CPBaseClass cp)
-        {
+        public string getHtml(CPBaseClass cp) {
             string result = "";
             int rowPtr = 0;
             int fieldSetPtr = 0;
@@ -219,15 +187,13 @@ namespace adminFramework
             // add user errors
             //
             userErrors = cp.Utils.EncodeText(cp.UserError.GetList());
-            if (userErrors != "")
-            {
+            if (userErrors != "") {
                 warning = userErrors;
             }
             //
             //
             //
-            if (localBody != "")
-            {
+            if (localBody != "") {
                 result += localBody;
                 /*
                 body += ""
@@ -236,18 +202,14 @@ namespace adminFramework
                     + cr + "</div>";
                 */
             }
-            for (rowPtr = 0; rowPtr <= rowCnt; rowPtr++)
-            {
+            for (rowPtr = 0; rowPtr <= rowCnt; rowPtr++) {
                 //
                 // check for fieldSetOpens
                 //
-                for (fieldSetPtr = 0; fieldSetPtr <= fieldSetMax; fieldSetPtr++)
-                {
-                    if (fieldSets[fieldSetPtr].rowOpen == rowPtr)
-                    {
+                for (fieldSetPtr = 0; fieldSetPtr <= fieldSetMax; fieldSetPtr++) {
+                    if (fieldSets[fieldSetPtr].rowOpen == rowPtr) {
                         result += cr + "<fieldset class=\"afwFieldSet\">";
-                        if (fieldSets[fieldSetPtr].caption != "")
-                        {
+                        if (fieldSets[fieldSetPtr].caption != "") {
                             result += cr + "<legend>" + fieldSets[fieldSetPtr].caption + "</legend>";
                         }
                     }
@@ -264,10 +226,8 @@ namespace adminFramework
                 //
                 // check for fieldSetCloses
                 //
-                for (fieldSetPtr = fieldSetMax; fieldSetPtr >= 0; fieldSetPtr--)
-                {
-                    if (fieldSets[fieldSetPtr].rowClose == rowPtr)
-                    {
+                for (fieldSetPtr = fieldSetMax; fieldSetPtr >= 0; fieldSetPtr--) {
+                    if (fieldSets[fieldSetPtr].rowClose == rowPtr) {
                         result += cr + "</fieldset>";
                     }
                 }
@@ -275,27 +235,22 @@ namespace adminFramework
             //
             // headers
             //
-            if (localDescription != "")
-            {
+            if (localDescription != "") {
                 result = cr + "<p id=\"afwDescription\">" + localDescription + "</p>" + result;
             }
-            if (localWarning != "")
-            {
+            if (localWarning != "") {
                 result = cr + "<div id=\"afwWarning\">" + localWarning + "</div>" + result;
             }
-            if (localTitle != "")
-            {
+            if (localTitle != "") {
                 result = cr + "<h2 id=\"afwTitle\">" + localTitle + "</h2>" + result;
             }
             //
             // add form
             //
-            if (localIncludeForm)
-            {
-                if (localButtonList != "")
-                {
+            if (localIncludeForm) {
+                if (localButtonList != "") {
                     localButtonList = ""
-                        + cr + "<div class=\"afwButtonCon\">" 
+                        + cr + "<div class=\"afwButtonCon\">"
                         + indent(localButtonList)
                         + cr + "</div>";
                 }
@@ -313,8 +268,7 @@ namespace adminFramework
             //
             // if outer container, add styles and javascript
             //
-            if (localIsOuterContainer)
-            {
+            if (localIsOuterContainer) {
                 cp.Doc.AddHeadJavascript(Properties.Resources.javascript);
                 cp.Doc.AddHeadStyle(Properties.Resources.styles);
                 result = ""
@@ -329,8 +283,7 @@ namespace adminFramework
         // add a form hidden
         //-------------------------------------------------
         //
-        public void addFormHidden(string Name, string Value)
-        {
+        public void addFormHidden(string Name, string Value) {
             localHiddenList += cr + "<input type=\"hidden\" name=\"" + Name + "\" value=\"" + Value + "\">";
             localIncludeForm = true;
         }
@@ -339,20 +292,16 @@ namespace adminFramework
         // add a form button
         //-------------------------------------------------
         //
-        public void addFormButton(string buttonValue)
-        {
+        public void addFormButton(string buttonValue) {
             addFormButton(buttonValue, "button", "", "");
         }
-        public void addFormButton(string buttonValue, string buttonName)
-        {
+        public void addFormButton(string buttonValue, string buttonName) {
             addFormButton(buttonValue, buttonName, "", "");
         }
-        public void addFormButton(string buttonValue, string buttonName, string buttonId)
-        {
+        public void addFormButton(string buttonValue, string buttonName, string buttonId) {
             addFormButton(buttonValue, buttonName, buttonId, "");
         }
-        public void addFormButton(string buttonValue, string buttonName, string buttonId, string buttonClass)
-        {
+        public void addFormButton(string buttonValue, string buttonName, string buttonId, string buttonClass) {
             localButtonList += cr + "<input type=\"submit\" name=\"" + buttonName + "\" value=\"" + buttonValue + "\" id=\"" + buttonId + "\" class=\"afwButton " + buttonClass + "\">";
             localIncludeForm = true;
         }
@@ -361,26 +310,20 @@ namespace adminFramework
         // setForm
         //-------------------------------------------------
         //
-        public string formAction
-        {
-            get
-            {
+        public string formAction {
+            get {
                 return localFormActionQueryString;
             }
-            set
-            {
+            set {
                 localFormActionQueryString = value;
                 localIncludeForm = true;
             }
         }
-        public string formId
-        {
-            get
-            {
+        public string formId {
+            get {
                 return localFormId;
             }
-            set
-            {
+            set {
                 localFormId = value;
                 localIncludeForm = true;
             }
@@ -406,14 +349,11 @@ namespace adminFramework
         // body
         //-------------------------------------------------
         //
-        public string body
-        {
-            get
-            {
+        public string body {
+            get {
                 return localBody;
             }
-            set
-            {
+            set {
                 localBody = value;
             }
         }
@@ -422,10 +362,8 @@ namespace adminFramework
         // add a row
         //-------------------------------------------------
         //
-        public void addRow()
-        {
-            if (rowCnt < rowSize)
-            {
+        public void addRow() {
+            if (rowCnt < rowSize) {
                 rowCnt += 1;
                 rows[rowCnt].name = "";
                 rows[rowCnt].value = "";
@@ -437,15 +375,12 @@ namespace adminFramework
         //
         //-------------------------------------------------
         //
-        public string rowHtmlId
-        {
-            get
-            {
+        public string rowHtmlId {
+            get {
                 checkRowCnt();
                 return rows[rowCnt].htmlId;
             }
-            set
-            {
+            set {
                 checkRowCnt();
                 rows[rowCnt].htmlId = value;
             }
@@ -455,15 +390,12 @@ namespace adminFramework
         //
         //-------------------------------------------------
         //
-        public string rowName
-        {
-            get
-            {
+        public string rowName {
+            get {
                 checkRowCnt();
                 return rows[rowCnt].name;
             }
-            set
-            {
+            set {
                 checkRowCnt();
                 rows[rowCnt].name = value;
             }
@@ -473,15 +405,12 @@ namespace adminFramework
         //
         //-------------------------------------------------
         //
-        public string rowValue
-        {
-            get
-            {
+        public string rowValue {
+            get {
                 checkRowCnt();
                 return rows[rowCnt].value;
             }
-            set
-            {
+            set {
                 checkRowCnt();
                 rows[rowCnt].value = value;
             }
@@ -489,15 +418,12 @@ namespace adminFramework
         //
         //-------------------------------------------------
         //
-        public string rowHelp
-        {
-            get
-            {
+        public string rowHelp {
+            get {
                 checkRowCnt();
                 return rows[rowCnt].help;
             }
-            set
-            {
+            set {
                 checkRowCnt();
                 rows[rowCnt].help = value;
             }
@@ -507,10 +433,8 @@ namespace adminFramework
         //
         //-------------------------------------------------
         //
-        private void checkRowCnt()
-        {
-            if (rowCnt < 0)
-            {
+        private void checkRowCnt() {
+            if (rowCnt < 0) {
                 addRow();
             }
         }
@@ -519,8 +443,7 @@ namespace adminFramework
         //
         //-------------------------------------------------
         //
-        private string indent(string src)
-        {
+        private string indent(string src) {
             return src.Replace(cr, cr2);
         }
     }
