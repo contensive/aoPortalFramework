@@ -158,9 +158,8 @@
     </VisualStudio>
   </ProjectExtensions>
   <PropertyGroup>
-    <PostBuildEvent>copy "$(TargetDir)*.dll" "C:\Program Files (x86)\kma\Contensive\Addons"
-copy "$(TargetDir)*.dll" "C:\ProgramData\Contensive\AddonAssemblyBypass"
-</PostBuildEvent>
+    <PostBuildEvent>
+    </PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
