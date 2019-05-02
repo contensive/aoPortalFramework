@@ -5,7 +5,7 @@ using System.Text;
 using Contensive.BaseClasses;
 
 namespace adminFramework {
-    public class portalClass : AddonBaseClass {
+    public class PortalClass : AddonBaseClass {
         //
         const string blockedMessage = "<h2>Blocked Content</h2><p>Your account must have administrator access to view this content.</p>";
         const string rnDstFeatureGuid = "dstFeatureGuid";
@@ -40,7 +40,7 @@ namespace adminFramework {
                     portalGuid = cp.Doc.GetText(rnSetPortalGuid);
                     if (!string.IsNullOrEmpty(portalGuid)) {
                         CPCSBaseClass cs = cp.CSNew();
-                        if (cs.Open("portals", "ccguid=" + cp.Db.EncodeSQLText(portalGuid), "id", true, "id")) {
+                        if (cs.Open("portals", "ccguid=" + cp.Db.EncodeSQLText(portalGuid), "id", true, "id",9999,1)) {
                             portalId = cs.GetInteger("id");
                         }
                         cs.Close();
@@ -55,7 +55,7 @@ namespace adminFramework {
                                 // try guid, comes from addon argument list in distributed addons
                                 //
                                 CPCSBaseClass cs = cp.CSNew();
-                                if (cs.Open("portals", "ccguid=" + cp.Db.EncodeSQLText(portalGuid), "id", true, "id")) {
+                                if (cs.Open("portals", "ccguid=" + cp.Db.EncodeSQLText(portalGuid), "id", true, "id", 9999, 1)) {
                                     portalId = cs.GetInteger("id");
                                 }
                                 cs.Close();
@@ -70,7 +70,7 @@ namespace adminFramework {
                                     // use the first portal in the list
                                     //
                                     CPCSBaseClass cs = cp.CSNew();
-                                    if (cs.Open("portals", "", "id", true, "id")) {
+                                    if (cs.Open("portals", "", "id", true, "id", 9999, 1)) {
                                         portalId = cs.GetInteger("id");
                                     }
                                     cs.Close();
@@ -295,7 +295,7 @@ namespace adminFramework {
                 CPCSBaseClass csMan = CP.CSNew();
                 CPCSBaseClass csFeature = CP.CSNew();
                 string defaultConfigJson;
-                if (!csMan.Open("portals", selectSqlCriteria, "id")) {
+                if (!csMan.Open("portals", selectSqlCriteria, "id",true, "", 9999, 1)) {
                     //
                     // create demo portal
                     //
@@ -347,7 +347,7 @@ namespace adminFramework {
                     //
                     // load features 
                     //
-                    if (!csFeature.Open("portal features", "portalid=" + portal.id, "sortOrder", true)) {
+                    if (!csFeature.Open("portal features", "portalid=" + portal.id, "sortOrder", true,"", 9999, 1)) {
                         //
                         // no features found, load default portal features
                         //
@@ -377,7 +377,7 @@ namespace adminFramework {
                             savePortalToDb(CP, portal);
                             //
                             if (!string.IsNullOrEmpty(portal.defaultFeature.guid)) {
-                                if (csFeature.Open("portal features", "ccguid=" + CP.Db.EncodeSQLText(portal.defaultFeature.guid))) {
+                                if (csFeature.Open("portal features", "ccguid=" + CP.Db.EncodeSQLText(portal.defaultFeature.guid),"",true,"",9999,1)) {
                                     portal.defaultFeature = loadPortalFeatureFromCs(CP, csFeature);
                                 }
                                 csFeature.Close();
@@ -435,7 +435,7 @@ namespace adminFramework {
                 //
                 feature.addonId = csFeature.GetInteger("addonId");
                 if (feature.addonId != 0) {
-                    if (cs2.Open("add-ons", "id=" + feature.addonId)) {
+                    if (cs2.Open("add-ons", "id=" + feature.addonId,"",true,"",9999,1)) {
                         feature.addonGuid = cs2.GetText("ccguid");
                         if (string.IsNullOrEmpty(feature.addonGuid)) {
                             feature.addonGuid = CP.Utils.CreateGuid();
@@ -447,7 +447,7 @@ namespace adminFramework {
                 //
                 feature.dataContentId = csFeature.GetInteger("dataContentId");
                 if (feature.dataContentId != 0) {
-                    if (cs2.Open("content", "id=" + feature.dataContentId)) {
+                    if (cs2.Open("content", "id=" + feature.dataContentId, "", true, "", 9999, 1)) {
                         feature.dataContentGuid = cs2.GetText("ccguid");
                         if (string.IsNullOrEmpty(feature.dataContentGuid)) {
                             feature.dataContentGuid = CP.Utils.CreateGuid();
@@ -459,7 +459,7 @@ namespace adminFramework {
                 //
                 feature.parentFeatureId = csFeature.GetInteger("parentFeatureId");
                 if (feature.parentFeatureId != 0) {
-                    if (cs2.Open("portal features", "id=" + feature.parentFeatureId)) {
+                    if (cs2.Open("portal features", "id=" + feature.parentFeatureId, "", true, "", 9999, 1)) {
                         feature.parentFeatureGuid = cs2.GetText("ccguid");
                         if (string.IsNullOrEmpty(feature.parentFeatureGuid)) {
                             feature.parentFeatureGuid = CP.Utils.CreateGuid();
@@ -487,7 +487,7 @@ namespace adminFramework {
                 //
                 // insert or update the portal record
                 //
-                if (!cs.Open("portals", "ccguid=" + CP.Db.EncodeSQLText(newPortal.guid))) {
+                if (!cs.Open("portals", "ccguid=" + CP.Db.EncodeSQLText(newPortal.guid), "", true, "", 9999, 1)) {
                     cs.Close();
                     cs.Insert("portals");
                     newPortal.id = cs.GetInteger("id");
@@ -503,7 +503,7 @@ namespace adminFramework {
                 foreach (KeyValuePair<string, portalFeatureDataClass> kvp in newPortal.featureList) {
                     portalFeatureDataClass feature = kvp.Value;
                     if (feature.guid != devToolGuid) {
-                        if (!cs.Open("portal features", "ccguid=" + CP.Db.EncodeSQLText(feature.guid))) {
+                        if (!cs.Open("portal features", "ccguid=" + CP.Db.EncodeSQLText(feature.guid), "", true, "", 9999, 1)) {
                             cs.Insert("portal features");
                             cs.SetField("ccGuid", feature.guid);
                         }
@@ -517,7 +517,7 @@ namespace adminFramework {
                                 //
                                 // lookup addon by guid, set addonid
                                 //
-                                if (cs2.Open("add-ons", "ccguid=" + CP.Db.EncodeSQLText(feature.addonGuid))) {
+                                if (cs2.Open("add-ons", "ccguid=" + CP.Db.EncodeSQLText(feature.addonGuid), "", true, "", 9999, 1)) {
                                     cs.SetField("addonId", cs2.GetInteger("id").ToString());
                                 }
                                 cs2.Close();
@@ -526,7 +526,7 @@ namespace adminFramework {
                                 //
                                 // save dataContentId based on dataContentGuid
                                 //
-                                if (cs2.Open("content", "ccguid=" + CP.Db.EncodeSQLText(feature.dataContentGuid))) {
+                                if (cs2.Open("content", "ccguid=" + CP.Db.EncodeSQLText(feature.dataContentGuid), "", true, "", 9999, 1)) {
                                     feature.dataContentId = cs2.GetInteger("id");
                                     cs.SetField("dataContentId", feature.dataContentId.ToString());
                                 }
@@ -550,7 +550,7 @@ namespace adminFramework {
                             //
                             // get the id of the parentFeature
                             //
-                            if (cs.Open("portal features", "ccguid=" + CP.Db.EncodeSQLText(feature.parentFeatureGuid))) {
+                            if (cs.Open("portal features", "ccguid=" + CP.Db.EncodeSQLText(feature.parentFeatureGuid), "", true, "", 9999, 1)) {
                                 feature.parentFeatureId = cs.GetInteger("id");
                             }
                             cs.Close();
@@ -558,7 +558,7 @@ namespace adminFramework {
                                 //
                                 // set the parentFeatureId field of the current feature
                                 //
-                                if (cs.Open("portal features", "id=" + feature.id.ToString())) {
+                                if (cs.Open("portal features", "id=" + feature.id.ToString(), "", true, "", 9999, 1)) {
                                     cs.SetField("parentFeatureId", feature.parentFeatureId.ToString());
                                 }
                                 cs.Close();
@@ -591,7 +591,7 @@ namespace adminFramework {
                 //
                 if (CP.Doc.GetText("button") == "Take Snapshot") {
                     CPCSBaseClass cs = CP.CSNew();
-                    if (cs.Open("portals", "ccguid=" + CP.Db.EncodeSQLText(portal.guid))) {
+                    if (cs.Open("portals", "ccguid=" + CP.Db.EncodeSQLText(portal.guid), "", true, "", 9999, 1)) {
                         System.Web.Script.Serialization.JavaScriptSerializer msJson = new System.Web.Script.Serialization.JavaScriptSerializer();
                         string configJson = msJson.Serialize(portal);
                         cs.SetField("defaultConfigJson", configJson);

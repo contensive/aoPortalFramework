@@ -127,7 +127,7 @@ namespace adminFramework.Models
                     Type instanceType = typeof(T);
                     string contentName = derivedContentName(instanceType);
                     CPCSBaseClass cs = cp.CSNew();
-                    if (cs.Open(contentName, "(id=" + recordId.ToString() + ")"))
+                    if (cs.Open(contentName, "(id=" + recordId.ToString() + ")", "", true, "", 9999, 1))
                     {
                         result = loadRecord<T>(cp, cs);
                     }
@@ -156,7 +156,7 @@ namespace adminFramework.Models
                 Type instanceType = typeof(T);
                 string contentName = derivedContentName(instanceType);
                 CPCSBaseClass cs = cp.CSNew();
-                if (cs.Open(contentName, "(ccGuid=" + cp.Db.EncodeSQLText(recordGuid) + ")"))
+                if (cs.Open(contentName, "(ccGuid=" + cp.Db.EncodeSQLText(recordGuid) + ")", "", true, "", 9999, 1))
                 {
                     result = loadRecord<T>(cp, cs);
                 }
@@ -186,7 +186,7 @@ namespace adminFramework.Models
                     Type instanceType = typeof(T);
                     string contentName = derivedContentName(instanceType);
                     CPCSBaseClass cs = cp.CSNew();
-                    if (cs.Open(contentName, "(name=" + cp.Db.EncodeSQLText(recordName) + ")", "id"))
+                    if (cs.Open(contentName, "(name=" + cp.Db.EncodeSQLText(recordName) + ")", "id", true, "", 9999, 1))
                     {
                         result = loadRecord<T>(cp, cs);
                     }
@@ -280,7 +280,7 @@ namespace adminFramework.Models
                 string tableName = derivedContentTableName(instanceType);
                 if ((id > 0))
                 {
-                    if (!cs.Open(contentName, "id=" + id))
+                    if (!cs.Open(contentName, "id=" + id, "", true, "", 9999, 1))
                     {
                         string message = "Unable to open record in content [" + contentName + "], with id [" + id + "]";
                         cs.Close();
@@ -423,7 +423,7 @@ namespace adminFramework.Models
                 List<string> ignoreCacheNames = new List<string>();
                 Type instanceType = typeof(T);
                 string contentName = derivedContentName(instanceType);
-                if ((cs.Open(contentName, sqlCriteria, sqlOrderBy)))
+                if ((cs.Open(contentName, sqlCriteria, sqlOrderBy, true, "", 9999, 1)))
                 {
                     T instance = default(T);
                     do

@@ -851,7 +851,7 @@ namespace adminFramework {
                 //
                 if (localGuid != "") {
                     sqlCriteria = "ccguid=" + cp.Db.EncodeSQLText(localGuid);
-                    if (!cs.Open("Admin Framework Reports", sqlCriteria)) {
+                    if (!cs.Open("Admin Framework Reports", sqlCriteria, "", true, "", 9999, 1)) {
                         cs.Close();
                         if (localName == "") {
                             localName = localTitle;
@@ -887,7 +887,7 @@ namespace adminFramework {
                             colName = colCaption;
                         }
                         if ((colName != "") && (reportId != 0)) {
-                            if (!cs.Open("Admin Framework Report Columns", "(reportId=" + reportId.ToString() + ")and(name=" + cp.Db.EncodeSQLText(colName) + ")", "id")) {
+                            if (!cs.Open("Admin Framework Report Columns", "(reportId=" + reportId.ToString() + ")and(name=" + cp.Db.EncodeSQLText(colName) + ")", "id", true, "", 9999, 1)) {
                                 cs.Close();
                                 cs.Insert("Admin Framework Report Columns");
                                 cs.SetField("reportId", reportId.ToString());

@@ -78,7 +78,7 @@
   <ItemGroup>
     <Compile Include="Legacy\adminFrameworkReportsClass.cs" />
     <Compile Include="Legacy\commonClass.cs" />
-    <Compile Include="Legacy\managerClass.cs" />
+    <Compile Include="Legacy\PortalClass.cs" />
     <Compile Include="Legacy\pageWithNavClass.cs" />
     <Compile Include="Legacy\formNameValueRowsClass.cs" />
     <Compile Include="Models\baseModel.cs" />

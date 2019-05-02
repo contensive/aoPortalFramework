@@ -3,16 +3,13 @@ using System.Collections.Generic;
 using System.Text;
 using Contensive.BaseClasses;
 
-namespace adminFramework
-{
-    public class pageWithNavClass
-    {
+namespace adminFramework {
+    public class pageWithNavClass {
         const string cr = "\r\n\t";
         const string cr2 = cr + "\t";
         //
         const int navSize = 99;
-        struct navStruct
-        {
+        struct navStruct {
             public string caption;
             public string link;
             public bool active;
@@ -29,14 +26,11 @@ namespace adminFramework
         //
         //-------------------------------------------------
         //
-        public bool includeBodyPadding
-        {
-            get
-            {
+        public bool includeBodyPadding {
+            get {
                 return _includeBodyPadding;
             }
-            set
-            {
+            set {
                 _includeBodyPadding = value;
             }
         }
@@ -44,14 +38,11 @@ namespace adminFramework
         //
         //-------------------------------------------------
         //
-        public bool includeBodyColor
-        {
-            get
-            {
+        public bool includeBodyColor {
+            get {
                 return _includeBodyColor;
             }
-            set
-            {
+            set {
                 _includeBodyColor = value;
             }
         }
@@ -59,14 +50,11 @@ namespace adminFramework
         //
         //-------------------------------------------------
         //
-        public bool isOuterContainer
-        {
-            get
-            {
+        public bool isOuterContainer {
+            get {
                 return localIsOuterContainer;
             }
-            set
-            {
+            set {
                 localIsOuterContainer = value;
             }
         }
@@ -75,10 +63,8 @@ namespace adminFramework
         //
         //-------------------------------------------------
         //
-        private void checkNavPtr()
-        {
-            if (navPtr < 0)
-            {
+        private void checkNavPtr() {
+            if (navPtr < 0) {
                 addNav();
             }
         }
@@ -87,10 +73,8 @@ namespace adminFramework
         //
         //-------------------------------------------------
         //
-        public string styleSheet
-        {
-            get
-            {
+        public string styleSheet {
+            get {
                 return Properties.Resources.styles;
                 //return adminFramework.Resource1.styles.ToString();
             }
@@ -100,10 +84,8 @@ namespace adminFramework
         //
         //-------------------------------------------------
         //
-        public string javascript
-        {
-            get
-            {
+        public string javascript {
+            get {
                 return Properties.Resources.javascript;
             }
         }
@@ -112,14 +94,11 @@ namespace adminFramework
         // body
         //-------------------------------------------------
         //
-        public string body
-        {
-            get
-            {
+        public string body {
+            get {
                 return localBody;
             }
-            set
-            {
+            set {
                 localBody = value;
             }
         }
@@ -128,14 +107,11 @@ namespace adminFramework
         // title
         //-------------------------------------------------
         //
-        public string title
-        {
-            get
-            {
+        public string title {
+            get {
                 return localTitle;
             }
-            set
-            {
+            set {
                 localTitle = value;
             }
         }
@@ -144,14 +120,11 @@ namespace adminFramework
         // Warning
         //-------------------------------------------------
         //
-        public string warning
-        {
-            get
-            {
+        public string warning {
+            get {
                 return localWarning;
             }
-            set
-            {
+            set {
                 localWarning = value;
             }
         }
@@ -160,14 +133,11 @@ namespace adminFramework
         // Description
         //-------------------------------------------------
         //
-        public string description
-        {
-            get
-            {
+        public string description {
+            get {
                 return localDescription;
             }
-            set
-            {
+            set {
                 localDescription = value;
             }
         }
@@ -176,15 +146,12 @@ namespace adminFramework
         // 
         //-------------------------------------------------
         //
-        public string navCaption
-        {
-            get
-            {
+        public string navCaption {
+            get {
                 checkNavPtr();
                 return navs[navPtr].caption;
             }
-            set
-            {
+            set {
                 checkNavPtr();
                 navs[navPtr].caption = value;
             }
@@ -194,15 +161,12 @@ namespace adminFramework
         // 
         //-------------------------------------------------
         //
-        public string navLink
-        {
-            get
-            {
+        public string navLink {
+            get {
                 checkNavPtr();
                 return navs[navPtr].link;
             }
-            set
-            {
+            set {
                 checkNavPtr();
                 navs[navPtr].link = value;
             }
@@ -212,13 +176,10 @@ namespace adminFramework
         // 
         //-------------------------------------------------
         //
-        public void setActiveNav( string caption )
-        {
+        public void setActiveNav(string caption) {
             int navPtr = 0;
-            for (navPtr = 0; navPtr <= navMax; navPtr++)
-            {
-                if (navs[navPtr].caption.ToLower() == caption.ToLower())
-                {
+            for (navPtr = 0; navPtr <= navMax; navPtr++) {
+                if (navs[navPtr].caption.ToLower() == caption.ToLower()) {
                     navs[navPtr].active = true;
                 }
             }
@@ -231,16 +192,13 @@ namespace adminFramework
         /// <summary>
         /// Add a navigation entry. The navCaption and navLink should be set after creating a new entry. The first nav entry does not need to be added.
         /// </summary>
-        public void addNav()
-        {
-            if (navPtr < navSize)
-            {
+        public void addNav() {
+            if (navPtr < navSize) {
                 navPtr += 1;
                 navs[navPtr].caption = "";
                 navs[navPtr].link = "";
                 navs[navPtr].active = false;
-                if (navPtr > navMax)
-                {
+                if (navPtr > navMax) {
                     navMax = navPtr;
                 }
             }
@@ -250,8 +208,7 @@ namespace adminFramework
         // get
         //-------------------------------------------------
         //
-        public string getHtml(CPBaseClass cp)
-        {
+        public string getHtml(CPBaseClass cp) {
             string result = "";
             string navList = "";
             string navItem = "";
@@ -260,67 +217,53 @@ namespace adminFramework
             // add user errors
             //
             userErrors = cp.Utils.EncodeText(cp.UserError.GetList());
-            if (userErrors != "")
-            {
+            if (userErrors != "") {
                 warning = userErrors;
             }
             //
             // title at top
             //
-            if (localTitle != "")
-            {
+            if (localTitle != "") {
                 result += cr + "<h2 class=\"afwManagerTitle\">" + localTitle + "</h2>";
             }
             //
             // build nav
             //
-            for (navPtr = 0; navPtr <= navMax; navPtr++)
-            {
+            for (navPtr = 0; navPtr <= navMax; navPtr++) {
                 navItem = navs[navPtr].caption;
-                if (navItem != "")
-                {
-                    if (navs[navPtr].link != "")
-                    {
+                if (navItem != "") {
+                    if (navs[navPtr].link != "") {
                         navItem = "<a href=\"" + navs[navPtr].link + "\">" + navItem + "</a>";
-                    }
-                    else
-                    {
+                    } else {
                         navItem = "<a href=\"#\" onclick=\"return false;\">" + navItem + "</a>";
                     }
-                    if (navs[navPtr].active)
-                    {
+                    if (navs[navPtr].active) {
                         navItem = "<li class=\"afwNavActive\">" + navItem + "</li>";
-                    }
-                    else
-                    {
+                    } else {
                         navItem = cr + "<li>" + navItem + "</li>";
                     }
                     navList += navItem;
                 }
             }
-            if (navList != "") 
-            { 
+            if (navList != "") {
                 result += ""
                     + cr + "<ul class=\"afwNav\">"
-                    + indent( navList )
+                    + indent(navList)
                     + cr + "</ul>";
             }
             //
             // description under nav, over body
             //
-            if (localDescription != "")
-            {
+            if (localDescription != "") {
                 result += cr + "<div class=\"afwManagerDescription\">" + localDescription + "</div>";
             }
-            if (localWarning != "")
-            {
+            if (localWarning != "") {
                 result += cr + "<div id=\"afwWarning\">" + localWarning + "</div>";
             }
             //
             // body
             //
-            if (localBody != "") 
-            {
+            if (localBody != "") {
                 //
                 // body padding and color
                 //
@@ -338,8 +281,7 @@ namespace adminFramework
             //
             // if outer container, add styles and javascript
             //
-            if (localIsOuterContainer)
-            {
+            if (localIsOuterContainer) {
                 cp.Doc.AddHeadJavascript(Properties.Resources.javascript);
                 cp.Doc.AddHeadStyle(Properties.Resources.styles);
                 result = ""
@@ -347,15 +289,14 @@ namespace adminFramework
                     + indent(result)
                     + cr + "</div>";
             }
-        return result;
+            return result;
         }
         //
         //-------------------------------------------------
         //
         //-------------------------------------------------
         //
-        private string indent(string src)
-        {
+        private string indent(string src) {
             return src.Replace(cr, cr2);
         }
 
