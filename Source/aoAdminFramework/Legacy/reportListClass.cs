@@ -367,7 +367,7 @@ namespace adminFramework {
             // headers
             //
             if (localAddCsvDownloadCurrentPage && (!string.IsNullOrEmpty(csvDownloadFilename))) {
-                s = new StringBuilder(cr + "<p id=\"afwDescription\"><a href=\"" + cp.Site.FilePath + csvDownloadFilename + "\">Click here</a> to download the data, or access it in the future from the <a href=\"?af=30\">Download Manager</a>.</p>" + s.ToString());
+                s = new StringBuilder(cr + "<p id=\"afwDescription\"><a href=\"" + cp.Site.FilePath + csvDownloadFilename + "\">Click here</a> to download the data.</p>" + s.ToString());
             }
             if (localDescription != "") {
                 s = new StringBuilder(cr + "<p id=\"afwDescription\">" + localDescription + "</p>" + s.ToString());

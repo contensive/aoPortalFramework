@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
     <metadata>
         <id>Contensive.PortalApi</id>
-        <version>1.0.20</version>
+        <version>1.0.21</version>
         <title>Contensive Portal API</title>
         <authors>Contensive</authors>
         <owners>Contensive</owners>
@@ -11,7 +11,7 @@
         <iconUrl>http://Contensive.io/img/ContensiveNuGetLogo.png</iconUrl>
         <requireLicenseAcceptance>false</requireLicenseAcceptance>
         <description>This package installs references for the Contensive Portal API, making it easier to create add-ons that use the Portal Collection.</description>
-        <releaseNotes>Added page size to all .open to override VS optional parameter in old CPBase.</releaseNotes>
+        <releaseNotes>Added page size to all .open to override VS optional parameter in old CPBase. Updated download message.</releaseNotes>
         <copyright>Copyright 2019</copyright>
         <tags>Contensive,portal,dotnet,clib,cclib</tags>
         <dependencies>
