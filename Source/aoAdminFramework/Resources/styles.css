@@ -137,11 +137,12 @@
 	margin: 0;
 	height: 30px;
 }
-#afw ul.afwNav li 
-{
+#afw ul.afwNav li {
     float: left;
-    margin: 0;
     padding: 0;
+    min-width: 63px;
+    margin: auto;
+    text-align: center;
 }
 #afw ul.afwNav li a 
 { 
