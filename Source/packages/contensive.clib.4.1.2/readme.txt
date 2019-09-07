@@ -1,1 +1,0 @@
-The Contensive Library provides a simple set of dotnet objects for authentication, state management and hardware abstraction. This release is only to add the nuget distribution. This is the same library available for download since 2005 from Contensive.com.
