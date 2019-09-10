@@ -3,6 +3,10 @@ rem all paths are relative to the git scripts folder
 
 call env.cmd
 
+@echo off
+cls
+echo create deployment for %collectionName%
+
 rem copy bin folder assemblies to collection folder
 copy "%binPath%*.dll" "%collectionPath%"
 
