@@ -178,5 +178,5 @@
 	<ImportCollection name="Google jsapi">{B071E394-A381-41E2-B3F9-7E2CC509A8C5}</ImportCollection>
 	<ImportCollection name="JQuery">{A435BF70-041B-43D1-8A8D-5D9D59A7FCD0}</ImportCollection>
 	<ImportCollection name="jQuery-blockui-legacyCollection">{A7AFC023-DF2A-4CB3-BD0F-FAA9DA521901}</ImportCollection>
-	<Resource name="adminFramework.dll" type="executable" path="" />
+	<Resource name="aoAdminFramework.dll" type="executable" path="" />
 </Collection>

@@ -551,5 +551,11 @@
     background-color: #1F70BD;
     border: 1px solid #1F70BD;
 }
+/*
+* Edit form inputs
+*/
+#afw input[type="date"] {
+    max-width: 400px;
+}
 
 
