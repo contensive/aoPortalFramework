@@ -5,13 +5,13 @@ using System.Text;
 using Contensive.BaseClasses;
 
 namespace adminFramework {
-    public class reportListClass {
+    public class ReportListClass {
         const int columnSize = 99;
         const int rowSize = 19999;
         const string cr = "\r\n\t";
         const string cr2 = cr + "\t";
         //
-        struct columnStruct {
+        struct ColumnStruct {
             public string name;
             public string caption;
             public string captionClass;
@@ -21,7 +21,7 @@ namespace adminFramework {
             public bool downloadable;
         }
         bool ReportTooLong = false;
-        columnStruct[] columns = new columnStruct[columnSize];
+        readonly ColumnStruct[] columns = new ColumnStruct[columnSize];
         bool formIncludeHeader = false;
         //
         int columnMax = -1;
@@ -47,18 +47,13 @@ namespace adminFramework {
         string localHtmlLeftOfTable = "";
         bool localIncludeForm = false;
         bool localIsEmptyReport = true;
-        //int localPageSize = 20;
-        //int localPageNumber = 1;
-        bool localAddCsvDownloadCurrentPage = false;
+
         //
-        string[,] localReportCells = new string[rowSize, columnSize];
-        string[,] localDownloadData = new string[rowSize, columnSize];
-        //
-        string[] localRowClasses = new string[rowSize];
-        //
-        bool[] localExcludeRowFromDownload = new bool[rowSize];
-        //
-        bool localIsOuterContainer = false;
+        readonly string[,] localReportCells = new string[rowSize, columnSize];
+        readonly string[,] localDownloadData = new string[rowSize, columnSize];
+        readonly string[] localRowClasses = new string[rowSize];
+        readonly bool[] localExcludeRowFromDownload = new bool[rowSize];
+        public bool localIsOuterContainer = false;
         //
         //-------------------------------------------------
         /// <summary>
@@ -202,7 +197,7 @@ namespace adminFramework {
                     + cr2 + "</tr>"
                     + cr + "</thead>"
                     + "");
-                if (localAddCsvDownloadCurrentPage) {
+                if (addCsvDownloadCurrentPage) {
                     colPtrDownload = 0;
                     for (colPtr = 0; colPtr <= columnMax; colPtr++) {
                         if (columns[colPtr].downloadable) {
@@ -254,7 +249,7 @@ namespace adminFramework {
                             }
                             row += cr + "<td" + styleClass + ">" + localReportCells[rowPtr, colPtr] + "</td>";
                         }
-                        if (localAddCsvDownloadCurrentPage && !localExcludeRowFromDownload[rowPtr]) {
+                        if (addCsvDownloadCurrentPage && !localExcludeRowFromDownload[rowPtr]) {
                             if (columns[colPtr].downloadable) {
                                 if (colPtrDownload == 0) {
                                     csvDownloadContent += Environment.NewLine;
@@ -283,56 +278,23 @@ namespace adminFramework {
                 }
             }
             string csvDownloadFilename = string.Empty;
-            if (localAddCsvDownloadCurrentPage) {
-                if (cp.Version.Substring(0, 3) == "4.1") {
-                    //
-                    // 4.1 download
-                    CPCSBaseClass csTasks = cp.CSNew();
-                    if (csTasks.Insert("tasks")) {
-                        csvDownloadFilename = csTasks.GetFilename("filename", "export.csv");
-                        cp.File.SaveVirtual(csvDownloadFilename, csvDownloadContent);
-                        csTasks.SetField("Name", "Export: " + localTitle + ", " + rightNow.ToShortDateString());
-                        csTasks.SetField("command", "BuildCSV");
-                        csTasks.SetField("filename", csvDownloadFilename);
-                        csTasks.SetField("DateCompleted", rightNow.ToShortDateString());
-                        csTasks.SetField("DateStarted", rightNow.ToShortDateString());
-                        csTasks.SetField("ResultMessage", "OK");
-                    }
-                    csTasks.Close();
-                } else if (cp.Version.Substring(0, 3) == "5.0") {
-                    //
-                    // 5.0 download
-                    CPCSBaseClass csDownloads = cp.CSNew();
-                    if (csDownloads.Insert("downloads")) {
-                        csvDownloadFilename = csDownloads.GetFilename("filename", "export.csv");
-                        cp.File.SaveVirtual(csvDownloadFilename, csvDownloadContent);
-                        csDownloads.SetField("name", "Download for [" + localTitle + "], requested by [" + cp.User.Name + "]");
-                        csDownloads.SetField("requestedBy", cp.User.Id.ToString());
-                        csDownloads.SetField("filename", csvDownloadFilename);
-                        csDownloads.SetField("dateRequested", DateTime.Now.ToString());
-                        csDownloads.SetField("datecompleted", DateTime.Now.ToString());
-                        csDownloads.SetField("resultmessage", "Completed");
-                        csDownloads.Save();
-                    }
-                    csDownloads.Close();
-                } else {
-                    //
-                    // todo implement cp.db.CreateCsv()
-                    // 5.1 -- download
-                    CPCSBaseClass csDownloads = cp.CSNew();
-                    if (csDownloads.Insert("downloads")) {
-                        csvDownloadFilename = csDownloads.GetFilename("filename", "export.csv");
-                        cp.File.SaveVirtual(csvDownloadFilename, csvDownloadContent);
-                        csDownloads.SetField("name", "Download for [" + localTitle + "], requested by [" + cp.User.Name + "]");
-                        csDownloads.SetField("requestedBy", cp.User.Id.ToString());
-                        csDownloads.SetField("filename", csvDownloadFilename);
-                        csDownloads.SetField("dateRequested", DateTime.Now.ToString());
-                        csDownloads.SetField("datecompleted", DateTime.Now.ToString());
-                        csDownloads.SetField("resultmessage", "Completed");
-                        csDownloads.Save();
-                    }
-                    csDownloads.Close();
+            if (addCsvDownloadCurrentPage) {
+                //
+                // todo implement cp.db.CreateCsv()
+                // 5.1 -- download
+                CPCSBaseClass csDownloads = cp.CSNew();
+                if (csDownloads.Insert("downloads")) {
+                    csvDownloadFilename = csDownloads.GetFilename("filename", "export.csv");
+                    cp.CdnFiles.Save(csvDownloadFilename, csvDownloadContent);
+                    csDownloads.SetField("name", "Download for [" + localTitle + "], requested by [" + cp.User.Name + "]");
+                    csDownloads.SetField("requestedBy", cp.User.Id.ToString());
+                    csDownloads.SetField("filename", csvDownloadFilename);
+                    csDownloads.SetField("dateRequested", DateTime.Now.ToString());
+                    csDownloads.SetField("datecompleted", DateTime.Now.ToString());
+                    csDownloads.SetField("resultmessage", "Completed");
+                    csDownloads.Save();
                 }
+                csDownloads.Close();
             }
             s.Append(""
                 + cr + "<tbody>"
@@ -366,7 +328,7 @@ namespace adminFramework {
             //
             // headers
             //
-            if (localAddCsvDownloadCurrentPage && (!string.IsNullOrEmpty(csvDownloadFilename))) {
+            if (addCsvDownloadCurrentPage && (!string.IsNullOrEmpty(csvDownloadFilename))) {
                 s = new StringBuilder(cr + "<p id=\"afwDescription\"><a href=\"" + cp.Site.FilePath + csvDownloadFilename + "\">Click here</a> to download the data.</p>" + s.ToString());
             }
             if (localDescription != "") {
@@ -814,14 +776,7 @@ namespace adminFramework {
         // create csv download as form is build
         //-------------------------------------------------
         //
-        public bool addCsvDownloadCurrentPage {
-            get {
-                return localAddCsvDownloadCurrentPage;
-            }
-            set {
-                localAddCsvDownloadCurrentPage = value;
-            }
-        }
+        public bool addCsvDownloadCurrentPage { get; set; } = false;
         //
         //-------------------------------------------------
         // initialize
@@ -830,7 +785,7 @@ namespace adminFramework {
         //  if the report does not exist in teh Db, use the input values
         //-------------------------------------------------
         //
-        public reportListClass(CPBaseClass cp) {
+        public ReportListClass(CPBaseClass cp) {
         }
         private void reportDbInit(CPBaseClass cp) {
             try {

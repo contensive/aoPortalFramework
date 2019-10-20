@@ -3,10 +3,8 @@ using System.Collections.Generic;
 using System.Text;
 using Contensive.BaseClasses;
 
-namespace adminFramework
-{
-    public static class afwStyles
-    {
+namespace adminFramework {
+    public static class AfwStyles {
         public const string afwWidth10 = "afwWidth10";
         public const string afwWidth20 = "afwWidth20";
         public const string afwWidth30 = "afwWidth30";
@@ -44,8 +42,7 @@ namespace adminFramework
         public const string afwTextAlignLeft = "afwTextAlignLeft";
         public const string afwTextAlignCenter = "afwTextAlignCenter";
     }
-     static  class commonClass
-    {
+    static class CommonClass {
         //
         public const string rnPageNumber = "pageNumber";
         public const string rnSetPageNumber = "setPageNumber";
@@ -56,17 +53,14 @@ namespace adminFramework
         //   GetPageNumber
         //=========================================================================================================
         //
-        public static int getPageNumber(CPBaseClass cp)
-        {
+        public static int getPageNumber(CPBaseClass cp) {
             int pageNumber = cp.Utils.EncodeInteger(cp.Doc.GetProperty(rnPageNumber, "1"));
-            int setPageNumber = cp.Utils.EncodeInteger(  cp.Doc.GetProperty(rnSetPageNumber,""));
-            if (setPageNumber!=0) 
-            {
+            int setPageNumber = cp.Utils.EncodeInteger(cp.Doc.GetProperty(rnSetPageNumber, ""));
+            if (setPageNumber != 0) {
                 pageNumber = setPageNumber;
             }
-            if (pageNumber==0)
-            {
-                pageNumber=1;
+            if (pageNumber == 0) {
+                pageNumber = 1;
             }
             return pageNumber;
 
@@ -76,16 +70,13 @@ namespace adminFramework
         //   GetPageSize
         //=========================================================================================================
         //
-        public static int getPageSize(CPBaseClass cp)
-        {
+        public static int getPageSize(CPBaseClass cp) {
             int pageSize = cp.Utils.EncodeInteger(cp.Doc.GetProperty(rnPageSize, "20"));
             int setPageSize = cp.Utils.EncodeInteger(cp.Doc.GetProperty(rnSetPageSize, ""));
-            if (setPageSize != 0)
-            {
+            if (setPageSize != 0) {
                 pageSize = setPageSize;
             }
-            if (pageSize == 0)
-            {
+            if (pageSize == 0) {
                 pageSize = 20;
             }
             return pageSize;

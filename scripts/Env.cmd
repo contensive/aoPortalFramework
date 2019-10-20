@@ -11,4 +11,4 @@ set nugetName=PortalApi
 set collectionPath=..\collections\aoAdminFramework\
 set binPath=..\source\aoAdminFramework\bin\debug\
 set msbuildLocation=C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\MSBuild\15.0\Bin\
-set deploymentFolderRoot=C:\Users\jay\Desktop\deployments\aoAdminFramework\Dev\
+set deploymentFolderRoot=C:\deployments\aoAdminFramework\Dev\
