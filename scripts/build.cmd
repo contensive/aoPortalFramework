@@ -61,14 +61,10 @@ echo build Nuget
 rem
 cd ..\source\%solutionName%
 
-pause
-
 IF EXIST "Contensive.%nugetName%.%majorVersion%.%minorVersion%.%deploymentNumber%.nupkg" (
 	del "Contensive.%nugetName%.%majorVersion%.%minorVersion%.%deploymentNumber%.nupkg" /Q
 )
 "nuget.exe" pack "Contensive.%nugetName%.nuspec" -version %majorVersion%.%minorVersion%.%deploymentNumber%
-
-pause
 
 if errorlevel 1 (
    echo failure in nuget
@@ -78,11 +74,6 @@ if errorlevel 1 (
 xcopy "Contensive.%nugetName%.%majorVersion%.%minorVersion%.%deploymentNumber%.nupkg" "C:\Users\jay\Documents\nugetLocalPackages" /Y
 xcopy "Contensive.%nugetName%.%majorVersion%.%minorVersion%.%deploymentNumber%.nupkg" "%deploymentFolderRoot%%deploymentNumber%" /Y
 cd ..\..\scripts
-
-rem pause
-
-
-rem pause
 
 rem ==============================================================
 rem
