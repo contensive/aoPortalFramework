@@ -405,13 +405,23 @@ namespace adminFramework {
         }
         //
         //-------------------------------------------------
-        // add a form hidden
-        //-------------------------------------------------
-        //
+        /// <summary>
+        /// add a form hidden
+        /// </summary>
+        /// <param name="Name"></param>
+        /// <param name="Value"></param>
         public void addFormHidden(string Name, string Value) {
             localHiddenList += cr + "<input type=\"hidden\" name=\"" + Name + "\" value=\"" + Value + "\">";
             localIncludeForm = true;
         }
+        //
+        public void addFormHidden(string name, int value) => addFormHidden(name, value.ToString());
+        //
+        public void addFormHidden(string name, double value) => addFormHidden(name, value.ToString());
+        //
+        public void addFormHidden(string name, DateTime value) => addFormHidden(name, value.ToString());
+        //
+        public void addFormHidden(string name, bool value) => addFormHidden(name, value.ToString());
         //
         //-------------------------------------------------
         // add a form button

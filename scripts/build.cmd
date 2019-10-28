@@ -91,3 +91,5 @@ del "%collectionName%.zip" /Q
 xcopy "%collectionName%.zip" "%deploymentFolderRoot%%deploymentNumber%" /Y
 cd ..\..\scripts
 
+@echo Success
+pause

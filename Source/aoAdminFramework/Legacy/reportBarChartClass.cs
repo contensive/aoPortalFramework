@@ -459,6 +459,14 @@ namespace adminFramework
             localIncludeForm = true;
         }
         //
+        public void addFormHidden(string name, int value) => addFormHidden(name, value.ToString());
+        //
+        public void addFormHidden(string name, double value) => addFormHidden(name, value.ToString());
+        //
+        public void addFormHidden(string name, DateTime value) => addFormHidden(name, value.ToString());
+        //
+        public void addFormHidden(string name, bool value) => addFormHidden(name, value.ToString());
+        //
         //-------------------------------------------------
         // add a form button
         //-------------------------------------------------
