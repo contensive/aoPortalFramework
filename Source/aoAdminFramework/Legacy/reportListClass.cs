@@ -754,6 +754,18 @@ namespace adminFramework {
             }
         }
         //
+        public void setCell(int content) => setCell(content.ToString(), content.ToString());
+        public void setCell(int content, int downloadContent) => setCell(content.ToString(), downloadContent.ToString());
+        //
+        public void setCell(double content) => setCell(content.ToString(), content.ToString());
+        public void setCell(double content, double downloadContent) => setCell(content.ToString(), downloadContent.ToString());
+        //
+        public void setCell(bool content) => setCell(content.ToString(), content.ToString());
+        public void setCell(bool content, bool downloadContent) => setCell(content.ToString(), downloadContent.ToString());
+        //
+        public void setCell(DateTime content) => setCell(content.ToString(), content.ToString());
+        public void setCell(DateTime content, DateTime downloadContent) => setCell(content.ToString(), downloadContent.ToString());
+        //
         //-------------------------------------------------
         //
         //-------------------------------------------------
