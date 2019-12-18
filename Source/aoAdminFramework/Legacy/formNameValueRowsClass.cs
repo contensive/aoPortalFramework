@@ -375,6 +375,7 @@ namespace adminFramework {
                 rowCnt += 1;
                 rows[rowCnt].name = "";
                 rows[rowCnt].value = "";
+                rows[rowCnt].help = "";
                 rows[rowCnt].htmlId = "";
             }
         }
