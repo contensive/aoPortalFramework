@@ -2,48 +2,6 @@
 <Collection name="Portal Framework" guid="{87249f75-a065-4f2f-8dcd-fbbf2ca0dccd}" system="No" updatable="Yes" blockNavigatorNode="No" onInstallAddonGuid="">
 	<HelpLink></HelpLink>
 	<Help></Help>
-	<Addon name="afw Legacy Resources" guid="{6A0FEACA-BBB0-40C0-90EC-594867C26621}" type="Add-on">
-		<Copy></Copy>
-		<CopyText></CopyText>
-		<ActiveXProgramID></ActiveXProgramID>
-		<DotNetClass></DotNetClass>
-		<ArgumentList></ArgumentList>
-		<AsAjax>No</AsAjax>
-		<Filter>No</Filter>
-		<Help></Help>
-		<HelpLink></HelpLink>
-		<Icon Link="" width="0" height="0" sprites="0" />
-		<InIframe>No</InIframe>
-		<BlockEditTools>Yes</BlockEditTools>
-		<FormXML></FormXML>
-		<IsInline>No</IsInline>
-		<JavascriptInHead></JavascriptInHead>
-		<javascriptForceHead>No</javascriptForceHead>
-		<JSHeadScriptSrc></JSHeadScriptSrc>
-		<!-- deprecated --><JSBodyScriptSrc></JSBodyScriptSrc>
-		<!-- deprecated --><JavascriptBodyEnd></JavascriptBodyEnd>
-		<!-- deprecated --><JavascriptOnLoad></JavascriptOnLoad>
-		<Content>No</Content>
-		<Template>No</Template>
-		<Email>No</Email>
-		<Admin>No</Admin>
-		<OnPageEndEvent>No</OnPageEndEvent>
-		<OnPageStartEvent>No</OnPageStartEvent>
-		<OnBodyStart>No</OnBodyStart>
-		<OnBodyEnd>Yes</OnBodyEnd>
-		<RemoteMethod>No</RemoteMethod>
-		<Diagnostic>No</Diagnostic>
-		<Diagnostic>No</Diagnostic>
-		<ProcessRunOnce>No</ProcessRunOnce>
-		<ProcessInterval>0</ProcessInterval>
-		<MetaDescription></MetaDescription>
-		<OtherHeadTags></OtherHeadTags>
-		<PageTitle></PageTitle>
-		<RemoteAssetLink></RemoteAssetLink>
-		<Styles></Styles>
-		<styleslinkhref></styleslinkhref>
-		<Scripting Language="VBScript" EntryPoint="" Timeout="5000"/>
-	</Addon>
 	<Addon name="Portal" guid="{A1BCA00C-2657-42A1-8F98-BED1E5A42025}" type="Tool">
 		<Copy></Copy>
 		<CopyText></CopyText>
@@ -68,7 +26,7 @@
 		<!-- deprecated --><JavascriptBodyEnd></JavascriptBodyEnd>
 		<!-- deprecated --><JavascriptOnLoad></JavascriptOnLoad>
 		<Content>No</Content>
-		<Template>Yes</Template>
+		<Template>No</Template>
 		<Email>No</Email>
 		<Admin>Yes</Admin>
 		<OnPageEndEvent>No</OnPageEndEvent>
