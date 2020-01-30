@@ -1,26 +1,26 @@
 //
 // adminFramework assembly referenced js
 //
-if (typeof (google) != 'object') {
-    document.write('<scr' + 'ipt type="text/javascript" src="https://www.google.com/jsapi"></scr' + 'ipt>')
+if (typeof google !== 'object') {
+    document.write('<scr' + 'ipt type="text/javascript" src="https://www.google.com/jsapi"></scr' + 'ipt>');
 }
 function cjFrameSubmitForm(remoteMethodName, frameHtmlId, formHtmlId) {
     jQuery('#' + frameHtmlId).block();
     cj.ajax.addon(
-			remoteMethodName
-			, 'frameName=' + frameHtmlId
-			, formHtmlId
-			, frameHtmlId
-			)
+        remoteMethodName
+        , 'frameName=' + frameHtmlId
+        , formHtmlId
+        , frameHtmlId
+    );
 }
 function cjFrameUpdate(remoteMethodName, frameHtmlId, qs) {
     jQuery('#' + frameHtmlId).block();
     cj.ajax.addon(
-			remoteMethodName
-			, qs + '&frameName=' + frameHtmlId
-			, ''
-			, frameHtmlId
-			)
+        remoteMethodName
+        , qs + '&frameName=' + frameHtmlId
+        , ''
+        , frameHtmlId
+    );
 }
 //
 // attach this to the contensive cj object
