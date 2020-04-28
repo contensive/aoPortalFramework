@@ -37,17 +37,10 @@ md "%deploymentFolderRoot%%deploymentNumber%"
 
 rem ==============================================================
 rem
-rem remove project folders
-rem
-rd /S /Q "..\source\%projectName%\bin"
-rd /S /Q "..\source\%projectName%\obj"
-
-rem ==============================================================
-rem
 echo build 
 rem
-cd ..\source
-"%msbuildLocation%msbuild.exe" "%solutionName%.sln"
+cd ..\server
+"%msbuildLocation%msbuild.exe" %solutionName%
 if errorlevel 1 (
    echo failure building
    pause
@@ -55,30 +48,16 @@ if errorlevel 1 (
 )
 cd ..\scripts
 
-rem ==============================================================
-rem
-echo build Nuget
-rem
-cd ..\source\%solutionName%
-
-IF EXIST "Contensive.%nugetName%.%majorVersion%.%minorVersion%.%deploymentNumber%.nupkg" (
-	del "Contensive.%nugetName%.%majorVersion%.%minorVersion%.%deploymentNumber%.nupkg" /Q
-)
-"nuget.exe" pack "Contensive.%nugetName%.nuspec" -version %majorVersion%.%minorVersion%.%deploymentNumber%
-
-if errorlevel 1 (
-   echo failure in nuget
-   pause
-   exit /b %errorlevel%
-)
-xcopy "Contensive.%nugetName%.%majorVersion%.%minorVersion%.%deploymentNumber%.nupkg" "C:\Users\jay\Documents\nugetLocalPackages" /Y
-xcopy "Contensive.%nugetName%.%majorVersion%.%minorVersion%.%deploymentNumber%.nupkg" "%deploymentFolderRoot%%deploymentNumber%" /Y
-cd ..\..\scripts
+rem pause
 
 rem ==============================================================
 rem
 echo Build addon collection
 rem
+
+rem remove old DLL files from the collection folder
+del "%collectionPath%"\*.DLL
+del "%collectionPath%"\*.config
 
 rem copy bin folder assemblies to collection folder
 copy "%binPath%*.dll" "%collectionPath%"
@@ -91,5 +70,3 @@ del "%collectionName%.zip" /Q
 xcopy "%collectionName%.zip" "%deploymentFolderRoot%%deploymentNumber%" /Y
 cd ..\..\scripts
 
-@echo Success
-pause
