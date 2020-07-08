@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using Contensive.BaseClasses;
 
-namespace Contensive.Addons.aoPortal {
+namespace Contensive.Addons.PortalFramework {
     public static class AfwStyles {
         public const string afwWidth10 = "afwWidth10";
         public const string afwWidth20 = "afwWidth20";

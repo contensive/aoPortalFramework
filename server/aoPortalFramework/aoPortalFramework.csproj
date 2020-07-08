@@ -8,8 +8,8 @@
     <ProjectGuid>{BC682012-AFBD-4A22-BEC8-E9CACBE8B7D6}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Contensive.Addons.aoPortal</RootNamespace>
-    <AssemblyName>adminFramework</AssemblyName>
+    <RootNamespace>Contensive.Addons.PortalFramework</RootNamespace>
+    <AssemblyName>PortalFramework</AssemblyName>
     <SccProjectName>
     </SccProjectName>
     <SccLocalPath>

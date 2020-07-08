@@ -6,7 +6,7 @@
 		<Copy></Copy>
 		<CopyText></CopyText>
 		<ActiveXProgramID></ActiveXProgramID>
-		<DotNetClass><![CDATA[Contensive.Addons.aoPortal.portalClass]]></DotNetClass>
+		<DotNetClass><![CDATA[Contensive.Addons.PortalFramework.PortalClass]]></DotNetClass>
 		<ArgumentList><![CDATA[Portal=[listid(portals)]]]></ArgumentList>
 		<AsAjax>No</AsAjax>
 		<Filter>No</Filter>

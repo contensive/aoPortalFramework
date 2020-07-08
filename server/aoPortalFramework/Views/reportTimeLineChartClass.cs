@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using Contensive.BaseClasses;
 
-namespace Contensive.Addons.aoPortal
+namespace Contensive.Addons.PortalFramework
 {
     public class reportTimeLineChartClass
     {

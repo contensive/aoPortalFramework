@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Text;
 using Contensive.BaseClasses;
 
-namespace Contensive.Addons.aoPortal {
+namespace Contensive.Addons.PortalFramework {
     public class formNameValueRowsClass {
         //
         const string cr = "\r\n\t";

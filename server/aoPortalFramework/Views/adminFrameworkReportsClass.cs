@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Contensive.Addons.aoPortal
+namespace Contensive.Addons.PortalFramework
 {
     public class adminFrameworkReportColumnClass
     {

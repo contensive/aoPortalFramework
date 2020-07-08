@@ -2,7 +2,7 @@
 using System;
 using Contensive.BaseClasses;
 
-namespace Contensive.Addons.aoPortal {
+namespace Contensive.Addons.PortalFramework {
     public class formSimpleClass {
         //
         const string cr = "\r\n\t";

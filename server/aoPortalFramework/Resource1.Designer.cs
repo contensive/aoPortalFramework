@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Contensive.Addons.aoPortal {
+namespace Contensive.Addons.PortalFramework {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace Contensive.Addons.aoPortal {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Contensive.Addons.aoPortal.Resource1", typeof(Resource1).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Contensive.Addons.PortalFramework.Resource1", typeof(Resource1).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -63,7 +63,7 @@ namespace Contensive.Addons.aoPortal {
         /// <summary>
         ///   Looks up a localized string similar to 
         ////*
-        ///* AdminFramework assembly referenced resources
+        ///* Contensive.Addons.PortalFramework assembly referenced resources
         ///*/
         ///#desktop 
         ///{
@@ -90,9 +90,7 @@ namespace Contensive.Addons.aoPortal {
         ///    font:normal bold 20px/30px Arial, san-serif;
         ///    margin: 20px 0 10px 0;
         ///}
-        ///#afw h2
-        ///{
-        ///    fon [rest of string was truncated]&quot;;.
+        ///#afw h2 [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string styles {
             get {

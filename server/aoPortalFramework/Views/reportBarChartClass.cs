@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Text;
 using Contensive.BaseClasses;
 
-namespace Contensive.Addons.aoPortal
+namespace Contensive.Addons.PortalFramework
 {
     public class reportBarChartClass
     {
@@ -404,7 +404,6 @@ namespace Contensive.Addons.aoPortal
                 + cr + "}";
             result += "<script Language=\"JavaScript\" type=\"text/javascript\">" + returnHeadJs + "</script>";
             returnHeadJs = "";
-            //cp.Doc.AddHeadJavascript(returnHeadJs);
             return result;
         }
         //

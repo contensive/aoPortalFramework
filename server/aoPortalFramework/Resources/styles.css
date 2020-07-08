@@ -1,6 +1,6 @@
 
 /*
-* Contensive.Addons.aoPortal assembly referenced resources
+* Contensive.Addons.PortalFramework assembly referenced resources
 */
 #desktop 
 {
@@ -411,7 +411,6 @@
 */
 #afw .afwChartCon {
 	margin: 0 auto 40px auto;
-    border: 1px solid #CCCCCC;
 	}
 #afw .afwGridCon {
 	padding: 0 0 40px;

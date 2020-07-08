@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Text;
 using Contensive.BaseClasses;
 
-namespace Contensive.Addons.aoPortal {
+namespace Contensive.Addons.PortalFramework {
     public class ReportListClass {
         const int columnSize = 99;
         const int rowSize = 19999;

@@ -10,7 +10,7 @@ using System.Text;
 using System.Reflection;
 using Contensive.BaseClasses;
 
-namespace Contensive.Addons.aoPortal.Models
+namespace Contensive.Addons.PortalFramework.Models
 {
     public abstract class baseModel
     {

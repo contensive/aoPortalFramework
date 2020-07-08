@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using Contensive.BaseClasses;
 
-namespace Contensive.Addons.aoPortal {
+namespace Contensive.Addons.PortalFramework {
     public class pageWithNavClass {
         const string cr = "\r\n\t";
         const string cr2 = cr + "\t";

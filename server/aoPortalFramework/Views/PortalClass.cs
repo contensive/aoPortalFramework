@@ -2,11 +2,11 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-using Contensive.Addons.aoPortal.Models;
+using Contensive.Addons.PortalFramework.Models;
 using Contensive.BaseClasses;
-using Constants = Contensive.Addons.aoPortal.Constants;
+using Constants = Contensive.Addons.PortalFramework.Constants;
 
-namespace Contensive.Addons.aoPortal {
+namespace Contensive.Addons.PortalFramework {
     public class PortalClass : AddonBaseClass {
         //====================================================================================================
         /// <summary>
@@ -100,7 +100,7 @@ namespace Contensive.Addons.aoPortal {
                     PortalFeatureDataClass feature;
                     PortalDataClass portal = PortalDataClass.loadPortalFromDb(CP, portalSelectSqlCriteria);
                     string frameRqs = CP.Utils.ModifyQueryString(CP.Doc.RefreshQueryString, Constants.rnSetPortalId, portal.id.ToString(), true);
-                    Contensive.Addons.aoPortal.pageWithNavClass innerForm = new Contensive.Addons.aoPortal.pageWithNavClass();
+                    Contensive.Addons.PortalFramework.pageWithNavClass innerForm = new Contensive.Addons.PortalFramework.pageWithNavClass();
                     //
                     // portal interface - add tabs
                     //

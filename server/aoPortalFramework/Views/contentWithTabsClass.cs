@@ -6,7 +6,7 @@ using System.Resources;
 using System.IO;
 using Contensive.BaseClasses;
 
-namespace Contensive.Addons.aoPortal
+namespace Contensive.Addons.PortalFramework
 {
     public class contentWithTabsClass
     {

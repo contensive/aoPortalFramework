@@ -3,7 +3,7 @@ using Contensive.BaseClasses;
 using System;
 using System.Collections.Generic;
 
-namespace Contensive.Addons.aoPortal.Models {
+namespace Contensive.Addons.PortalFramework.Models {
     //
     // admin framework portals
     //

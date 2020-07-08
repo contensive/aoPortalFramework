@@ -1,7 +1,7 @@
 ﻿
 using Contensive.BaseClasses;
 
-namespace Contensive.Addons.aoPortal.Models {
+namespace Contensive.Addons.PortalFramework.Models {
     public class ContentModel : baseModel {
         //
         //====================================================================================================

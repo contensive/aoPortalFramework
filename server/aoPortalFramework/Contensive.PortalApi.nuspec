@@ -12,12 +12,12 @@
         <requireLicenseAcceptance>false</requireLicenseAcceptance>
         <description>This package installs references for the Contensive Portal API, making it easier to create add-ons that use the Portal Collection.</description>
         <releaseNotes>Chrome shadow fails for width under 62px..</releaseNotes>
-        <copyright>Copyright 2019</copyright>
+        <copyright>Copyright 2020</copyright>
         <tags>Contensive,portal,dotnet,clib,cclib</tags>
         <dependencies>
         </dependencies>
     </metadata>
     <files>
-        <file src="bin\Debug\adminFramework.dll" target="lib\net461\adminFramework.dll" />
+        <file src="bin\Debug\PortalFramework.dll" target="lib\net472\PortalFramework.dll" />
     </files>
 </package>
