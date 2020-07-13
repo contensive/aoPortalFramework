@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Contensive.Addons.PortalFramework.Controllers;
 using Contensive.BaseClasses;
 
 namespace Contensive.Addons.PortalFramework {
@@ -29,16 +30,14 @@ namespace Contensive.Addons.PortalFramework {
         string localFilterListItems = "";
         //
         //-------------------------------------------------
+        /// <summary>
+        /// Include a datatable at the bottom of the chart
+        /// </summary>
+        public bool includeDataTable { get; set; } = false;
         //
-        public bool includeBodyPadding {
-            get {
-                return _includeBodyPadding;
-            }
-            set {
-                _includeBodyPadding = value;
-            }
-        }
-        bool _includeBodyPadding = true;
+        //-------------------------------------------------
+        //
+        public bool includeBodyPadding { get; set; } = true;
         //
         //-------------------------------------------------
         //
@@ -51,15 +50,11 @@ namespace Contensive.Addons.PortalFramework {
         //
         //-------------------------------------------------
         //
-        //-------------------------------------------------
-        //
         public string styleSheet {
             get {
                 return Properties.Resources.styles;
             }
         }
-        //
-        //-------------------------------------------------
         //
         //-------------------------------------------------
         //
@@ -70,35 +65,24 @@ namespace Contensive.Addons.PortalFramework {
         }
         //
         //-------------------------------------------------
-        // getResult
-        //-------------------------------------------------
+        /// <summary>
+        /// getResult
+        /// </summary>
+        /// <param name="cp"></param>
+        /// <returns></returns>
         //
         public string getHtml(CPBaseClass cp) {
-            string result = "";
-            string gridRowList = "";
-            int rowPtr = 0;
-            string userErrors;
-            string jsonData = "";
-            string chartHtmlId = "afwChart" + (new Random()).Next(10000, 99999);
-            double total = 0;
-            string grid = "";
-            string gridRow = "";
-            string gridRowClass = "";
-            string captionColumn = "";
-            string percentText = "";
-
             //
             // add user errors
             //
-            userErrors = cp.Utils.EncodeText(cp.UserError.GetList());
+            string userErrors = cp.Utils.EncodeText(cp.UserError.GetList());
             if (userErrors != "") {
                 warning = userErrors;
             }
-
-            //--- imported from bar chart
             //
             // headers
             //
+            string gridRowList = "";
             gridRowList += "<th>" + gridCaptionHeader + "</th>";
             gridRowList += "<th>" + gridValueHeader + "</th>";
             gridRowList += "<th>%</th>";
@@ -109,6 +93,8 @@ namespace Contensive.Addons.PortalFramework {
                 + "</tr>"
                 + "</thead>"
                 + "";
+            string jsonData = "";
+            double total = 0;
             //---
             //
             // body
@@ -118,17 +104,18 @@ namespace Contensive.Addons.PortalFramework {
                 //
                 // -- first row of data is the captions
                 jsonData += ",['" + gridCaptionHeader + "','" + gridValueHeader + "']";
+                int rowPtr = 0;
                 for (rowPtr = 0; rowPtr <= rowCnt; rowPtr++) {
                     //
                     // -- calcuate the totals
                     total += row[rowPtr].value;
                 }
                 for (rowPtr = 0; rowPtr <= rowCnt; rowPtr++) {
-                    gridRow = "";
+                    string gridRow = "";
                     //
                     // -- first column is a text caption
                     if (gridIncludesCaptionColumn) {
-                        captionColumn = row[rowPtr].caption;
+                        string captionColumn = row[rowPtr].caption;
                         if (captionColumn == "") {
                             captionColumn = "&nbsp;";
                         }
@@ -137,12 +124,14 @@ namespace Contensive.Addons.PortalFramework {
                     //
                     // -- additional columns are numeric
                     gridRow += "<td class=\"" + localgridValueClass + "\">" + row[rowPtr].value.ToString() + "</td>";
+                    string percentText = "";
                     if (total > 0) {
                         percentText = (row[rowPtr].value / total).ToString("p1");
                     } else {
                         percentText = "n/a";
                     }
                     gridRow += "<td class=\"" + localgridValueClass + "\">" + percentText + "</td>";
+                    string gridRowClass = "";
                     if (rowPtr % 2 == 0) {
                         gridRowClass = "";
                     } else {
@@ -167,6 +156,7 @@ namespace Contensive.Addons.PortalFramework {
                     + "</tfoot>"
                     + "";
             }
+            string grid = "";
             grid += ""
                 + "<tbody>"
                 + gridRowList
@@ -180,18 +170,15 @@ namespace Contensive.Addons.PortalFramework {
                 + "<div class=\"afwGridCon\">"
                 + grid
                 + "</div>";
-            result = ""
+            string chartHtmlId = "afwChart" + GnericController.getRandomHtmlId(cp);
+            string result = ""
                 + "<div class=\"afwChartCon\" style=\"width:" + chartWidth + "px;\">"
                 + "<div id=\"" + chartHtmlId + "\"></div>"
-                + "</div>"
-                + "<div class=\"afwGridCon\">"
-                + grid
                 + "</div>";
-            result = ""
-                + "<div class=\"afwPieCon\">"
-                + result
-                + "</div>"
-                + "";
+            if (includeDataTable) {
+                result += "<div class=\"afwGridCon\">" + grid + "</div>";
+            }
+            result = "<div class=\"afwPieCon\">" + result + "</div>";
             if (localFilterListItems != "") {
                 htmlLeftOfTable += ""
                     + cp.Html.ul("<h3>Filter Options</h3>" + localFilterListItems, "", "afwFilterList")
@@ -244,7 +231,7 @@ namespace Contensive.Addons.PortalFramework {
                 }
                 result = cp.Html.Form(localButtonList + result + localButtonList + localHiddenList, "", "", "", localFormActionQueryString, "");
             }
-            if (_includeBodyPadding) { result = cp.Html.div(result, "", "afwBodyPad", ""); };
+            if (includeBodyPadding) { result = cp.Html.div(result, "", "afwBodyPad", ""); };
             if (includeBodyColor) { result = cp.Html.div(result, "", "afwBodyColor", ""); };
             string returnHeadJs = "<script type=\"text/javascript\" src=\"https://www.gstatic.com/charts/loader.js\"></script>";
             returnHeadJs += ""

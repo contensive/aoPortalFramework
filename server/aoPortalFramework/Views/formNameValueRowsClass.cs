@@ -6,7 +6,7 @@ using System.Text;
 using Contensive.BaseClasses;
 
 namespace Contensive.Addons.PortalFramework {
-    public class formNameValueRowsClass {
+    public class FormNameValueRowsClass {
         //
         const string cr = "\r\n\t";
         const string cr2 = cr + "\t";

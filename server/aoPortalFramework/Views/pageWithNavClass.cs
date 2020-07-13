@@ -4,7 +4,7 @@ using System.Text;
 using Contensive.BaseClasses;
 
 namespace Contensive.Addons.PortalFramework {
-    public class pageWithNavClass {
+    public class PageWithNavClass {
         const string cr = "\r\n\t";
         const string cr2 = cr + "\t";
         //

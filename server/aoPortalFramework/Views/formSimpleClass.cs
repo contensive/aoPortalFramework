@@ -3,7 +3,7 @@ using System;
 using Contensive.BaseClasses;
 
 namespace Contensive.Addons.PortalFramework {
-    public class formSimpleClass {
+    public class FormSimpleClass {
         //
         const string cr = "\r\n\t";
         const string cr2 = cr + "\t";

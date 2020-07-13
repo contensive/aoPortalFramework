@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Contensive.Addons.PortalFramework.Controllers;
 using Contensive.BaseClasses;
 
 namespace Contensive.Addons.PortalFramework
@@ -184,7 +185,7 @@ namespace Contensive.Addons.PortalFramework
             string returnHeadJs = "";
             string jsonData = "";
             string jsonRow = "";
-            string chartHtmlId = "afwChart" + (new Random()).Next(10000, 99999);
+            string chartHtmlId = "afwChart" + GnericController.getRandomHtmlId(cp);
             string captionColumn;
             //string clickLink;
             string jsonRowList = "";

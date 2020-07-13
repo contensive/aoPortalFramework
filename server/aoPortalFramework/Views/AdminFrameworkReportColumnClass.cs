@@ -1,34 +1,30 @@
 ﻿
-using System.Collections.Generic;
-
 namespace Contensive.Addons.PortalFramework {
-    public class AdminFrameworkReportsClass {
+    public class AdminFrameworkReportColumnClass
+    {
         //
         //-------------------------------------------------
-        // Report name
+        // column name
         //-------------------------------------------------
         //
-        public string name { get; set; } = "";
+        public string name { get; set; }
         //
         //-------------------------------------------------
-        // Report title
+        // column _sortOrder
         //-------------------------------------------------
         //
-        public string title { get; set; } = "";
+        public string sortOrder { get; set; }
         //
         //-------------------------------------------------
-        // Report description
+        // column _captionClass
         //-------------------------------------------------
         //
-        public string description { get; set; } = "";
+        public string captionClass { get; set; }
         //
         //-------------------------------------------------
-        // Report guid
+        // column _cellClass
         //-------------------------------------------------
         //
-        public string guid { get; set; } = "";
-        //
-        public ICollection<AdminFrameworkReportColumnClass> column { get; set; }
+        public string cellClass { get; set; }
     }
-
 }

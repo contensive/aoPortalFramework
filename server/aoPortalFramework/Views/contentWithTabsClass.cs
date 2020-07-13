@@ -8,7 +8,7 @@ using Contensive.BaseClasses;
 
 namespace Contensive.Addons.PortalFramework
 {
-    public class contentWithTabsClass
+    public class ContentWithTabsClass
     {
         //
         const string cr = "\r\n\t";

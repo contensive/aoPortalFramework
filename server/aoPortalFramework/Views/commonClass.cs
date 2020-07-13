@@ -1,6 +1,4 @@
-using System;
-using System.Collections.Generic;
-using System.Text;
+
 using Contensive.BaseClasses;
 
 namespace Contensive.Addons.PortalFramework {
@@ -71,8 +69,8 @@ namespace Contensive.Addons.PortalFramework {
         //=========================================================================================================
         //
         public static int getPageSize(CPBaseClass cp) {
-            int pageSize = cp.Utils.EncodeInteger(cp.Doc.GetProperty(rnPageSize, "20"));
-            int setPageSize = cp.Utils.EncodeInteger(cp.Doc.GetProperty(rnSetPageSize, ""));
+            int pageSize = cp.Doc.GetInteger(rnPageSize, 20);
+            int setPageSize = cp.Doc.GetInteger(rnSetPageSize);
             if (setPageSize != 0) {
                 pageSize = setPageSize;
             }

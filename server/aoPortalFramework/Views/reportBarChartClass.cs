@@ -2,11 +2,12 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Contensive.Addons.PortalFramework.Controllers;
 using Contensive.BaseClasses;
 
 namespace Contensive.Addons.PortalFramework
 {
-    public class reportBarChartClass
+    public class ReportBarChartClass
     {
         const int columnSize = 99;
         const int rowSize = 9999;
@@ -184,7 +185,7 @@ namespace Contensive.Addons.PortalFramework
             string returnHeadJs = "";
             string jsonData = "";
             string jsonRow = "";
-            string chartHtmlId = "afwChart" + (new Random()).Next(10000, 99999);
+            string chartHtmlId = "afwChart" + GnericController.getRandomHtmlId(cp);
             string captionColumn;
             string clickLink;
             //
