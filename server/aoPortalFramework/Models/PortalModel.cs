@@ -4,7 +4,7 @@ using Contensive.Models.Db;
 namespace Models.Db {
     public class PortalModel : Contensive.Models.Db.DbBaseModel {
         //
-        public static readonly DbBaseTableMetadataModel tableMetadata = new DbBaseTableMetadataModel("Portals", "ccPortals", "default", false);
+        public static DbBaseTableMetadataModel tableMetadata { get; } = new DbBaseTableMetadataModel("Portals", "ccPortals", "default", false);
         //
         //====================================================================================================
         //

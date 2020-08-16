@@ -85,8 +85,6 @@ if errorlevel 1 (
 )
 cd ..\scripts
 
-rem pause
-
 rem ==============================================================
 rem
 echo Build addon collection
@@ -126,4 +124,3 @@ xcopy "Contensive.PortalApi.%versionNumber%.nupkg" "%NuGetLocalPackagesFolder%" 
 xcopy "Contensive.PortalApi.%versionNumber%.nupkg" "%deploymentFolderRoot%%versionNumber%" /Y
 cd ..\..\scripts
 
-pause
