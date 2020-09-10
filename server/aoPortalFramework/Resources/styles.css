@@ -170,6 +170,11 @@
     background-color: #1F70BD;
 	border-left: 1px solid #1F70BD;
 }
+	#afw ul.afwNav li.afwPortalLink a {
+		color: #666;
+		border-left: 1px solid #7799bb;
+		border-left: 1px solid #1F70BD;
+	}
 /*
 * Tabbed Body
 */
@@ -238,13 +243,13 @@
 }
 #afw .afwFormRowName 
 {
-    line-height: 30px;
-    text-align: right;
-    padding: 7px 10px 0 0;
-    display: table-cell;
-    width: 160px;
-    vertical-align: top;
-    font-weight: bold;
+	line-height: 30px;
+	text-align: right;
+	padding: 5px 10px;
+	display: table-cell;
+	width: 160px;
+	vertical-align: middle;
+	font-weight: bold;
 }
 #afw .afwFormRowValue 
 {
@@ -252,7 +257,7 @@
     border-top: 2px solid #FFFFFF;
     display: table-cell;
     margin: 15px;
-    padding: 7px 5px 5px;
+    padding: 5px 10px;
     vertical-align: middle;
 }
     #afw .afwFormRowValue .afwFormRowValueHelp {

@@ -98,7 +98,7 @@ namespace Contensive.Addons.PortalFramework {
                     if (portalData.featureList.ContainsKey(Constants.devToolGuid)) {
                         CP.Site.ErrorReport("loadPortalFromDb, the portal [" + portalData.name + "] appears to have the devTool feature saved in either the Db features or the defaultConfig. This is not allowed.");
                     } else {
-                        innerForm.addNav();
+                        innerForm.addPortalNav();
                         innerForm.navCaption = "Developer Tool";
                         innerForm.navLink = "?" + CP.Utils.ModifyQueryString(CP.Doc.RefreshQueryString, Constants.rnDstFeatureGuid, Constants.devToolGuid);
                     }
@@ -108,7 +108,7 @@ namespace Contensive.Addons.PortalFramework {
                 //
                 if (portalData.linkedPortals.Count > 0) {
                     foreach (PortalDataClass linkedPortal in portalData.linkedPortals) {
-                        innerForm.addNav();
+                        innerForm.addPortalNav();
                         innerForm.navCaption = linkedPortal.name;
                         innerForm.navLink = "?" + CP.Utils.ModifyQueryString(CP.Doc.RefreshQueryString, Constants.rnSetPortalId, linkedPortal.id.ToString());
                     }

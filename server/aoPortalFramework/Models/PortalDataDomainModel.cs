@@ -63,8 +63,8 @@ namespace Contensive.Addons.PortalFramework.Models {
                     // load portal links
                     //
                     portal.linkedPortals = new List<PortalDataClass>();
-                    string sql = "select p.id,p.ccguid,p.name from ccPortals p where p.active>0 order by p.name";
-                    //string sql = "select p.id,p.ccguid,p.name from ccPortals p left join ccPortalLinks l on l.toPortalId=p.id where l.fromPortalId=" + portal.id;
+                    //string sql = "select p.id,p.ccguid,p.name from ccPortals p where p.active>0 order by p.name";
+                    string sql = "select p.id,p.ccguid,p.name from ccPortals p left join ccPortalLinks l on l.toPortalId=p.id where l.fromPortalId=" + portal.id;
                     if (csMan.OpenSQL(sql)) {
                         do {
                             int portalId = csMan.GetInteger("id");

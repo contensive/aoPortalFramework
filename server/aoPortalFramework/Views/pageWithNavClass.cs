@@ -10,9 +10,22 @@ namespace Contensive.Addons.PortalFramework {
         //
         const int navSize = 99;
         struct navStruct {
+            /// <summary>
+            /// the displayed text on teh nav
+            /// </summary>
             public string caption;
+            /// <summary>
+            /// if present, this link goes on the nav
+            /// </summary>
             public string link;
+            /// <summary>
+            /// if true, the view is currently on this nav
+            /// </summary>
             public bool active;
+            /// <summary>
+            /// if true, this nav goes to another portal
+            /// </summary>
+            public bool isPortalLink;
         }
         navStruct[] navs = new navStruct[navSize];
         int navMax = -1;
@@ -197,6 +210,23 @@ namespace Contensive.Addons.PortalFramework {
                 navs[navPtr].caption = "";
                 navs[navPtr].link = "";
                 navs[navPtr].active = false;
+                navs[navPtr].isPortalLink = false;
+                if (navPtr > navMax) {
+                    navMax = navPtr;
+                }
+            }
+        }
+        //
+        /// <summary>
+        /// Add a navigation entry. The navCaption and navLink should be set after creating a new entry. The first nav entry does not need to be added.
+        /// </summary>
+        public void addPortalNav() {
+            if (navPtr < navSize) {
+                navPtr += 1;
+                navs[navPtr].caption = "";
+                navs[navPtr].link = "";
+                navs[navPtr].active = false;
+                navs[navPtr].isPortalLink = true;
                 if (navPtr > navMax) {
                     navMax = navPtr;
                 }
@@ -238,6 +268,8 @@ namespace Contensive.Addons.PortalFramework {
                     }
                     if (navs[navPtr].active) {
                         navItem = "<li class=\"afwNavActive\">" + navItem + "</li>";
+                    } else if (navs[navPtr].isPortalLink) {
+                        navItem = "<li class=\"afwNavPortalLink\">" + navItem + "</li>";
                     } else {
                         navItem = cr + "<li>" + navItem + "</li>";
                     }
