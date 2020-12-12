@@ -328,7 +328,7 @@ namespace Contensive.Addons.PortalFramework {
             // headers
             //
             if (addCsvDownloadCurrentPage && (!string.IsNullOrEmpty(csvDownloadFilename))) {
-                s = new StringBuilder(cr + "<p id=\"afwDescription\"><a href=\"" + cp.Site.FilePath + csvDownloadFilename + "\">Click here</a> to download the data.</p>" + s.ToString());
+                s = new StringBuilder(cr + "<p id=\"afwDescription\"><a href=\"" + cp.Http.CdnFilePathPrefix + csvDownloadFilename + "\">Click here</a> to download the data.</p>" + s.ToString());
             }
             if (localDescription != "") {
                 s = new StringBuilder(cr + "<p id=\"afwDescription\">" + localDescription + "</p>" + s.ToString());

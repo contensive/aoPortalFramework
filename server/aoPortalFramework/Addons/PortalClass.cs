@@ -15,7 +15,6 @@ namespace Contensive.Addons.PortalFramework {
         /// <param name="cp"></param>
         /// <returns></returns>
         public override object Execute(CPBaseClass cp) {
-            string returnHtml = "";
             try {
                 //
                 // get portal to display 

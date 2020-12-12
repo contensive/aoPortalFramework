@@ -176,17 +176,13 @@ namespace Contensive.Addons.PortalFramework {
         //
         public string getHtml(CPBaseClass cp) {
             string result = "";
-            int rowPtr = 0;
-            int fieldSetPtr = 0;
-            string row = "";
             string rowName;
             string rowValue;
-            string userErrors;
             //
             // add user errors
             //
-            userErrors = cp.Utils.EncodeText(cp.UserError.GetList());
-            if (userErrors != "") {
+            string userErrors = cp.Utils.EncodeText(cp.UserError.GetList());
+            if (!string.IsNullOrEmpty(userErrors)) {
                 warning = userErrors;
             }
             //
@@ -201,32 +197,39 @@ namespace Contensive.Addons.PortalFramework {
                     + cr + "</div>";
                 */
             }
-            for (rowPtr = 0; rowPtr <= rowCnt; rowPtr++) {
+            for (int rowPtr = 0; rowPtr <= rowCnt; rowPtr++) {
                 //
                 // check for fieldSetOpens
                 //
-                for (fieldSetPtr = 0; fieldSetPtr <= fieldSetMax; fieldSetPtr++) {
-                    if (fieldSets[fieldSetPtr].rowOpen == rowPtr) {
+                for (int fieldSetPtrx = 0; fieldSetPtrx <= fieldSetMax; fieldSetPtrx++) {
+                    if (fieldSets[fieldSetPtrx].rowOpen == rowPtr) {
                         result += cr + "<fieldset class=\"afwFieldSet\">";
-                        if (fieldSets[fieldSetPtr].caption != "") {
-                            result += cr + "<legend>" + fieldSets[fieldSetPtr].caption + "</legend>";
+                        if (fieldSets[fieldSetPtrx].caption != "") {
+                            result += cr + "<legend>" + fieldSets[fieldSetPtrx].caption + "</legend>";
                         }
                     }
                 }
-                row = "";
-                rowName = rows[rowPtr].name;
-                if (rowName == "") rowName = "&nbsp;";
-                row += cr + cp.Html.div(rowName, "", "afwFormRowName", "");
-                rowValue = rows[rowPtr].value;
-                if (rowValue == "") rowValue = "&nbsp;";
-                if (!string.IsNullOrEmpty(rows[rowPtr].help)) rowValue += cr + cp.Html.div(rows[rowPtr].help, "", "afwFormRowValuehelp");
-                row += cr + cp.Html.div(rowValue, "", "afwFormRowValue", "");
-                result += cr + cp.Html.div(row, "", "afwFormRow", rows[rowPtr].htmlId);
+                //
+                // -- name value row
+                string nameValueRow = "";
+                rowName = (string.IsNullOrWhiteSpace(rows[rowPtr].name) ? "&nbsp;" : rows[rowPtr].name);
+                nameValueRow += cp.Html.div(rowName, "", "afwFormRowName", "");
+                rowValue = (string.IsNullOrWhiteSpace(rows[rowPtr].value) ? "&nbsp;" : rows[rowPtr].value);
+                nameValueRow += cp.Html.div(rowValue, "", "afwFormRowValue", "");
+                result += cp.Html.div(nameValueRow, "", "afwFormRow", rows[rowPtr].htmlId);
+                //
+                // -- help row
+                if (!string.IsNullOrEmpty(rows[rowPtr].help)) {
+                    string helpRow = cp.Html.div("", "", "afwFormRowName", "");
+                    rowValue = "<small class=\"text-muted afwFormRowValuehelp\">" + rows[rowPtr].help + "</small>";
+                    helpRow += cp.Html.div(rowValue, "", "afwFormRowHelp", "");
+                    result += cp.Html.div(helpRow, "", "afwFormRow", rows[rowPtr].htmlId);
+                }
                 //
                 // check for fieldSetCloses
                 //
-                for (fieldSetPtr = fieldSetMax; fieldSetPtr >= 0; fieldSetPtr--) {
-                    if (fieldSets[fieldSetPtr].rowClose == rowPtr) {
+                for (int fieldSetPtrx = fieldSetMax; fieldSetPtrx >= 0; fieldSetPtrx--) {
+                    if (fieldSets[fieldSetPtrx].rowClose == rowPtr) {
                         result += cr + "</fieldset>";
                     }
                 }

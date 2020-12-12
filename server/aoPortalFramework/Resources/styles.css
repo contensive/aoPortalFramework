@@ -273,6 +273,12 @@
 	width: 100%;
 	/*height: 200px;*/
 }
+#afw .afwFormRowHelp {
+	background-color: #f8f8f8;
+	display: table-cell;
+	margin: 0;
+	padding: 0 10px 0 40px;
+}
 
 #afw .aftFieldSet 
 {
@@ -317,6 +323,7 @@
 	background-color:#888;
 	color:#eee;
 	font-weight:bold;
+	white-space: nowrap;
 }
 #afw .afwListReportTable > thead > tr > th > a
 ,#afw .afwListReportTableCollapse > thead > tr > th > a:visited
