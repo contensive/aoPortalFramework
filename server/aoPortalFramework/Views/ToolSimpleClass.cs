@@ -116,26 +116,70 @@ namespace Contensive.Addons.PortalFramework {
         //
         //-------------------------------------------------
         // 
-        public void addFormHidden(string Name, string Value) {
+        public void addFormHidden(string Name, string Value, string htmlId) {
             localHiddenList += cr + "<input type=\"hidden\" name=\"" + Name + "\" value=\"" + Value + "\">";
             localIncludeForm = true;
         }
         //
         //-------------------------------------------------
-        // 
-        public void addFormHidden(string name, int value) => addFormHidden(name, value.ToString());
+        /// <summary>
+        /// Create html input type hidden
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="value"></param>
+        public void addFormHidden(string name, int value) => addFormHidden(name, value.ToString(), "");
+        /// <summary>
+        /// Create html input type hidden
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="value"></param>
+        /// <param name="htmlId"></param>
+        public void addFormHidden(string name, int value, string htmlId) => addFormHidden(name, value.ToString(), htmlId);
         //
         //-------------------------------------------------
-        // 
-        public void addFormHidden(string name, double value) => addFormHidden(name, value.ToString());
+        /// <summary>
+        /// Create html input type hidden
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="value"></param>
+        public void addFormHidden(string name, double value) => addFormHidden(name, value.ToString(), "");
+        /// <summary>
+        /// Create html input type hidden
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="value"></param>
+        /// <param name="htmlId"></param>
+        public void addFormHidden(string name, double value, string htmlId) => addFormHidden(name, value.ToString(), htmlId);
         //
         //-------------------------------------------------
-        // 
-        public void addFormHidden(string name, DateTime value) => addFormHidden(name, value.ToString());
+        /// <summary>
+        /// Create html input type hidden
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="value"></param>
+        public void addFormHidden(string name, DateTime value) => addFormHidden(name, value.ToString(), "");
+        /// <summary>
+        /// Create html input type hidden
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="value"></param>
+        /// <param name="htmlId"></param>
+        public void addFormHidden(string name, DateTime value, string htmlId) => addFormHidden(name, value.ToString(), htmlId);
         //
         //-------------------------------------------------
-        // 
-        public void addFormHidden(string name, bool value) => addFormHidden(name, value.ToString());
+        /// <summary>
+        /// Create html input type hidden
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="value"></param>
+        public void addFormHidden(string name, bool value) => addFormHidden(name, value.ToString(), "");
+        /// <summary>
+        /// Create html input type hidden
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="value"></param>
+        /// <param name="htmlId"></param>
+        public void addFormHidden(string name, bool value, string htmlId) => addFormHidden(name, value.ToString(), htmlId);
         //
         //-------------------------------------------------
         // 
