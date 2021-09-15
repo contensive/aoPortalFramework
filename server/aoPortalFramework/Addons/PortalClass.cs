@@ -5,6 +5,7 @@ using Contensive.Addons.PortalFramework.Models;
 using Contensive.BaseClasses;
 using Contensive.Models.Db;
 using Models.Db;
+using Models.Domain;
 
 namespace Contensive.Addons.PortalFramework {
     public class PortalClass : AddonBaseClass {
@@ -324,20 +325,5 @@ namespace Contensive.Addons.PortalFramework {
             }
             return returnBody;
         }
-    }
-    //
-    public class PortalFeatureDataClass {
-        public int id;
-        public string name;
-        public string heading;
-        public int parentFeatureId;
-        public string parentFeatureGuid;
-        public string guid;
-        public int addonId;
-        public int dataContentId;
-        public string dataContentGuid;
-        public string addonGuid;
-        public string sortOrder;
-        public bool addPadding;
     }
 }

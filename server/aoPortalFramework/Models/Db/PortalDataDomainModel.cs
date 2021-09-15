@@ -1,5 +1,6 @@
 ﻿
 using Contensive.BaseClasses;
+using Models.Domain;
 using System;
 using System.Collections.Generic;
 

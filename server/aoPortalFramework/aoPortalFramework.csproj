@@ -82,8 +82,9 @@
   <ItemGroup>
     <Compile Include="Constants.cs" />
     <Compile Include="Controllers\GnericController.cs" />
-    <Compile Include="Models\PortalDataDomainModel.cs" />
-    <Compile Include="Models\PortalModel.cs" />
+    <Compile Include="Models\Db\PortalDataDomainModel.cs" />
+    <Compile Include="Models\Db\PortalModel.cs" />
+    <Compile Include="Models\Domain\PortalFeatureDataClass.cs" />
     <Compile Include="Views\AdminFrameworkReportsClass.cs" />
     <Compile Include="Views\AdminFrameworkReportColumnClass.cs" />
     <Compile Include="Views\CommonClass.cs" />
@@ -91,7 +92,7 @@
     <Compile Include="Views\ToolSimpleClass.cs" />
     <Compile Include="Views\PageWithNavClass.cs" />
     <Compile Include="Views\FormNameValueRowsClass.cs" />
-    <Compile Include="Models\_blankModel.cs" />
+    <Compile Include="Models\Db\_blankModel.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
