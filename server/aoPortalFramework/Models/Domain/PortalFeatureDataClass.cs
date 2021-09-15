@@ -11,9 +11,15 @@ namespace Models.Domain {
         public string parentFeatureGuid { get; set; }
         public string guid { get; set; }
         public int addonId { get; set; }
-        public int dataContentId { get; set; }
-        public string dataContentGuid { get; set; }
+        /// <summary>
+        /// only used after the import of a json data set. NOT populated during feature load
+        /// </summary>
         public string addonGuid { get; set; }
+        public int dataContentId { get; set; }
+        /// <summary>
+        /// only used after the import of a json data set. NOT populated during feature load
+        /// </summary>
+        public string dataContentGuid { get; set; }
         public string sortOrder { get; set; }
         public bool addPadding { get; set; }
     }

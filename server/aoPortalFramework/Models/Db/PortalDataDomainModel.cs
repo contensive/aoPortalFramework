@@ -171,40 +171,46 @@ namespace Contensive.Addons.PortalFramework.Models {
                 }
                 //
                 feature.addonId = csFeature.GetInteger("addonId");
-                if (feature.addonId != 0) {
-                    if (cs2.Open("add-ons", "id=" + feature.addonId, "", true, "", 9999, 1)) {
-                        feature.addonGuid = cs2.GetText("ccguid");
-                        if (string.IsNullOrEmpty(feature.addonGuid)) {
-                            feature.addonGuid = CP.Utils.CreateGuid();
-                            cs2.SetField("ccguid", feature.addonGuid);
-                        }
-                    }
-                    cs2.Close();
-                }
+                //
+                // -- save cycles, guid only needed if save() after a json import, and the guid is loaded during the import
+                //if (feature.addonId != 0) {
+                //    if (cs2.Open("add-ons", "id=" + feature.addonId, "", true, "", 9999, 1)) {
+                //        feature.addonGuid = cs2.GetText("ccguid");
+                //        if (string.IsNullOrEmpty(feature.addonGuid)) {
+                //            feature.addonGuid = CP.Utils.CreateGuid();
+                //            cs2.SetField("ccguid", feature.addonGuid);
+                //        }
+                //    }
+                //    cs2.Close();
+                //}
                 //
                 feature.dataContentId = csFeature.GetInteger("dataContentId");
-                if (feature.dataContentId != 0) {
-                    if (cs2.Open("content", "id=" + feature.dataContentId, "", true, "", 9999, 1)) {
-                        feature.dataContentGuid = cs2.GetText("ccguid");
-                        if (string.IsNullOrEmpty(feature.dataContentGuid)) {
-                            feature.dataContentGuid = CP.Utils.CreateGuid();
-                            cs2.SetField("ccguild", feature.dataContentGuid);
-                        }
-                    }
-                    cs2.Close();
-                }
+                //
+                // -- save cycles, guid only needed if save() after a json import, and the guid is loaded during the import
+                //if (feature.dataContentId != 0) {
+                //    if (cs2.Open("content", "id=" + feature.dataContentId, "", true, "", 9999, 1)) {
+                //        feature.dataContentGuid = cs2.GetText("ccguid");
+                //        if (string.IsNullOrEmpty(feature.dataContentGuid)) {
+                //            feature.dataContentGuid = CP.Utils.CreateGuid();
+                //            cs2.SetField("ccguild", feature.dataContentGuid);
+                //        }
+                //    }
+                //    cs2.Close();
+                //}
                 //
                 feature.parentFeatureId = csFeature.GetInteger("parentFeatureId");
-                if (feature.parentFeatureId != 0) {
-                    if (cs2.Open("portal features", "id=" + feature.parentFeatureId, "", true, "", 9999, 1)) {
-                        feature.parentFeatureGuid = cs2.GetText("ccguid");
-                        if (string.IsNullOrEmpty(feature.parentFeatureGuid)) {
-                            feature.parentFeatureGuid = CP.Utils.CreateGuid();
-                            cs2.SetField("ccguid", feature.parentFeatureGuid);
-                        }
-                    }
-                    cs2.Close();
-                }
+                //
+                // -- save cycles, guid only needed if save() after a json import, and the guid is loaded during the import
+                //if (feature.parentFeatureId != 0) {
+                //    if (cs2.Open("portal features", "id=" + feature.parentFeatureId, "", true, "", 9999, 1)) {
+                //        feature.parentFeatureGuid = cs2.GetText("ccguid");
+                //        if (string.IsNullOrEmpty(feature.parentFeatureGuid)) {
+                //            feature.parentFeatureGuid = CP.Utils.CreateGuid();
+                //            cs2.SetField("ccguid", feature.parentFeatureGuid);
+                //        }
+                //    }
+                //    cs2.Close();
+                //}
                 //
             } catch (Exception ex) {
                 CP.Site.ErrorReport(ex, "exception in loadPortal");
@@ -250,7 +256,7 @@ namespace Contensive.Addons.PortalFramework.Models {
                             cs.SetField("name", feature.name);
                             cs.SetField("heading", feature.heading);
                             cs.SetField("sortOrder", feature.sortOrder);
-                            if (!string.IsNullOrEmpty(feature.addonGuid)) {
+                            if (feature.addonId==0 &&  !string.IsNullOrEmpty(feature.addonGuid)) {
                                 //
                                 // lookup addon by guid, set addonid
                                 //
@@ -259,7 +265,7 @@ namespace Contensive.Addons.PortalFramework.Models {
                                 }
                                 cs2.Close();
                             }
-                            if (!string.IsNullOrEmpty(feature.dataContentGuid)) {
+                            if (feature.dataContentId==0 && !string.IsNullOrEmpty(feature.dataContentGuid)) {
                                 //
                                 // save dataContentId based on dataContentGuid
                                 //
@@ -283,7 +289,7 @@ namespace Contensive.Addons.PortalFramework.Models {
                 foreach (KeyValuePair<string, PortalFeatureDataClass> kvp in newPortal.featureList) {
                     PortalFeatureDataClass feature = kvp.Value;
                     if (feature.guid != Constants.devToolGuid) {
-                        if (!string.IsNullOrEmpty(feature.parentFeatureGuid)) {
+                        if (feature.parentFeatureId==0 && !string.IsNullOrEmpty(feature.parentFeatureGuid)) {
                             //
                             // get the id of the parentFeature
                             //
