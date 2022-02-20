@@ -68,10 +68,10 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="ContensiveDbModels, Version=4.1.2.0, Culture=neutral, PublicKeyToken=c014b235a9c6bb22, processorArchitecture=MSIL">
-      <HintPath>..\packages\Contensive.DbModels.20.10.5.1\lib\net45\ContensiveDbModels.dll</HintPath>
+      <HintPath>..\packages\Contensive.DbModels.21.9.29.2\lib\net472\ContensiveDbModels.dll</HintPath>
     </Reference>
     <Reference Include="CPBase, Version=4.1.2.0, Culture=neutral, PublicKeyToken=10b3c53389b845fb, processorArchitecture=MSIL">
-      <HintPath>..\packages\Contensive.CPBaseClass.20.10.5.1\lib\net45\CPBase.dll</HintPath>
+      <HintPath>..\packages\Contensive.CPBaseClass.21.9.29.2\lib\net472\CPBase.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.VisualBasic" />
     <Reference Include="System" />

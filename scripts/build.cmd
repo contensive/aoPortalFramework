@@ -23,7 +23,7 @@ rem			-- etc
 rem				(all misc files)
 
 rem -- the application on the local server where this collection will be installed
-set appName=app210629
+set appName=menucrm0210
 
 rem -- name of the collection on the site (should NOT include ao prefix). This is the name as it appears on the navigator
 set collectionName=Portal Framework
@@ -77,12 +77,22 @@ rem
 echo build 
 rem
 cd ..\server
-"%msbuildLocation%msbuild.exe" %solutionName%
+
+dotnet build aoPortalFramework/aoPortalFramework.csproj --configuration Debug --no-dependencies /property:Version=%versionNumber% /property:AssemblyVersion=%versionNumber% /property:FileVersion=%versionNumber%
 if errorlevel 1 (
-   echo failure building
+   echo failure building catalog
    pause
    exit /b %errorlevel%
 )
+
+pause
+
+rem "%msbuildLocation%msbuild.exe" %solutionName%
+rem if errorlevel 1 (
+rem    echo failure building
+rem    pause
+rem    exit /b %errorlevel%
+rem )
 cd ..\scripts
 
 rem ==============================================================

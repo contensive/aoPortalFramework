@@ -1,0 +1,2322 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>ContensiveDbModels</name>
+    </assembly>
+    <members>
+        <member name="T:Contensive.Models.Db.ActivityLogModel">
+            <summary>
+            Logs events related to user actvity
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.ActivityLogModel.tableMetadata">
+            <summary>
+            table definition
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.ActivityLogModel.link">
+            <summary>
+            The url of the event
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.ActivityLogModel.memberId">
+            <summary>
+            the user who the event effects
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.ActivityLogModel.message">
+            <summary>
+            a description of the event
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.ActivityLogModel.organizationId">
+            <summary>
+            the organization effected by the event
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.ActivityLogModel.visitId">
+            <summary>
+            The visit session in which the event occured
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.ActivityLogModel.visitorId">
+            <summary>
+            the visitor in effect when the event occured
+            </summary>
+        </member>
+        <member name="T:Contensive.Models.Db.AddonCategoryModel">
+            <summary>
+            Addon Categories
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.AddonCategoryModel.tableMetadata">
+            <summary>
+            table definition
+            </summary>
+        </member>
+        <member name="T:Contensive.Models.Db.AddonCollectionCDefRuleModel">
+            <summary>
+            Rules that connnect collections to content definitions
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.AddonCollectionCDefRuleModel.tableMetadata">
+            <summary>
+            table definition
+            </summary>
+        </member>
+        <member name="T:Contensive.Models.Db.AddonCollectionModel">
+            <summary>
+            records that represent addon collections
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.AddonCollectionModel.tableMetadata">
+            <summary>
+            table definition
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.AddonCollectionModel.blockNavigatorNode">
+            <summary>
+            field properties
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.AddonCollectionModel.contentFileList">
+            <summary>
+            files to install in cdn
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.AddonCollectionModel.dataRecordList">
+            <summary>
+            list of records to export to data nodes
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.AddonCollectionModel.execFileList">
+            <summary>
+            files to export and install in collection folder
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.AddonCollectionModel.help">
+            <summary>
+            help text
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.AddonCollectionModel.helpLink">
+            <summary>
+            help link
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.AddonCollectionModel.lastChangeDate">
+            <summary>
+            date of the last change
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.AddonCollectionParentRuleModel.tableMetadata">
+            <summary>
+            table definition
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.AddonContentFieldTypeRulesModel.tableMetadata">
+            <summary>
+            table definition
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.AddonContentFieldTypeRulesModel.addonId">
+            <summary>
+            field properties
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.AddonContentTriggerRuleModel.tableMetadata">
+            <summary>
+            table definition
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.AddonEventCatcherModel.tableMetadata">
+            <summary>
+            table definition
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.AddonEventModel.tableMetadata">
+            <summary>
+            table definition
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.AddonEventThrowerModel.tableMetadata">
+            <summary>
+            table definition
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.AddonIncludeRuleModel.tableMetadata">
+            <summary>
+            table definition
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.AddonIncludeRuleModel.addonId">
+            <summary>
+            field properties
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.AddonModel.tableMetadata">
+            <summary>
+            table definition
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.AddonModel.admin">
+            <summary>
+            field properties
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.AddonModel.processTimeout">
+            <summary>
+            The time in seconds for this addon if run the background
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.AddonModel.iconHtml">
+            <summary>
+            html to be used for the icon. The icon is for the dashboard and addon manager, etc
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.AddonModel.editPlaceholderHtml">
+            <summary>
+            When this addon is rendered in Page Builder, use this html if the addon's actual rendering is not acceptable
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.AddonModel.iconFilename">
+            <summary>
+            if iconHtml is null or whitespace, this image url has the icon to use
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.AddonModel.iconHeight">
+            <summary>
+            the height of the icon filename
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.AddonModel.iconWidth">
+            <summary>
+            the width of the icon filename
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.AddonModel.iconSprites">
+            <summary>
+            the number of sprites in the icon
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.AddonModel.addonCategoryId">
+            <summary>
+            The category for the addon. Use categories to make selecting addons easier in lists.
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.AddonModel.instanceSettingPrimaryContentId">
+            <summary>
+            If this addon uses a primary content associated to the instanceId (guid) from the page editor, select the content for that record
+            </summary>
+        </member>
+        <member name="M:Contensive.Models.Db.AddonModel.createByUniqueName(Contensive.BaseClasses.CPBaseClass,System.String)">
+            <summary>
+            Create model for Addons. This method allows for the alias field if the name does not match
+            </summary>
+            <param name="cp"></param>
+            <param name="recordName"></param>
+            <returns></returns>
+        </member>
+        <member name="P:Contensive.Models.Db.AddonPageRuleModel.tableMetadata">
+            <summary>
+            table definition
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.AddonPageRuleModel.addonId">
+            <summary>
+            field properties
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.AddonTemplateRuleModel.tableMetadata">
+            <summary>
+            table definition
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.AddonTemplateRuleModel.addonId">
+            <summary>
+            field properties
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.AuthoringControlModel.tableMetadata">
+            <summary>
+            table definition
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.AuthoringControlModel.contentRecordKey">
+            <summary>
+            tableId/recordId
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.AuthoringControlModel.controlType">
+            <summary>
+            type of authoring control
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.AuthoringControlModel.dateExpires">
+            <summary>
+            date time when this lock expires
+            </summary>
+        </member>
+        <member name="T:Contensive.Models.Db.ConditionalEmailModel">
+            <summary>
+            Send emails based on a group condition
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.ConditionalEmailModel.tableMetadata">
+            <summary>
+            table definition
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.ConditionalEmailModel.conditionId">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.ConditionalEmailModel.subject">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.ConditionalEmailModel.submitted">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.ConditionalEmailModel.testMemberId">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.ConditionalEmailModel.toAll">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.ConditionalEmailModel.conditionPeriod">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.ConditionalEmailModel.copyFilename">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.ConditionalEmailModel.addLinkEId">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.ConditionalEmailModel.allowSpamFooter">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.ConditionalEmailModel.blockSiteStyles">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.ConditionalEmailModel.conditionExpireDate">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.ConditionalEmailModel.emailTemplateId">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.ConditionalEmailModel.emailWizardId">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.ConditionalEmailModel.fromAddress">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.ConditionalEmailModel.inlineStyles">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.ConditionalEmailModel.lastSendTestDate">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.ConditionalEmailModel.scheduleDate">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.ConditionalEmailModel.sent">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.ConditionalEmailModel.stylesFilename">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:Contensive.Models.Db.ConditionEmailConditionId">
+            <summary>
+            define the process for sending the email
+            </summary>
+        </member>
+        <member name="F:Contensive.Models.Db.ConditionEmailConditionId.DaysBeforeExpiration">
+            <summary>
+            Send email before the expiration from a group
+            </summary>
+        </member>
+        <member name="F:Contensive.Models.Db.ConditionEmailConditionId.DaysAfterJoining">
+            <summary>
+            dend the email after joining a grooup
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.ContentFieldHelpModel.tableMetadata">
+            <summary>
+            table definition
+            </summary>
+        </member>
+        <member name="M:Contensive.Models.Db.ContentFieldHelpModel.createByFieldId(Contensive.BaseClasses.CPBaseClass,System.Int32)">
+            <summary>
+            get the first field help for a field, digard the rest
+            </summary>
+            <param name="cp"></param>
+            <param name="fieldId"></param>
+            <returns></returns>
+        </member>
+        <member name="P:Contensive.Models.Db.ContentFieldModel.tableMetadata">
+            <summary>
+            table definition
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.ContentFieldTypeModel.tableMetadata">
+            <summary>
+            table definition
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.ContentFieldTypeModel.editoraddonid">
+            <summary>
+            Default addon for this content type
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.ContentModel.tableMetadata">
+            <summary>
+            table definition
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.ContentModel.iconHtml">
+            <summary>
+            html to be used for the icon. The icon is for the dashboard and addon manager, etc
+            </summary>
+        </member>
+        <member name="M:Contensive.Models.Db.ContentModel.createListFromCollection(Contensive.BaseClasses.CPBaseClass,System.Int32)">
+            <summary>
+            Create a list of content records that are assocated to a collection, alphabetically by content name
+            </summary>
+            <param name="cp"></param>
+            <param name="collectionId"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Contensive.Models.Db.ContentWatchListModel">
+            <summary>
+            Content Watch List, a list of links related to content topics
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.ContentWatchListModel.tableMetadata">
+            <summary>
+            table definition
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.ContentWatchListRuleModel.tableMetadata">
+            <summary>
+            table definition
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.ContentWatchListRuleModel.contentWatchId">
+            <summary>
+            field properties
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.ContentWatchModel.tableMetadata">
+            <summary>
+            table definition
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.ContentWatchModel.allowWhatsNew">
+            <summary>
+            field properties
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.CopyContentModel.tableMetadata">
+            <summary>
+            table definition
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.CountryModel.tableMetadata">
+            <summary>
+            table definition
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.CustomReportModel.tableMetadata">
+            <summary>
+            table definition
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.DataSourceModel.tableMetadata">
+            <summary>
+            table definition
+            </summary>
+        </member>
+        <member name="M:Contensive.Models.Db.DataSourceModel.create(Contensive.BaseClasses.CPBaseClass,System.Int32)">
+            <summary>
+            Special case for create. If id less than or equal to 0  return default datasource
+            </summary>
+            <param name="cp"></param>
+            <param name="recordId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Contensive.Models.Db.DataSourceModel.create(Contensive.BaseClasses.CPBaseClass,System.Int32,System.Collections.Generic.List{System.String}@)">
+            <summary>
+            Special case.  if id=0, return default datasource
+            </summary>
+            <param name="cp"></param>
+            <param name="recordId"></param>
+            <param name="callersCacheNameList"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Contensive.Models.Db.DataSourceModel.createByUniqueName(Contensive.BaseClasses.CPBaseClass,System.String)">
+            <summary>
+            Special case.  if name=default, return default datasource
+            </summary>
+            <param name="cp"></param>
+            <param name="recordName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Contensive.Models.Db.DataSourceModel.createByUniqueName(Contensive.BaseClasses.CPBaseClass,System.String,System.Collections.Generic.List{System.String}@)">
+            <summary>
+            Special case.  if name=default, return default datasource
+            </summary>
+            <param name="cp"></param>
+            <param name="recordName"></param>
+            <param name="callersCacheNameList"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Contensive.Models.Db.DataSourceModel.isDataSourceDefault(System.String)">
+            <summary>
+            Special case.  if name=default, return default datasource
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Contensive.Models.Db.DataSourceModel.getDefaultDatasource(Contensive.BaseClasses.CPBaseClass)">
+            <summary>
+            return the default datasource. The default datasource is defined in the application configuration and is NOT a Db record in the ccdatasources table
+            </summary>
+            <param name="cp"></param>
+        </member>
+        <member name="M:Contensive.Models.Db.DataSourceModel.normalizeDataSourceName(System.String)">
+            <summary>
+            convert a datasource name into the key value used by the datasourcedictionary cache
+            </summary>
+            <param name="DataSourceName"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Contensive.Models.Db.DbBaseFieldsModel">
+            <summary>
+            This model represents the basic fields used in every Contensive table. 
+            It is the base model for both the GenericModel (when you supply the tablename) and all the specific Db Models
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.DbBaseFieldsModel.id">
+            <summary>
+            identity integer, primary key for every table
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.DbBaseFieldsModel.name">
+            <summary>
+            name of the record used for lookup lists
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.DbBaseFieldsModel.ccguid">
+            <summary>
+            optional guid, created automatically in the model
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.DbBaseFieldsModel.active">
+            <summary>
+            optionally can be used to disable a record. Must be implemented in each query
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.DbBaseFieldsModel.contentControlId">
+            <summary>
+            id of the metadata record in ccContent that controls the display and handing for this record
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.DbBaseFieldsModel.createdBy">
+            <summary>
+            foreign key to ccmembers table, populated by admin when record added.
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.DbBaseFieldsModel.createKey">
+            <summary>
+            used when creating new record
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.DbBaseFieldsModel.dateAdded">
+            <summary>
+            date record added, populated by admin when record added.
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.DbBaseFieldsModel.modifiedBy">
+            <summary>
+            foreign key to ccmembers table set to user who modified the record last in the admin site
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.DbBaseFieldsModel.modifiedDate">
+            <summary>
+            date when the record was last modified in the admin site
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.DbBaseFieldsModel.sortOrder">
+            <summary>
+            optionally used to sort recrods in the table
+            </summary>
+        </member>
+        <member name="T:Contensive.Models.Db.DbBaseModel">
+            <summary>
+            The superclass from which all database models are derived. 
+            DbBaseClass provides the generic properties and methods to manage a database table model. 
+            To create a database model, inherit this class, add a property tableMetadata of type DbBaseTableMetadataModel,
+            and add properties for each database field.
+            </summary>
+        </member>
+        <member name="M:Contensive.Models.Db.DbBaseModel.#ctor">
+            <summary>
+            simple constructor needed for deserialization
+            </summary>
+        </member>
+        <member name="T:Contensive.Models.Db.DbBaseModel.FieldTypeFile">
+            <summary>
+            A field type that contains a pathFilename used to reference an external asset, like an image.
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.DbBaseModel.FieldTypeFile.filename">
+            <summary>
+            The current pathFilename. Available after the file is loaded by uploading or copying.
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.DbBaseModel.FieldTypeFile.tempFileCopySource">
+            <summary>
+            Set to the pathFilename of a file in tempFiles and the file will by copied to this field during save.
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.DbBaseModel.FieldTypeFile.privateFileCopySource">
+            <summary>
+            Set to the pathFilename of a file in privateFiles and the file will by copied to this field during save.
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.DbBaseModel.FieldTypeFile.wwwFileCopySource">
+            <summary>
+            Set to the pathFilename of a file in wwwFiles and the file will by copied to this field during save.
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.DbBaseModel.FieldTypeFile.cdnFileCopySource">
+            <summary>
+            Set to the pathFilename of a file in cdnFiles and the file will by copied to this field during save.
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.DbBaseModel.FieldTypeFile.uploadRequestName">
+            <summary>
+            Set to the name of a file in the current request and the file will be saved to this field during save.
+            </summary>
+        </member>
+        <member name="F:Contensive.Models.Db.DbBaseModel.FieldTypeFile.cpInternal">
+            <summary>
+            set by load(). Used by field to read content from filename when needed
+            </summary>
+        </member>
+        <member name="T:Contensive.Models.Db.DbBaseModel.FieldTypeTextFileBase">
+            <summary>
+            The base type for a field that contains a filename and points to an external file that contains text-like content, 
+            like a css file or javascript file
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.DbBaseModel.FieldTypeTextFileBase.filename">
+            <summary>
+            The filename used to save the content for this model. 
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.DbBaseModel.FieldTypeTextFileBase.content">
+            <summary>
+            The content in the file. Set this property and save() and the filename is handled.
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.DbBaseModel.FieldTypeTextFileBase.contentLoaded">
+            <summary>
+            When field is deserialized from cache, contentLoaded flag is used to deferentiate between unloaded content and blank conent.
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.DbBaseModel.FieldTypeTextFileBase.contentUpdated">
+            <summary>
+            When content is updated, the model.save() writes the file
+            </summary>
+        </member>
+        <member name="F:Contensive.Models.Db.DbBaseModel.FieldTypeTextFileBase.cpInternal">
+            <summary>
+            set by load(). Used by field to read content from filename when needed
+            </summary>
+        </member>
+        <member name="T:Contensive.Models.Db.DbBaseModel.FieldTypeTextFile">
+            <summary>
+            Field type where the record field contains a filename that references a text file
+            </summary>
+        </member>
+        <member name="T:Contensive.Models.Db.DbBaseModel.FieldTypeJavascriptFile">
+            <summary>
+            Field type where the record field contains a filename that references a javascript file
+            </summary>
+        </member>
+        <member name="T:Contensive.Models.Db.DbBaseModel.FieldTypeCSSFile">
+            <summary>
+            Field type where the record field contains a filename that references a css file
+            </summary>
+        </member>
+        <member name="T:Contensive.Models.Db.DbBaseModel.FieldTypeHTMLFile">
+            <summary>
+            Field type where the record field contains a filename that references a html file
+            </summary>
+        </member>
+        <member name="M:Contensive.Models.Db.DbBaseModel.getTableMetadata(System.Type)">
+            <summary>
+            get the instance of the static property .tableMetadata for the type provided
+            </summary>
+            <param name="derivedType"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Contensive.Models.Db.DbBaseModel.derivedTableName(System.Type)">
+            <summary>
+            return the name of the database table associated to the derived content
+            </summary>
+            <param name="derivedType"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Contensive.Models.Db.DbBaseModel.derivedContentName(System.Type)">
+            <summary>
+            return the name of the content associated to the derived model
+            </summary>
+            <param name="derivedType"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Contensive.Models.Db.DbBaseModel.derivedDataSourceName(System.Type)">
+            <summary>
+            return the name of the datasource assocated to the database table assocated to the derived content
+            </summary>
+            <param name="derivedType"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Contensive.Models.Db.DbBaseModel.derivedNameFieldIsUnique(System.Type)">
+            <summary>
+            returns the boolean value of the constant nameIsUnique in the derived class. Setting true enables a name cache ptr.
+            </summary>
+            <param name="derivedType"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Contensive.Models.Db.DbBaseModel.allowRecordCaching(System.Type)">
+            <summary>
+            Determine if the record can be cached.
+            If the call comes from within Contensive.DbModels or Contensive.Processor, allow record caching. Otherwise block record caching.
+            
+            Returns true of the type is within this DLLin this DbModels. Returns false if the type is a derived type outside this project.
+            Used to block cache reads and writes for derived classes because those objects are corrupting the cache (failing deserialization into base types).
+            Need a better fix -- maybe cache the base objects in one key and the derived class's properties in an 'extended' (or 'derived' cache).
+            </summary>
+            <param name="sourceType"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Contensive.Models.Db.DbBaseModel.getDefaultValues``1(Contensive.BaseClasses.CPBaseClass,System.Int32,System.String,System.Collections.Generic.List{System.Int32},System.Collections.Generic.Dictionary{System.String,System.String})">
+            <summary>
+            Return the default values set in the content fields, and the appropriate values for control fields
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="cp"></param>
+            <param name="createdModifiedById"></param>
+            <param name="contentSqlSelect">An sql to find the content id and parentid for a record (ex, select id,parentid from cccontent where id=1, or select id,parentid from cccontent where ccguid='{1234-1234-1234-1234}')</param>
+            <param name="childIdList">List of content child ids. used to exit recursive call</param>
+            <param name="defaultValues">Empty if child not included. If default value is found, it is ignored if the key is already in this list</param>
+        </member>
+        <member name="M:Contensive.Models.Db.DbBaseModel.getDefaultValues``1(Contensive.BaseClasses.CPBaseClass,System.Int32)">
+            <summary>
+            Return a dictionary of the non-empty default field values for the derived content
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="cp"></param>
+            <param name="createdModifiedById">The id the people record to be set as created and modifield.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Contensive.Models.Db.DbBaseModel.getDefaultValues``1(Contensive.BaseClasses.CPBaseClass)">
+            <summary>
+            Return a dictionary of strings representing the default values for each field. User EncodeBoolean(), EncodeDate(), etc. methods to manage types
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="cp"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Contensive.Models.Db.DbBaseModel.addDefault``1(Contensive.BaseClasses.CPBaseClass)">
+            <summary>
+            Add a new record to the db as the system user and open it. 
+            Starting a new model with this method will use the default values in Contensive metadata (active, contentcontrolid, etc).
+            Default values are loaded from the Content Field table
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="cp"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Contensive.Models.Db.DbBaseModel.addDefault``1(Contensive.BaseClasses.CPBaseClass,System.Int32)">
+            <summary>
+            Add a record to the table and return the object, setting the new record to default values.
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="cp"></param>
+            <param name="userId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Contensive.Models.Db.DbBaseModel.addDefault``1(Contensive.BaseClasses.CPBaseClass,System.Collections.Generic.Dictionary{System.String,System.String})">
+            <summary>
+            Add a new record to the db as the system user and open it. 
+            Starting a new model with this method will use the default values in Contensive metadata (active, contentcontrolid, etc).
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="cp"></param>
+            <param name="DefaultValues"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Contensive.Models.Db.DbBaseModel.addDefault``1(Contensive.BaseClasses.CPBaseClass,System.Collections.Generic.Dictionary{System.String,System.String},System.Int32)">
+            <summary>
+            Add a new record to the db and open it. Starting a new model with this method will use the default values in Contensive metadata (active, contentcontrolid, etc).
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="cp"></param>
+            <param name="DefaultValues"></param>
+            <param name="userId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Contensive.Models.Db.DbBaseModel.addDefault``1(Contensive.BaseClasses.CPBaseClass,System.Collections.Generic.Dictionary{System.String,System.String},System.Int32,System.Collections.Generic.List{System.String}@)">
+            <summary>
+             Add a new record to the db populated with default values from the content definition and return an object of it
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="cp"></param>
+            <param name="defaultValues"></param>
+            <param name="userId"></param>
+            <param name="callersCacheNameList"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Contensive.Models.Db.DbBaseModel.addEmpty``1(Contensive.BaseClasses.CPBaseClass)">
+            <summary>
+            Add a new empty record to the db as the system user and return an object of it.
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="cp"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Contensive.Models.Db.DbBaseModel.addEmpty``1(Contensive.BaseClasses.CPBaseClass,System.Int32)">
+            <summary>
+            Add a new empty record to the db and return an object of it.
+            </summary>
+            <param name="cp"></param>
+            <param name="userId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Contensive.Models.Db.DbBaseModel.create``1(Contensive.BaseClasses.CPBaseClass,System.Int32)">
+            <summary>
+            return a new model with the data selected.
+            </summary>
+            <param name="cp"></param>
+            <param name="recordId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Contensive.Models.Db.DbBaseModel.create``1(Contensive.BaseClasses.CPBaseClass,System.Int32,System.Collections.Generic.List{System.String}@)">
+            <summary>
+            return a new model with the data selected. All cacheNames related to the object will be added to the cacheNameList.
+            </summary>
+            <param name="cp"></param>
+            <param name="recordId">The id of the record to be read into the new object</param>
+            <param name="callersCacheNameList">Any cachenames effected by this record will be added to this list. If the method consumer creates a cache object, add these cachenames to its dependent cachename list.</param>
+        </member>
+        <member name="M:Contensive.Models.Db.DbBaseModel.create``1(Contensive.BaseClasses.CPBaseClass,System.String)">
+            <summary>
+            create an object from a record with matching ccGuid
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="cp"></param>
+            <param name="recordGuid"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Contensive.Models.Db.DbBaseModel.create``1(Contensive.BaseClasses.CPBaseClass,System.String,System.Collections.Generic.List{System.String}@)">
+            <summary>
+            create an object from a record with a matching ccguid, add an object cache name to the argument list
+            </summary>
+            <param name="cp"></param>
+            <param name="recordGuid"></param>
+            <param name="callersCacheNameList">A list of cache keys whose invalidation will invalidate this data</param>
+        </member>
+        <member name="M:Contensive.Models.Db.DbBaseModel.createByUniqueName``1(Contensive.BaseClasses.CPBaseClass,System.String)">
+            <summary>
+            create an object from the first record found from a list created with matching name records, ordered by id
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="cp"></param>
+            <param name="recordName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Contensive.Models.Db.DbBaseModel.createByUniqueName``1(Contensive.BaseClasses.CPBaseClass,System.String,System.Collections.Generic.List{System.String}@)">
+            <summary>
+            create an object from the first record found from a list created with matching name records, ordered by id, add an object cache name to the argument list
+            </summary>
+            <param name="cp"></param>
+            <param name="recordName"></param>
+            <param name="callersCacheNameList">method will add the cache name to this list.</param>
+        </member>
+        <member name="M:Contensive.Models.Db.DbBaseModel.loadRecord``1(Contensive.BaseClasses.CPBaseClass,System.Data.DataRow,System.Collections.Generic.List{System.String}@)">
+            <summary>
+            open an existing object
+            </summary>
+            <param name="cp"></param>
+            <param name="row"></param>
+            <param name="callersCacheKeyList"></param>
+        </member>
+        <member name="M:Contensive.Models.Db.DbBaseModel.save(Contensive.BaseClasses.CPBaseClass)">
+            <summary>
+            save the instance properties to a record as the system user with matching id. 
+            If id is not provided, a new record is created.
+            </summary>
+            <param name="cp"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Contensive.Models.Db.DbBaseModel.save(Contensive.BaseClasses.CPBaseClass,System.Int32)">
+            <summary>
+            save the instance properties to a record user with matching id. 
+            If id is not provided, a new record is created.
+            </summary>
+            <param name="cp"></param>
+            <param name="userId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Contensive.Models.Db.DbBaseModel.save(Contensive.BaseClasses.CPBaseClass,System.Int32,System.Boolean)">
+            <summary>
+            save the instance properties to a record with matching id. If id is not provided, a new record is created.
+            </summary>
+            <param name="cp"></param>
+            <param name="userId"></param>
+            <param name="asyncSave">Not implemented</param>
+            <returns></returns>
+        </member>
+        <member name="M:Contensive.Models.Db.DbBaseModel.delete``1(Contensive.BaseClasses.CPBaseClass,System.Int32)">
+            <summary>
+            delete a database record by id and invalidate record and table invalidation keys
+            </summary>
+            <param name="cp"></param>
+            <param name="recordId"></param>
+        </member>
+        <member name="M:Contensive.Models.Db.DbBaseModel.delete``1(Contensive.BaseClasses.CPBaseClass,System.String)">
+            <summary>
+            delete a database record by guid and invalidate record and table invalidation keys
+            </summary>
+            <param name="cp"></param>
+            <param name="guid"></param>
+        </member>
+        <member name="M:Contensive.Models.Db.DbBaseModel.createList``1(Contensive.BaseClasses.CPBaseClass,System.String,System.String,System.Int32,System.Int32,System.Collections.Generic.List{System.String})">
+            <summary>
+            Create a list of objects based on the sql criteria and sort order, and add a cache object to an argument.
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="cp"></param>
+            <param name="sqlCriteria"></param>
+            <param name="sqlOrderBy"></param>
+            <param name="pageSize"></param>
+            <param name="pageNumber"></param>
+            <param name="callersCacheNameList"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Contensive.Models.Db.DbBaseModel.createList``1(Contensive.BaseClasses.CPBaseClass,System.String,System.String,System.Int32,System.Int32)">
+            <summary>
+            Create a list of objects based on the sql criteria and sort order, and add a cache object to an argument.
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="cp"></param>
+            <param name="sqlCriteria"></param>
+            <param name="sqlOrderBy"></param>
+            <param name="pageSize"></param>
+            <param name="pageNumber"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Contensive.Models.Db.DbBaseModel.createList``1(Contensive.BaseClasses.CPBaseClass,System.String,System.String,System.Int32)">
+            <summary>
+            Create a list of objects based on the sql criteria and sort order, and add a cache object to an argument.
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="cp"></param>
+            <param name="sqlCriteria"></param>
+            <param name="sqlOrderBy"></param>
+            <param name="pageSize"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Contensive.Models.Db.DbBaseModel.createList``1(Contensive.BaseClasses.CPBaseClass,System.String,System.String)">
+            <summary>
+            create a list of objects based on the sql criteria and sort order.
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="cp"></param>
+            <param name="sqlCriteria"></param>
+            <param name="sqlOrderBy"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Contensive.Models.Db.DbBaseModel.createList``1(Contensive.BaseClasses.CPBaseClass,System.String)">
+            <summary>
+            create a list of objects from a sql criteria.
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="cp"></param>
+            <param name="sqlCriteria"></param>
+            <returns>Returns a list of objects.</returns>
+        </member>
+        <member name="M:Contensive.Models.Db.DbBaseModel.createList``1(Contensive.BaseClasses.CPBaseClass)">
+            <summary>
+            Create a list of objects from all active records.
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="cp"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Contensive.Models.Db.DbBaseModel.createFirstOfList``1(Contensive.BaseClasses.CPBaseClass,System.String,System.String)">
+            <summary>
+            Create a single object from the first row of a sql query. If no records found, null is returned.
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="cp"></param>
+            <param name="sqlCriteria"></param>
+            <param name="sqlOrderBy"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Contensive.Models.Db.DbBaseModel.getRecordName``1(``0)">
+            <summary>
+            get the name of the record, returning empty string if the record is null
+            </summary>
+            <param name="record"></param>record
+            <returns></returns>
+        </member>
+        <member name="M:Contensive.Models.Db.DbBaseModel.getRecordName``1(Contensive.BaseClasses.CPBaseClass,System.Int32)">
+            <summary>
+            get the name of the record by it's id
+            </summary>
+            <param name="cp"></param>
+            <param name="recordId"></param>record
+            <returns></returns>
+        </member>
+        <member name="M:Contensive.Models.Db.DbBaseModel.getRecordName``1(Contensive.BaseClasses.CPBaseClass,System.String)">
+            <summary>
+            get the name of the record by it's guid 
+            </summary>
+            <param name="cp"></param>
+            <param name="guid"></param>record
+            <returns></returns>
+        </member>
+        <member name="M:Contensive.Models.Db.DbBaseModel.getRecordId``1(Contensive.BaseClasses.CPBaseClass,System.String)">
+            <summary>
+            get the id of the record by it's guid 
+            </summary>
+            <param name="cp"></param>
+            <param name="guid"></param>record
+            <returns></returns>
+        </member>
+        <member name="M:Contensive.Models.Db.DbBaseModel.createEmpty``1(Contensive.BaseClasses.CPBaseClass)">
+            <summary>
+            Create an empty model object as the system user.
+            Populate only control fields (guid, active, created/modified)
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="cp"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Contensive.Models.Db.DbBaseModel.createEmpty``1(Contensive.BaseClasses.CPBaseClass,System.Int32)">
+            <summary>
+            Create an empty model object. Populate only control fields (guid, active, created/modified)
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="cp"></param>
+            <param name="userId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Contensive.Models.Db.DbBaseModel.getSelectSql``1(Contensive.BaseClasses.CPBaseClass,System.Collections.Generic.List{System.String},System.String,System.String)">
+            <summary>
+            create an sql select for this model
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="cp"></param>
+            <param name="fieldList"></param>
+            <param name="sqlCriteria"></param>
+            <param name="sqlOrderBy"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Contensive.Models.Db.DbBaseModel.getSelectSql``1(Contensive.BaseClasses.CPBaseClass,System.Collections.Generic.List{System.String},System.String)">
+            <summary>
+            Create an sql select for this model
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="cp"></param>
+            <param name="fieldList"></param>
+            <param name="criteria"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Contensive.Models.Db.DbBaseModel.getSelectSql``1(Contensive.BaseClasses.CPBaseClass,System.Collections.Generic.List{System.String})">
+            <summary>
+            Create an sql select for this model
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="cp"></param>
+            <param name="fieldList"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Contensive.Models.Db.DbBaseModel.getSelectSql``1(Contensive.BaseClasses.CPBaseClass)">
+            <summary>
+            Create an sql select for this model
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="cp"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Contensive.Models.Db.DbBaseModel.getCountSql``1(System.String)">
+            <summary>
+            Create a sql query for a count of active records
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="sqlCriteria"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Contensive.Models.Db.DbBaseModel.deleteRows``1(Contensive.BaseClasses.CPBaseClass,System.String)">
+            <summary>
+            Delete a selection of records
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="cp"></param>
+            <param name="sqlCriteria"></param>
+        </member>
+        <member name="M:Contensive.Models.Db.DbBaseModel.isAppInvalid(Contensive.BaseClasses.CPBaseClass)">
+            <summary>
+            if invalid application, log the error and return true
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Contensive.Models.Db.DbBaseModel.containsField``1(System.String)">
+            <summary>
+            return true if this type contains a property matching the field name argument
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="fieldName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Contensive.Models.Db.DbBaseModel.isParentOf``1(Contensive.BaseClasses.CPBaseClass,System.Int32)">
+            <summary>
+            return true if this instance is a parent record of the provided child record, using this table's parentId
+            </summary>
+            <param name="cp"></param>
+            <param name="childRecordId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Contensive.Models.Db.DbBaseModel.isParentOf``1(Contensive.BaseClasses.CPBaseClass,System.Int32,System.Int32,System.Collections.Generic.List{System.Int32})">
+            <summary>
+            return true if the parent record provided is heriarctical parent of hte child record provided.
+            </summary>
+            <param name="cp"></param>
+            <param name="parentRecordId"></param>
+            <param name="childRecordId"></param>
+            <param name="childIdList"></param>
+        </member>
+        <member name="M:Contensive.Models.Db.DbBaseModel.isChildOf``1(Contensive.BaseClasses.CPBaseClass,System.Int32)">
+            <summary>
+            return true if this instance is the child record of the provided parentid. (the parentid record is in the parent hierarchy)
+            </summary>
+            <param name="cp"></param>
+            <param name="parentRecordId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Contensive.Models.Db.DbBaseModel.isChildOf``1(Contensive.BaseClasses.CPBaseClass,System.Int32,System.Int32,System.Collections.Generic.List{System.Int32},System.Boolean)">
+            <summary>
+            return true if the parent record provided is heriarctical parent of hte child record provided.
+            </summary>
+            <param name="cp"></param>
+            <param name="parentRecordId"></param>
+            <param name="childRecordId"></param>
+            <param name="parentIdList"></param>
+            <param name="parentIdFieldVerified"></param>
+        </member>
+        <member name="M:Contensive.Models.Db.DbBaseModel.isChildOf``1(Contensive.BaseClasses.CPBaseClass,System.Int32,System.Int32,System.Collections.Generic.List{System.Int32})">
+            <summary>
+            Returns true if the parentRecordId is parent of the childRecordId
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="cp"></param>
+            <param name="parentRecordId"></param>
+            <param name="childRecordId"></param>
+            <param name="parentIdList"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Contensive.Models.Db.DbBaseModel.invalidateCacheOfRecord``1(Contensive.BaseClasses.CPBaseClass,System.Int32)">
+            <summary>
+            invalidate the cache entry for a record
+            </summary>
+            <param name="cp"></param>
+            <param name="recordId"></param>
+        </member>
+        <member name="M:Contensive.Models.Db.DbBaseModel.invalidateCacheOfTable``1(Contensive.BaseClasses.CPBaseClass)">
+            <summary>
+            invalidate all cache entries for the table (set invalidate-table-objects-date for this table -- see cache controller for definitions)
+            </summary>
+            <param name="cp"></param>
+        </member>
+        <member name="M:Contensive.Models.Db.DbBaseModel.createDependencyKeyInvalidateOnChange``1(Contensive.BaseClasses.CPBaseClass)">
+            <summary>
+            Create the Cache key used to invalidate all records in this table. All record cache stores should use this as a dependency, and
+            in the event that a change is made across undeterminate records, invalidate this key to clear all cache from this table.
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="cp"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Contensive.Models.Db.DbBaseModel.readRecordCache``1(Contensive.BaseClasses.CPBaseClass,System.Int32)">
+            <summary>
+            Read record cache by id
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="cp"></param>
+            <param name="recordId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Contensive.Models.Db.DbBaseModel.readRecordCacheByGuidPtr``1(Contensive.BaseClasses.CPBaseClass,System.String)">
+            <summary>
+            Read a record cache by guid
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="cp"></param>
+            <param name="ccGuid"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Contensive.Models.Db.DbBaseModel.readRecordCacheByUniqueNamePtr``1(Contensive.BaseClasses.CPBaseClass,System.String)">
+            <summary>
+            Read a record cache using unique name (valid only if hasUniqueName is true)
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="cp"></param>
+            <param name="uniqueName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Contensive.Models.Db.DbBaseModel.restoreCacheDataObjects``1(Contensive.BaseClasses.CPBaseClass,``0)">
+            <summary>
+            After reading a cached Db object, go through instance properties and verify internal cp objects populated
+            </summary>
+        </member>
+        <member name="M:Contensive.Models.Db.DbBaseModel.getCount``1(Contensive.BaseClasses.CPBaseClass,System.String)">
+            <summary>
+            returns he number of records that match the criteria.
+            </summary>
+            <param name="cp"></param>
+            <param name="sqlCriteria"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Contensive.Models.Db.DbBaseModel.isNullable(System.Type)">
+            <summary>
+            Returns true if the argment type is nullable
+            </summary>
+            <param name="type"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Contensive.Models.Db.DbBaseModel.getCount``1(Contensive.BaseClasses.CPBaseClass)">
+            <summary>
+            Get count of all records in the table
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="cp"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Contensive.Models.Db.DbBaseModel.getLowerCaseKey(System.Collections.Generic.Dictionary{System.String,System.String})">
+            <summary>
+            Return a dictionary of name/values
+            </summary>
+            <param name="source"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Contensive.Models.Db.DbBaseModel.processFileField(Contensive.BaseClasses.CPBaseClass,Contensive.Models.Db.DbBaseModel.FieldTypeFile,System.String,System.String,System.Int32)">
+            <summary>
+            Process the save for a FieldTypeFile property
+            </summary>
+            <param name="cp"></param>
+            <param name="fileField"></param>
+            <param name="tablename"></param>
+            <param name="fieldname"></param>
+            <param name="recordId"></param>
+        </member>
+        <member name="M:Contensive.Models.Db.DbBaseModel.processFileFieldCopy(Contensive.BaseClasses.CPBaseClass,System.String,System.String,System.Int32,Contensive.BaseClasses.CPFileSystemBaseClass,System.String)">
+            <summary>
+            Process a copy operation required for a FieldTypeFile from any file storage system to the cdn
+            </summary>
+            <param name="cp"></param>
+            <param name="tablename"></param>
+            <param name="fieldname"></param>
+            <param name="recordId"></param>
+            <param name="srcFileSystem"></param>
+            <param name="srcPathFilename"></param>
+        </member>
+        <member name="P:Contensive.Models.Db.DomainModel.tableMetadata">
+            <summary>
+            table definition
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.DomainModel.defaultTemplateId">
+            <summary>
+            the template used for this domain. Can be overridden by page
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.DomainModel.forwardDomainId">
+            <summary>
+            forward traffic to this domain to another domain
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.DomainModel.forwardUrl">
+            <summary>
+            forward traffic to this url
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.DomainModel.noFollow">
+            <summary>
+            set response header to noFollow for this domain
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.DomainModel.pageNotFoundPageId">
+            <summary>
+            for this domain, display this page not found
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.DomainModel.rootPageId">
+            <summary>
+            for this domain, the home/landing page
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.DomainModel.typeId">
+            <summary>
+            determines the type of response
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.DomainModel.visited">
+            <summary>
+            true if this domain has received traffic
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.DomainModel.defaultRouteId">
+            <summary>
+            the default code to execute for this domain
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.DomainModel.allowCORS">
+            <summary>
+            if true, add the default CORS headers
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.DownloadModel.tableMetadata">
+            <summary>
+            table definition
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.DownloadModel.filename">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.EmailDropModel.tableMetadata">
+            <summary>
+            table definition
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.EmailGroupModel.tableMetadata">
+            <summary>
+            table definition
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.EmailGroupModel.emailId">
+            <summary>
+            field properties
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.EmailLogModel.tableMetadata">
+            <summary>
+            table definition
+            </summary>
+        </member>
+        <member name="T:Contensive.Models.Db.EmailModel">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.EmailModel.tableMetadata">
+            <summary>
+            table definition
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.EmailModel.addonList">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.EmailModel.addLinkEId">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.EmailModel.allowSpamFooter">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.EmailModel.blockSiteStyles">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.EmailModel.sent">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.EmailModel.stylesFilename">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.EmailModel.subject">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.EmailModel.submitted">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.EmailModel.testMemberId">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.EmailModel.toAll">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.EmailModel.conditionExpireDate">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.EmailModel.conditionId">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.EmailModel.conditionPeriod">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.EmailModel.copyFilename">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.EmailModel.emailTemplateId">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.EmailModel.emailWizardId">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.EmailModel.fromAddress">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.EmailModel.inlineStyles">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.EmailModel.lastSendTestDate">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.EmailModel.scheduleDate">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.EmailQueueModel.tableMetadata">
+            <summary>
+            table definition
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.EmailTemplateModel.tableMetadata">
+            <summary>
+            table definition
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.EmailTopicModel.tableMetadata">
+            <summary>
+            table definition
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.EmailTopicModel.emailId">
+            <summary>
+            field properties
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.FormFieldModel.tableMetadata">
+            <summary>
+            table definition
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.FormSetModel.tableMetadata">
+            <summary>
+            table definition
+            </summary>
+        </member>
+        <member name="T:Contensive.Models.Db.GroupEmailModel">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.GroupEmailModel.tableMetadata">
+            <summary>
+            table definition
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.GroupEmailModel.addLinkEId">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.GroupEmailModel.allowSpamFooter">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.GroupEmailModel.blockSiteStyles">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.GroupEmailModel.conditionExpireDate">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.GroupEmailModel.conditionId">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.GroupEmailModel.conditionPeriod">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.GroupEmailModel.copyFilename">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.GroupEmailModel.emailTemplateId">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.GroupEmailModel.emailWizardId">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.GroupEmailModel.fromAddress">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.GroupEmailModel.inlineStyles">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.GroupEmailModel.lastSendTestDate">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.GroupEmailModel.scheduleDate">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.GroupEmailModel.sent">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.GroupEmailModel.stylesFilename">
+            <summary>
+            /
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.GroupEmailModel.subject">
+            <summary>
+            /
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.GroupEmailModel.submitted">
+            <summary>
+            /
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.GroupEmailModel.testMemberId">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.GroupEmailModel.toAll">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.GroupModel.tableMetadata">
+            <summary>
+            table definition
+            </summary>
+        </member>
+        <member name="M:Contensive.Models.Db.GroupModel.verify(Contensive.BaseClasses.CPBaseClass,System.String,System.String,System.Int32,System.Collections.Generic.Dictionary{System.String,System.String})">
+            <summary>
+            Verify a group exists by name. If so, verify the caption. If not create the group.
+            </summary>
+            <param name="cp"></param>
+            <param name="groupName"></param>
+            <param name="groupCaption"></param>
+            <returns></returns>
+        </member>
+        <member name="P:Contensive.Models.Db.GroupRoleModel.tableMetadata">
+            <summary>
+            table definition
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.GroupRuleModel.tableMetadata">
+            <summary>
+            table definition
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.ImportWizardTaskModel.tableMetadata">
+            <summary>
+            table definition
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.LanguageModel.tableMetadata">
+            <summary>
+            table definition
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.LayoutModel.tableMetadata">
+            <summary>
+            table definition
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.LayoutModel.layout">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.LayoutModel.installedByCollectionId">
+            <summary>
+            the addon collection that installed this record
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.LayoutModel.stylesFilename">
+            <summary>
+            deprecated. styles are implemented only through addons
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.LibraryFileLogModel.tableMetadata">
+            <summary>
+            table definition
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.LibraryFilesModel.tableMetadata">
+            <summary>
+            table definition
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.LibraryFileTypeModel.tableMetadata">
+            <summary>
+            table definition
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.LibraryFolderModel.tableMetadata">
+            <summary>
+            table definition
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.LibraryFolderRuleModel.tableMetadata">
+            <summary>
+            table definition
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.LinkAliasModel.tableMetadata">
+            <summary>
+            table definition
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.LinkForwardModel.tableMetadata">
+            <summary>
+            table definition
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.MemberRuleModel.tableMetadata">
+            <summary>
+            table definition
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.MemberTopicRuleModel.tableMetadata">
+            <summary>
+            table definition
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.MemberTopicRuleModel.memberId">
+            <summary>
+            field properties
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.MenuModel.tableMetadata">
+            <summary>
+            table definition
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.MenuPageRuleModel.tableMetadata">
+            <summary>
+            table definition
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.MetaKeywordModel.tableMetadata">
+            <summary>
+            table definition
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.MetaKeywordRuleModel.tableMetadata">
+            <summary>
+            table definition
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.NavigatorEntryModel.tableMetadata">
+            <summary>
+            table definition
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.OrganizationModel.tableMetadata">
+            <summary>
+            table definition
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.OrganizationModel.copyFilename">
+            <summary>
+            A detailed description
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.OrganizationModel.briefFilename">
+            <summary>
+            A brief description
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.OrganizationModel.contactMemberId">
+            <summary>
+            The user who is the primary contact for this organization
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.OrganizationModel.address1">
+            <summary>
+            Address Line 1
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.OrganizationModel.address2">
+            <summary>
+            Address Line 2
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.OrganizationModel.city">
+            <summary>
+            Address city
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.OrganizationModel.state">
+            <summary>
+            The address state
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.OrganizationModel.zip">
+            <summary>
+            the address zip
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.OrganizationModel.country">
+            <summary>
+            The address country
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.OrganizationModel.viewings">
+            <summary>
+            A count that can be used for the number of times the organization page is viewd
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.OrganizationModel.clicks">
+            <summary>
+            can be used to count the number of clicks online
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.OrganizationModel.email">
+            <summary>
+            The email address that can be used for this organization
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.OrganizationModel.fax">
+            <summary>
+            The fax that can be used for this organization
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.OrganizationModel.web">
+            <summary>
+            The website url to be displayed publically
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.OrganizationModel.link">
+            <summary>
+            The link that can be used to click
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.OrganizationModel.phone">
+            <summary>
+            The contact-us phone for the organization
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.OrganizationModel.imageFilename">
+            <summary>
+            The organization imge in larger format for banners, etc
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.OrganizationModel.thumbNailFilename">
+            <summary>
+            An organiation image in smaller format for logo
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.PageContentBlockRuleModel.tableMetadata">
+            <summary>
+            table definition
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.PageContentBlockRuleModel.groupId">
+            <summary>
+            group allowed on this page
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.PageContentBlockRuleModel.recordId">
+            <summary>
+            page
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.PageContentModel.tableMetadata">
+            <summary>
+            table definition
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.PageContentModel.menuClass">
+            <summary>
+            html class added to the LI element of dynamic bootstrap menus
+            </summary>
+        </member>
+        <member name="M:Contensive.Models.Db.PageContentModel.markReviewed(Contensive.BaseClasses.CPBaseClass,System.Int32)">
+            <summary>
+            mark record reviewed
+            </summary>
+            <param name="cp"></param>
+            <param name="pageId"></param>
+        </member>
+        <member name="P:Contensive.Models.Db.PageContentTopicRuleModel.tableMetadata">
+            <summary>
+            table definition
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.PageContentTopicRuleModel.pageId">
+            <summary>
+            The page associated to this topic. Add to track users interested in this topic and to provide navigation to this topic.
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.PageContentTopicRuleModel.topicId">
+            <summary>
+            The topic 
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.PageTemplateModel.tableMetadata">
+            <summary>
+            table definition
+            </summary>
+        </member>
+        <member name="T:Contensive.Models.Db.PageViewSummaryModel">
+            <summary>
+            Summary tables for page viewings
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.PageViewSummaryModel.tableMetadata">
+            <summary>
+            table definition
+            </summary>
+        </member>
+        <member name="T:Contensive.Models.Db.PersonModel">
+            <summary>
+            person model
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.PersonModel.tableMetadata">
+            <summary>
+            table definition
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.PersonModel.address">
+            <summary>
+            contact address line 1
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.PersonModel.address2">
+            <summary>
+            contact address line 2
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.PersonModel.admin">
+            <summary>
+            if true, use is an administrator
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.PersonModel.allowBulkEmail">
+            <summary>
+            if true, email can be sent to the user
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.PersonModel.allowToolsPanel">
+            <summary>
+            enable/disable tool panel
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.PersonModel.autoLogin">
+            <summary>
+            if true, the user allows auto login. It must be enabled on the site as well.
+            </summary>
+        </member>
+        <member name="M:Contensive.Models.Db.PersonModel.createListFromGroupNameList(Contensive.BaseClasses.CPBaseClass,System.Collections.Generic.List{System.String},System.Boolean)">
+            <summary>
+            return a list of people in a any one of a list of groups. If requireBuldEmail true, the list only includes those with allowBulkEmail.
+            </summary>
+            <param name="cp"></param>
+            <param name="groupNameList"></param>
+            <param name="requireBulkEmail"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Contensive.Models.Db.PersonModel.getDisplayName">
+            <summary>
+            return the best name available for this record
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Contensive.Models.Db.RemoteQueryModel.tableMetadata">
+            <summary>
+            table definition
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.SitePropertyModel.tableMetadata">
+            <summary>
+            table definition
+            </summary>
+        </member>
+        <member name="M:Contensive.Models.Db.SitePropertyModel.getValue(Contensive.BaseClasses.CPBaseClass,System.String,System.Boolean@)">
+            <summary>
+            get site property without a cache check, return as text. If not found, set and return default value
+            </summary>
+            <param name="PropertyName"></param>
+            <param name="DefaultValue"></param>
+            <param name="memberId"></param>
+            <returns></returns>
+            <remarks></remarks>
+        </member>
+        <member name="P:Contensive.Models.Db.SiteWarningModel.tableMetadata">
+            <summary>
+            table definition
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.SortMethodModel.tableMetadata">
+            <summary>
+            table definition
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.StateModel.tableMetadata">
+            <summary>
+            table definition
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.SystemEmailModel.tableMetadata">
+            <summary>
+            table definition
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.SystemEmailModel.fromAddress">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.SystemEmailModel.inlineStyles">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.SystemEmailModel.lastSendTestDate">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.SystemEmailModel.scheduleDate">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.SystemEmailModel.sent">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.SystemEmailModel.stylesFilename">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.SystemEmailModel.subject">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.SystemEmailModel.submitted">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.SystemEmailModel.testMemberId">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.SystemEmailModel.toAll">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.SystemEmailModel.addLinkEId">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.SystemEmailModel.allowSpamFooter">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.SystemEmailModel.blockSiteStyles">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.SystemEmailModel.conditionExpireDate">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.SystemEmailModel.conditionId">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.SystemEmailModel.conditionPeriod">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.SystemEmailModel.copyFilename">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.SystemEmailModel.emailTemplateId">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.SystemEmailModel.emailWizardId">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.TableModel.tableMetadata">
+            <summary>
+            table definition
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.TaskModel.tableMetadata">
+            <summary>
+            table definition
+            </summary>
+        </member>
+        <member name="T:Contensive.Models.Db.TaskModel.taskQueueCommandEnumModule">
+            <summary>
+            enum of all possible commands in task model
+            </summary>
+        </member>
+        <member name="T:Contensive.Models.Db.TaskModel.CmdDetailClass">
+            <summary>
+            model for cmdDetail field. Field contains a JSON serialization of this class
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.TaskModel.cmdDetail">
+            <summary>
+            JSON serialization of the cmdDetailClass containing information on how to run the task
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.TaskModel.resultDownloadId">
+            <summary>
+            if non-0, the addon's result over-writes the content of the file referenced by the the download file-field. If this field is 0 the addon result goes to the filename field.
+            These files are not deleted by housekeeping
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.TaskModel.filename">
+            <summary>
+            if resultDownloadId is null or 0, and the addon return is not empty, the return is saved in a file referenced here.
+            These files should be deleted in housekeep as the tasks are deleted.
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.TaskModel.dateStarted">
+            <summary>
+            datetime when the task is started
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.TaskModel.dateCompleted">
+            <summary>
+            datetime when the task completes
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.TaskModel.timeout">
+            <summary>
+            Timeout in sections for the task. zero means no timeout.
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.TaskModel.cmdRunner">
+            <summary>
+            the guid of the runner that is assigned to handle this task. Empty if not assigned
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.TemplateDomainRuleModel.tableMetadata">
+            <summary>
+            table definition
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.TopicHabitModel.tableMetadata">
+            <summary>
+            table definition
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.TopicHabitModel.contentRecordKey">
+            <summary>
+            field properties
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.TopicModel.tableMetadata">
+            <summary>
+            table definition
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.TopicModel.allowBulkEmail">
+            <summary>
+            allow bulk email to be sent to people in this topic
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.TopicModel.publicJoin">
+            <summary>
+            Allow guests to join this topic
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.ViewingModel.tableMetadata">
+            <summary>
+            table definition
+            </summary>
+        </member>
+        <member name="T:Contensive.Models.Db.VisitModel">
+            <summary>
+            Auditing table to track each visit (=session)
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.VisitModel.tableMetadata">
+            <summary>
+            table definition
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.VisitModel.bot">
+            <summary>
+            if true, this visit is from a bot
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.VisitModel.browser">
+            <summary>
+            the browser string prsented by the client browser during the visit
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.VisitModel.cookieSupport">
+            <summary>
+            true if cookie support verified (second hit)
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.VisitModel.excludeFromAnalytics">
+            <summary>
+            flag can be used to exclude this visit from analytics
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.VisitModel.http_referer">
+            <summary>
+            the refering page on the first hit from the visit
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.VisitModel.lastVisitTime">
+            <summary>
+            The datetime of the last hit during the visit
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.VisitModel.loginAttempts">
+            <summary>
+            count of login attempts during this visit
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.VisitModel.memberId">
+            <summary>
+            The people record associated with the visit. Can change during authentication
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.VisitModel.memberNew">
+            <summary>
+            true if this visit created a new people record
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.VisitModel.mobile">
+            <summary>
+            browser indicates mobile
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.VisitModel.pageVisits">
+            <summary>
+            number of hits in this visit
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.VisitModel.refererPathPage">
+            <summary>
+            pathPage of referer
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.VisitModel.remote_addr">
+            <summary>
+            request ip address
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.VisitModel.startDateValue">
+            <summary>
+            integer of start date
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.VisitModel.startTime">
+            <summary>
+            time portion of startDate
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.VisitModel.timeToLastHit">
+            <summary>
+            seconds between firsthit and lasthit
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.VisitModel.visitAuthenticated">
+            <summary>
+            if true, this visit was authenticated to memberId
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.VisitModel.visitorId">
+            <summary>
+            visitor for this visit
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.VisitModel.visitorNew">
+            <summary>
+            if true, the visitor was created for this visit
+            </summary>
+        </member>
+        <member name="M:Contensive.Models.Db.VisitModel.getLastVisitByVisitor(Contensive.BaseClasses.CPBaseClass,System.Int32,System.Int32)">
+            <summary>
+            return a visit object for the visitor's last visit before the provided id
+            </summary>
+            <param name="core"></param>
+            <param name="visitId"></param>
+            <param name="visitorId"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Contensive.Models.Db.VisitorModel">
+            <summary>
+            record to track persistent cookie. Small footprint because we want to save an archive
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.VisitorModel.tableMetadata">
+            <summary>
+            table definition
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.VisitorModel.memberId">
+            <summary>
+            The last people record associated with this visitor (not necessarily authenticated)
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.VisitorModel.bot">
+            <summary>
+            if true, this visitor is from a bot. Used to housekeep unneeded visitors
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.VisitorModel.cookieSupport">
+            <summary>
+            the browser string prsented by the client browser during the visit. Used to housekeep unneeded visitors
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.VisitSummaryModel.tableMetadata">
+            <summary>
+            table definition
+            </summary>
+        </member>
+        <member name="P:Contensive.Models.Db.VisitSummaryModel.authenticatedVisits">
+            <summary>
+            field properties
+            </summary>
+        </member>
+    </members>
+</doc>

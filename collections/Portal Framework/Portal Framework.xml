@@ -3,48 +3,15 @@
 	<HelpLink></HelpLink>
 	<Help></Help>
 	<Addon name="Portal" guid="{A1BCA00C-2657-42A1-8F98-BED1E5A42025}" type="Tool">
-		<Copy></Copy>
-		<CopyText></CopyText>
-		<ActiveXProgramID></ActiveXProgramID>
 		<DotNetClass><![CDATA[Contensive.Addons.PortalFramework.PortalClass]]></DotNetClass>
 		<ArgumentList><![CDATA[Portal=[listid(portals)]]]></ArgumentList>
-		<AsAjax>No</AsAjax>
-		<Filter>No</Filter>
-		<Help></Help>
-		<HelpLink></HelpLink>
-		<Icon Link="" width="0" height="0" sprites="0" />
-		<InIframe>No</InIframe>
-		<BlockEditTools>Yes</BlockEditTools>
-		<FormXML></FormXML>
 		<IncludeAddon name="jQuery BlockUI" guid="{F6087787-E01E-4E09-AC02-502D0387E048}"/>
 		<IncludeAddon name="Contensive Base Assets" guid="{F83EE7F9-79DA-4B3F-A1CD-45AEAD93D70F}"/>
-		<IsInline>No</IsInline>
-		<JavascriptInHead></JavascriptInHead>
 		<javascriptForceHead>Yes</javascriptForceHead>
-		<JSHeadScriptSrc></JSHeadScriptSrc>
-		<!-- deprecated --><JSBodyScriptSrc></JSBodyScriptSrc>
-		<!-- deprecated --><JavascriptBodyEnd></JavascriptBodyEnd>
-		<!-- deprecated --><JavascriptOnLoad></JavascriptOnLoad>
-		<Content>No</Content>
-		<Template>No</Template>
-		<Email>No</Email>
-		<Admin>Yes</Admin>
-		<OnPageEndEvent>No</OnPageEndEvent>
-		<OnPageStartEvent>No</OnPageStartEvent>
-		<OnBodyStart>No</OnBodyStart>
-		<OnBodyEnd>No</OnBodyEnd>
-		<RemoteMethod>No</RemoteMethod>
-		<Diagnostic>No</Diagnostic>
-		<Diagnostic>No</Diagnostic>
-		<ProcessRunOnce>No</ProcessRunOnce>
-		<ProcessInterval>0</ProcessInterval>
-		<MetaDescription></MetaDescription>
-		<OtherHeadTags></OtherHeadTags>
-		<PageTitle></PageTitle>
-		<RemoteAssetLink></RemoteAssetLink>
-		<Styles></Styles>
-		<styleslinkhref></styleslinkhref>
-		<Scripting Language="VBScript" EntryPoint="" Timeout="5000"/>
+		<!-- add when html converted also
+		<JSHeadScriptSrc>/portalframework/scripts.js</JSHeadScriptSrc>
+		<styleslinkhref>/portalframework/styles.css</styleslinkhref>
+		-->
 	</Addon>
 	<CDef Name="Admin Framework Report Columns" Active="True" AdminOnly="False" AllowAdd="True" AllowCalendarEvents="0" AllowContentChildTool="0" AllowContentTracking="0" AllowDelete="True" AllowMetaContent="0" AllowTopicRules="0" AllowWorkflowAuthoring="0" AuthoringDataSourceName="Default" AuthoringTableName="adminFrameworkReportColumns" ContentDataSourceName="Default" ContentTableName="adminFrameworkReportColumns" DefaultSortMethod="By Name" DeveloperOnly="False" DropDownFieldList="Name" EditorGroupName="" Parent="" IconLink="" IconHeight="0" IconWidth="0" IconSprites="0" isbasecontent="0" guid="{9BE04402-D81B-4648-8EF4-6A53CDF6595B}" >
 		<Field Name="Name" active="True" AdminOnly="False" Authorable="True" Caption="Name" DeveloperOnly="False" EditSortPriority="110" FieldType="Text" HTMLContent="False" IndexColumn="10" IndexSortDirection="" IndexSortOrder="99" IndexWidth="21" RedirectID="0" RedirectPath="" Required="False" TextBuffered="False" UniqueName="False" DefaultValue="" RSSTitle="False" RSSDescription="False" MemberSelectGroup="" EditTab="" Scramble="False" LookupList="" NotEditable="False" Password="False" ReadOnly="True" ManyToManyRulePrimaryField="" ManyToManyRuleSecondaryField="" IsModified="False" IsBaseField="False" LookupContent="" RedirectContent="" ManyToManyContent="" ManyToManyRuleContent="" >
@@ -136,5 +103,7 @@
 	<ImportCollection name="Google jsapi">{B071E394-A381-41E2-B3F9-7E2CC509A8C5}</ImportCollection>
 	<ImportCollection name="JQuery">{A435BF70-041B-43D1-8A8D-5D9D59A7FCD0}</ImportCollection>
 	<ImportCollection name="jQuery-blockui-legacyCollection">{A7AFC023-DF2A-4CB3-BD0F-FAA9DA521901}</ImportCollection>
+	<Resource name="styles.css" type="www" path="portalframework" />
+	<Resource name="scripts.js" type="www" path="portalframework" />
 	<Resource name="aoAdminFramework.dll" type="executable" path="" />
 </Collection>
