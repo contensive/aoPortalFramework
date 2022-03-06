@@ -82,9 +82,13 @@
   <ItemGroup>
     <Compile Include="Constants.cs" />
     <Compile Include="Controllers\GnericController.cs" />
-    <Compile Include="Models\Db\PortalDataDomainModel.cs" />
+    <Compile Include="Models\Domain\PageWithNavDataModel.cs" />
+    <Compile Include="Models\Domain\PageWithNavDataNavItemModel.cs" />
+    <Compile Include="Models\Domain\PageWithNavDataSubNavItemModel.cs" />
+    <Compile Include="Models\Domain\PortalDataModel.cs" />
     <Compile Include="Models\Db\PortalModel.cs" />
-    <Compile Include="Models\Domain\PortalFeatureDataClass.cs" />
+    <Compile Include="Models\Db\PortalFeatureModel.cs" />
+    <Compile Include="Models\Domain\PortalDataFeatureModel.cs" />
     <Compile Include="Views\AdminFrameworkReportsClass.cs" />
     <Compile Include="Views\AdminFrameworkReportColumnClass.cs" />
     <Compile Include="Views\CommonClass.cs" />

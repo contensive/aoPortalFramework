@@ -1,9 +1,8 @@
-﻿
-using Contensive.Models.Db;
+﻿using System.Collections.Generic;
 
 namespace Models.Domain {
     //
-    public class PortalFeatureDataClass {
+    public class PortalDataFeatureModel {
         public int id { get; set; }
         public string name { get; set; }
         public string heading { get; set; }
@@ -22,5 +21,6 @@ namespace Models.Domain {
         public string dataContentGuid { get; set; }
         public string sortOrder { get; set; }
         public bool addPadding { get; set; }
+        public List<PortalDataFeatureModel> subFeatureList { get; set; }
     }
 }

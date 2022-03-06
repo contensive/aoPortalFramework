@@ -1,41 +1,21 @@
+using Contensive.Addons.PortalFramework.Models;
+using Contensive.BaseClasses;
 using System;
 using System.Collections.Generic;
-using System.Text;
-using Contensive.BaseClasses;
 
 namespace Contensive.Addons.PortalFramework {
     public class PageWithNavClass {
         const string cr = "\r\n\t";
         const string cr2 = cr + "\t";
-        //
         const int navSize = 99;
-        struct navStruct {
-            /// <summary>
-            /// the displayed text on teh nav
-            /// </summary>
-            public string caption;
-            /// <summary>
-            /// if present, this link goes on the nav
-            /// </summary>
-            public string link;
-            /// <summary>
-            /// if true, the view is currently on this nav
-            /// </summary>
-            public bool active;
-            /// <summary>
-            /// if true, this nav goes to another portal
-            /// </summary>
-            public bool isPortalLink;
-        }
-        navStruct[] navs = new navStruct[navSize];
-        int navMax = -1;
-        int navPtr = -1;
-        //
-        string localBody = "";
-        string localTitle = "";
-        string localWarning = "";
-        string localDescription = "";
-        bool localIsOuterContainer = true;
+        private PageWithNavDataNavItemModel[] navs { get; set; } = new PageWithNavDataNavItemModel[navSize];
+        private int navMax { get; set; } = -1;
+        private int navPtr { get; set; } = -1;
+        private string localBody { get; set; } = "";
+        private string localTitle { get; set; } = "";
+        private string localWarning { get; set; } = "";
+        private string localDescription { get; set; } = "";
+        private bool localIsOuterContainer { get; set; } = true;
         //
         //-------------------------------------------------
         //
@@ -189,8 +169,7 @@ namespace Contensive.Addons.PortalFramework {
         //-------------------------------------------------
         //
         public void setActiveNav(string caption) {
-            int navPtr = 0;
-            for (navPtr = 0; navPtr <= navMax; navPtr++) {
+            for (int navPtr = 0; navPtr <= navMax; navPtr++) {
                 if (navs[navPtr].caption.ToLower() == caption.ToLower()) {
                     navs[navPtr].active = true;
                 }
@@ -207,120 +186,153 @@ namespace Contensive.Addons.PortalFramework {
         public void addNav() {
             if (navPtr < navSize) {
                 navPtr += 1;
-                navs[navPtr].caption = "";
-                navs[navPtr].link = "";
-                navs[navPtr].active = false;
-                navs[navPtr].isPortalLink = false;
-                if (navPtr > navMax) {
-                    navMax = navPtr;
-                }
+                navs[navPtr] = new PageWithNavDataNavItemModel() {
+                    caption = "",
+                    link = "",
+                    active = false,
+                    isPortalLink = false,
+                    subNavList = new List<PageWithNavDataSubNavItemModel>()
+                };
+            };
+            if (navPtr > navMax) { navMax = navPtr; }
+        }
+
+        public void addNav(PageWithNavDataNavItemModel navItem) {
+            if (navPtr < navSize) {
+                navPtr += 1;
+                navs[navPtr] = navItem;
+                if (navPtr > navMax) { navMax = navPtr; }
             }
         }
         //
         /// <summary>
         /// Add a navigation entry. The navCaption and navLink should be set after creating a new entry. The first nav entry does not need to be added.
         /// </summary>
-        public void addPortalNav() {
-            if (navPtr < navSize) {
-                navPtr += 1;
-                navs[navPtr].caption = "";
-                navs[navPtr].link = "";
-                navs[navPtr].active = false;
-                navs[navPtr].isPortalLink = true;
-                if (navPtr > navMax) {
-                    navMax = navPtr;
-                }
-            }
-        }
+        public void addPortalNav() => addNav();
         //
         //-------------------------------------------------
         // get
         //-------------------------------------------------
         //
         public string getHtml(CPBaseClass cp) {
-            string result = "";
-            string navList = "";
-            string navItem = "";
-            string userErrors;
-            //
-            // add user errors
-            //
-            userErrors = cp.Utils.EncodeText(cp.UserError.GetList());
-            if (userErrors != "") {
-                warning = userErrors;
-            }
-            //
-            // title at top
-            //
-            if (localTitle != "") {
-                result += cr + "<h2 class=\"afwManagerTitle\">" + localTitle + "</h2>";
-            }
-            //
-            // build nav
-            //
-            for (navPtr = 0; navPtr <= navMax; navPtr++) {
-                navItem = navs[navPtr].caption;
-                if (navItem != "") {
-                    if (navs[navPtr].link != "") {
-                        navItem = "<a href=\"" + navs[navPtr].link + "\">" + navItem + "</a>";
-                    } else {
-                        navItem = "<a href=\"#\" onclick=\"return false;\">" + navItem + "</a>";
-                    }
-                    if (navs[navPtr].active) {
-                        navItem = "<li class=\"afwNavActive\">" + navItem + "</li>";
-                    } else if (navs[navPtr].isPortalLink) {
-                        navItem = "<li class=\"afwNavPortalLink\">" + navItem + "</li>";
-                    } else {
-                        navItem = cr + "<li>" + navItem + "</li>";
-                    }
-                    navList += navItem;
+            try {
+                PageWithNavDataModel viewModel = new PageWithNavDataModel {
+                    navList = new List<PageWithNavDataNavItemModel>(),
+                    navListEmpty = true
+                };
+                string legacyresult = "";
+                string navList = "";
+                string navItem = "";
+                string userErrors;
+                //
+                // add user errors
+                //
+                viewModel.warning = cp.Utils.EncodeText(cp.UserError.GetList());
+                // ----
+                userErrors = cp.Utils.EncodeText(cp.UserError.GetList());
+                if (!string.IsNullOrEmpty(userErrors)) {
+                    warning = userErrors;
                 }
-            }
-            if (navList != "") {
-                result += ""
-                    + cr + "<ul class=\"afwNav\">"
-                    + indent(navList)
-                    + cr + "</ul>";
-            }
-            //
-            // description under nav, over body
-            //
-            if (localDescription != "") {
-                result += cr + "<div class=\"afwManagerDescription\">" + localDescription + "</div>";
-            }
-            if (localWarning != "") {
-                result += cr + "<div id=\"afwWarning\">" + localWarning + "</div>";
-            }
-            //
-            // body
-            //
-            if (localBody != "") {
                 //
-                // body padding and color
+                // title at top
                 //
-                if (_includeBodyPadding) { localBody = cp.Html.div(localBody, "", "afwBodyPad", ""); };
-                if (_includeBodyColor) { localBody = cp.Html.div(localBody, "", "afwBodyColor", ""); };
-                result += localBody;
-                //s += cp.Html.div(localBody, "", "afwBodyPad", "");
-                ///*
-                //s += ""
-                //    + cr + "<div class=\"afwBodyPad\">"
-                //    + indent(  )
-                //    + cr + "</ul>";
-                // */
+                viewModel.title = localTitle;
+                // ----
+                if (!string.IsNullOrEmpty(localTitle)) {
+                    legacyresult += cr + "<h2 class=\"afwManagerTitle\">" + localTitle + "</h2>";
+                }
+                //
+                // build nav
+                //
+                for (navPtr = 0; navPtr <= navMax; navPtr++) {
+                    PageWithNavDataNavItemModel nav = navs[navPtr];
+                    if (!string.IsNullOrEmpty(nav.caption)) {
+                        viewModel.navList.Add(new PageWithNavDataNavItemModel {
+                            caption = nav.caption,
+                            link = nav.link,
+                            active = nav.active,
+                            isPortalLink = nav.isPortalLink,
+                            subNavList = nav.subNavList,
+                            subNavListEmpty = nav.subNavList.Count==0
+                        });
+                    }
+                    // ----
+                    navItem = nav.caption;
+                    if (!string.IsNullOrEmpty(navItem)) {
+                        if (!string.IsNullOrEmpty(nav.link)) {
+                            navItem = "<a href=\"" + nav.link + "\">" + navItem + "</a>";
+                        } else {
+                            navItem = "<a href=\"#\" onclick=\"return false;\">" + navItem + "</a>";
+                        }
+                        if (nav.active) {
+                            navItem = "<li class=\"afwNavActive\">" + navItem + "</li>";
+                        } else if (nav.isPortalLink) {
+                            navItem = "<li class=\"afwNavPortalLink\">" + navItem + "</li>";
+                        } else {
+                            navItem = cr + "<li>" + navItem + "</li>";
+                        }
+                        navList += navItem;
+                    }
+                }
+                viewModel.navListEmpty = viewModel.navList.Count == 0;
+                if (!string.IsNullOrEmpty(navList )) {
+                    legacyresult += ""
+                        + cr + "<ul class=\"afwNav\">"
+                        + indent(navList)
+                        + cr + "</ul>";
+                }
+                //
+                // description under nav, over body
+                //
+                viewModel.description = localDescription;
+                // ----
+                if (!string.IsNullOrEmpty(localDescription )) {
+                    legacyresult += cr + "<div class=\"afwManagerDescription\">" + localDescription + "</div>";
+                }
+                if (!string.IsNullOrEmpty(localWarning )) {
+                    legacyresult += cr + "<div id=\"afwWarning\">" + localWarning + "</div>";
+                }
+                //
+                // body
+                //
+                viewModel.body = localBody;
+                // ----
+                if (!string.IsNullOrEmpty(localBody )) {
+                    //
+                    // body padding and color
+                    //
+                    if (_includeBodyPadding) { localBody = cp.Html.div(localBody, "", "afwBodyPad", ""); };
+                    if (_includeBodyColor) { localBody = cp.Html.div(localBody, "", "afwBodyColor", ""); };
+                    legacyresult += localBody;
+                    //s += cp.Html.div(localBody, "", "afwBodyPad", "");
+                    ///*
+                    //s += ""
+                    //    + cr + "<div class=\"afwBodyPad\">"
+                    //    + indent(  )
+                    //    + cr + "</ul>";
+                    // */
+                }
+                //
+                // if outer container, add styles and javascript
+                //
+                if (localIsOuterContainer) {
+                    cp.Doc.AddHeadJavascript(Properties.Resources.javascript);
+                    cp.Doc.AddHeadStyle(Properties.Resources.styles);
+                    legacyresult = ""
+                        + cr + "<div id=\"afw\">"
+                        + indent(legacyresult)
+                        + cr + "</div>";
+                }
+                if(cp.Site.GetBoolean("AdminUI Update 22.3",false)) {
+                    string layout = cp.Layout.GetLayout(Constants.guidAdminUIPageWithNavLayout, Constants.nameAdminUIPageWithNavLayout, "portalframework\\AdminUIPageWithNavLayout.html");
+                    string updateresult = cp.Mustache.Render(layout, viewModel);
+                    return updateresult;
+                }
+                return legacyresult;
+            } catch (Exception ex) {
+                cp.Site.ErrorReport(ex);
+                throw;
             }
-            //
-            // if outer container, add styles and javascript
-            //
-            if (localIsOuterContainer) {
-                cp.Doc.AddHeadJavascript(Properties.Resources.javascript);
-                cp.Doc.AddHeadStyle(Properties.Resources.styles);
-                result = ""
-                    + cr + "<div id=\"afw\">"
-                    + indent(result)
-                    + cr + "</div>";
-            }
-            return result;
         }
         //
         //-------------------------------------------------
@@ -330,9 +342,5 @@ namespace Contensive.Addons.PortalFramework {
         private string indent(string src) {
             return src.Replace(cr, cr2);
         }
-
-
-
-
     }
 }

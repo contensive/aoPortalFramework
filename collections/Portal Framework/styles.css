@@ -1,6 +1,6 @@
 
 /*
-* Contensive.PortalFramework
+* Contensive.Addons.PortalFramework assembly referenced resources
 */
 #desktop 
 {
@@ -42,14 +42,18 @@
     font:normal bold 13px/20px Arial, san-serif;
     margin: 15px 0 5px 0;
 }
-#afw .afwManagerTitle 
-{
-    background-color: #1F70BD;
-    color: #FFFFFF;
-    font-size: 15px;
-    font-weight: bold;
-    padding: 10px;
-    margin: 0;
+#afw .afwManagerTitle {
+	/* 2202 redesign
+	background-color: #343a40;
+	border-top: 1px solid #282828;
+	border-left: 1px solid #282828;
+	*/
+	background-color: #1F70BD;
+	color: #FFFFFF;
+	font-size: 15px;
+	font-weight: bold;
+	padding: 10px;
+	margin: 0;
 }
 #afw .afwManagerDescription 
 {
@@ -291,19 +295,18 @@
 {
 	width:100%;
 	border-spacing: 0;
-	margin: 0 0 20px;
+	margin: 20px 0 !important;
 }
 #afw .afwListReportTableCollapse
 {
 	border-spacing: 0;
 	margin: 0 auto 20px auto;
 }
-#afw .afwLeftSideHtml 
-{
-    float: left;
-    overflow: hidden;
-    padding: 0 0 20px 0;
-    width: 160px;
+#afw .afwBeforeHtml {
+	padding: 20px 0 0;
+}
+#afw .afwAfterHtml {
+	padding: 0 0 20px;
 }
 #afw .afwRightSideHtml 
 {

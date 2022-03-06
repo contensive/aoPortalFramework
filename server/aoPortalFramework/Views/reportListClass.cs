@@ -300,30 +300,16 @@ namespace Contensive.Addons.PortalFramework {
                 + indent(rowList.ToString())
                 + cr + "</tbody>"
                 + "");
-            s = new StringBuilder(""
-                + cr + "<table class=\"afwListReportTable\">"
-                + indent(s.ToString())
-                + cr + "</table>");
+            s = new StringBuilder(cr + "<table class=\"afwListReportTable\">" + indent(s.ToString()) + cr + "</table>");
             if (localHtmlLeftOfTable != "") {
                 s = new StringBuilder(""
-                        + cr + "<div class=\"afwLeftSideHtml\">"
-                        + indent(localHtmlLeftOfTable)
-                        + cr + "</div>"
-                        + cr + "<div class=\"afwRightSideHtml\">"
-                        + indent(s.ToString())
-                        + cr + "</div>"
-                        + cr + "<div style=\"clear:both\"></div>"
-                        + "");
-            }
-            if (localHtmlBeforeTable != "") {
-                s = new StringBuilder(""
-                    + localHtmlBeforeTable
-                    + s.ToString()
+                    + cr + "<div class=\"afwLeftSideHtml\">" + indent(localHtmlLeftOfTable) + cr + "</div>"
+                    + cr + "<div class=\"afwRightSideHtml\">" + indent(s.ToString()) + cr + "</div>"
+                    + cr + "<div style=\"clear:both\"></div>"
                     + "");
             }
-            if (localHtmlAfterTable != "") {
-                s.Append(localHtmlAfterTable);
-            }
+            if (localHtmlBeforeTable != "") { s.Insert(0, "<div class=\"afwBeforeHtml\">" + localHtmlBeforeTable + "</div>"); }
+            if (localHtmlAfterTable != "") { s.Append("<div class=\"afwAfterHtml\">" + localHtmlAfterTable + "</div>"); }
             //
             // headers
             //
