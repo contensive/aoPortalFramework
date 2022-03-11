@@ -77,7 +77,8 @@ namespace Contensive.Addons.PortalFramework {
                 // portal interface - add tabs
                 PageWithNavClass form = new PageWithNavClass();
                 PortalDataFeatureModel feature;
-                foreach (KeyValuePair<string, PortalDataFeatureModel> kvp in portalData.featureList) {
+                Dictionary<string, PortalDataFeatureModel> featureList = portalData.featureList;
+                foreach (KeyValuePair<string, PortalDataFeatureModel> kvp in featureList) {
                     feature = kvp.Value;
                     if (feature.parentFeatureId == 0) {
                         var subNav = new List<PageWithNavDataSubNavItemModel>();
