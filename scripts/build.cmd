@@ -71,6 +71,18 @@ md "%deploymentFolderRoot%%versionNumber%"
 
 rem ==============================================================
 rem
+echo copy resources into collection folder 
+rem
+
+cd "..\collections\Portal Framework"
+copy ..\..\ui\*.html .
+copy ..\..\ui\*.css .
+copy ..\..\ui\*.js .
+
+cd ..\..\scripts
+
+rem ==============================================================
+rem
 echo build 
 rem
 cd ..\server
@@ -110,7 +122,6 @@ del "%collectionName%.zip" /Q
 xcopy "%collectionName%.zip" "%deploymentFolderRoot%%versionNumber%" /Y
 cd ..\..\scripts
 
-
 rem ==============================================================
 rem
 echo build api Nuget
@@ -128,3 +139,19 @@ if errorlevel 1 (
 xcopy "Contensive.PortalApi.%versionNumber%.nupkg" "%NuGetLocalPackagesFolder%" /Y
 xcopy "Contensive.PortalApi.%versionNumber%.nupkg" "%deploymentFolderRoot%%versionNumber%" /Y
 cd ..\..\scripts
+
+
+rem ==============================================================
+rem
+echo clean collection folder (only xml should remain)
+rem
+
+cd "..\collections\Portal Framework"
+del *.html
+del *.css
+del *.js
+del *.dll
+rem -- leave collection zip so it can be installed -- del *.zip
+
+cd ..\..\scripts
+

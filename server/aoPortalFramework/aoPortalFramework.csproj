@@ -80,11 +80,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Addons\InstallAddon.cs" />
     <Compile Include="Constants.cs" />
     <Compile Include="Controllers\GnericController.cs" />
-    <Compile Include="Models\Domain\PageWithNavDataModel.cs" />
-    <Compile Include="Models\Domain\PageWithNavDataNavItemModel.cs" />
-    <Compile Include="Models\Domain\PageWithNavDataSubNavItemModel.cs" />
+    <Compile Include="Models\Domain\PortalBuilderDataModel.cs" />
+    <Compile Include="Models\Domain\PortalBuilderDataNavItemModel.cs" />
+    <Compile Include="Models\Domain\PortalBuilderDataSubNavItemModel.cs" />
     <Compile Include="Models\Domain\PortalDataModel.cs" />
     <Compile Include="Models\Db\PortalModel.cs" />
     <Compile Include="Models\Db\PortalFeatureModel.cs" />
@@ -92,9 +93,9 @@
     <Compile Include="Views\AdminFrameworkReportsClass.cs" />
     <Compile Include="Views\AdminFrameworkReportColumnClass.cs" />
     <Compile Include="Views\CommonClass.cs" />
-    <Compile Include="Addons\PortalClass.cs" />
+    <Compile Include="Addons\PortalAddon.cs" />
     <Compile Include="Views\ToolSimpleClass.cs" />
-    <Compile Include="Views\PageWithNavClass.cs" />
+    <Compile Include="Views\PortalBuilderClass.cs" />
     <Compile Include="Views\FormNameValueRowsClass.cs" />
     <Compile Include="Models\Db\_blankModel.cs" />
     <Compile Include="Properties\Resources.Designer.cs">

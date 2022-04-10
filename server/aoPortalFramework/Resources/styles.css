@@ -308,6 +308,12 @@
 #afw .afwAfterHtml {
 	padding: 0 0 20px;
 }
+#afw .afwLeftSideHtml {
+	float: left;
+	overflow: hidden;
+	padding: 0 0 20px 0;
+	width: 160px;
+}
 #afw .afwRightSideHtml 
 {
 	margin: 0 0 0 170px;

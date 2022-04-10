@@ -111,12 +111,19 @@ namespace Contensive.Addons.PortalFramework.Models {
                                     };
                                     //
                                     // -- add the new feature to the list
-                                    result.featureList.Add(csFeature.GetText("ccguid"), feature);
-                                    if (result.defaultFeature == null) {
-                                        result.defaultFeature = feature;
-                                    }
-                                    if (portalDefaultFeatureId == feature.id) {
-                                        result.defaultFeature = feature;
+                                    string featureGuid = csFeature.GetText("ccguid");
+                                    if (result.featureList.ContainsKey(featureGuid)) {
+                                        //
+                                        // -- data error, duplicate features
+                                        CP.Site.ErrorReport("Portal Error, 2 portal features with the same guid [" + featureGuid + "]");
+                                    } else {
+                                        result.featureList.Add(featureGuid, feature);
+                                        if (result.defaultFeature == null) {
+                                            result.defaultFeature = feature;
+                                        }
+                                        if (portalDefaultFeatureId == feature.id) {
+                                            result.defaultFeature = feature;
+                                        }
                                     }
                                 }
                                 //

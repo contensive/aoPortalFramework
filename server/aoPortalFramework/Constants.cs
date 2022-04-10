@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 namespace Contensive.Addons.PortalFramework {
     class Constants {
         //
-        public const string guidAdminUIPageWithNavLayout = "{7B4BEE74-A4A1-4641-9745-25960AFD398F}";
-        public const string nameAdminUIPageWithNavLayout = "AdminUI Page With Nav Layout";
+        public const string guidLayoutPortal = "{7B4BEE74-A4A1-4641-9745-25960AFD398F}";
+        public const string nameLayoutPortal = "AdminUI Page With Nav Layout";
 
         public const string blockedMessage = "<h2>Blocked Content</h2><p>Your account must have administrator access to view this content.</p>";
         public const string rnDstFeatureGuid = "dstFeatureGuid";

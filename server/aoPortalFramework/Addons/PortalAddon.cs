@@ -8,7 +8,7 @@ using Models.Db;
 using Models.Domain;
 
 namespace Contensive.Addons.PortalFramework {
-    public class PortalClass : AddonBaseClass {
+    public class PortalAddon : AddonBaseClass {
         //====================================================================================================
         /// <summary>
         /// Addon interface. Run addon from doc property PortalGuid or PortalId (form, querystring, doc.setProperty())
@@ -69,60 +69,63 @@ namespace Contensive.Addons.PortalFramework {
                 if (!CP.User.IsAdmin) {
                     return Constants.blockedMessage;
                 }
-                //
-                // build portal
                 PortalDataModel portalData = PortalDataModel.create(CP, portalId);
-                string frameRqs = CP.Utils.ModifyQueryString(CP.Doc.RefreshQueryString, Constants.rnSetPortalId, portalData.id.ToString(), true);
+                //string frameRqs = CP.Utils.ModifyQueryString(CP.Doc.RefreshQueryString, Constants.rnSetPortalId, portalData.id.ToString(), true);
                 //
-                // portal interface - add tabs
-                PageWithNavClass form = new PageWithNavClass();
+                // -- Add Nav items
+                PortalBuilderClass portalBuilder = new PortalBuilderClass();
                 PortalDataFeatureModel feature;
-                Dictionary<string, PortalDataFeatureModel> featureList = portalData.featureList;
-                foreach (KeyValuePair<string, PortalDataFeatureModel> kvp in featureList) {
+                foreach (KeyValuePair<string, PortalDataFeatureModel> kvp in portalData.featureList) {
                     feature = kvp.Value;
                     if (feature.parentFeatureId == 0) {
-                        var subNav = new List<PageWithNavDataSubNavItemModel>();
-                        foreach (var subFeature in feature.subFeatureList) {
-                            subNav.Add(new PageWithNavDataSubNavItemModel {
-                                subActive = true,
-                                subCaption = subFeature.heading,
-                                subIsPortalLink = false,
-                                subLink = "?" + CP.Utils.ModifyQueryString(CP.Doc.RefreshQueryString, Constants.rnDstFeatureGuid, subFeature.guid),
-                                sublinkTarget = (subFeature.dataContentId > 0) || (!string.IsNullOrEmpty(subFeature.dataContentGuid)) ? "_blank" : ""
-                            });
+                        //
+                        // -- feature has no parent, add to nav
+                        var subNav = new List<PortalBuilderDataSubNavItemModel>();
+                        if (feature.addonId == 0 && feature.dataContentId == 0) {
+                            //
+                            // -- feature has no addon or content, add flyout if it has child features
+                            foreach (var subFeature in feature.subFeatureList) {
+                                subNav.Add(new PortalBuilderDataSubNavItemModel {
+                                    subActive = true,
+                                    subCaption = subFeature.heading,
+                                    subIsPortalLink = false,
+                                    subLink = "?" + CP.Utils.ModifyQueryString(CP.Doc.RefreshQueryString, Constants.rnDstFeatureGuid, subFeature.guid),
+                                    sublinkTarget = (subFeature.dataContentId > 0) || (!string.IsNullOrEmpty(subFeature.dataContentGuid)) ? "_blank" : ""
+                                });
+                            }
                         }
-                        form.addNav(new PageWithNavDataNavItemModel {
+                        portalBuilder.addNav(new PortalBuilderDataNavItemModel {
                             active = false,
                             caption = feature.heading,
                             isPortalLink = false,
                             link = "?" + CP.Utils.ModifyQueryString(CP.Doc.RefreshQueryString, Constants.rnDstFeatureGuid, feature.guid),
-                            subNavList = subNav,
+                            navFlyoutList = subNav,
                             linkTarget = (feature.dataContentId > 0) || (!string.IsNullOrEmpty(feature.dataContentGuid)) ? "_blank" : ""
                         });
-                        form.navCaption = feature.heading;
-                        form.navLink = "?" + CP.Utils.ModifyQueryString(CP.Doc.RefreshQueryString, Constants.rnDstFeatureGuid, feature.guid);
+                        portalBuilder.navCaption = feature.heading;
+                        portalBuilder.navLink = "?" + CP.Utils.ModifyQueryString(CP.Doc.RefreshQueryString, Constants.rnDstFeatureGuid, feature.guid);
                     }
                 }
                 //
-                // add developer tab
+                // add developer nav item
                 //
                 if (CP.User.IsDeveloper) {
                     if (portalData.featureList.ContainsKey(Constants.devToolGuid)) {
                         CP.Site.ErrorReport("loadPortalFromDb, the portal [" + portalData.name + "] appears to have the devTool feature saved in either the Db features or the defaultConfig. This is not allowed.");
                     } else {
-                        form.addNav();
-                        form.navCaption = "Developer Tool";
-                        form.navLink = "?" + CP.Utils.ModifyQueryString(CP.Doc.RefreshQueryString, Constants.rnDstFeatureGuid, Constants.devToolGuid);
+                        portalBuilder.addNav();
+                        portalBuilder.navCaption = "Developer Tool";
+                        portalBuilder.navLink = "?" + CP.Utils.ModifyQueryString(CP.Doc.RefreshQueryString, Constants.rnDstFeatureGuid, Constants.devToolGuid);
                     }
                 }
                 //
-                // add linked features
+                // add linked features nav items
                 //
                 if (portalData.linkedPortals.Count > 0) {
                     foreach (PortalDataModel linkedPortal in portalData.linkedPortals) {
-                        form.addNav();
-                        form.navCaption = linkedPortal.name;
-                        form.navLink = "?" + CP.Utils.ModifyQueryString(CP.Doc.RefreshQueryString, Constants.rnSetPortalId, linkedPortal.id.ToString());
+                        portalBuilder.addNav();
+                        portalBuilder.navCaption = linkedPortal.name;
+                        portalBuilder.navLink = "?" + CP.Utils.ModifyQueryString(CP.Doc.RefreshQueryString, Constants.rnSetPortalId, linkedPortal.id.ToString());
                     }
                 }
                 string body = "";
@@ -145,7 +148,7 @@ namespace Contensive.Addons.PortalFramework {
                         // add feature guid to rqs so if an addon is used that does not support frameRqs it will work
                         //
                         feature = portalData.featureList[dstFeatureGuid];
-                        frameRqs = CP.Utils.ModifyQueryString(CP.Doc.RefreshQueryString, Constants.rnDstFeatureGuid, feature.guid);
+                        //frameRqs = CP.Utils.ModifyQueryString(CP.Doc.RefreshQueryString, Constants.rnDstFeatureGuid, feature.guid);
                         if (feature.addonId != 0) {
                             //
                             // feature is an addon, execute it
@@ -153,6 +156,20 @@ namespace Contensive.Addons.PortalFramework {
                             CP.Doc.SetProperty(Constants.rnFrameRqs, CP.Doc.RefreshQueryString);
                             CP.Doc.AddRefreshQueryString(Constants.rnDstFeatureGuid, feature.guid);
                             body = CP.Addon.Execute(feature.addonId);
+                            //
+                            // -- if the feature addon has sibling features, build the subnav
+                            //
+                            foreach (var testFeature in feature.subFeatureList) {
+                                portalBuilder.addSubNav(new PortalBuilderDataSubNavItemModel {
+                                    subActive = true,
+                                    subCaption = testFeature.heading,
+                                    subIsPortalLink = false,
+                                    subLink = "?" + CP.Utils.ModifyQueryString(CP.Doc.RefreshQueryString, Constants.rnDstFeatureGuid, testFeature.guid),
+                                    sublinkTarget = (testFeature.dataContentId > 0) || (!string.IsNullOrEmpty(testFeature.dataContentGuid)) ? "_blank" : ""
+                                });
+                            }
+                            //
+                            //
                         } else if (feature.dataContentId != 0) {
                             //
                             // this is a data content feature -- should not be here, link should have taken them to the content
@@ -200,7 +217,7 @@ namespace Contensive.Addons.PortalFramework {
                     if (portalData.defaultFeature != null) {
                         feature = portalData.defaultFeature;
                         activeNavHeading = feature.heading;
-                        frameRqs = CP.Utils.ModifyQueryString(CP.Doc.RefreshQueryString, Constants.rnDstFeatureGuid, feature.guid);
+                        //frameRqs = CP.Utils.ModifyQueryString(CP.Doc.RefreshQueryString, Constants.rnDstFeatureGuid, feature.guid);
                         CP.Doc.SetProperty(Constants.rnFrameRqs, CP.Doc.RefreshQueryString);
                         CP.Doc.AddRefreshQueryString(Constants.rnDstFeatureGuid, feature.guid);
                         body = CP.Addon.Execute(feature.addonId);
@@ -215,14 +232,14 @@ namespace Contensive.Addons.PortalFramework {
                         body = simple.getHtml(CP);
                     }
                 }
-                form.setActiveNav(activeNavHeading);
+                portalBuilder.setActiveNav(activeNavHeading);
                 //
                 //Assemble
                 //
-                form.body = CP.Html.div(body, "", "", "afwBodyFrame");
-                form.title = portalData.name;
-                form.isOuterContainer = true;
-                string returnHtml = form.getHtml(CP);
+                portalBuilder.body = CP.Html.div(body, "", "", "afwBodyFrame");
+                portalBuilder.title = portalData.name;
+                portalBuilder.isOuterContainer = true;
+                string returnHtml = portalBuilder.getHtml(CP);
                 //
                 // assemble body
                 //

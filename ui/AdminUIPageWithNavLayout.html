@@ -7,7 +7,7 @@
     <div class="navbar-collapse collapse" id="navbarSupportedContent" style="">
       <ul class="navbar-nav mr-auto">
         {{#navList}}
-          {{#subNavListEmpty}}
+          {{#navFlyoutListEmpty}}
           <li class="nav-item {{#active}}active{{/active}} {{#isPortalLink}}afwNavPortalLink{{/isPortalLink}}">
             {{#link}}
             <a class="nav-link " href="{{link}}" target="{{linkTarget}}">{{caption}}</a>
@@ -16,22 +16,22 @@
             <a class="nav-link " href="#" onclick="return false">{{caption}}</a>
             {{/link}}
           </li>
-          {{/subNavListEmpty}}
-          {{^subNavListEmpty}}
+          {{/navFlyoutListEmpty}}
+          {{^navFlyoutListEmpty}}
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{caption}}</a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-              {{#subNavList}}
+              {{#navFlyoutList}}
                 {{#subLink}}
                 <a class="dropdown-item " href="{{subLink}}" target="{{subLinkTarget}}" >{{subCaption}}</a>
                 {{/subLink}}
                 {{^subLink}}
                 <a class="dropdown-item"  href="#" onclick="return false">{{subCaption}}</a>
                 {{/subLink}}
-              {{/subNavList}}
+              {{/navFlyoutList}}
             </div>
           </li>
-          {{/subNavListEmpty}}
+          {{/navFlyoutListEmpty}}
         {{/navList}}
       </ul>
     </div>

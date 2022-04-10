@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="windows-1252"?>
-<Collection name="Portal Framework" guid="{87249f75-a065-4f2f-8dcd-fbbf2ca0dccd}" system="No" updatable="Yes" blockNavigatorNode="No" onInstallAddonGuid="">
+<Collection name="Portal Framework" guid="{87249f75-a065-4f2f-8dcd-fbbf2ca0dccd}" system="No" updatable="Yes" blockNavigatorNode="No" onInstallAddonGuid="{C299048C-775A-48E9-9B47-8CB8B7CE16DB}">
 	<HelpLink></HelpLink>
 	<Help></Help>
+	<Addon name="Portal Install" guid="{C299048C-775A-48E9-9B47-8CB8B7CE16DB}" type="Tool">
+		<DotNetClass><![CDATA[Contensive.Addons.PortalFramework.InstallAddon]]></DotNetClass>
+	</Addon>
 	<Addon name="Portal" guid="{A1BCA00C-2657-42A1-8F98-BED1E5A42025}" type="Tool">
-		<DotNetClass><![CDATA[Contensive.Addons.PortalFramework.PortalClass]]></DotNetClass>
+		<DotNetClass><![CDATA[Contensive.Addons.PortalFramework.PortalAddon]]></DotNetClass>
 		<ArgumentList><![CDATA[Portal=[listid(portals)]]]></ArgumentList>
 		<IncludeAddon name="jQuery BlockUI" guid="{F6087787-E01E-4E09-AC02-502D0387E048}"/>
 		<IncludeAddon name="Contensive Base Assets" guid="{F83EE7F9-79DA-4B3F-A1CD-45AEAD93D70F}"/>
