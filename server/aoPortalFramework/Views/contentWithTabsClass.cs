@@ -11,9 +11,6 @@ namespace Contensive.Addons.PortalFramework
     public class ContentWithTabsClass
     {
         //
-        const string cr = "\r\n\t";
-        const string cr2 = cr + "\t";
-        //
         const int tabSize = 99;
         struct navStruct
         {
@@ -287,40 +284,40 @@ namespace Contensive.Addons.PortalFramework
                     {
                         tabStyleClass = " class=\"" + tabStyleClass + "\"";
                     }
-                    item = cr + "<li"+tabStyleClass+">" + item + "</li>";
+                    item = Constants.cr + "<li"+tabStyleClass+">" + item + "</li>";
                     list += item;
                 }
             }
             if (list != "")
             {
                 result += ""
-                    + cr + "<ul class=\"afwBodyTabs\">"
+                    + Constants.cr + "<ul class=\"afwBodyTabs\">"
                     + indent(list)
-                    + cr + "</ul>";
+                    + Constants.cr + "</ul>";
             }
             //
             // headers
             //
             if (localDescription != "")
             {
-                result = cr + "<p id=\"afwDescription\">" + localDescription + "</p>" + result;
+                result = Constants.cr + "<p id=\"afwDescription\">" + localDescription + "</p>" + result;
             }
             if (localWarning != "")
             {
-                result = cr + "<div id=\"afwWarning\">" + localWarning + "</div>" + result;
+                result = Constants.cr + "<div id=\"afwWarning\">" + localWarning + "</div>" + result;
             }
             if (localTitle != "")
             {
-                result = cr + "<h2 id=\"afwTitle\">" + localTitle + "</h2>" + result;
+                result = Constants.cr + "<h2 id=\"afwTitle\">" + localTitle + "</h2>" + result;
             }
             if (localBody != "")
             {
                 result += localBody;
             }
             result = ""
-                + cr + "<div class=\"afwTabbedBody\">"
+                + Constants.cr + "<div class=\"afwTabbedBody\">"
                 + indent(result)
-                + cr + "</div>";
+                + Constants.cr + "</div>";
             //
             // if outer container, add styles and javascript
             //
@@ -329,9 +326,9 @@ namespace Contensive.Addons.PortalFramework
                 cp.Doc.AddHeadJavascript(Properties.Resources.javascript);
                 cp.Doc.AddHeadStyle(Properties.Resources.styles);
                 result = ""
-                    + cr + "<div id=\"afw\">"
+                    + Constants.cr + "<div id=\"afw\">"
                     + indent(result)
-                    + cr + "</div>";
+                    + Constants.cr + "</div>";
             }
             return result;
         }
@@ -342,7 +339,7 @@ namespace Contensive.Addons.PortalFramework
         //
         private string indent(string src)
         {
-            return src.Replace(cr, cr2);
+            return src.Replace(Constants.cr, Constants.cr2);
         }
     }
 }

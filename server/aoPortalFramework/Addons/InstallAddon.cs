@@ -14,7 +14,9 @@ namespace Contensive.Addons.PortalFramework {
             try {
                 //
                 // -- delete layout records so they will repopulate with collection file
-                cp.Db.ExecuteNonQuery("delete from cclayouts where ccguid=" + cp.Db.EncodeSQLText(Constants.guidLayoutPortal));
+                cp.Db.ExecuteNonQuery("delete from cclayouts where ccguid=" + cp.Db.EncodeSQLText(Constants.guidLayoutPageWithNav));
+                cp.Db.ExecuteNonQuery("delete from cclayouts where ccguid=" + cp.Db.EncodeSQLText(Constants.guidLayoutAdminUITwoColumnLeft));
+                cp.Db.ExecuteNonQuery("delete from cclayouts where ccguid=" + cp.Db.EncodeSQLText(Constants.guidLayoutAdminUITwoColumnRight));
                 //
                 return "";
             } catch (Exception ex) {

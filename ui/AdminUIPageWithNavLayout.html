@@ -34,8 +34,31 @@
           {{/navFlyoutListEmpty}}
         {{/navList}}
       </ul>
+  </div>
+  </nav>
+
+  {{^subNavListEmpty}}
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarText">
+      <ul class="navbar-nav mr-auto">
+        {{#subNavList}}
+        <li class="nav-item {{#subActive}}active{{/subActive}} {{#subIsPortalLink}}afwNavPortalLink{{/subIsPortalLink}}">
+          {{#subLink}}
+          <a class="nav-link " href="{{subLink}}" target="{{subLinkTarget}}">{{subCaption}}</a>
+          {{/subLink}}
+          {{^subLink}}
+          <a class="nav-link " href="#" onclick="return false">{{subCaption}}</a>
+          {{/subLink}}
+        </li>
+      {{/subNavList}}
+      </ul>
     </div>
   </nav>
+  {{/subNavListEmpty}}
+
   <div>
     {{{body}}}
   </div>

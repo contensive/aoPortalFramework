@@ -11,8 +11,6 @@ namespace Contensive.Addons.PortalFramework
     {
         const int columnSize = 99;
         const int rowSize = 9999;
-        const string cr = "\r\n\t";
-        const string cr2 = cr + "\t";
         //
         struct columnStruct
         {
@@ -200,11 +198,11 @@ namespace Contensive.Addons.PortalFramework
             //
             // headers
             //
-            jsonData += cr + "data.addColumn('date', 'Date');";
+            jsonData += Constants.cr + "data.addColumn('date', 'Date');";
             rowList = "";
             if (gridIncludesCaptionColumn)
             {
-                rowList += cr + "<th>" + localXAxisCaption + "</th>";
+                rowList += Constants.cr + "<th>" + localXAxisCaption + "</th>";
             }
             for (colPtr = 0; colPtr <= columnMax; colPtr++)
             {
@@ -218,17 +216,17 @@ namespace Contensive.Addons.PortalFramework
                 {
                     content = "&nbsp;";
                 }
-                rowList += cr + "<th" + styleClass + ">" + content + "</th>";
-                jsonData += cr + "data.addColumn('number', '" + content + "');";
+                rowList += Constants.cr + "<th" + styleClass + ">" + content + "</th>";
+                jsonData += Constants.cr + "data.addColumn('number', '" + content + "');";
             }
             if (gridIncludeHeaderRow)
             {
                 result += ""
-                    + cr + "<thead>"
-                    + cr2 + "<tr>"
+                    + Constants.cr + "<thead>"
+                    + Constants.cr2 + "<tr>"
                     + indent(indent(rowList))
-                    + cr2 + "</tr>"
-                    + cr + "</thead>"
+                    + Constants.cr2 + "</tr>"
+                    + Constants.cr + "</thead>"
                     + "";
             }
             //
@@ -243,11 +241,11 @@ namespace Contensive.Addons.PortalFramework
                 {
                     styleClass = " class=\"" + styleClass + "\"";
                 }
-                row = cr + "<td style=\"text-align:left\" " + styleClass + " colspan=\"" + (columnMax + 1) + "\">[empty]</td>";
+                row = Constants.cr + "<td style=\"text-align:left\" " + styleClass + " colspan=\"" + (columnMax + 1) + "\">[empty]</td>";
                 rowList += ""
-                    + cr + "<tr>"
+                    + Constants.cr + "<tr>"
                     + indent(row)
-                    + cr + "</tr>";
+                    + Constants.cr + "</tr>";
             }
             else
             {
@@ -267,7 +265,7 @@ namespace Contensive.Addons.PortalFramework
                         {
                             captionColumn = "&nbsp;";
                         }
-                        row += cr + "<th class=\"" + rows[rowPtr].captionClass + "\">" + captionColumn + "</th>";
+                        row += Constants.cr + "<th class=\"" + rows[rowPtr].captionClass + "\">" + captionColumn + "</th>";
                     }
                     //
                     // additional columns are numeric
@@ -279,10 +277,10 @@ namespace Contensive.Addons.PortalFramework
                         {
                             styleClass = " class=\"" + styleClass + "\"";
                         }
-                        row += cr + "<td" + styleClass + ">" + chartData[rowPtr, colPtr].yValue + "</td>";
+                        row += Constants.cr + "<td" + styleClass + ">" + chartData[rowPtr, colPtr].yValue + "</td>";
                         jsonRow += "," + chartData[rowPtr, colPtr].yValue;
                     }
-                    jsonRowList += "," + cr + "[" + jsonRow + "]";
+                    jsonRowList += "," + Constants.cr + "[" + jsonRow + "]";
                     if (rowPtr % 2 == 0)
                     {
                         styleClass = "";
@@ -292,52 +290,52 @@ namespace Contensive.Addons.PortalFramework
                         styleClass = " class=\"afwOdd\"";
                     }
                     rowList += ""
-                        + cr + "<tr" + styleClass + ">"
+                        + Constants.cr + "<tr" + styleClass + ">"
                         + indent(row)
-                        + cr + "</tr>";
+                        + Constants.cr + "</tr>";
                 }
             }
             if (jsonRowList != "")
             {
-                jsonData += cr + "data.addRows([" + jsonRowList.Substring(1) + "]);";
+                jsonData += Constants.cr + "data.addRows([" + jsonRowList.Substring(1) + "]);";
             }
             result += ""
-                + cr + "<tbody>"
+                + Constants.cr + "<tbody>"
                 + indent(rowList)
-                + cr + "</tbody>"
+                + Constants.cr + "</tbody>"
                 + "";
             result = ""
-                + cr + "<table class=\"afwListReportTableCollapse\">"
+                + Constants.cr + "<table class=\"afwListReportTableCollapse\">"
                 + indent(result)
-                + cr + "</table>";
+                + Constants.cr + "</table>";
             result = ""
-                + cr + "<div class=\"afwGridCon\">"
+                + Constants.cr + "<div class=\"afwGridCon\">"
                 + indent(result)
-                + cr + "</div>";
+                + Constants.cr + "</div>";
             //
             // chart
             //
             result = ""
-                + cr + "<div id=\"" + chartHtmlId + "\" class=\"afwChartCon\" style=\"width:" + localChartWidth.ToString() + "px; height:" + localChartHeight.ToString() + "px;\"></div>"
+                + Constants.cr + "<div id=\"" + chartHtmlId + "\" class=\"afwChartCon\" style=\"width:" + localChartWidth.ToString() + "px; height:" + localChartHeight.ToString() + "px;\"></div>"
                 + result;
             //
             // reportCon
             //
             result = ""
-                + cr + "<div class=\"afwReportCon\">"
+                + Constants.cr + "<div class=\"afwReportCon\">"
                 + indent( result )
-                + cr + "</div>";
+                + Constants.cr + "</div>";
             //
             if (localHtmlLeftOfTable != "")
             {
                 result = ""
-                    + cr + "<div class=\"afwLeftSideHtml\">"
+                    + Constants.cr + "<div class=\"afwLeftSideHtml\">"
                     + indent(localHtmlLeftOfTable)
-                    + cr + "</div>"
-                    + cr + "<div class=\"afwRightSideHtml\">"
+                    + Constants.cr + "</div>"
+                    + Constants.cr + "<div class=\"afwRightSideHtml\">"
                     + indent(result)
-                    + cr + "</div>"
-                    + cr + "<div style=\"clear:both\"></div>"
+                    + Constants.cr + "</div>"
+                    + Constants.cr + "<div style=\"clear:both\"></div>"
                     + "";
             }
             if (localHtmlBeforeTable != "")
@@ -359,15 +357,15 @@ namespace Contensive.Addons.PortalFramework
             //
             if (localDescription != "")
             {
-                result = cr + "<p id=\"afwDescription\">" + localDescription + "</p>" + result;
+                result = Constants.cr + "<p id=\"afwDescription\">" + localDescription + "</p>" + result;
             }
             if (localWarning != "")
             {
-                result = cr + "<div id=\"afwWarning\">" + localWarning + "</div>" + result;
+                result = Constants.cr + "<div id=\"afwWarning\">" + localWarning + "</div>" + result;
             }
             if (localTitle != "")
             {
-                result = cr + "<h2 id=\"afwTitle\">" + localTitle + "</h2>" + result;
+                result = Constants.cr + "<h2 id=\"afwTitle\">" + localTitle + "</h2>" + result;
             }
             //
             // add form
@@ -377,11 +375,11 @@ namespace Contensive.Addons.PortalFramework
                 if (localButtonList != "")
                 {
                     localButtonList = ""
-                        + cr + "<div class=\"afwButtonCon\">"
+                        + Constants.cr + "<div class=\"afwButtonCon\">"
                         + indent(localButtonList)
-                        + cr + "</div>";
+                        + Constants.cr + "</div>";
                 }
-                result = cr + cp.Html.Form(localButtonList + result + localButtonList + localHiddenList, "", "", "", localFormActionQueryString, "");
+                result = Constants.cr + cp.Html.Form(localButtonList + result + localButtonList + localHiddenList, "", "", "", localFormActionQueryString, "");
                 //body = ""
                 //    + cr + cp.Html.Form( localButtonList + body + localHiddenList )
                 //    + cr + "<form action=\"" + localFormAction + "\" method=\"post\" enctype=\"MULTIPART/FORM-DATA\">"
@@ -398,21 +396,21 @@ namespace Contensive.Addons.PortalFramework
                 cp.Doc.AddHeadJavascript(Properties.Resources.javascript);
                 cp.Doc.AddHeadStyle(Properties.Resources.styles);
                 result = ""
-                    + cr + "<div id=\"afw\">"
+                    + Constants.cr + "<div id=\"afw\">"
                     + indent(result)
-                    + cr + "</div>";
+                    + Constants.cr + "</div>";
             }
             returnHeadJs += ""
-                + cr + "function drawChart() {"
-                + cr + "var data = new google.visualization.DataTable();" 
+                + Constants.cr + "function drawChart() {"
+                + Constants.cr + "var data = new google.visualization.DataTable();" 
                 + jsonData
-                + cr + "var options={title:'" + localTitle + "',hAxis:{title:'" + localXAxisCaption + "',titleTextStyle:{color: 'red'}},displayAnnotations: true};"
-                + cr + "var chart = new google.visualization.AnnotatedTimeLine(document.getElementById('" + chartHtmlId + "'));"
-                + cr + "chart.draw(data, options);"
-                + cr + "}"
-                + cr + "google.load(\"visualization\", \"1\", {packages:[\"annotatedtimeline\"]});"
-                + cr + "jQuery(document).ready(drawChart);"
-                + cr + "//google.setOnLoadCallback(drawChart);"
+                + Constants.cr + "var options={title:'" + localTitle + "',hAxis:{title:'" + localXAxisCaption + "',titleTextStyle:{color: 'red'}},displayAnnotations: true};"
+                + Constants.cr + "var chart = new google.visualization.AnnotatedTimeLine(document.getElementById('" + chartHtmlId + "'));"
+                + Constants.cr + "chart.draw(data, options);"
+                + Constants.cr + "}"
+                + Constants.cr + "google.load(\"visualization\", \"1\", {packages:[\"annotatedtimeline\"]});"
+                + Constants.cr + "jQuery(document).ready(drawChart);"
+                + Constants.cr + "//google.setOnLoadCallback(drawChart);"
                 + "";
             result += "<script Language=\"JavaScript\" type=\"text/javascript\">" + returnHeadJs + "</script>";
             returnHeadJs = "";
@@ -466,7 +464,7 @@ namespace Contensive.Addons.PortalFramework
         //
         public void addFormHidden(string Name, string Value)
         {
-            localHiddenList += cr + "<input type=\"hidden\" name=\"" + Name + "\" value=\"" + Value + "\">";
+            localHiddenList += Constants.cr + "<input type=\"hidden\" name=\"" + Name + "\" value=\"" + Value + "\">";
             localIncludeForm = true;
         }
         //
@@ -496,7 +494,7 @@ namespace Contensive.Addons.PortalFramework
         }
         public void addFormButton(string buttonValue, string buttonName, string buttonId, string buttonClass)
         {
-            localButtonList += cr + "<input type=\"submit\" name=\"" + buttonName + "\" value=\"" + buttonValue + "\" id=\"" + buttonId + "\" class=\"afwButton " + buttonClass + "\">";
+            localButtonList += Constants.cr + "<input type=\"submit\" name=\"" + buttonName + "\" value=\"" + buttonValue + "\" id=\"" + buttonId + "\" class=\"afwButton " + buttonClass + "\">";
             localIncludeForm = true;
         }
         //
@@ -785,7 +783,7 @@ namespace Contensive.Addons.PortalFramework
         //
         private string indent(string src)
         {
-            return src.Replace(cr, cr2);
+            return src.Replace(Constants.cr, Constants.cr2);
         }
         //
         //-------------------------------------------------

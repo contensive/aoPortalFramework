@@ -10,10 +10,10 @@ namespace Contensive.Addons.PortalFramework {
         /// <summary>
         /// The nav items at the top -- features in this portal with no parent
         /// </summary>
-        private PortalBuilderDataNavItemModel[] navs { get; set; } = new PortalBuilderDataNavItemModel[navSize];
+        private List<PortalBuilderNavItemViewModel> navs { get; set; } = new List<PortalBuilderNavItemViewModel>();
         private int navMax { get; set; } = -1;
         private int navPtr { get; set; } = -1;
-        private PortalBuilderDataSubNavItemModel[] subNavs { get; set; } = new PortalBuilderDataSubNavItemModel[navSize];
+        private List<PortalBuilderSubNavItemViewModel> subNavs { get; set; } = new List<PortalBuilderSubNavItemViewModel>();
         private int subNavMax { get; set; } = -1;
         private int subNavPtr { get; set; } = -1;
         //
@@ -104,33 +104,33 @@ namespace Contensive.Addons.PortalFramework {
         public void addNav() {
             if (navPtr < navSize) {
                 navPtr += 1;
-                navs[navPtr] = new PortalBuilderDataNavItemModel() {
+                navs.Add(new PortalBuilderNavItemViewModel() {
                     caption = "",
                     link = "",
                     active = false,
                     isPortalLink = false,
-                    navFlyoutList = new List<PortalBuilderDataSubNavItemModel>()
-                };
+                    navFlyoutList = new List<PortalBuilderSubNavItemViewModel>()
+                });
             };
             if (navPtr > navMax) { navMax = navPtr; }
         }
         //
         //====================================================================================================
         //
-        public void addNav(PortalBuilderDataNavItemModel navItem) {
+        public void addNav(PortalBuilderNavItemViewModel navItem) {
             if (navPtr < navSize) {
                 navPtr += 1;
-                navs[navPtr] = navItem;
+                navs.Add(navItem);
                 if (navPtr > navMax) { navMax = navPtr; }
             }
         }
         //
         //====================================================================================================
         //
-        public void addSubNav(PortalBuilderDataSubNavItemModel subNavItem) {
+        public void addSubNav(PortalBuilderSubNavItemViewModel subNavItem) {
             if (subNavPtr < navSize) {
                 subNavPtr += 1;
-                subNavs[subNavPtr] = subNavItem;
+                subNavs.Add(subNavItem);
                 if (subNavPtr > subNavMax) { subNavMax = subNavPtr; }
             }
         }
@@ -145,9 +145,9 @@ namespace Contensive.Addons.PortalFramework {
         //
         public string getHtml(CPBaseClass cp) {
             try {
-                PortalBuilderDataModel viewModel = new PortalBuilderDataModel {
-                    navList = new List<PortalBuilderDataNavItemModel>(),
-                    navListEmpty = true,
+                PortalBuilderViewModel viewModel = new PortalBuilderViewModel {
+                    navList = new List<PortalBuilderNavItemViewModel>(),
+                    subNavList = new List<PortalBuilderSubNavItemViewModel>(),
                     warning = cp.Utils.EncodeText(cp.UserError.GetList()),
                     title = title,
                     description = description,
@@ -155,23 +155,18 @@ namespace Contensive.Addons.PortalFramework {
                 };
                 //
                 // -- build nav
-               for (navPtr = 0; navPtr <= navMax; navPtr++) {
-                    PortalBuilderDataNavItemModel nav = navs[navPtr];
+                foreach (var nav in navs) {
                     if (!string.IsNullOrEmpty(nav.caption)) {
-                        viewModel.navList.Add(new PortalBuilderDataNavItemModel {
-                            caption = nav.caption,
-                            link = nav.link,
-                            active = nav.active,
-                            isPortalLink = nav.isPortalLink,
-                            navFlyoutList = nav.navFlyoutList,
-                            navFlyoutListEmpty = nav.navFlyoutList.Count == 0
-                        });
+                        viewModel.navList.Add(nav);
                     }
                 }
-                viewModel.navListEmpty = viewModel.navList.Count == 0;
                 //
                 // -- build subnav
-
+                foreach (var subNav in subNavs) {
+                    if (!string.IsNullOrEmpty(subNav.subCaption)) {
+                        viewModel.subNavList.Add(subNav);
+                    }
+                }
                 //
                 // -- if outer container, add styles and javascript
                 if (isOuterContainer) {
@@ -180,7 +175,7 @@ namespace Contensive.Addons.PortalFramework {
                 }
                 //
                 // -- render layout
-                string layout = cp.Layout.GetLayout(Constants.guidLayoutPortal, Constants.nameLayoutPortal, "portalframework\\AdminUIPageWithNavLayout.html");
+                string layout = cp.Layout.GetLayout(Constants.guidLayoutPageWithNav, Constants.nameLayoutPageWithNav, Constants.pathFilenameLayoutAdminUIPageWithNav);
                 return cp.Mustache.Render(layout, viewModel);
             } catch (Exception ex) {
                 cp.Site.ErrorReport(ex);

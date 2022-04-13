@@ -4,7 +4,7 @@ namespace Contensive.Addons.PortalFramework.Models {
     /// <summary>
     /// mustache view model for list of nav
     /// </summary>
-    public class PortalBuilderDataNavItemModel {
+    public class PortalBuilderNavItemViewModel {
         /// <summary>
         /// the displayed text on teh nav
         /// </summary>
@@ -22,8 +22,12 @@ namespace Contensive.Addons.PortalFramework.Models {
         /// </summary>
         public bool isPortalLink { get; set; }
         //
-        public List<PortalBuilderDataSubNavItemModel> navFlyoutList { get; set; }
-        public bool navFlyoutListEmpty { get; set; }
+        public List<PortalBuilderSubNavItemViewModel> navFlyoutList { get; set; } = new List<PortalBuilderSubNavItemViewModel>();
+        public bool navFlyoutListEmpty {
+            get {
+                return navFlyoutList.Count == 0;
+            }
+        }
         /// <summary>
         /// _blank for links outside of portal, else empty
         /// </summary>

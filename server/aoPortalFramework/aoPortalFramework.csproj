@@ -83,9 +83,9 @@
     <Compile Include="Addons\InstallAddon.cs" />
     <Compile Include="Constants.cs" />
     <Compile Include="Controllers\GnericController.cs" />
-    <Compile Include="Models\Domain\PortalBuilderDataModel.cs" />
-    <Compile Include="Models\Domain\PortalBuilderDataNavItemModel.cs" />
-    <Compile Include="Models\Domain\PortalBuilderDataSubNavItemModel.cs" />
+    <Compile Include="Models\Domain\PortalBuilderViewModel.cs" />
+    <Compile Include="Models\Domain\PortalBuilderNavItemViewModel.cs" />
+    <Compile Include="Models\Domain\PortalBuilderSubNavItemViewModel.cs" />
     <Compile Include="Models\Domain\PortalDataModel.cs" />
     <Compile Include="Models\Db\PortalModel.cs" />
     <Compile Include="Models\Db\PortalFeatureModel.cs" />
@@ -94,6 +94,10 @@
     <Compile Include="Views\AdminFrameworkReportColumnClass.cs" />
     <Compile Include="Views\CommonClass.cs" />
     <Compile Include="Addons\PortalAddon.cs" />
+    <Compile Include="Views\DevToolView.cs" />
+    <Compile Include="Views\LayoutBuilderTwoColumnLeft.cs" />
+    <Compile Include="Views\LayoutBuilderTwoColumnRight.cs" />
+    <Compile Include="Views\FeatureListView.cs" />
     <Compile Include="Views\ToolSimpleClass.cs" />
     <Compile Include="Views\PortalBuilderClass.cs" />
     <Compile Include="Views\FormNameValueRowsClass.cs" />

@@ -11,7 +11,10 @@
 		<IncludeAddon name="jQuery BlockUI" guid="{F6087787-E01E-4E09-AC02-502D0387E048}"/>
 		<IncludeAddon name="Contensive Base Assets" guid="{F83EE7F9-79DA-4B3F-A1CD-45AEAD93D70F}"/>
 		<javascriptForceHead>Yes</javascriptForceHead>
-		<!-- add when html converted also
+		<!-- convert to files when portal moves to c5 because html generated follows nuget, not addon install -->
+		<JSHeadScriptSrc></JSHeadScriptSrc>
+		<styleslinkhref></styleslinkhref>
+		<!-- 
 		<JSHeadScriptSrc>/portalframework/scripts.js</JSHeadScriptSrc>
 		<styleslinkhref>/portalframework/styles.css</styleslinkhref>
 		-->
@@ -116,4 +119,6 @@
 	<Resource name="scripts.js" type="www" path="portalframework" />
 	<Resource name="aoAdminFramework.dll" type="executable" path="" />
 	<Resource name="AdminUIPageWithNavLayout.html" type="file" path="portalframework" />
+	<Resource name="AdminUITwoColumnLeftLayout.html" type="file" path="portalframework" />
+	<Resource name="AdminUITwoColumnRightLayout.html" type="file" path="portalframework" />
 </Collection>

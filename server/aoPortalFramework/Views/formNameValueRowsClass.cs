@@ -8,9 +8,6 @@ using Contensive.BaseClasses;
 namespace Contensive.Addons.PortalFramework {
     public class FormNameValueRowsClass {
         //
-        const string cr = "\r\n\t";
-        const string cr2 = cr + "\t";
-        //
         const int fieldSetSize = 999;
         int fieldSetMax = -1;
         int fieldSetPtr = -1;
@@ -203,9 +200,9 @@ namespace Contensive.Addons.PortalFramework {
                 //
                 for (int fieldSetPtrx = 0; fieldSetPtrx <= fieldSetMax; fieldSetPtrx++) {
                     if (fieldSets[fieldSetPtrx].rowOpen == rowPtr) {
-                        result += cr + "<fieldset class=\"afwFieldSet\">";
+                        result += Constants.cr + "<fieldset class=\"afwFieldSet\">";
                         if (fieldSets[fieldSetPtrx].caption != "") {
-                            result += cr + "<legend>" + fieldSets[fieldSetPtrx].caption + "</legend>";
+                            result += Constants.cr + "<legend>" + fieldSets[fieldSetPtrx].caption + "</legend>";
                         }
                     }
                 }
@@ -230,7 +227,7 @@ namespace Contensive.Addons.PortalFramework {
                 //
                 for (int fieldSetPtrx = fieldSetMax; fieldSetPtrx >= 0; fieldSetPtrx--) {
                     if (fieldSets[fieldSetPtrx].rowClose == rowPtr) {
-                        result += cr + "</fieldset>";
+                        result += Constants.cr + "</fieldset>";
                     }
                 }
             }
@@ -238,13 +235,13 @@ namespace Contensive.Addons.PortalFramework {
             // headers
             //
             if (localDescription != "") {
-                result = cr + "<p id=\"afwDescription\">" + localDescription + "</p>" + result;
+                result = Constants.cr + "<p id=\"afwDescription\">" + localDescription + "</p>" + result;
             }
             if (localWarning != "") {
-                result = cr + "<div id=\"afwWarning\">" + localWarning + "</div>" + result;
+                result = Constants.cr + "<div id=\"afwWarning\">" + localWarning + "</div>" + result;
             }
             if (localTitle != "") {
-                result = cr + "<h2 id=\"afwTitle\">" + localTitle + "</h2>" + result;
+                result = Constants.cr + "<h2 id=\"afwTitle\">" + localTitle + "</h2>" + result;
             }
             //
             // add form
@@ -252,11 +249,11 @@ namespace Contensive.Addons.PortalFramework {
             if (localIncludeForm) {
                 if (localButtonList != "") {
                     localButtonList = ""
-                        + cr + "<div class=\"afwButtonCon\">"
+                        + Constants.cr + "<div class=\"afwButtonCon\">"
                         + indent(localButtonList)
-                        + cr + "</div>";
+                        + Constants.cr + "</div>";
                 }
-                result = cr + cp.Html.Form(localButtonList + result + localButtonList + localHiddenList, "", "", "", localFormActionQueryString, "");
+                result = Constants.cr + cp.Html.Form(localButtonList + result + localButtonList + localHiddenList, "", "", "", localFormActionQueryString, "");
                 //body = ""
                 //    + cr + "<form action=\"" + localFormAction + "\" method=\"post\" enctype=\"MULTIPART/FORM-DATA\">"
                 //    + indent(localButtonList + body + localHiddenList)
@@ -274,9 +271,9 @@ namespace Contensive.Addons.PortalFramework {
                 cp.Doc.AddHeadJavascript(Properties.Resources.javascript);
                 cp.Doc.AddHeadStyle(Properties.Resources.styles);
                 result = ""
-                    + cr + "<div id=\"afw\">"
+                    + Constants.cr + "<div id=\"afw\">"
                     + indent(result)
-                    + cr + "</div>";
+                    + Constants.cr + "</div>";
             }
             return result;
         }
@@ -286,7 +283,7 @@ namespace Contensive.Addons.PortalFramework {
         //-------------------------------------------------
         //
         public void addFormHidden(string Name, string Value) {
-            localHiddenList += cr + "<input type=\"hidden\" name=\"" + Name + "\" value=\"" + Value + "\">";
+            localHiddenList += Constants.cr + "<input type=\"hidden\" name=\"" + Name + "\" value=\"" + Value + "\">";
             localIncludeForm = true;
         }
         //
@@ -312,7 +309,7 @@ namespace Contensive.Addons.PortalFramework {
             addFormButton(buttonValue, buttonName, buttonId, "");
         }
         public void addFormButton(string buttonValue, string buttonName, string buttonId, string buttonClass) {
-            localButtonList += cr + "<input type=\"submit\" name=\"" + buttonName + "\" value=\"" + buttonValue + "\" id=\"" + buttonId + "\" class=\"afwButton " + buttonClass + "\">";
+            localButtonList += Constants.cr + "<input type=\"submit\" name=\"" + buttonName + "\" value=\"" + buttonValue + "\" id=\"" + buttonId + "\" class=\"afwButton " + buttonClass + "\">";
             localIncludeForm = true;
         }
         //
@@ -455,7 +452,7 @@ namespace Contensive.Addons.PortalFramework {
         //-------------------------------------------------
         //
         private string indent(string src) {
-            return src.Replace(cr, cr2);
+            return src.Replace(Constants.cr, Constants.cr2);
         }
     }
 }

@@ -147,6 +147,20 @@ namespace Contensive.Addons.PortalFramework.Models {
                                 csFeature.GoNext();
                             } while (csFeature.OK());
                             csFeature.Close();
+                            //
+                            // -- populate parentFeatureGuid from parentFeatureId
+                            foreach (var kvp in result.featureList) {
+                                PortalDataFeatureModel testFeature = kvp.Value;
+                                if ((testFeature.parentFeatureId > 0) && string.IsNullOrEmpty(testFeature.parentFeatureGuid)) {
+                                    foreach ( var searchFeature in  result.featureList ) {
+                                        if (testFeature.parentFeatureId==searchFeature.Value.id) {
+                                            //
+                                            testFeature.parentFeatureGuid = searchFeature.Value.guid;
+                                            break;
+                                        }
+                                    }
+                                }
+                            }
                             return result;
                         }
                     }

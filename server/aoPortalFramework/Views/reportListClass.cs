@@ -8,8 +8,6 @@ namespace Contensive.Addons.PortalFramework {
     public class ReportListClass {
         const int columnSize = 99;
         const int rowSize = 19999;
-        const string cr = "\r\n\t";
-        const string cr2 = cr + "\t";
         //
         struct ColumnStruct {
             public string name;
@@ -186,15 +184,15 @@ namespace Contensive.Addons.PortalFramework {
                             }
                             content = "<a href=\"" + sortLink + "\">" + content + "</a>";
                         }
-                        rowList.Append(cr + "<th" + styleClass + ">" + content + "</th>");
+                        rowList.Append(Constants.cr + "<th" + styleClass + ">" + content + "</th>");
                     }
                 }
                 s.Append(""
-                    + cr + "<thead>"
-                    + cr2 + "<tr>"
+                    + Constants.cr + "<thead>"
+                    + Constants.cr2 + "<tr>"
                     + indent(indent(rowList.ToString()))
-                    + cr2 + "</tr>"
-                    + cr + "</thead>"
+                    + Constants.cr2 + "</tr>"
+                    + Constants.cr + "</thead>"
                     + "");
                 if (addCsvDownloadCurrentPage) {
                     colPtrDownload = 0;
@@ -219,22 +217,22 @@ namespace Contensive.Addons.PortalFramework {
                 if (styleClass != "") {
                     styleClass = " class=\"" + styleClass + "\"";
                 }
-                row = cr + "<td style=\"text-align:left\" " + styleClass + " colspan=\"" + (columnMax + 1) + "\">[empty]</td>";
+                row = Constants.cr + "<td style=\"text-align:left\" " + styleClass + " colspan=\"" + (columnMax + 1) + "\">[empty]</td>";
                 rowList.Append(""
-                    + cr + "<tr>"
+                    + Constants.cr + "<tr>"
                     + indent(row)
-                    + cr + "</tr>");
+                    + Constants.cr + "</tr>");
             } else if (ReportTooLong) {
                 // -- report is too long
                 styleClass = columns[0].cellClass;
                 if (styleClass != "") {
                     styleClass = " class=\"" + styleClass + "\"";
                 }
-                row = cr + "<td style=\"text-align:left\" " + styleClass + " colspan=\"" + (columnMax + 1) + "\">There are too many rows in this report. Please consider filtering the data.</td>";
+                row = Constants.cr + "<td style=\"text-align:left\" " + styleClass + " colspan=\"" + (columnMax + 1) + "\">There are too many rows in this report. Please consider filtering the data.</td>";
                 rowList.Append(""
-                    + cr + "<tr>"
+                    + Constants.cr + "<tr>"
                     + indent(row)
-                    + cr + "</tr>");
+                    + Constants.cr + "</tr>");
             } else {
                 // -- display th report
                 for (rowPtr = 0; rowPtr <= rowCnt; rowPtr++) {
@@ -246,7 +244,7 @@ namespace Contensive.Addons.PortalFramework {
                             if (styleClass != "") {
                                 styleClass = " class=\"" + styleClass + "\"";
                             }
-                            row += cr + "<td" + styleClass + ">" + localReportCells[rowPtr, colPtr] + "</td>";
+                            row += Constants.cr + "<td" + styleClass + ">" + localReportCells[rowPtr, colPtr] + "</td>";
                         }
                         if (addCsvDownloadCurrentPage && !localExcludeRowFromDownload[rowPtr]) {
                             if (columns[colPtr].downloadable) {
@@ -271,9 +269,9 @@ namespace Contensive.Addons.PortalFramework {
                         styleClass = " class=\"" + styleClass + "\"";
                     }
                     rowList.Append(""
-                        + cr + "<tr" + styleClass + ">"
+                        + Constants.cr + "<tr" + styleClass + ">"
                         + indent(row)
-                        + cr + "</tr>");
+                        + Constants.cr + "</tr>");
                 }
             }
             string csvDownloadFilename = string.Empty;
@@ -296,16 +294,16 @@ namespace Contensive.Addons.PortalFramework {
                 csDownloads.Close();
             }
             s.Append(""
-                + cr + "<tbody>"
+                + Constants.cr + "<tbody>"
                 + indent(rowList.ToString())
-                + cr + "</tbody>"
+                + Constants.cr + "</tbody>"
                 + "");
-            s = new StringBuilder(cr + "<table class=\"afwListReportTable\">" + indent(s.ToString()) + cr + "</table>");
+            s = new StringBuilder(Constants.cr + "<table class=\"afwListReportTable\">" + indent(s.ToString()) + Constants.cr + "</table>");
             if (localHtmlLeftOfTable != "") {
                 s = new StringBuilder(""
-                    + cr + "<div class=\"afwLeftSideHtml\">" + indent(localHtmlLeftOfTable) + cr + "</div>"
-                    + cr + "<div class=\"afwRightSideHtml\">" + indent(s.ToString()) + cr + "</div>"
-                    + cr + "<div style=\"clear:both\"></div>"
+                    + Constants.cr + "<div class=\"afwLeftSideHtml\">" + indent(localHtmlLeftOfTable) + Constants.cr + "</div>"
+                    + Constants.cr + "<div class=\"afwRightSideHtml\">" + indent(s.ToString()) + Constants.cr + "</div>"
+                    + Constants.cr + "<div style=\"clear:both\"></div>"
                     + "");
             }
             if (localHtmlBeforeTable != "") { s.Insert(0, "<div class=\"afwBeforeHtml\">" + localHtmlBeforeTable + "</div>"); }
@@ -314,16 +312,16 @@ namespace Contensive.Addons.PortalFramework {
             // headers
             //
             if (addCsvDownloadCurrentPage && (!string.IsNullOrEmpty(csvDownloadFilename))) {
-                s = new StringBuilder(cr + "<p id=\"afwDescription\"><a href=\"" + cp.Http.CdnFilePathPrefix + csvDownloadFilename + "\">Click here</a> to download the data.</p>" + s.ToString());
+                s = new StringBuilder(Constants.cr + "<p id=\"afwDescription\"><a href=\"" + cp.Http.CdnFilePathPrefix + csvDownloadFilename + "\">Click here</a> to download the data.</p>" + s.ToString());
             }
             if (localDescription != "") {
-                s = new StringBuilder(cr + "<p id=\"afwDescription\">" + localDescription + "</p>" + s.ToString());
+                s = new StringBuilder(Constants.cr + "<p id=\"afwDescription\">" + localDescription + "</p>" + s.ToString());
             }
             if (localWarning != "") {
-                s = new StringBuilder(cr + "<div id=\"afwWarning\">" + localWarning + "</div>" + s.ToString());
+                s = new StringBuilder(Constants.cr + "<div id=\"afwWarning\">" + localWarning + "</div>" + s.ToString());
             }
             if (localTitle != "") {
-                s = new StringBuilder(cr + "<h2 id=\"afwTitle\">" + localTitle + "</h2>" + s.ToString());
+                s = new StringBuilder(Constants.cr + "<h2 id=\"afwTitle\">" + localTitle + "</h2>" + s.ToString());
             }
             //
             // add form
@@ -331,11 +329,11 @@ namespace Contensive.Addons.PortalFramework {
             if (localIncludeForm) {
                 if (localButtonList != "") {
                     localButtonList = ""
-                        + cr + "<div class=\"afwButtonCon\">"
+                        + Constants.cr + "<div class=\"afwButtonCon\">"
                         + indent(localButtonList)
-                        + cr + "</div>";
+                        + Constants.cr + "</div>";
                 }
-                s = new StringBuilder(cr + cp.Html.Form(localButtonList + s.ToString() + localButtonList + localHiddenList, "", "", "", localFormActionQueryString, ""));
+                s = new StringBuilder(Constants.cr + cp.Html.Form(localButtonList + s.ToString() + localButtonList + localHiddenList, "", "", "", localFormActionQueryString, ""));
                 //body = ""
                 //    + cr + cp.Html.Form( localButtonList + body + localHiddenList )
                 //    + cr + "<form action=\"" + localFormAction + "\" method=\"post\" enctype=\"MULTIPART/FORM-DATA\">"
@@ -351,9 +349,9 @@ namespace Contensive.Addons.PortalFramework {
                 cp.Doc.AddHeadJavascript(Properties.Resources.javascript);
                 cp.Doc.AddHeadStyle(Properties.Resources.styles);
                 s = new StringBuilder(""
-                    + cr + "<div id=\"afw\">"
+                    + Constants.cr + "<div id=\"afw\">"
                     + indent(s.ToString())
-                    + cr + "</div>");
+                    + Constants.cr + "</div>");
             }
             return s.ToString();
         }
@@ -396,7 +394,7 @@ namespace Contensive.Addons.PortalFramework {
         /// <param name="Name"></param>
         /// <param name="Value"></param>
         public void addFormHidden(string Name, string Value) {
-            localHiddenList += cr + "<input type=\"hidden\" name=\"" + Name + "\" value=\"" + Value + "\">";
+            localHiddenList += Constants.cr + "<input type=\"hidden\" name=\"" + Name + "\" value=\"" + Value + "\">";
             localIncludeForm = true;
         }
         //
@@ -422,7 +420,7 @@ namespace Contensive.Addons.PortalFramework {
             addFormButton(buttonValue, buttonName, buttonId, "");
         }
         public void addFormButton(string buttonValue, string buttonName, string buttonId, string buttonClass) {
-            localButtonList += cr + "<input type=\"submit\" name=\"" + buttonName + "\" value=\"" + buttonValue + "\" id=\"" + buttonId + "\" class=\"afwButton " + buttonClass + "\">";
+            localButtonList += Constants.cr + "<input type=\"submit\" name=\"" + buttonName + "\" value=\"" + buttonValue + "\" id=\"" + buttonId + "\" class=\"afwButton " + buttonClass + "\">";
             localIncludeForm = true;
         }
         //
@@ -756,7 +754,7 @@ namespace Contensive.Addons.PortalFramework {
         //-------------------------------------------------
         //
         private string indent(string src) {
-            return src.Replace(cr, cr2);
+            return src.Replace(Constants.cr, Constants.cr2);
         }
         //
         //-------------------------------------------------

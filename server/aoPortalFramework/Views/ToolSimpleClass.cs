@@ -7,14 +7,6 @@ namespace Contensive.Addons.PortalFramework {
         //
         //-------------------------------------------------
         //
-        private static string cr { get; } = System.Environment.NewLine + "\t";
-        //
-        //-------------------------------------------------
-        //
-        private static string cr2 { get; } = cr + "\t";
-        //
-        //-------------------------------------------------
-        //
         private string localHiddenList { get; set; } = "";
         //
         //-------------------------------------------------
@@ -77,14 +69,14 @@ namespace Contensive.Addons.PortalFramework {
                 warningMessage += userErrors;
             }
             string result = "";
-            result += (string.IsNullOrWhiteSpace(title) ? "" : cr + "<h2>" + title + "</h2>");
-            result += (string.IsNullOrWhiteSpace(successMessage) ? "" : cr + "<div class=\"p-3 mb-2 bg-success text-white\">" + successMessage + "</div>");
-            result += (string.IsNullOrWhiteSpace(infoMessage) ? "" : cr + "<div class=\"p-3 mb-2 bg-info text-white\">" + infoMessage + "</div>");
-            result += (string.IsNullOrWhiteSpace(warningMessage) ? "" : cr + "<div class=\"p-3 mb-2 bg-warning text-white\">" + warningMessage + "</div>");
-            result += (string.IsNullOrWhiteSpace(failMessage) ? "" : cr + "<div class=\"p-3 mb-2 bg-danger text-white\">" + failMessage + "</div>");
-            result += (string.IsNullOrWhiteSpace(description) ? "" : cr + "<p>" + description + "</p>");
-            result += (string.IsNullOrWhiteSpace(body) ? "" : cr + "<main>" + body + "</main>");
-            result += (string.IsNullOrWhiteSpace(footer) ? "" : cr + "<footer>" + footer + "</footer>");
+            result += (string.IsNullOrWhiteSpace(title) ? "" : Constants.cr + "<h2>" + title + "</h2>");
+            result += (string.IsNullOrWhiteSpace(successMessage) ? "" : Constants.cr + "<div class=\"p-3 mb-2 bg-success text-white\">" + successMessage + "</div>");
+            result += (string.IsNullOrWhiteSpace(infoMessage) ? "" : Constants.cr + "<div class=\"p-3 mb-2 bg-info text-white\">" + infoMessage + "</div>");
+            result += (string.IsNullOrWhiteSpace(warningMessage) ? "" : Constants.cr + "<div class=\"p-3 mb-2 bg-warning text-white\">" + warningMessage + "</div>");
+            result += (string.IsNullOrWhiteSpace(failMessage) ? "" : Constants.cr + "<div class=\"p-3 mb-2 bg-danger text-white\">" + failMessage + "</div>");
+            result += (string.IsNullOrWhiteSpace(description) ? "" : Constants.cr + "<p>" + description + "</p>");
+            result += (string.IsNullOrWhiteSpace(body) ? "" : Constants.cr + "<main>" + body + "</main>");
+            result += (string.IsNullOrWhiteSpace(footer) ? "" : Constants.cr + "<footer>" + footer + "</footer>");
             //
             // -- add wrappers
             string wrapperClass = "";
@@ -96,20 +88,20 @@ namespace Contensive.Addons.PortalFramework {
             if (localIncludeForm) {
                 if (localButtonList != "") {
                     localButtonList = ""
-                        + cr + "<div class=\"border bg-white p-2\">"
+                        + Constants.cr + "<div class=\"border bg-white p-2\">"
                         + indent(localButtonList)
-                        + cr + "</div>";
+                        + Constants.cr + "</div>";
                 }
-                result = cr + cp.Html.Form(localButtonList + result + localButtonList + localHiddenList, "", "", "", localFormActionQueryString, "");
+                result = Constants.cr + cp.Html.Form(localButtonList + result + localButtonList + localHiddenList, "", "", "", localFormActionQueryString, "");
             }
             //
             // if outer container, add styles and javascript
             //
             if (isOuterContainer) {
                 result = ""
-                    + cr + "<div id=\"\">"
+                    + Constants.cr + "<div id=\"\">"
                     + indent(result)
-                    + cr + "</div>";
+                    + Constants.cr + "</div>";
             }
             return result;
         }
@@ -117,7 +109,7 @@ namespace Contensive.Addons.PortalFramework {
         //-------------------------------------------------
         // 
         public void addFormHidden(string Name, string Value, string htmlId) {
-            localHiddenList += cr + "<input type=\"hidden\" name=\"" + Name + "\" value=\"" + Value + "\">";
+            localHiddenList += Constants.cr + "<input type=\"hidden\" name=\"" + Name + "\" value=\"" + Value + "\">";
             localIncludeForm = true;
         }
         //
@@ -202,7 +194,7 @@ namespace Contensive.Addons.PortalFramework {
         //-------------------------------------------------
         // 
         public void addFormButton(string buttonValue, string buttonName, string buttonId, string buttonClass) {
-            localButtonList += cr + "<input type=\"submit\" name=\"" + buttonName + "\" value=\"" + buttonValue + "\" id=\"" + buttonId + "\" class=\"afwButton " + buttonClass + "\">";
+            localButtonList += Constants.cr + "<input type=\"submit\" name=\"" + buttonName + "\" value=\"" + buttonValue + "\" id=\"" + buttonId + "\" class=\"afwButton " + buttonClass + "\">";
             localIncludeForm = true;
         }
         //
@@ -241,7 +233,7 @@ namespace Contensive.Addons.PortalFramework {
         //-------------------------------------------------
         //
         private string indent(string src) {
-            return src.Replace(cr, cr2);
+            return src.Replace(Constants.cr, Constants.cr2);
         }
     }
 }

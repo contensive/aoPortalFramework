@@ -5,7 +5,7 @@ namespace Contensive.Addons.PortalFramework.Models {
     /// <summary>
     /// mustache view model for page
     /// </summary>
-    public class PortalBuilderDataModel {
+    public class PortalBuilderViewModel {
         public string title { get; set; }
         public string warning { get; set; }
         public string description { get; set; }
@@ -14,11 +14,21 @@ namespace Contensive.Addons.PortalFramework.Models {
         /// <summary>
         /// this portals main features - features with no parent feature
         /// </summary>
-        public List<PortalBuilderDataNavItemModel> navList { get; set; }
+        public List<PortalBuilderNavItemViewModel> navList { get; set; }
+        public bool navListEmpty {
+            get {
+                return navList.Count == 0;
+            }
+        }
         /// <summary>
         /// current body's sibling features, this is the list to be used as subnav under the main nav
         /// </summary>
-        public List<PortalBuilderDataSubNavItemModel> subNavList { get; set; }
-        public bool navListEmpty { get; set; }
+        public List<PortalBuilderSubNavItemViewModel> subNavList { get; set; }
+        public bool subNavListEmpty {
+            get {
+                return subNavList.Count == 0;
+            }
+        }
+
     }
 }
