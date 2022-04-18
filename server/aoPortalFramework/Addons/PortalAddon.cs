@@ -135,7 +135,7 @@ namespace Contensive.Addons.PortalFramework {
                 //
                 if (dstFeatureGuid == Constants.devToolGuid) {
                     //
-                    // execute developer tools
+                    // execute developer tool panel
                     //
                     CP.Doc.AddRefreshQueryString(Constants.rnDstFeatureGuid, Constants.devToolGuid);
                     body = DevToolView.getDevTool(CP, portalData, CP.Doc.RefreshQueryString);
@@ -146,21 +146,24 @@ namespace Contensive.Addons.PortalFramework {
                         // add feature guid to frameRqs so if the feature uses ajax, the featureGuid will be part of it
                         // add feature guid to rqs so if an addon is used that does not support frameRqs it will work
                         //
-                        PortalDataFeatureModel dstFeature = portalData.featureList[dstFeatureGuid];
+                        PortalDataFeatureModel dstDataFeature = portalData.featureList[dstFeatureGuid];
                         //frameRqs = CP.Utils.ModifyQueryString(CP.Doc.RefreshQueryString, Constants.rnDstFeatureGuid, feature.guid);
-                        if (dstFeature.addonId != 0) {
+                        if (dstDataFeature.addonId != 0) {
                             //
                             // feature is an addon, execute it
                             //
                             CP.Doc.SetProperty(Constants.rnFrameRqs, CP.Doc.RefreshQueryString);
-                            CP.Doc.AddRefreshQueryString(Constants.rnDstFeatureGuid, dstFeature.guid);
-                            body = CP.Addon.Execute(dstFeature.addonId);
+                            CP.Doc.AddRefreshQueryString(Constants.rnDstFeatureGuid, dstDataFeature.guid);
+                            body = CP.Addon.Execute(dstDataFeature.addonId);
+                            //
+                            // -- portal title is a doc property set in each portal-builder that populates the title in the subnav.
+                            portalBuilder.subNavTitle = CP.Doc.GetText("portalSubNavTitle");
                             //
                             // -- if the feature addon has sibling features, build the subnav
                             //
-                            if (!string.IsNullOrEmpty(dstFeature.parentFeatureGuid)) {
-                                if (portalData.featureList.ContainsKey(dstFeature.parentFeatureGuid)) {
-                                    PortalDataFeatureModel dstFeatureParent = portalData.featureList[dstFeature.parentFeatureGuid];
+                            if (!string.IsNullOrEmpty(dstDataFeature.parentFeatureGuid)) {
+                                if (portalData.featureList.ContainsKey(dstDataFeature.parentFeatureGuid)) {
+                                    PortalDataFeatureModel dstFeatureParent = portalData.featureList[dstDataFeature.parentFeatureGuid];
                                     if (dstFeatureParent != null) {
                                         if (dstFeatureParent.addonId>0 || dstFeatureParent.dataContentId > 0) {
                                             //
@@ -180,13 +183,13 @@ namespace Contensive.Addons.PortalFramework {
                             }
                             //
                             //
-                        } else if (dstFeature.dataContentId != 0) {
+                        } else if (dstDataFeature.dataContentId != 0) {
                             //
                             // this is a data content feature -- should not be here, link should have taken them to the content
                             //
-                            CP.Response.Redirect("?cid=" + dstFeature.dataContentId.ToString());
+                            CP.Response.Redirect("?cid=" + dstDataFeature.dataContentId.ToString());
                             FormSimpleClass content = new FormSimpleClass {
-                                title = dstFeature.heading,
+                                title = dstDataFeature.heading,
                                 body = "Redirecting to content"
                             };
                             body = content.getHtml(CP);
@@ -194,28 +197,29 @@ namespace Contensive.Addons.PortalFramework {
                             //
                             // this is a feature list, display the feature list
                             //
-                            body =  FeatureListView.getFeatureList(CP, portalData, dstFeature, CP.Doc.RefreshQueryString);
+                            body =  FeatureListView.getFeatureList(CP, portalData, dstDataFeature, CP.Doc.RefreshQueryString);
                         }
                         //
-                        // set active heading
+                        // -- set active heading
+                        PortalDataFeatureModel dstFeatureRootFeature = PortalDataFeatureModel.getRootFeature(CP, dstDataFeature, portalData.featureList);
+                        activeNavHeading = dstFeatureRootFeature.heading;
                         //
-                        if (dstFeature.parentFeatureId == 0) {
-                            activeNavHeading = dstFeature.heading;
-                        } else {
+                        // -- if body not created, consider this a feature list
+                        if (string.IsNullOrEmpty(body)) {
                             foreach (KeyValuePair<string, PortalDataFeatureModel> kvp in portalData.featureList) {
                                 PortalDataFeatureModel parentFeature = kvp.Value;
-                                if (parentFeature.id == dstFeature.parentFeatureId) {
-                                    activeNavHeading = parentFeature.heading;
+                                if (parentFeature.id == dstDataFeature.parentFeatureId) {
                                     //
                                     // if feature returned empty and it is in a feature list, execute the feature list
-                                    //
-                                    if (string.IsNullOrEmpty(body)) {
-                                        body = FeatureListView.getFeatureList(CP, portalData, parentFeature, CP.Doc.RefreshQueryString);
-                                    }
+                                    body = FeatureListView.getFeatureList(CP, portalData, parentFeature, CP.Doc.RefreshQueryString);
                                 }
                             }
                         }
-                        if (dstFeature.addPadding) {
+
+
+                        //
+                        // -- add pading
+                        if (dstDataFeature.addPadding) {
                             body = CP.Html.div(body, "", "afwBodyPad", "");
                         }
                     }

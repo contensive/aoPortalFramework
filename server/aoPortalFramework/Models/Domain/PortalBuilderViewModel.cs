@@ -24,6 +24,10 @@ namespace Contensive.Addons.PortalFramework.Models {
         /// current body's sibling features, this is the list to be used as subnav under the main nav
         /// </summary>
         public List<PortalBuilderSubNavItemViewModel> subNavList { get; set; }
+        /// <summary>
+        /// The bootstrap brand element of the subnav
+        /// </summary>
+        public string subNavTitle { get; set; }
         public bool subNavListEmpty {
             get {
                 return subNavList.Count == 0;

@@ -29,6 +29,12 @@ namespace Contensive.Addons.PortalFramework
         string localDescription = "";
         bool localIsOuterContainer = false;
         //
+        // ====================================================================================================
+        /// <summary>
+        /// Optional. If set, this value will populate the title in the subnav of the portalbuilder
+        /// </summary>
+        public string portalSubNavTitle { get; set; }
+        //
         //-------------------------------------------------
         //
         //-------------------------------------------------
@@ -330,6 +336,9 @@ namespace Contensive.Addons.PortalFramework
                     + indent(result)
                     + Constants.cr + "</div>";
             }
+            //
+            // -- set the optional title of the portal subnav
+            cp.Doc.SetProperty("portalSubNavTitle", portalSubNavTitle);
             return result;
         }
         //

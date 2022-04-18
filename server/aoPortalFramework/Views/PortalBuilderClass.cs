@@ -16,11 +16,17 @@ namespace Contensive.Addons.PortalFramework {
         private List<PortalBuilderSubNavItemViewModel> subNavs { get; set; } = new List<PortalBuilderSubNavItemViewModel>();
         private int subNavMax { get; set; } = -1;
         private int subNavPtr { get; set; } = -1;
-        //
+        /// <summary>
+        /// if true, background padding added
+        /// </summary>
         public bool includeBodyPadding { get; set; }
-        //
+        /// <summary>
+        /// if true, background color added
+        /// </summary>
         public bool includeBodyColor { get; set; }
-        //
+        /// <summary>
+        /// if true, styles and js are added on return
+        /// </summary>
         public bool isOuterContainer { get; set; }
         //
         //====================================================================================================
@@ -50,11 +56,21 @@ namespace Contensive.Addons.PortalFramework {
         public string body { get; set; }
         //
         //====================================================================================================
-        //
+        /// <summary>
+        /// title added to the Nav
+        /// </summary>
         public string title { get; set; }
         //
         //====================================================================================================
+        /// <summary>
+        /// optional title added to the subnav. Example, if the main nav item is a list of accounts. Click on an account takes user to a child feature. The subnav appears for the child features and the subNavTitle could be Account 92
+        /// </summary>
+        public string subNavTitle { get; set; }
         //
+        //====================================================================================================
+        /// <summary>
+        /// warning message added below nav
+        /// </summary>
         public string warning { get; set; }
         //
         //====================================================================================================
@@ -145,13 +161,16 @@ namespace Contensive.Addons.PortalFramework {
         //
         public string getHtml(CPBaseClass cp) {
             try {
+                //
+                // todo, a second model is not needed
                 PortalBuilderViewModel viewModel = new PortalBuilderViewModel {
                     navList = new List<PortalBuilderNavItemViewModel>(),
                     subNavList = new List<PortalBuilderSubNavItemViewModel>(),
                     warning = cp.Utils.EncodeText(cp.UserError.GetList()),
                     title = title,
                     description = description,
-                    body = body
+                    body = body,
+                    subNavTitle = subNavTitle
                 };
                 //
                 // -- build nav

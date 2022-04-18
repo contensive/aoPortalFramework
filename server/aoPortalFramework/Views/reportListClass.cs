@@ -53,6 +53,12 @@ namespace Contensive.Addons.PortalFramework {
         readonly bool[] localExcludeRowFromDownload = new bool[rowSize];
         public bool localIsOuterContainer = false;
         //
+        // ====================================================================================================
+        /// <summary>
+        /// Optional. If set, this value will populate the title in the subnav of the portalbuilder
+        /// </summary>
+        public string portalSubNavTitle { get; set; }
+        //
         //-------------------------------------------------
         /// <summary>
         /// The maximum number of rows allowed
@@ -353,6 +359,9 @@ namespace Contensive.Addons.PortalFramework {
                     + indent(s.ToString())
                     + Constants.cr + "</div>");
             }
+            //
+            // -- set the optional title of the portal subnav
+            cp.Doc.SetProperty("portalSubNavTitle", portalSubNavTitle);
             return s.ToString();
         }
         //

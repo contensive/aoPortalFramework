@@ -66,6 +66,12 @@ namespace Contensive.Addons.PortalFramework
         //
         bool localIsOuterContainer = false;
         //
+        // ====================================================================================================
+        /// <summary>
+        /// Optional. If set, this value will populate the title in the subnav of the portalbuilder
+        /// </summary>
+        public string portalSubNavTitle { get; set; }
+        //
         //-------------------------------------------------
         //
         public bool includeBodyPadding
@@ -415,6 +421,9 @@ namespace Contensive.Addons.PortalFramework
             result += "<script Language=\"JavaScript\" type=\"text/javascript\">" + returnHeadJs + "</script>";
             returnHeadJs = "";
             cp.Doc.AddHeadJavascript(returnHeadJs);
+            //
+            // -- set the optional title of the portal subnav
+            cp.Doc.SetProperty("portalSubNavTitle", portalSubNavTitle);
             return result;
         }
         //

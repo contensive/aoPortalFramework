@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Contensive.BaseClasses;
+using System.Collections.Generic;
 
 namespace Models.Domain {
     //
@@ -22,5 +23,33 @@ namespace Models.Domain {
         public string sortOrder { get; set; }
         public bool addPadding { get; set; }
         public List<PortalDataFeatureModel> subFeatureList { get; set; }
+        //
+        // ====================================================================================================
+        /// <summary>
+        /// return the Root feature of the current feature
+        /// </summary>
+        /// <param name="cp"></param>
+        /// <param name="currentFeature"></param>
+        /// <returns></returns>
+        public static PortalDataFeatureModel getRootFeature(CPBaseClass cp, PortalDataFeatureModel currentFeature, Dictionary<string,PortalDataFeatureModel> featureList) {
+            return getRootFeature(cp, currentFeature, featureList, 5);
+        }
+        //
+        public static PortalDataFeatureModel getRootFeature(CPBaseClass cp, PortalDataFeatureModel currentFeature, Dictionary<string, PortalDataFeatureModel> featureDict, int recursionCnt) {
+            try {
+                if(recursionCnt<=0) { return currentFeature; }
+                if (currentFeature.parentFeatureId == 0) { return currentFeature; }
+                foreach (var parentFeatureKvp in featureDict) {
+                    if (parentFeatureKvp.Value.id == currentFeature.parentFeatureId) {
+                        if (parentFeatureKvp.Value.parentFeatureId == 0) { return parentFeatureKvp.Value; }
+                        return getRootFeature(cp, parentFeatureKvp.Value, featureDict, --recursionCnt);
+                    };
+                }
+                return currentFeature;
+            } catch (System.Exception ex) {
+                cp.Site.ErrorReport(ex);
+                throw;
+            }
+        }
     }
 }
