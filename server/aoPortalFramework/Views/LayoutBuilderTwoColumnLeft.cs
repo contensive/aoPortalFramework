@@ -37,7 +37,7 @@ namespace Contensive.Addons.PortalFramework {
             }
             //
             // -- set the optional title of the portal subnav
-            cp.Doc.SetProperty("portalSubNavTitle", portalSubNavTitle);
+            if (!string.IsNullOrEmpty(portalSubNavTitle)) { cp.Doc.SetProperty("portalSubNavTitle", portalSubNavTitle); }
             //
             // -- render layout
             string layout = cp.Layout.GetLayout(Constants.guidLayoutAdminUITwoColumnLeft, Constants.nameLayoutAdminUITwoColumnLeft, Constants.pathFilenameLayoutAdminUITwoColumnLeft);

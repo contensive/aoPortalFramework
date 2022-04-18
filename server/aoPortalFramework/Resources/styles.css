@@ -574,5 +574,30 @@
 #afw input[type="date"] {
     max-width: 400px;
 }
+/*
+* nav and subnav
+*/
+@media only screen and (min-width: 992px) {
+	.afwNavbar .navbar-nav .nav-item .nav-link {
+		padding: 0 0.5em;
+	}
+
+	.afwNavbar .navbar-nav .nav-item:not(:last-child) .nav-link {
+		border-right: 1px solid rgba(255,255,255,.3);
+	}
+
+	.afwSubNavbar .navbar-nav .nav-item .nav-link {
+		padding: 0 0.5em;
+	}
+
+	.afwSubNavbar .navbar-nav .nav-item:not(:last-child) .nav-link {
+		border-right: 1px solid rgba(0,0,0,.3);
+	}
+
+	.afwSubNavbar {
+		border-bottom: 1px solid #888 !important;
+	}
+}
+
 
 

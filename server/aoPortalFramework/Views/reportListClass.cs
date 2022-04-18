@@ -361,7 +361,7 @@ namespace Contensive.Addons.PortalFramework {
             }
             //
             // -- set the optional title of the portal subnav
-            cp.Doc.SetProperty("portalSubNavTitle", portalSubNavTitle);
+            if (!string.IsNullOrEmpty(portalSubNavTitle)) { cp.Doc.SetProperty("portalSubNavTitle", portalSubNavTitle); }
             return s.ToString();
         }
         //

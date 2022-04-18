@@ -58,7 +58,6 @@ namespace Contensive.Addons.PortalFramework {
         /// Optional. If set, this value will populate the title in the subnav of the portalbuilder
         /// </summary>
         public string portalSubNavTitle { get; set; }
-        // cp.Doc.SetProperty("portalSubNavTitle", portalSubNavTitle);
         // 
         //-------------------------------------------------
         //
@@ -102,7 +101,7 @@ namespace Contensive.Addons.PortalFramework {
                     + indent(result)
                     + Constants.cr + "</div>";
             }
-            cp.Doc.SetProperty("portalSubNavTitle", portalSubNavTitle);
+            if (!string.IsNullOrEmpty(portalSubNavTitle)) { cp.Doc.SetProperty("portalSubNavTitle", portalSubNavTitle); }
             return result;
         }
         //
