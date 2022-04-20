@@ -598,6 +598,33 @@
 		border-bottom: 1px solid #888 !important;
 	}
 }
+/*
+	bootstrap colors additions
+*/
+.border-top-gray-light {
+	border-bottom: 1px solid rgb(0,0,0,0.1);
+}
 
+.border-right-gray-light {
+	border-bottom: 1px solid rgb(0,0,0,0.1);
+}
 
+.border-bottom-gray-light {
+	border-bottom: 1px solid rgb(0,0,0,0.1);
+}
 
+.border-bottom-left-light {
+	border-bottom: 1px solid rgb(0,0,0,0.1);
+}
+
+.bg-gray-light {
+	background-color: #F0F0F0;
+}
+
+.bg-gray-medium {
+	background-color: #c8c8c8;
+}
+
+.bg-gray-dark {
+	background-color: #888;
+}
