@@ -683,7 +683,7 @@ namespace Contensive.Addons.PortalFramework {
         /// </summary>
         public void addRow() {
             localIsEmptyReport = false;
-            if (rowCnt < (rowSize + 1)) {
+            if (rowCnt < rowSize) {
                 rowCnt += 1;
                 localExcludeRowFromDownload[rowCnt] = false;
                 localRowClasses[rowCnt] = "";
