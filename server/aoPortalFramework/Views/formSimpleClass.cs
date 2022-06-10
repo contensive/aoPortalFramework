@@ -5,11 +5,28 @@ using Contensive.BaseClasses;
 namespace Contensive.Addons.PortalFramework {
     public class FormSimpleClass {
         //
-        string localHiddenList = "";
-        string localButtonList = "";
-        string localFormId = "";
-        string localFormActionQueryString = "";
-        bool localIncludeForm = false;
+        //-------------------------------------------------
+        //
+        string localHiddenList { get; set; } = "";
+        //
+        //-------------------------------------------------
+        //
+        string localButtonList { get; set; } = "";
+        //
+        //-------------------------------------------------
+        //
+        string localFormId { get; set; } = "";
+        //
+        //-------------------------------------------------
+        //
+        string localFormActionQueryString { get; set; } = "";
+        //
+        //-------------------------------------------------
+        /// <summary>
+        /// If true, the resulting html is wrapped in a form element whose action returns execution back to this addon where is it processed here in the same code.
+        /// consider a pattern that blocks the include form if this layout is called form the portal system, where the portal methods create the entire strucuture
+        /// </summary>
+        bool localIncludeForm { get; set; } = false;
         //
         //-------------------------------------------------
         //
@@ -72,7 +89,7 @@ namespace Contensive.Addons.PortalFramework {
                 result = Constants.cr + "<h2 id=\"afwTitle\">" + title + "</h2>" + result;
             }
             //
-            // a-- dd form
+            // add form
             if (localIncludeForm) {
                 if (localButtonList != "") {
                     localButtonList = ""

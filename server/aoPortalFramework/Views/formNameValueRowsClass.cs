@@ -8,95 +8,129 @@ using Contensive.BaseClasses;
 namespace Contensive.Addons.PortalFramework {
     public class FormNameValueRowsClass {
         //
+        /// <summary>
+        /// the maximum number of fields allowed
+        /// </summary>
         const int fieldSetSize = 999;
-        int fieldSetMax = -1;
+        //
+        /// <summary>
+        /// the number of fields used in this form
+        /// </summary>
+        private int fieldSetMax = -1;
+        //
+        /// <summary>
+        /// the current field being updated
+        /// </summary>
         int fieldSetPtr = -1;
+        //
+        /// <summary>
+        /// the structure of data saved to each field
+        /// </summary>
         struct fieldSetStruct {
             public string caption;
             public int rowOpen;
             public int rowClose;
         }
-        fieldSetStruct[] fieldSets = new fieldSetStruct[fieldSetSize];
-        Stack fieldSetPtrStack = new Stack();
-
-
         //
+        /// <summary>
+        /// fieldsets are used to group fields visually with ah html fieldset element
+        /// </summary>
+        private readonly fieldSetStruct[] fieldSets = new fieldSetStruct[fieldSetSize];
+        //
+        /// <summary>
+        /// fieldsets are used to group fields visually with ah html fieldset element
+        /// </summary>
+        private Stack fieldSetPtrStack = new Stack();
+        //
+        /// <summary>
+        /// the max number of row
+        /// </summary>
         const int rowSize = 999;
+        //
+        /// <summary>
+        /// the current row
+        /// </summary>
         int rowCnt = -1;
+        //
+        /// <summary>
+        /// the structure of stored rows
+        /// </summary>
         struct rowStruct {
             public string name;
             public string value;
             public string help;
             public string htmlId;
         }
+        //
+        /// <summary>
+        /// the stored rows to be rendered
+        /// </summary>
         rowStruct[] rows = new rowStruct[rowSize];
-
         //
         string localBody = "";
         string localDescription = "";
         string localWarning = "";
-        string localTitle = "";
-        //string localFrameRqs = "";
         string localHiddenList = "";
         string localButtonList = "";
         string localFormId = "";
         string localFormActionQueryString = "";
-        bool localIncludeForm = false;
-        bool localIsOuterContainer = false;
         //
         //-------------------------------------------------
+        /// <summary>
+        /// If true, the resulting html is wrapped in a form element whose action returns execution back to this addon where is it processed here in the same code.
+        /// consider a pattern that blocks the include form if this layout is called form the portal system, where the portal methods create the entire strucuture
+        /// </summary>
+        bool localIncludeForm { get; set; } = false;
+        //
+        // ====================================================================================================
         //
         public bool includeBodyPadding {
             get {
-                return _includeBodyPadding;
+                return local_includeBodyPadding;
             }
             set {
-                _includeBodyPadding = value;
+                local_includeBodyPadding = value;
             }
         }
-        bool _includeBodyPadding = true;
+        bool local_includeBodyPadding = true;
         //
-        //-------------------------------------------------
+        // ====================================================================================================
         //
         public bool includeBodyColor {
             get {
-                return _includeBodyColor;
+                return local_includeBodyColor;
             }
             set {
-                _includeBodyColor = value;
+                local_includeBodyColor = value;
             }
         }
-        bool _includeBodyColor = true;
+        bool local_includeBodyColor = true;
         //
-        //-------------------------------------------------
-        //
-        //-------------------------------------------------
+        // ====================================================================================================
         //
         public bool isOuterContainer {
             get {
-                return localIsOuterContainer;
+                return local_isOuterContainer;
             }
             set {
-                localIsOuterContainer = value;
+                local_isOuterContainer = value;
             }
         }
+        bool local_isOuterContainer = false;
         //
-        //-------------------------------------------------
-        // Title
-        //-------------------------------------------------
+        // ====================================================================================================
         //
         public string title {
             get {
-                return localTitle;
+                return local_title;
             }
             set {
-                localTitle = value;
+                local_title = value;
             }
         }
+        private string local_title = "";
         //
-        //-------------------------------------------------
-        // Warning
-        //-------------------------------------------------
+        // ====================================================================================================
         //
         public string warning {
             get {
@@ -107,9 +141,7 @@ namespace Contensive.Addons.PortalFramework {
             }
         }
         //
-        //-------------------------------------------------
-        // Description
-        //-------------------------------------------------
+        // ====================================================================================================
         //
         public string description {
             get {
@@ -120,9 +152,7 @@ namespace Contensive.Addons.PortalFramework {
             }
         }
         //
-        //-------------------------------------------------
-        //
-        //-------------------------------------------------
+        // ====================================================================================================
         //
         public string styleSheet {
             get {
@@ -130,9 +160,7 @@ namespace Contensive.Addons.PortalFramework {
             }
         }
         //
-        //-------------------------------------------------
-        //
-        //-------------------------------------------------
+        // ====================================================================================================
         //
         public string javascript {
             get {
@@ -140,10 +168,11 @@ namespace Contensive.Addons.PortalFramework {
             }
         }
         //
-        //-------------------------------------------------
-        // open a FieldSet
-        //-------------------------------------------------
-        //
+        // ====================================================================================================
+        /// <summary>
+        /// start a new html fieldset
+        /// </summary>
+        /// <param name="caption"></param>
         public void openFieldSet(string caption) {
             fieldSetPtrStack.Push(fieldSetPtr);
             if (fieldSetMax < fieldSetSize) {
@@ -154,10 +183,10 @@ namespace Contensive.Addons.PortalFramework {
             fieldSets[fieldSetPtr].rowOpen = rowCnt + 1;
         }
         //
-        //-------------------------------------------------
-        // close a FieldSet
-        //-------------------------------------------------
-        //
+        // ====================================================================================================
+        /// <summary>
+        /// close  fieldset. creates an html fieldset around the field elements
+        /// </summary>
         public void closeFieldSet() {
             if (fieldSetPtr >= 0) {
                 fieldSets[fieldSetPtr].rowClose = rowCnt;
@@ -173,37 +202,28 @@ namespace Contensive.Addons.PortalFramework {
         /// </summary>
         public string portalSubNavTitle { get; set; }
         //
-        //-------------------------------------------------
-        // get
-        //-------------------------------------------------
-        //
+        // ====================================================================================================
+        /// <summary>
+        /// Render the stored structure to an html form
+        /// </summary>
+        /// <param name="cp"></param>
+        /// <returns></returns>
         public string getHtml(CPBaseClass cp) {
             string result = "";
             string rowName;
             string rowValue;
             //
-            // add user errors
-            //
+            // -- add user errors
             string userErrors = cp.Utils.EncodeText(cp.UserError.GetList());
             if (!string.IsNullOrEmpty(userErrors)) {
                 warning = userErrors;
             }
             //
-            //
-            //
-            if (localBody != "") {
-                result += localBody;
-                /*
-                body += ""
-                    + cr + "<div class=\"afwBodyColor\">"
-                    + indent(localBody)
-                    + cr + "</div>";
-                */
-            }
+            // -- add body
+            result += localBody;
             for (int rowPtr = 0; rowPtr <= rowCnt; rowPtr++) {
                 //
-                // check for fieldSetOpens
-                //
+                // -- check for fieldSetOpens
                 for (int fieldSetPtrx = 0; fieldSetPtrx <= fieldSetMax; fieldSetPtrx++) {
                     if (fieldSets[fieldSetPtrx].rowOpen == rowPtr) {
                         result += Constants.cr + "<fieldset class=\"afwFieldSet\">";
@@ -246,8 +266,8 @@ namespace Contensive.Addons.PortalFramework {
             if (localWarning != "") {
                 result = Constants.cr + "<div id=\"afwWarning\">" + localWarning + "</div>" + result;
             }
-            if (localTitle != "") {
-                result = Constants.cr + "<h2 id=\"afwTitle\">" + localTitle + "</h2>" + result;
+            if (local_title != "") {
+                result = Constants.cr + "<h2 id=\"afwTitle\">" + local_title + "</h2>" + result;
             }
             //
             // add form
@@ -268,12 +288,12 @@ namespace Contensive.Addons.PortalFramework {
             //
             // body padding and color
             //
-            if (_includeBodyPadding) { result = cp.Html.div(result, "", "afwBodyPad", ""); };
-            if (_includeBodyColor) { result = cp.Html.div(result, "", "afwBodyColor", ""); };
+            if (local_includeBodyPadding) { result = cp.Html.div(result, "", "afwBodyPad", ""); };
+            if (local_includeBodyColor) { result = cp.Html.div(result, "", "afwBodyColor", ""); };
             //
             // if outer container, add styles and javascript
             //
-            if (localIsOuterContainer) {
+            if (local_isOuterContainer) {
                 cp.Doc.AddHeadJavascript(Properties.Resources.javascript);
                 cp.Doc.AddHeadStyle(Properties.Resources.styles);
                 result = ""
@@ -344,22 +364,6 @@ namespace Contensive.Addons.PortalFramework {
                 localIncludeForm = true;
             }
         }
-        //
-        //-------------------------------------------------
-        // Refresh Query String
-        //-------------------------------------------------
-        //
-        //public string refreshQueryString
-        //{
-        //    get
-        //    {
-        //        return localFrameRqs;
-        //    }
-        //    set
-        //    {
-        //        localFrameRqs = value;
-        //    }
-        //}
         //
         //-------------------------------------------------
         // body

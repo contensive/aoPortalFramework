@@ -19,7 +19,7 @@ namespace Contensive.Addons.PortalFramework.Properties {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class Resources {
@@ -57,6 +57,21 @@ namespace Contensive.Addons.PortalFramework.Properties {
             }
             set {
                 resourceCulture = value;
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {{#hasMenu}}
+        ///&lt;div class=&quot;d-flex&quot;&gt;
+        ///    &lt;div class=&quot;dropdown d-inline pr-1&quot;&gt;
+        ///        &lt;svg xmlns=&quot;http://www.w3.org/2000/svg&quot; width=&quot;16&quot; height=&quot;16&quot; fill=&quot;currentColor&quot; class=&quot;bi bi-three-dots-vertical dropdown-toggle&quot; viewBox=&quot;0 0 16 16&quot; id=&quot;dropdownMenuButton{{menuId}}&quot; data-toggle=&quot;dropdown&quot; aria-haspopup=&quot;true&quot; aria-expanded=&quot;false&quot;&gt;
+        ///            &lt;path d=&quot;M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z&quot; /&gt;
+        ///        &lt;/svg&gt;
+        ///   [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string ellipseMenu {
+            get {
+                return ResourceManager.GetString("ellipseMenu", resourceCulture);
             }
         }
         
@@ -115,7 +130,7 @@ namespace Contensive.Addons.PortalFramework.Properties {
         ///    font:normal bold 20px/30px Arial, san-serif;
         ///    margin: 20px 0 10px 0;
         ///}
-        ///#afw h2 [rest of string was truncated]&quot;;.
+        /// [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string styles {
             get {

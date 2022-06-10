@@ -20,7 +20,13 @@ namespace Contensive.Addons.PortalFramework {
         string localButtonList = "";
         string localFormId = "";
         string localFormActionQueryString = "";
-        bool localIncludeForm = false;
+        //
+        //-------------------------------------------------
+        /// <summary>
+        /// If true, the resulting html is wrapped in a form element whose action returns execution back to this addon where is it processed here in the same code.
+        /// consider a pattern that blocks the include form if this layout is called form the portal system, where the portal methods create the entire strucuture
+        /// </summary>
+        bool localIncludeForm { get; set; } = false;
         bool localIsEmptyReport = true;
         //
         columnStruct[] row = new columnStruct[rowSize];
