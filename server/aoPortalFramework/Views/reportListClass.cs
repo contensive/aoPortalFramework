@@ -197,253 +197,268 @@ namespace Contensive.Addons.PortalFramework {
         /// <param name="cp"></param>
         /// <returns></returns>
         public string getHtml(CPBaseClass cp) {
-            StringBuilder rowBuilder = new StringBuilder("");
-            //string classAttribute;
-            //string content;
-            //string userErrors;
-            string sortLink;
-            string columnSort = cp.Doc.GetText("columnSort");
-            string csvDownloadContent = "";
-            DateTime rightNow = DateTime.Now;
-            //
-            if (!localFrameRqsSet) {
-                refreshQueryString = cp.Doc.RefreshQueryString;
-            }
-            if (!localFormActionQueryStringSet) {
-                // set locals not public property bc public also sets the includeForm
-                localFormActionQueryString = localFrameRqs;
-                localFormActionQueryStringSet = true;
-                //formActionQueryString = localFrameRqs;
-            }
-            //
-            // add user errors
-            //
-            string userErrors = cp.Utils.EncodeText(cp.UserError.GetList());
-            if (!string.IsNullOrEmpty(userErrors)) {
-                warning = userErrors;
-            }
-            int colPtr;
-            int colPtrDownload;
-            StringBuilder result = new StringBuilder("");
-            //
-            // headers
-            //
-            if (captionIncluded) {
-                rowBuilder = new StringBuilder("");
-                for (colPtr = 0; colPtr <= columnMax; colPtr++) {
-                    if (columns[colPtr].visible) {
-                        string classAttribute = columns[colPtr].captionClass;
-                        if (classAttribute != "") {
-                            classAttribute = " class=\"" + classAttribute + "\"";
-                        }
-                        string content = columns[colPtr].caption;
-                        string sortField = columns[colPtr].name;
-                        if (content == "") {
-                            content = "&nbsp;";
-                        } else if (columns[colPtr].sortable) {
-                            if (localFrameRqsSet) {
-                                sortLink = "?" + localFrameRqs + "&columnSort=" + sortField;
-                            } else {
-                                sortLink = "?" + cp.Doc.RefreshQueryString + "&columnSort=" + sortField;
-                            }
-                            if (columnSort == sortField) {
-                                sortLink += "Desc";
-                            }
-                            content = "<a href=\"" + sortLink + "\">" + content + "</a>";
-                        }
-                        string styleAttribute = "";
-                        if (columns[colPtr].columnWidthPercent > 0) {
-                            styleAttribute = " style=\"width:" + columns[colPtr].columnWidthPercent.ToString() + "%;\"";
-                        }
-                        //row += Constants.cr + "<td" + classAttribute + styleAttribute + ">" + localReportCells[rowPtr, colPtr] + "</td>";
-                        rowBuilder.Append(Constants.cr + "<th" + classAttribute + styleAttribute + ">" + content + "</th>");
-                    }
+            int hint = 0;
+            try {
+                StringBuilder rowBuilder = new StringBuilder("");
+                //string classAttribute;
+                //string content;
+                //string userErrors;
+                string sortLink;
+                string columnSort = cp.Doc.GetText("columnSort");
+                string csvDownloadContent = "";
+                DateTime rightNow = DateTime.Now;
+                hint = 10;
+                //
+                if (!localFrameRqsSet) {
+                    refreshQueryString = cp.Doc.RefreshQueryString;
                 }
-                result.Append(""
-                    + Constants.cr + "<thead>"
-                    + Constants.cr2 + "<tr>"
-                    + indent(indent(rowBuilder.ToString()))
-                    + Constants.cr2 + "</tr>"
-                    + Constants.cr + "</thead>"
-                    + "");
-                if (addCsvDownloadCurrentPage) {
-                    colPtrDownload = 0;
-                    for (colPtr = 0; colPtr <= columnMax; colPtr++) {
-                        if (columns[colPtr].downloadable) {
-                            if (colPtrDownload == 0) {
-                                csvDownloadContent += "\"" + columns[colPtr].caption.Replace("\"", "\"\"") + "\"";
-                            } else {
-                                csvDownloadContent += ",\"" + columns[colPtr].caption.Replace("\"", "\"\"") + "\"";
-                            }
-                            colPtrDownload += 1;
-                        }
-                    }
+                if (!localFormActionQueryStringSet) {
+                    // set locals not public property bc public also sets the includeForm
+                    localFormActionQueryString = localFrameRqs;
+                    localFormActionQueryStringSet = true;
+                    //formActionQueryString = localFrameRqs;
                 }
-            }
-            //
-            // body
-            //
-            rowBuilder = new StringBuilder("");
-            if (localIsEmptyReport) {
-                string classAttribute = columns[0].cellClass;
-                if (classAttribute != "") {
-                    classAttribute = " class=\"" + classAttribute + "\"";
+                //
+                // add user errors
+                //
+                string userErrors = cp.Utils.EncodeText(cp.UserError.GetList());
+                if (!string.IsNullOrEmpty(userErrors)) {
+                    warning = userErrors;
                 }
-                //row = Constants.cr + "<td style=\"text-align:left\" " + classAttribute + " colspan=\"" + (columnMax + 1) + "\">[empty]</td>";
-                rowBuilder.Append(""
-                    + Constants.cr + "<tr>"
-                    + Constants.cr + "<td style=\"text-align:left\" " + classAttribute + " colspan=\"" + (columnMax + 1) + "\">[empty]</td>"
-                    + Constants.cr + "</tr>");
-            } else if (ReportTooLong) {
-                // -- report is too long
-                string classAttribute = columns[0].cellClass;
-                if (classAttribute != "") {
-                    classAttribute = " class=\"" + classAttribute + "\"";
-                }
-                //row = Constants.cr + "<td style=\"text-align:left\" " + classAttribute + " colspan=\"" + (columnMax + 1) + "\">There are too many rows in this report. Please consider filtering the data.</td>";
-                rowBuilder.Append(""
-                    + Constants.cr + "<tr>"
-                    + Constants.cr + "<td style=\"text-align:left\" " + classAttribute + " colspan=\"" + (columnMax + 1) + "\">There are too many rows in this report. Please consider filtering the data.</td>"
-                    + Constants.cr + "</tr>");
-            } else {
-                // -- display th report
-                for (int rowPtr = 0; rowPtr <= rowCnt; rowPtr++) {
-                    string row = "";
-                    colPtrDownload = 0;
-                    int colVisibleCnt = 0;
+                int colPtr;
+                int colPtrDownload;
+                StringBuilder result = new StringBuilder("");
+                hint = 20;
+                //
+                // headers
+                //
+                if (captionIncluded) {
+                    rowBuilder = new StringBuilder("");
                     for (colPtr = 0; colPtr <= columnMax; colPtr++) {
                         if (columns[colPtr].visible) {
-                            colVisibleCnt++;
-                            string classAttribute2 = columns[colPtr].cellClass;
-                            if (!string.IsNullOrEmpty(classAttribute2 )) {
-                                classAttribute2 = " class=\"" + classAttribute2 + "\"";
+                            string classAttribute = columns[colPtr].captionClass;
+                            if (classAttribute != "") {
+                                classAttribute = " class=\"" + classAttribute + "\"";
                             }
-                            string rowContent = localReportCells[rowPtr, colPtr];
-                            if ((colVisibleCnt == 1) && rowEllipseMenuDict.ContainsKey(rowPtr)) {
-                                //
-                                // -- add ellipse menu
-                                EllipseMenuDataModel ellipseMenu = new EllipseMenuDataModel {
-                                    menuId = rowPtr,
-                                    content = rowContent,
-                                    hasMenu = true,
-                                    menuList = new List<EllipseMenuDataItemModel>()
-                                };
-                                foreach (var menuItem in rowEllipseMenuDict[rowPtr]) {
-                                    ellipseMenu.menuList.Add(new EllipseMenuDataItemModel {
-                                        menuName = menuItem.name,
-                                        menuHref = menuItem.url
-                                    });
+                            string content = columns[colPtr].caption;
+                            string sortField = columns[colPtr].name;
+                            if (content == "") {
+                                content = "&nbsp;";
+                            } else if (columns[colPtr].sortable) {
+                                if (localFrameRqsSet) {
+                                    sortLink = "?" + localFrameRqs + "&columnSort=" + sortField;
+                                } else {
+                                    sortLink = "?" + cp.Doc.RefreshQueryString + "&columnSort=" + sortField;
                                 }
-                                rowContent = cp.Mustache.Render(Properties.Resources.ellipseMenu, ellipseMenu);
+                                if (columnSort == sortField) {
+                                    sortLink += "Desc";
+                                }
+                                content = "<a href=\"" + sortLink + "\">" + content + "</a>";
                             }
-                            row += Constants.cr + "<td" + classAttribute2 + ">" + rowContent + "</td>";
+                            string styleAttribute = "";
+                            if (columns[colPtr].columnWidthPercent > 0) {
+                                styleAttribute = " style=\"width:" + columns[colPtr].columnWidthPercent.ToString() + "%;\"";
+                            }
+                            //row += Constants.cr + "<td" + classAttribute + styleAttribute + ">" + localReportCells[rowPtr, colPtr] + "</td>";
+                            rowBuilder.Append(Constants.cr + "<th" + classAttribute + styleAttribute + ">" + content + "</th>");
                         }
-                        if (addCsvDownloadCurrentPage && !localExcludeRowFromDownload[rowPtr]) {
+                    }
+                    result.Append(""
+                        + Constants.cr + "<thead>"
+                        + Constants.cr2 + "<tr>"
+                        + indent(indent(rowBuilder.ToString()))
+                        + Constants.cr2 + "</tr>"
+                        + Constants.cr + "</thead>"
+                        + "");
+                    if (addCsvDownloadCurrentPage) {
+                        colPtrDownload = 0;
+                        for (colPtr = 0; colPtr <= columnMax; colPtr++) {
                             if (columns[colPtr].downloadable) {
                                 if (colPtrDownload == 0) {
-                                    csvDownloadContent += Environment.NewLine;
+                                    csvDownloadContent += "\"" + columns[colPtr].caption.Replace("\"", "\"\"") + "\"";
                                 } else {
-                                    csvDownloadContent += ",";
-                                }
-                                if (!string.IsNullOrEmpty(localDownloadData[rowPtr, colPtr])) {
-                                    csvDownloadContent += "\"" + localDownloadData[rowPtr, colPtr].Replace("\"", "\"\"") + "\"";
+                                    csvDownloadContent += ",\"" + columns[colPtr].caption.Replace("\"", "\"\"") + "\"";
                                 }
                                 colPtrDownload += 1;
                             }
-
                         }
                     }
-                    string classAttribute = localRowClasses[rowPtr];
-                    if (rowPtr % 2 != 0) {
-                        classAttribute += " afwOdd";
-                    }
+                }
+                hint = 30;
+                //
+                // body
+                //
+                rowBuilder = new StringBuilder("");
+                if (localIsEmptyReport) {
+                    hint = 40;
+                    string classAttribute = columns[0].cellClass;
                     if (classAttribute != "") {
                         classAttribute = " class=\"" + classAttribute + "\"";
                     }
+                    //row = Constants.cr + "<td style=\"text-align:left\" " + classAttribute + " colspan=\"" + (columnMax + 1) + "\">[empty]</td>";
                     rowBuilder.Append(""
-                        + Constants.cr + "<tr" + classAttribute + ">"
-                        + indent(row)
+                        + Constants.cr + "<tr>"
+                        + Constants.cr + "<td style=\"text-align:left\" " + classAttribute + " colspan=\"" + (columnMax + 1) + "\">[empty]</td>"
                         + Constants.cr + "</tr>");
+                } else if (ReportTooLong) {
+                    // -- report is too long
+                    string classAttribute = columns[0].cellClass;
+                    if (classAttribute != "") {
+                        classAttribute = " class=\"" + classAttribute + "\"";
+                    }
+                    //row = Constants.cr + "<td style=\"text-align:left\" " + classAttribute + " colspan=\"" + (columnMax + 1) + "\">There are too many rows in this report. Please consider filtering the data.</td>";
+                    rowBuilder.Append(""
+                        + Constants.cr + "<tr>"
+                        + Constants.cr + "<td style=\"text-align:left\" " + classAttribute + " colspan=\"" + (columnMax + 1) + "\">There are too many rows in this report. Please consider filtering the data.</td>"
+                        + Constants.cr + "</tr>");
+                } else {
+                    hint = 50;
+                    // -- display th report
+                    for (int rowPtr = 0; rowPtr <= rowCnt; rowPtr++) {
+                        string row = "";
+                        colPtrDownload = 0;
+                        int colVisibleCnt = 0;
+                        for (colPtr = 0; colPtr <= columnMax; colPtr++) {
+                            if (columns[colPtr].visible) {
+                                colVisibleCnt++;
+                                string classAttribute2 = columns[colPtr].cellClass;
+                                if (!string.IsNullOrEmpty(classAttribute2)) {
+                                    classAttribute2 = " class=\"" + classAttribute2 + "\"";
+                                }
+                                string rowContent = localReportCells[rowPtr, colPtr];
+                                if ((colVisibleCnt == 1) && rowEllipseMenuDict.ContainsKey(rowPtr)) {
+                                    //
+                                    // -- add ellipse menu
+                                    EllipseMenuDataModel ellipseMenu = new EllipseMenuDataModel {
+                                        menuId = rowPtr,
+                                        content = rowContent,
+                                        hasMenu = true,
+                                        menuList = new List<EllipseMenuDataItemModel>()
+                                    };
+                                    foreach (var menuItem in rowEllipseMenuDict[rowPtr]) {
+                                        ellipseMenu.menuList.Add(new EllipseMenuDataItemModel {
+                                            menuName = menuItem.name,
+                                            menuHref = menuItem.url
+                                        });
+                                    }
+                                    rowContent = cp.Mustache.Render(Properties.Resources.ellipseMenu, ellipseMenu);
+                                }
+                                row += Constants.cr + "<td" + classAttribute2 + ">" + rowContent + "</td>";
+                            }
+                            if (addCsvDownloadCurrentPage && !localExcludeRowFromDownload[rowPtr]) {
+                                if (columns[colPtr].downloadable) {
+                                    if (colPtrDownload == 0) {
+                                        csvDownloadContent += Environment.NewLine;
+                                    } else {
+                                        csvDownloadContent += ",";
+                                    }
+                                    if (!string.IsNullOrEmpty(localDownloadData[rowPtr, colPtr])) {
+                                        csvDownloadContent += "\"" + localDownloadData[rowPtr, colPtr].Replace("\"", "\"\"") + "\"";
+                                    }
+                                    colPtrDownload += 1;
+                                }
+
+                            }
+                        }
+                        string classAttribute = localRowClasses[rowPtr];
+                        if (rowPtr % 2 != 0) {
+                            classAttribute += " afwOdd";
+                        }
+                        if (classAttribute != "") {
+                            classAttribute = " class=\"" + classAttribute + "\"";
+                        }
+                        rowBuilder.Append(""
+                            + Constants.cr + "<tr" + classAttribute + ">"
+                            + indent(row)
+                            + Constants.cr + "</tr>");
+                    }
                 }
-            }
-            string csvDownloadFilename = string.Empty;
-            if (addCsvDownloadCurrentPage) {
-                //
-                // todo implement cp.db.CreateCsv()
-                // 5.1 -- download
-                CPCSBaseClass csDownloads = cp.CSNew();
-                if (csDownloads.Insert("downloads")) {
-                    csvDownloadFilename = csDownloads.GetFilename("filename", "export.csv");
-                    cp.CdnFiles.Save(csvDownloadFilename, csvDownloadContent);
-                    csDownloads.SetField("name", "Download for [" + title + "], requested by [" + cp.User.Name + "]");
-                    csDownloads.SetField("requestedBy", cp.User.Id.ToString());
-                    csDownloads.SetField("filename", csvDownloadFilename);
-                    csDownloads.SetField("dateRequested", DateTime.Now.ToString());
-                    csDownloads.SetField("datecompleted", DateTime.Now.ToString());
-                    csDownloads.SetField("resultmessage", "Completed");
-                    csDownloads.Save();
+                hint = 60;
+                string csvDownloadFilename = string.Empty;
+                if (addCsvDownloadCurrentPage) {
+                    //
+                    // todo implement cp.db.CreateCsv()
+                    // 5.1 -- download
+                    CPCSBaseClass csDownloads = cp.CSNew();
+                    if (csDownloads.Insert("downloads")) {
+                        csvDownloadFilename = csDownloads.GetFilename("filename", "export.csv");
+                        cp.CdnFiles.Save(csvDownloadFilename, csvDownloadContent);
+                        csDownloads.SetField("name", "Download for [" + title + "], requested by [" + cp.User.Name + "]");
+                        csDownloads.SetField("requestedBy", cp.User.Id.ToString());
+                        csDownloads.SetField("filename", csvDownloadFilename);
+                        csDownloads.SetField("dateRequested", DateTime.Now.ToString());
+                        csDownloads.SetField("datecompleted", DateTime.Now.ToString());
+                        csDownloads.SetField("resultmessage", "Completed");
+                        csDownloads.Save();
+                    }
+                    csDownloads.Close();
                 }
-                csDownloads.Close();
-            }
-            result.Append(""
-                + Constants.cr + "<tbody>"
-                + indent(rowBuilder.ToString())
-                + Constants.cr + "</tbody>"
-                + "");
-            result = new StringBuilder(Constants.cr + "<table class=\"afwListReportTable\">" + indent(result.ToString()) + Constants.cr + "</table>");
-            if (htmlLeftOfTable != "") {
-                result = new StringBuilder(""
-                    + Constants.cr + "<div class=\"afwLeftSideHtml\">" + indent(htmlLeftOfTable) + Constants.cr + "</div>"
-                    + Constants.cr + "<div class=\"afwRightSideHtml\">" + indent(result.ToString()) + Constants.cr + "</div>"
-                    + Constants.cr + "<div style=\"clear:both\"></div>"
+                hint = 70;
+                result.Append(""
+                    + Constants.cr + "<tbody>"
+                    + indent(rowBuilder.ToString())
+                    + Constants.cr + "</tbody>"
                     + "");
-            }
-            if (htmlBeforeTable != "") { result.Insert(0, "<div class=\"afwBeforeHtml\">" + htmlBeforeTable + "</div>"); }
-            if (htmlAfterTable != "") { result.Append("<div class=\"afwAfterHtml\">" + htmlAfterTable + "</div>"); }
-            //
-            // headers
-            //
-            if (addCsvDownloadCurrentPage && (!string.IsNullOrEmpty(csvDownloadFilename))) {
-                result = new StringBuilder(Constants.cr + "<p id=\"afwDescription\"><a href=\"" + cp.Http.CdnFilePathPrefix + csvDownloadFilename + "\">Click here</a> to download the data.</p>" + result.ToString());
-            }
-            if (description != "") {
-                result = new StringBuilder(Constants.cr + "<p id=\"afwDescription\">" + description + "</p>" + result.ToString());
-            }
-            if (warning != "") {
-                result = new StringBuilder(Constants.cr + "<div id=\"afwWarning\">" + warning + "</div>" + result.ToString());
-            }
-            if (title != "") {
-                result = new StringBuilder(Constants.cr + "<h2 id=\"afwTitle\">" + title + "</h2>" + result.ToString());
-            }
-            //
-            // add form
-            //
-            if (localIncludeForm) {
-                if (localButtonList != "") {
-                    localButtonList = ""
-                        + Constants.cr + "<div class=\"afwButtonCon\">"
-                        + indent(localButtonList)
-                        + Constants.cr + "</div>";
+                result = new StringBuilder(Constants.cr + "<table class=\"afwListReportTable\">" + indent(result.ToString()) + Constants.cr + "</table>");
+                if (htmlLeftOfTable != "") {
+                    result = new StringBuilder(""
+                        + Constants.cr + "<div class=\"afwLeftSideHtml\">" + indent(htmlLeftOfTable) + Constants.cr + "</div>"
+                        + Constants.cr + "<div class=\"afwRightSideHtml\">" + indent(result.ToString()) + Constants.cr + "</div>"
+                        + Constants.cr + "<div style=\"clear:both\"></div>"
+                        + "");
                 }
-                result = new StringBuilder(Constants.cr + cp.Html.Form(localButtonList + result.ToString() + localButtonList + localHiddenList, "", "", "", localFormActionQueryString, ""));
+                if (htmlBeforeTable != "") { result.Insert(0, "<div class=\"afwBeforeHtml\">" + htmlBeforeTable + "</div>"); }
+                if (htmlAfterTable != "") { result.Append("<div class=\"afwAfterHtml\">" + htmlAfterTable + "</div>"); }
+                //
+                // headers
+                //
+                if (addCsvDownloadCurrentPage && (!string.IsNullOrEmpty(csvDownloadFilename))) {
+                    result = new StringBuilder(Constants.cr + "<p id=\"afwDescription\"><a href=\"" + cp.Http.CdnFilePathPrefix + csvDownloadFilename + "\">Click here</a> to download the data.</p>" + result.ToString());
+                }
+                if (description != "") {
+                    result = new StringBuilder(Constants.cr + "<p id=\"afwDescription\">" + description + "</p>" + result.ToString());
+                }
+                if (warning != "") {
+                    result = new StringBuilder(Constants.cr + "<div id=\"afwWarning\">" + warning + "</div>" + result.ToString());
+                }
+                if (title != "") {
+                    result = new StringBuilder(Constants.cr + "<h2 id=\"afwTitle\">" + title + "</h2>" + result.ToString());
+                }
+                hint = 80;
+                //
+                // add form
+                //
+                if (localIncludeForm) {
+                    if (localButtonList != "") {
+                        localButtonList = ""
+                            + Constants.cr + "<div class=\"afwButtonCon\">"
+                            + indent(localButtonList)
+                            + Constants.cr + "</div>";
+                    }
+                    result = new StringBuilder(Constants.cr + cp.Html.Form(localButtonList + result.ToString() + localButtonList + localHiddenList, "", "", "", localFormActionQueryString, ""));
+                }
+                if (_includeBodyPadding) { result = new StringBuilder(cp.Html.div(result.ToString(), "", "afwBodyPad", "")); };
+                if (_includeBodyColor) { result = new StringBuilder(cp.Html.div(result.ToString(), "", "afwBodyColor", "")); };
+                hint = 90;
+                //
+                // if outer container, add styles and javascript
+                //
+                if (localIsOuterContainer) {
+                    cp.Doc.AddHeadJavascript(Properties.Resources.javascript);
+                    cp.Doc.AddHeadStyle(Properties.Resources.styles);
+                    result = new StringBuilder(""
+                        + Constants.cr + "<div id=\"afw\">"
+                        + indent(result.ToString())
+                        + Constants.cr + "</div>");
+                }
+                //
+                // -- set the optional title of the portal subnav
+                if (!string.IsNullOrEmpty(portalSubNavTitle)) { cp.Doc.SetProperty("portalSubNavTitle", portalSubNavTitle); }
+                return result.ToString();
+            } catch (Exception ex) {
+                cp.Site.ErrorReport(ex, "hint [" + hint + "]");
+                throw;
             }
-            if (_includeBodyPadding) { result = new StringBuilder(cp.Html.div(result.ToString(), "", "afwBodyPad", "")); };
-            if (_includeBodyColor) { result = new StringBuilder(cp.Html.div(result.ToString(), "", "afwBodyColor", "")); };
-            //
-            // if outer container, add styles and javascript
-            //
-            if (localIsOuterContainer) {
-                cp.Doc.AddHeadJavascript(Properties.Resources.javascript);
-                cp.Doc.AddHeadStyle(Properties.Resources.styles);
-                result = new StringBuilder(""
-                    + Constants.cr + "<div id=\"afw\">"
-                    + indent(result.ToString())
-                    + Constants.cr + "</div>");
-            }
-            //
-            // -- set the optional title of the portal subnav
-            if (!string.IsNullOrEmpty(portalSubNavTitle)) { cp.Doc.SetProperty("portalSubNavTitle", portalSubNavTitle); }
-            return result.ToString();
         }
         //
         //====================================================================================================
