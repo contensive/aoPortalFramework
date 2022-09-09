@@ -87,8 +87,10 @@
 	padding: 10px 10px 8px;
 	border-bottom: 1px solid #aaa;
 	background-color: #ccc;
-	border-radius: 3px;
 	clear: both;
+/*
+	border-radius: 3px;
+*/
 }
 #afw .afwButton 
 {
@@ -130,9 +132,11 @@
 	background-color: #fff;
     margin:0;
 	padding: 0;
+/*
 	border-left: 1px solid rgba(0, 0, 0, 0.1);
 	border-right: 1px solid rgba(0, 0, 0, 0.1);
 	border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+*/
 }
 #afw ul.afwNav 
 {
@@ -307,6 +311,12 @@
 }
 #afw .afwAfterHtml {
 	padding: 0 0 20px;
+}
+#afw .afwLeftSideHtml {
+	float: left;
+	overflow: hidden;
+	padding: 0 0 20px 0;
+	width: 160px;
 }
 #afw .afwRightSideHtml 
 {
@@ -568,5 +578,57 @@
 #afw input[type="date"] {
     max-width: 400px;
 }
+/*
+* nav and subnav
+*/
+@media only screen and (min-width: 992px) {
+	.afwNavbar .navbar-nav .nav-item .nav-link {
+		padding: 0 0.75em;
+	}
 
+	.afwNavbar .navbar-nav .nav-item:not(:last-child) .nav-link {
+		border-right: 1px solid rgba(255,255,255,.3);
+	}
 
+	.afwSubNavbar .navbar-nav .nav-item .nav-link {
+		padding: 0 0.75em;
+	}
+
+	.afwSubNavbar .navbar-nav .nav-item:not(:last-child) .nav-link {
+		border-right: 1px solid rgba(0,0,0,.3);
+	}
+
+	.afwSubNavbar {
+		border-bottom: 1px solid #888 !important;
+	}
+}
+/*
+	bootstrap colors additions
+*/
+.border-top-gray-light {
+	border-bottom: 1px solid rgb(0,0,0,0.1);
+}
+
+.border-right-gray-light {
+	border-bottom: 1px solid rgb(0,0,0,0.1);
+}
+
+.border-bottom-gray-light {
+	border-bottom: 1px solid rgb(0,0,0,0.1);
+}
+
+.border-bottom-left-light {
+	border-bottom: 1px solid rgb(0,0,0,0.1);
+}
+
+.bg-gray-light {
+	background-color: #F0F0F0;
+}
+
+.bg-gray-medium {
+	background-color: #c8c8c8;
+}
+
+.bg-gray-dark {
+	background-color: #888;
+}

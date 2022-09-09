@@ -90,6 +90,7 @@ namespace Contensive.Addons.PortalFramework {
             }
             //
             // add form
+            if (includeBodyPadding) { result = cp.Html.div(result, "", "afwBodyPad", ""); };
             if (localIncludeForm) {
                 if (localButtonList != "") {
                     localButtonList = ""
@@ -97,11 +98,8 @@ namespace Contensive.Addons.PortalFramework {
                         + indent(localButtonList)
                         + Constants.cr + "</div>";
                 }
-                result = Constants.cr + cp.Html.Form(localButtonList + result + localButtonList + localHiddenList, "", "", "", localFormActionQueryString, "");
+                result = Constants.cr + cp.Html.Form(result + localButtonList + localHiddenList, "", "", "", localFormActionQueryString, "");
             }
-            //
-            // -- add wrappers
-            if (includeBodyPadding) { result = cp.Html.div(result, "", "afwBodyPad", ""); };
             if (includeBodyColor) { result = cp.Html.div(result, "", "afwBodyColor", ""); };
             //
             // if outer container, add styles and javascript
@@ -159,7 +157,7 @@ namespace Contensive.Addons.PortalFramework {
             }
             set {
                 localFormActionQueryString = value;
-                localIncludeForm = true;
+                localIncludeForm = !string.IsNullOrEmpty(value);
             }
         }
         public string formId {
@@ -168,7 +166,7 @@ namespace Contensive.Addons.PortalFramework {
             }
             set {
                 localFormId = value;
-                localIncludeForm = true;
+                localIncludeForm = !string.IsNullOrEmpty(value);
             }
         }
         //

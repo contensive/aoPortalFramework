@@ -182,7 +182,7 @@ namespace Contensive.Addons.PortalFramework {
                 + "<div class=\"afwGridCon\">"
                 + grid
                 + "</div>";
-            string chartHtmlId = "afwChart" + GnericController.getRandomHtmlId(cp);
+            string chartHtmlId = "afwChart" + HtmlController.getRandomHtmlId(cp);
             string result = ""
                 + "<div class=\"afwChartCon\" style=\"width:" + chartWidth + "px;\">"
                 + "<div id=\"" + chartHtmlId + "\"></div>"
@@ -234,6 +234,7 @@ namespace Contensive.Addons.PortalFramework {
             //
             // add form
             //
+            if (includeBodyPadding) { result = cp.Html.div(result, "", "afwBodyPad", ""); };
             if (localIncludeForm) {
                 if (localButtonList != "") {
                     localButtonList = ""
@@ -241,10 +242,10 @@ namespace Contensive.Addons.PortalFramework {
                         + (localButtonList)
                         + "</div>";
                 }
-                result = cp.Html.Form(localButtonList + result + localButtonList + localHiddenList, "", "", "", localFormActionQueryString, "");
+                result = cp.Html.Form(result + localButtonList + localHiddenList, "", "", "", localFormActionQueryString, "");
             }
-            if (includeBodyPadding) { result = cp.Html.div(result, "", "afwBodyPad", ""); };
             if (includeBodyColor) { result = cp.Html.div(result, "", "afwBodyColor", ""); };
+            //
             string returnHeadJs = "<script type=\"text/javascript\" src=\"https://www.gstatic.com/charts/loader.js\"></script>";
             returnHeadJs += ""
                 + "<script Language=\"JavaScript\" type=\"text/javascript\">"

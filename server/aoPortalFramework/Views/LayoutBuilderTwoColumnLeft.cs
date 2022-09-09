@@ -1,4 +1,5 @@
 
+using Contensive.Addons.PortalFramework.Controllers;
 using Contensive.BaseClasses;
 using System;
 
@@ -36,8 +37,21 @@ namespace Contensive.Addons.PortalFramework {
                 return !string.IsNullOrEmpty(buttonList);
             }
         }
-        ////
-        //public bool localIncludeForm { get; set; }
+        //
+        //====================================================================================================
+        //
+        public void addFormHidden(string Name, string Value) {
+            inputHiddenList += Constants.cr + "<input type=\"hidden\" name=\"" + Name + "\" value=\"" + Value + "\">";
+        }
+        private string inputHiddenList = "";
+        //
+        public void addFormHidden(string name, int value) => addFormHidden(name, value.ToString());
+        //
+        public void addFormHidden(string name, double value) => addFormHidden(name, value.ToString());
+        //
+        public void addFormHidden(string name, DateTime value) => addFormHidden(name, value.ToString());
+        //
+        public void addFormHidden(string name, bool value) => addFormHidden(name, value.ToString());
         //
         //====================================================================================================
         /// <summary>
@@ -56,7 +70,7 @@ namespace Contensive.Addons.PortalFramework {
             //
             // -- render layout
             string layout = cp.Layout.GetLayout(Constants.guidLayoutAdminUITwoColumnLeft, Constants.nameLayoutAdminUITwoColumnLeft, Constants.pathFilenameLayoutAdminUITwoColumnLeft);
-            return cp.Mustache.Render(layout, this);
+            return cp.Mustache.Render(layout, this) + inputHiddenList;
         }
         //
         // ====================================================================================================
@@ -68,8 +82,7 @@ namespace Contensive.Addons.PortalFramework {
         /// <param name="buttonId"></param>
         /// <param name="buttonClass"></param>
         public void addFormButton(string buttonValue, string buttonName, string buttonId, string buttonClass) {
-            buttonList += Constants.cr + "<input type=\"submit\" name=\"" + buttonName + "\" value=\"" + buttonValue + "\" id=\"" + buttonId + "\" class=\"afwButton " + buttonClass + "\">";
-            //localIncludeForm = true;
+            buttonList += Constants.cr + HtmlController.getButton(buttonName, buttonValue, buttonId, buttonClass );
         }
     }
 }

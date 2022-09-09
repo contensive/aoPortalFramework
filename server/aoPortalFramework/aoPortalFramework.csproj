@@ -82,7 +82,7 @@
   <ItemGroup>
     <Compile Include="Addons\InstallAddon.cs" />
     <Compile Include="Constants.cs" />
-    <Compile Include="Controllers\GnericController.cs" />
+    <Compile Include="Controllers\GenericController.cs" />
     <Compile Include="Models\Domain\ElllipseMenu.cs" />
     <Compile Include="Models\Domain\PortalBuilderViewModel.cs" />
     <Compile Include="Models\Domain\PortalBuilderNavItemViewModel.cs" />
@@ -93,6 +93,7 @@
     <Compile Include="Models\Domain\PortalDataFeatureModel.cs" />
     <Compile Include="Models\Db\AdminFrameworkReportsClass.cs" />
     <Compile Include="Models\Db\AdminFrameworkReportColumnClass.cs" />
+    <Compile Include="Models\HtmlController.cs" />
     <Compile Include="Views\CommonClass.cs" />
     <Compile Include="Addons\PortalAddon.cs" />
     <Compile Include="Views\DevToolView.cs" />

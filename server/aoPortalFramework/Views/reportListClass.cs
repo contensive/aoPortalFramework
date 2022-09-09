@@ -7,8 +7,14 @@ using Contensive.BaseClasses;
 
 namespace Contensive.Addons.PortalFramework {
     public class ReportListClass {
+        //
         /// <summary>
-        /// add an ellipse menu entry for the current row
+        /// default constructor
+        /// </summary>
+        public ReportListClass() { }
+        //
+        /// <summary>
+        /// Add an ellipse menu entry for the current row
         /// </summary>
         /// <param name="name"></param>
         /// <param name="url"></param>
@@ -20,31 +26,65 @@ namespace Contensive.Addons.PortalFramework {
                 url = url
             });
         }
+        //
+        // --- privates
+        //
+        /// <summary>
+        /// The report grid data
+        /// </summary>
+        private readonly string[,] localReportCells = new string[rowSize, columnSize];
+        //
+        /// <summary>
+        /// the report download data
+        /// </summary>
+        private readonly string[,] localDownloadData = new string[rowSize, columnSize];
+        //
+        /// <summary>
+        /// add indent to the source
+        /// </summary>
+        /// <param name="src"></param>
+        /// <returns></returns>
+        private string indent(string src) {
+            return src.Replace(Constants.cr, Constants.cr2);
+        }
+        //
+        /// <summary>
+        /// check if first column has been added. If not add the first column.
+        /// </summary>
+        private void checkColumnPtr() {
+            if (columnPtr < 0) {
+                addColumn();
+            }
+        }
+        //
+        /// <summary>
+        /// check if the first row has been added. if not, add it
+        /// </summary>
+        private void checkRowCnt() {
+            if (rowCnt < 0) {
+                addRow();
+            }
+        }
+        //
+        /// <summary>
+        /// list of elipse menu items added to the rightmost column
+        /// </summary>
         private Dictionary<int, List<EllipseMenuItem>> rowEllipseMenuDict { get; set; } = new Dictionary<int, List<EllipseMenuItem>>();
-        /// <summary>
-        /// legacy constructor
-        /// </summary>
-        /// <param name="cp"></param>
-        [Obsolete("Use parameterless constructor", false)] public ReportListClass(CPBaseClass cp) { }
-        /// <summary>
-        /// default constructor
-        /// </summary>
-        public ReportListClass() { }
         //
         /// <summary>
         /// maximum columns allowed
         /// </summary>
-        const int columnSize = 99;
+        private const int columnSize = 99;
         //
         /// <summary>
         /// maximum rows allowed
         /// </summary>
-        const int rowSize = 19999;
+        private const int rowSize = 19999;
         //
         /// <summary>
         /// todo deprecate - use ReportListColumnClass
         /// </summary>
-        struct ColumnStruct {
+        private struct ColumnStruct {
             public string name;
             public string caption;
             public string captionClass;
@@ -61,7 +101,7 @@ namespace Contensive.Addons.PortalFramework {
         /// <summary>
         /// storage for the current column
         /// </summary>
-        readonly ColumnStruct[] columns = new ColumnStruct[columnSize];
+        private readonly ColumnStruct[] columns = new ColumnStruct[columnSize];
         //
         /// <summary>
         /// true if the caption or captionclass has been initialized
@@ -83,45 +123,11 @@ namespace Contensive.Addons.PortalFramework {
         /// </summary>
         private int rowCnt = -1;
         //
+        //====================================================================================================
         /// <summary>
-        /// list of hidden form tags
+        /// create csv download as form is build
         /// </summary>
-        string localHiddenList = "";
-        //
-        /// <summary>
-        /// list of buttons added to the form
-        /// </summary>
-        string localButtonList = "";
-        //
-        /// <summary>
-        /// if true, the report grid has not been populated
-        /// </summary>
-        bool localIsEmptyReport = true;
-        //
-        /// <summary>
-        /// The report grid data
-        /// </summary>
-        readonly string[,] localReportCells = new string[rowSize, columnSize];
-        //
-        /// <summary>
-        /// the report download data
-        /// </summary>
-        readonly string[,] localDownloadData = new string[rowSize, columnSize];
-        //
-        /// <summary>
-        /// the report row styles
-        /// </summary>
-        readonly string[] localRowClasses = new string[rowSize];
-        //
-        /// <summary>
-        /// if true, exclude this row from download
-        /// </summary>
-        readonly bool[] localExcludeRowFromDownload = new bool[rowSize];
-        //
-        /// <summary>
-        /// if true, this report is part of a larger layout and the internal styles and js should NOT be added
-        /// </summary>
-        public bool localIsOuterContainer = false;
+        public bool addCsvDownloadCurrentPage { get; set; } = false;
         //
         // ====================================================================================================
         /// <summary>
@@ -143,28 +149,31 @@ namespace Contensive.Addons.PortalFramework {
         //
         public bool includeBodyPadding {
             get {
-                return _includeBodyPadding;
+                return includeBodyPadding_Local;
             }
             set {
-                _includeBodyPadding = value;
+                includeBodyPadding_Local = value;
             }
         }
-        bool _includeBodyPadding = true;
+        bool includeBodyPadding_Local = true;
         //
         //====================================================================================================
         //
         public bool includeBodyColor {
             get {
-                return _includeBodyColor;
+                return includeBodyColor_Local;
             }
             set {
-                _includeBodyColor = value;
+                includeBodyColor_Local = value;
             }
         }
-        bool _includeBodyColor = true;
+        bool includeBodyColor_Local = true;
         //
         //====================================================================================================
         //
+        /// <summary>
+        /// if true, this report is part of a larger layout and the internal styles and js should NOT be added
+        /// </summary>
         public bool isOuterContainer {
             get {
                 return localIsOuterContainer;
@@ -173,6 +182,7 @@ namespace Contensive.Addons.PortalFramework {
                 localIsOuterContainer = value;
             }
         }
+        private bool localIsOuterContainer = false;
         //
         //====================================================================================================
         //
@@ -191,6 +201,7 @@ namespace Contensive.Addons.PortalFramework {
         }
         //
         //====================================================================================================
+        //
         /// <summary>
         /// render the report
         /// </summary>
@@ -209,12 +220,12 @@ namespace Contensive.Addons.PortalFramework {
                 DateTime rightNow = DateTime.Now;
                 hint = 10;
                 //
-                if (!localFrameRqsSet) {
+                if (!frameRqsSet_Local) {
                     refreshQueryString = cp.Doc.RefreshQueryString;
                 }
                 if (!localFormActionQueryStringSet) {
                     // set locals not public property bc public also sets the includeForm
-                    localFormActionQueryString = localFrameRqs;
+                    formActionQueryString_Local = frameRqs_Local;
                     localFormActionQueryStringSet = true;
                     //formActionQueryString = localFrameRqs;
                 }
@@ -245,8 +256,8 @@ namespace Contensive.Addons.PortalFramework {
                             if (content == "") {
                                 content = "&nbsp;";
                             } else if (columns[colPtr].sortable) {
-                                if (localFrameRqsSet) {
-                                    sortLink = "?" + localFrameRqs + "&columnSort=" + sortField;
+                                if (frameRqsSet_Local) {
+                                    sortLink = "?" + frameRqs_Local + "&columnSort=" + sortField;
                                 } else {
                                     sortLink = "?" + cp.Doc.RefreshQueryString + "&columnSort=" + sortField;
                                 }
@@ -291,15 +302,18 @@ namespace Contensive.Addons.PortalFramework {
                 rowBuilder = new StringBuilder("");
                 if (localIsEmptyReport) {
                     hint = 40;
-                    string classAttribute = columns[0].cellClass;
-                    if (classAttribute != "") {
-                        classAttribute = " class=\"" + classAttribute + "\"";
-                    }
-                    //row = Constants.cr + "<td style=\"text-align:left\" " + classAttribute + " colspan=\"" + (columnMax + 1) + "\">[empty]</td>";
                     rowBuilder.Append(""
                         + Constants.cr + "<tr>"
-                        + Constants.cr + "<td style=\"text-align:left\" " + classAttribute + " colspan=\"" + (columnMax + 1) + "\">[empty]</td>"
+                        + Constants.cr + "<td style=\"text-align:left\" colspan=\"" + (columnMax + 1) + "\">[empty]</td>"
                         + Constants.cr + "</tr>");
+                    //string classAttribute = columns[0].cellClass;
+                    //if (classAttribute != "") {
+                    //    classAttribute = " class=\"" + classAttribute + "\"";
+                    //}
+                    //rowBuilder.Append(""
+                    //    + Constants.cr + "<tr>"
+                    //    + Constants.cr + "<td style=\"text-align:left\" " + classAttribute + " colspan=\"" + (columnMax + 1) + "\">[empty]</td>"
+                    //    + Constants.cr + "</tr>");
                 } else if (ReportTooLong) {
                     // -- report is too long
                     string classAttribute = columns[0].cellClass;
@@ -313,7 +327,16 @@ namespace Contensive.Addons.PortalFramework {
                         + Constants.cr + "</tr>");
                 } else {
                     hint = 50;
-                    // -- display th report
+                    //
+                    // -- if ellipse needed, determine last visible column
+                    int colPtrLastVisible = -1;
+                    for (colPtr = 0; colPtr <= columnMax; colPtr++) {
+                        if (columns[colPtr].visible) {
+                            colPtrLastVisible = colPtr;
+                        }
+                    }
+                    //
+                    // -- output the grid
                     for (int rowPtr = 0; rowPtr <= rowCnt; rowPtr++) {
                         string row = "";
                         colPtrDownload = 0;
@@ -326,7 +349,7 @@ namespace Contensive.Addons.PortalFramework {
                                     classAttribute2 = " class=\"" + classAttribute2 + "\"";
                                 }
                                 string rowContent = localReportCells[rowPtr, colPtr];
-                                if ((colVisibleCnt == 1) && rowEllipseMenuDict.ContainsKey(rowPtr)) {
+                                if ((colPtrLastVisible == colPtr) && rowEllipseMenuDict.ContainsKey(rowPtr)) {
                                     //
                                     // -- add ellipse menu
                                     EllipseMenuDataModel ellipseMenu = new EllipseMenuDataModel {
@@ -357,7 +380,6 @@ namespace Contensive.Addons.PortalFramework {
                                     }
                                     colPtrDownload += 1;
                                 }
-
                             }
                         }
                         string classAttribute = localRowClasses[rowPtr];
@@ -428,17 +450,23 @@ namespace Contensive.Addons.PortalFramework {
                 //
                 // add form
                 //
-                if (localIncludeForm) {
-                    if (localButtonList != "") {
-                        localButtonList = ""
+                if (includeBodyPadding_Local) { result = new StringBuilder(cp.Html.div(result.ToString(), "", "afwBodyPad", "")); };
+                if (includeForm_Local) {
+                    if (!string.IsNullOrEmpty(buttonList_Local)) {
+                        buttonList_Local = ""
                             + Constants.cr + "<div class=\"afwButtonCon\">"
-                            + indent(localButtonList)
+                            + indent(buttonList_Local)
                             + Constants.cr + "</div>";
                     }
-                    result = new StringBuilder(Constants.cr + cp.Html.Form(localButtonList + result.ToString() + localButtonList + localHiddenList, "", "", "", localFormActionQueryString, ""));
+                    result.Append(buttonList_Local);
+                    result.Append(hiddenList_Local);
+                    if (!blockFormTag) {
+                        //
+                        // -- add form wrap
+                        result = new StringBuilder(Constants.cr + cp.Html.Form(result.ToString(), "", "", "", formActionQueryString_Local, ""));
+                    }
                 }
-                if (_includeBodyPadding) { result = new StringBuilder(cp.Html.div(result.ToString(), "", "afwBodyPad", "")); };
-                if (_includeBodyColor) { result = new StringBuilder(cp.Html.div(result.ToString(), "", "afwBodyColor", "")); };
+                if (includeBodyColor_Local) { result = new StringBuilder(cp.Html.div(result.ToString(), "", "afwBodyColor", "")); };
                 hint = 90;
                 //
                 // if outer container, add styles and javascript
@@ -462,87 +490,147 @@ namespace Contensive.Addons.PortalFramework {
         }
         //
         //====================================================================================================
-        // add html blocks
+        //
+        /// <summary>
+        /// An html block added to the left of the table. Typically used for filters.
+        /// </summary>
         public string htmlLeftOfTable { get; set; } = "";
         //
         //====================================================================================================
         //
+        /// <summary>
+        /// An html block added above the table. Typically used for filters.
+        /// </summary>
         public string htmlBeforeTable { get; set; } = "";
         //
         //====================================================================================================
         //
+        /// <summary>
+        /// An html block added below the table. Typically used for filters.
+        /// </summary>
         public string htmlAfterTable { get; set; } = "";
         //
         //====================================================================================================
+        //
         /// <summary>
-        /// add a form hidden
+        /// set true will block the addition of a form tag around the final html.
+        /// The form tag is automatically added if you add a button, hidden or formActionRefreshString
+        /// </summary>
+        public bool blockFormTag { get; set; } = false;
+        //
+        //====================================================================================================
+        //
+        /// <summary>
+        /// Add a form hidden element. 
+        /// Adding also wraps the html with a form tag. Block the form tag with blockFormTag.
         /// </summary>
         /// <param name="Name"></param>
         /// <param name="Value"></param>
         public void addFormHidden(string Name, string Value) {
-            localHiddenList += Constants.cr + "<input type=\"hidden\" name=\"" + Name + "\" value=\"" + Value + "\">";
-            localIncludeForm = true;
+            hiddenList_Local += Constants.cr + "<input type=\"hidden\" name=\"" + Name + "\" value=\"" + Value + "\">";
+            includeForm_Local = includeForm_Local || !string.IsNullOrEmpty(Value);
         }
-        //
+        /// <summary>
+        /// Add a form hidden.
+        /// Adding also wraps the html with a form tag. Block the form tag with blockFormTag.
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="value"></param>
         public void addFormHidden(string name, int value) => addFormHidden(name, value.ToString());
-        //
+        /// <summary>
+        /// Add a form hidden.
+        /// Adding also wraps the html with a form tag. Block the form tag with blockFormTag.
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="value"></param>
         public void addFormHidden(string name, double value) => addFormHidden(name, value.ToString());
-        //
+        /// <summary>
+        /// Add a form hidden.
+        /// Adding also wraps the html with a form tag. Block the form tag with blockFormTag.
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="value"></param>
         public void addFormHidden(string name, DateTime value) => addFormHidden(name, value.ToString());
-        //
+        /// <summary>
+        /// Add a form hidden.
+        /// Adding also wraps the html with a form tag. Block the form tag with blockFormTag.
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="value"></param>
         public void addFormHidden(string name, bool value) => addFormHidden(name, value.ToString());
         //
+        /// <summary>
+        /// local list of hidden form elements
+        /// </summary>
+        private string hiddenList_Local = "";
+        //
         //====================================================================================================
-        // add a form button
+        //
+        /// <summary>
+        /// Add a form button. 
+        /// Adding also wraps the html with a form tag. Block the form tag with blockFormTag.
+        /// </summary>
+        /// <param name="buttonValue"></param>
         public void addFormButton(string buttonValue) {
             addFormButton(buttonValue, "button", "", "");
         }
+        /// <summary>
+        /// Add a form button. 
+        /// Adding a form button also wraps the html with a form tag. Block the form tag with blockFormTag.
+        /// </summary>
+        /// <param name="buttonValue"></param>
+        /// <param name="buttonName"></param>
         public void addFormButton(string buttonValue, string buttonName) {
             addFormButton(buttonValue, buttonName, "", "");
         }
+        /// <summary>
+        /// Add a form button. 
+        /// Adding a form button also wraps the html with a form tag. Block the form tag with blockFormTag.
+        /// </summary>
+        /// <param name="buttonValue"></param>
+        /// <param name="buttonName"></param>
+        /// <param name="buttonId"></param>
         public void addFormButton(string buttonValue, string buttonName, string buttonId) {
             addFormButton(buttonValue, buttonName, buttonId, "");
         }
+        /// <summary>
+        /// Add a form button. 
+        /// Adding also wraps the html with a form tag. Block the form tag with blockFormTag.
+        /// </summary>
+        /// <param name="buttonValue"></param>
+        /// <param name="buttonName"></param>
+        /// <param name="buttonId"></param>
+        /// <param name="buttonClass"></param>
         public void addFormButton(string buttonValue, string buttonName, string buttonId, string buttonClass) {
-            localButtonList += Constants.cr + "<input type=\"submit\" name=\"" + buttonName + "\" value=\"" + buttonValue + "\" id=\"" + buttonId + "\" class=\"afwButton " + buttonClass + "\">";
-            localIncludeForm = true;
+            buttonList_Local += Constants.cr + "<input type=\"submit\" name=\"" + buttonName + "\" value=\"" + buttonValue + "\" id=\"" + buttonId + "\" class=\"afwButton " + buttonClass + "\">";
+            includeForm_Local = true;
         }
+        private string buttonList_Local = "";
         //
         //====================================================================================================
+        //
         /// <summary>
         /// Set the same as the refresh query string, except exclude all form inputs within the form. For instance, if the form has a filter that include 'dateTo', add dateTo to the RQS so heading sorts retain the value, but do not add it to formAction because the input box in the filter already has that value.
+        /// Setting also wraps the html with a form tag. Block the form tag with blockFormTag.
         /// </summary>
         public string formActionQueryString {
             get {
-                return localFormActionQueryString;
+                return formActionQueryString_Local;
             }
             set {
-                localFormActionQueryString = value;
+                formActionQueryString_Local = value;
                 localFormActionQueryStringSet = true;
-                localIncludeForm = true;
+                includeForm_Local = !string.IsNullOrEmpty(value);
             }
         }
-        string localFormActionQueryString = "";
+        string formActionQueryString_Local = "";
         bool localFormActionQueryStringSet = false;
         //
-        //====================================================================================================
-        public string formId {
-            get {
-                return localFormId;
-            }
-            set {
-                localFormId = value;
-                localIncludeForm = true;
-            }
-        }
-        string localFormId = "";
-        //
-        //-------------------------------------------------
         /// <summary>
         /// If true, the resulting html is wrapped in a form element whose action returns execution back to this addon where is it processed here in the same code.
         /// consider a pattern that blocks the include form if this layout is called form the portal system, where the portal methods create the entire strucuture
         /// </summary>
-        bool localIncludeForm { get; set; } = false;
+        private bool includeForm_Local { get; set; } = false;
         //
         //====================================================================================================
         /// <summary>
@@ -550,37 +638,53 @@ namespace Contensive.Addons.PortalFramework {
         /// </summary>
         public string refreshQueryString {
             get {
-                return localFrameRqs;
+                return frameRqs_Local;
             }
             set {
-                localFrameRqs = value;
-                localFrameRqsSet = true;
+                frameRqs_Local = value;
+                frameRqsSet_Local = true;
             }
         }
-        string localFrameRqs = "";
-        bool localFrameRqsSet = false;
+        string frameRqs_Local = "";
+        bool frameRqsSet_Local = false;
         //
         //====================================================================================================
+        /// <summary>
+        /// deprecated. Had previously been the guid of the saved report record.
+        /// </summary>
+        [Obsolete("deprecated. Had previously been the guid of the saved report record.", false)]
         public string guid { get; set; } = "";
         //
         //====================================================================================================
-        //
+        /// <summary>
+        /// deprecated. Had previously been the name of the saved report record.
+        /// </summary>
+        [Obsolete("deprecated. Had previously been the name of the saved report record.", false)]
         public string name { get; set; } = "";
         //
         //====================================================================================================
-        //
+        /// <summary>
+        /// The headline of the generated html document
+        /// </summary>
         public string title { get; set; } = "";
         //
         //====================================================================================================
-        // Warning
+        /// <summary>
+        /// Optional warning text displayed at the top of the html document. Typically used to warn the user of an issue.
+        /// </summary>
         public string warning { get; set; } = "";
         //
         //====================================================================================================
-        // Description
+        /// <summary>
+        /// Optional description displayed below the title at the top of the html document
+        /// </summary>
         public string description { get; set; } = "";
         //
         //====================================================================================================
-        // column properties
+        /// <summary>
+        /// The name of the current column.
+        /// To define a column, first call addColumn(), then set its name, caption, captionclass, cellclass, visible, sortable, width, downloadable. When columns are defined, use addRow() to create a row, then addCell() repeately to create a cell for each column.
+        /// </summary>
         public string columnName {
             get {
                 checkColumnPtr();
@@ -596,7 +700,10 @@ namespace Contensive.Addons.PortalFramework {
         }
         //
         //====================================================================================================
-        // column properties
+        /// <summary>
+        /// The caption displayed in the top row of the table.
+        /// To define a column, first call addColumn(), then set its name, caption, captionclass, cellclass, visible, sortable, width, downloadable. When columns are defined, use addRow() to create a row, then addCell() repeately to create a cell for each column.
+        /// </summary>
         public string columnCaption {
             get {
                 checkColumnPtr();
@@ -612,7 +719,10 @@ namespace Contensive.Addons.PortalFramework {
         }
         //
         //====================================================================================================
-        // set the caption class for this column
+        /// <summary>
+        /// Optional class to be added to the caption for the current column.
+        /// To define a column, first call addColumn(), then set its name, caption, captionclass, cellclass, visible, sortable, width, downloadable. When columns are defined, use addRow() to create a row, then addCell() repeately to create a cell for each column.
+        /// </summary>
         public string columnCaptionClass {
             get {
                 checkColumnPtr();
@@ -628,7 +738,10 @@ namespace Contensive.Addons.PortalFramework {
         }
         //
         //====================================================================================================
-        // set the cell class for this column
+        /// <summary>
+        /// Optional class to be added to each cell in this column.
+        /// To define a column, first call addColumn(), then set its name, caption, captionclass, cellclass, visible, sortable, width, downloadable. When columns are defined, use addRow() to create a row, then addCell() repeately to create a cell for each column.
+        /// </summary>
         public string columnCellClass {
             get {
                 checkColumnPtr();
@@ -641,8 +754,11 @@ namespace Contensive.Addons.PortalFramework {
         }
         //
         //====================================================================================================
-        // set the column sortable
-        //  this creates as a link on the caption
+        //
+        /// <summary>
+        /// If true, the column caption will be linked and if the user clicks it, the form will redraw giving the calling code the opportunity to sort data accordingly.
+        /// To define a column, first call addColumn(), then set its name, caption, captionclass, cellclass, visible, sortable, width, downloadable. When columns are defined, use addRow() to create a row, then addCell() repeately to create a cell for each column.
+        /// </summary>
         public bool columnSortable {
             get {
                 checkColumnPtr();
@@ -656,7 +772,8 @@ namespace Contensive.Addons.PortalFramework {
         //
         //====================================================================================================
         /// <summary>
-        /// The column width percentage, 1 to 100
+        /// Optional integer percentagle added to the caption for this column. 1 to 100.
+        /// To define a column, first call addColumn(), then set its name, caption, captionclass, cellclass, visible, sortable, width, downloadable. When columns are defined, use addRow() to create a row, then addCell() repeately to create a cell for each column.
         /// </summary>
         public int columnWidthPercent {
             get {
@@ -670,8 +787,11 @@ namespace Contensive.Addons.PortalFramework {
         }
         //
         //====================================================================================================
-        // set the column visible
-        //  displays in report
+        // 
+        /// <summary>
+        /// Default true. If set false, the column will not display but will be exported in the csv.
+        /// To define a column, first call addColumn(), then set its name, caption, captionclass, cellclass, visible, sortable, width, downloadable. When columns are defined, use addRow() to create a row, then addCell() repeately to create a cell for each column.
+        /// </summary>
         public bool columnVisible {
             get {
                 checkColumnPtr();
@@ -684,8 +804,11 @@ namespace Contensive.Addons.PortalFramework {
         }
         //
         //====================================================================================================
-        // set the column downloadable
-        //  hides from export
+        // 
+        /// <summary>
+        /// set the column downloadable
+        /// To define a column, first call addColumn(), then set its name, caption, captionclass, cellclass, visible, sortable, width, downloadable. When columns are defined, use addRow() to create a row, then addCell() repeately to create a cell for each column.
+        /// </summary>
         public bool columnDownloadable {
             get {
                 checkColumnPtr();
@@ -699,7 +822,8 @@ namespace Contensive.Addons.PortalFramework {
         //
         //====================================================================================================
         /// <summary>
-        /// Add a new blank column. After adding the column, use properties like .columnName to populate it
+        /// Add a new blank column. After adding the column, use properties like .columnName to populate it.
+        /// To define a column, first call addColumn(), then set its name, caption, captionclass, cellclass, visible, sortable, width, downloadable. When columns are defined, use addRow() to create a row, then addCell() repeately to create a cell for each column.
         /// </summary>
         public void addColumn() {
             if (columnPtr < columnSize) {
@@ -720,7 +844,8 @@ namespace Contensive.Addons.PortalFramework {
         //
         //====================================================================================================
         /// <summary>
-        /// Add a new column populated with the values provided
+        /// Add a new column populated with the values provided.
+        /// To define a column, first call addColumn(), then set its name, caption, captionclass, cellclass, visible, sortable, width, downloadable. When columns are defined, use addRow() to create a row, then addCell() repeately to create a cell for each column.
         /// </summary>
         public void addColumn(ReportListColumnClass column) {
             addColumn();
@@ -736,7 +861,8 @@ namespace Contensive.Addons.PortalFramework {
         //
         //====================================================================================================
         /// <summary>
-        /// add a new row. After adding a row, add columns and populate them
+        /// add a new row. After adding a row, add columns and populate them.
+        /// To define a column, first call addColumn(), then set its name, caption, captionclass, cellclass, visible, sortable, width, downloadable. When columns are defined, use addRow() to create a row, then addCell() repeately to create a cell for each column.
         /// </summary>
         public void addRow() {
             localIsEmptyReport = false;
@@ -750,9 +876,14 @@ namespace Contensive.Addons.PortalFramework {
             checkColumnPtr();
             columnPtr = 0;
         }
+        private bool localIsEmptyReport = true;
         //
         //====================================================================================================
-        // mark this row to exclude from data download
+        // 
+        /// <summary>
+        /// mark this row to exclude from data download.
+        /// To define a column, first call addColumn(), then set its name, caption, captionclass, cellclass, visible, sortable, width, downloadable. When columns are defined, use addRow() to create a row, then addCell() repeately to create a cell for each column.
+        /// </summary>
         public bool excludeRowFromDownload {
             get {
                 checkColumnPtr();
@@ -766,8 +897,18 @@ namespace Contensive.Addons.PortalFramework {
             }
         }
         //
+        /// <summary>
+        /// if true, exclude this row from download
+        /// </summary>
+        private readonly bool[] localExcludeRowFromDownload = new bool[rowSize];
+        //
         //====================================================================================================
-        // add a row class
+        // 
+        /// <summary>
+        /// Set the html class for the current row.
+        /// To define a column, first call addColumn(), then set its name, caption, captionclass, cellclass, visible, sortable, width, downloadable. When columns are defined, use addRow() to create a row, then addCell() repeately to create a cell for each column.
+        /// </summary>
+        /// <param name="styleClass"></param>
         public void addRowClass(string styleClass) {
             localIsEmptyReport = false;
             checkColumnPtr();
@@ -775,11 +916,26 @@ namespace Contensive.Addons.PortalFramework {
             localRowClasses[rowCnt] += " " + styleClass;
         }
         //
+        /// <summary>
+        /// the report row styles
+        /// </summary>
+        private readonly string[] localRowClasses = new string[rowSize];
+        //
         //====================================================================================================
-        // populate a cell
+        // 
+        /// <summary>
+        /// populate a cell.
+        /// To define a column, first call addColumn(), then set its name, caption, captionclass, cellclass, visible, sortable, width, downloadable. When columns are defined, use addRow() to create a row, then addCell() repeately to create a cell for each column.
+        /// </summary>
+        /// <param name="content"></param>
         public void setCell(string content) {
             setCell(content, content);
         }
+        // 
+        /// <summary>
+        /// populate a cell.
+        /// To define a column, first call addColumn(), then set its name, caption, captionclass, cellclass, visible, sortable, width, downloadable. When columns are defined, use addRow() to create a row, then addCell() repeately to create a cell for each column.
+        /// </summary>
         public void setCell(string reportContent, string downloadContent) {
             if (!ReportTooLong) {
                 localIsEmptyReport = false;
@@ -792,159 +948,79 @@ namespace Contensive.Addons.PortalFramework {
                 columnPtr += 1;
             }
         }
-        //
+        // 
+        /// <summary>
+        /// populate a cell.
+        /// To define a column, first call addColumn(), then set its name, caption, captionclass, cellclass, visible, sortable, width, downloadable. When columns are defined, use addRow() to create a row, then addCell() repeately to create a cell for each column.
+        /// </summary>
         public void setCell(int content) => setCell(content.ToString(), content.ToString());
+        // 
+        /// <summary>
+        /// populate a cell.
+        /// To define a column, first call addColumn(), then set its name, caption, captionclass, cellclass, visible, sortable, width, downloadable. When columns are defined, use addRow() to create a row, then addCell() repeately to create a cell for each column.
+        /// </summary>
         public void setCell(int content, int downloadContent) => setCell(content.ToString(), downloadContent.ToString());
         //
+        /// <summary>
+        /// populate a cell.
+        /// To define a column, first call addColumn(), then set its name, caption, captionclass, cellclass, visible, sortable, width, downloadable. When columns are defined, use addRow() to create a row, then addCell() repeately to create a cell for each column.
+        /// </summary>
         public void setCell(double content) => setCell(content.ToString(), content.ToString());
+        // 
+        /// <summary>
+        /// populate a cell.
+        /// To define a column, first call addColumn(), then set its name, caption, captionclass, cellclass, visible, sortable, width, downloadable. When columns are defined, use addRow() to create a row, then addCell() repeately to create a cell for each column.
+        /// </summary>
         public void setCell(double content, double downloadContent) => setCell(content.ToString(), downloadContent.ToString());
-        //
+        // 
+        /// <summary>
+        /// populate a cell.
+        /// To define a column, first call addColumn(), then set its name, caption, captionclass, cellclass, visible, sortable, width, downloadable. When columns are defined, use addRow() to create a row, then addCell() repeately to create a cell for each column.
+        /// </summary>
         public void setCell(bool content) => setCell(content.ToString(), content.ToString());
+        // 
+        /// <summary>
+        /// populate a cell.
+        /// To define a column, first call addColumn(), then set its name, caption, captionclass, cellclass, visible, sortable, width, downloadable. When columns are defined, use addRow() to create a row, then addCell() repeately to create a cell for each column.
+        /// </summary>
         public void setCell(bool content, bool downloadContent) => setCell(content.ToString(), downloadContent.ToString());
-        //
+        // 
+        /// <summary>
+        /// populate a cell.
+        /// To define a column, first call addColumn(), then set its name, caption, captionclass, cellclass, visible, sortable, width, downloadable. When columns are defined, use addRow() to create a row, then addCell() repeately to create a cell for each column.
+        /// </summary>
         public void setCell(DateTime content) => setCell(content.ToString(), content.ToString());
+        // 
+        /// <summary>
+        /// populate a cell.
+        /// To define a column, first call addColumn(), then set its name, caption, captionclass, cellclass, visible, sortable, width, downloadable. When columns are defined, use addRow() to create a row, then addCell() repeately to create a cell for each column.
+        /// </summary>
         public void setCell(DateTime content, DateTime downloadContent) => setCell(content.ToString(), downloadContent.ToString());
         //
         //====================================================================================================
         //
-        private string indent(string src) {
-            return src.Replace(Constants.cr, Constants.cr2);
-        }
+        // -- deprecated
         //
-        //====================================================================================================
-        //
-        private void checkColumnPtr() {
-            if (columnPtr < 0) {
-                addColumn();
+        /// <summary>
+        /// deprecated. use addHidden() to add a formId hidden tag
+        /// </summary>
+        [Obsolete("deprecated. use addHidden() to add a formId hidden tag", false)]
+        public string formId {
+            get {
+                return localFormId_Local;
+            }
+            set {
+                localFormId_Local = value;
+                includeForm_Local = !string.IsNullOrEmpty(value);
             }
         }
+        private string localFormId_Local = "";
         //
-        //====================================================================================================
-        //
-        private void checkRowCnt() {
-            if (rowCnt < 0) {
-                addRow();
-            }
-        }
-        //
-        //====================================================================================================
-        // create csv download as form is build
-        public bool addCsvDownloadCurrentPage { get; set; } = false;
-        //
-        //====================================================================================================
-        // initialize
-        //  read the report and column settings from the Db
-        //  if no localGuid set, sync to Db does not work
-        //  if the report does not exist in teh Db, use the input values
-        //public ReportListClass(CPBaseClass cp) {
-        //}
-        //private void reportDbInit(CPBaseClass cp) {
-        //    try {
-        //        int colPtr;
-        //        string colName;
-        //        string colCaption;
-        //        string colSortOrder;
-        //        string colCaptionClass;
-        //        string colCellClass;
-        //        bool colSortable = false;
-        //        bool colVisible = true;
-        //        bool colDownloadable = true;
-        //        string textVisible = "";
-        //        //string textDownloadable = "";
-        //        CPCSBaseClass cs = cp.CSNew();
-        //        int reportId;
-        //        string sqlCriteria;
-        //        //
-        //        if (guid != "") {
-        //            sqlCriteria = "ccguid=" + cp.Db.EncodeSQLText(guid);
-        //            if (!cs.Open("Admin Framework Reports", sqlCriteria, "", true, "", 9999, 1)) {
-        //                cs.Close();
-        //                if (name == "") {
-        //                    name = title;
-        //                }
-        //                cs.Insert("Admin Framework reports");
-        //                cs.SetField("ccguid", guid);
-        //                cs.SetField("name", name);
-        //                cs.SetField("title", title);
-        //                //cs.SetField("description", localDescription);
-        //            }
-        //            reportId = cs.GetInteger("id");
-        //            name = cs.GetText("name");
-        //            title = cs.GetText("title");
-        //            //localDescription = cs.GetText("description");
-        //            // tmp solution for reports created with a name and no title
-        //            if ((title == "") && (name != "")) {
-        //                title = name;
-        //            }
-        //            cs.Close();
-        //            //
-        //            //
-        //            for (colPtr = 0; colPtr <= columnMax; colPtr++) {
-        //                colCaption = columns[colPtr].caption;
-        //                colName = columns[colPtr].name;
-        //                colSortOrder = (colPtr * 10).ToString();
-        //                colSortOrder = colSortOrder.PadLeft(4 - colSortOrder.Length, '0');
-        //                colCaptionClass = columns[colPtr].captionClass;
-        //                colCellClass = columns[colPtr].cellClass;
-        //                colSortable = columns[colPtr].sortable; // not part of Db config
-        //                colVisible = columns[colPtr].visible;
-        //                colDownloadable = columns[colPtr].downloadable;
-        //                if (colName == "") {
-        //                    colName = colCaption;
-        //                }
-        //                if ((colName != "") && (reportId != 0)) {
-        //                    if (!cs.Open("Admin Framework Report Columns", "(reportId=" + reportId.ToString() + ")and(name=" + cp.Db.EncodeSQLText(colName) + ")", "id", true, "", 9999, 1)) {
-        //                        cs.Close();
-        //                        cs.Insert("Admin Framework Report Columns");
-        //                        cs.SetField("reportId", reportId.ToString());
-        //                        cs.SetField("name", colName);
-        //                        cs.SetField("caption", colCaption);
-        //                        cs.SetField("sortOrder", colSortOrder);
-        //                        cs.SetField("captionClass", colCaptionClass);
-        //                        cs.SetField("cellClass", colCellClass);
-        //                        cs.SetField("visible", colVisible.ToString());
-        //                        // for another day
-        //                        //cs.SetField("downloadable", colDownloadable.ToString());
-        //                    } else {
-        //                        // tmp - if name but not caption, use the other
-        //                        colCaption = cs.GetText("caption");
-        //                        colName = cs.GetText("name");
-        //                        if (colCaption == "") {
-        //                            colCaption = colName;
-        //                        } else if (colName == "") {
-        //                            colName = colCaption;
-        //                        }
-        //                        columns[colPtr].name = colName;
-        //                        columns[colPtr].caption = colCaption;
-        //                        columns[colPtr].captionClass = cs.GetText("captionClass");
-        //                        columns[colPtr].cellClass = cs.GetText("cellClass");
-        //                        textVisible = cs.GetText("visible");
-        //                        if (textVisible == "") {
-        //                            cs.SetField("visible", colVisible.ToString());
-        //                        } else {
-        //                            columns[colPtr].visible = cp.Utils.EncodeBoolean(textVisible);
-        //                        }
-        //                        // for another day
-        //                        //textDownloadable = cs.GetText("downloadable");
-        //                        //if (textDownloadable == "")
-        //                        //{
-        //                        //    cs.SetField("downloadable", textDownloadable.ToString());
-        //                        //}
-        //                        //else
-        //                        //{
-        //                        //    columns[colPtr].visible = cp.Utils.EncodeBoolean(textDownloadable);
-        //                        //}
-        //                    }
-        //                    cs.Close();
-        //                }
-        //            }
-        //        }
-        //    } catch (Exception ex) {
-        //        cp.Site.ErrorReport(ex, "Exception in reportListClass.init");
-        //    }
-
-        //}
-
+        /// <summary>
+        /// legacy constructor
+        /// </summary>
+        /// <param name="cp"></param>
+        [Obsolete("Use parameterless constructor, New ReportListClass()", false)] public ReportListClass(CPBaseClass cp) { }
     }
     //
     //====================================================================================================

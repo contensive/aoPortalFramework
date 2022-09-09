@@ -272,6 +272,7 @@ namespace Contensive.Addons.PortalFramework {
             //
             // add form
             //
+            if (local_includeBodyPadding) { result = cp.Html.div(result, "", "afwBodyPad", ""); };
             if (localIncludeForm) {
                 if (localButtonList != "") {
                     localButtonList = ""
@@ -279,16 +280,8 @@ namespace Contensive.Addons.PortalFramework {
                         + indent(localButtonList)
                         + Constants.cr + "</div>";
                 }
-                result = Constants.cr + cp.Html.Form(localButtonList + result + localButtonList + localHiddenList, "", "", "", localFormActionQueryString, "");
-                //body = ""
-                //    + cr + "<form action=\"" + localFormAction + "\" method=\"post\" enctype=\"MULTIPART/FORM-DATA\">"
-                //    + indent(localButtonList + body + localHiddenList)
-                //    + cr + "</form>";
+                result = Constants.cr + cp.Html.Form(result + localButtonList + localHiddenList, "", "", "", localFormActionQueryString, "");
             }
-            //
-            // body padding and color
-            //
-            if (local_includeBodyPadding) { result = cp.Html.div(result, "", "afwBodyPad", ""); };
             if (local_includeBodyColor) { result = cp.Html.div(result, "", "afwBodyColor", ""); };
             //
             // if outer container, add styles and javascript
@@ -352,7 +345,7 @@ namespace Contensive.Addons.PortalFramework {
             }
             set {
                 localFormActionQueryString = value;
-                localIncludeForm = true;
+                localIncludeForm = !string.IsNullOrEmpty(value);
             }
         }
         public string formId {
@@ -361,7 +354,7 @@ namespace Contensive.Addons.PortalFramework {
             }
             set {
                 localFormId = value;
-                localIncludeForm = true;
+                localIncludeForm = !string.IsNullOrEmpty(value);
             }
         }
         //

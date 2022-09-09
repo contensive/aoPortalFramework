@@ -195,7 +195,7 @@ namespace Contensive.Addons.PortalFramework
             string returnHeadJs = "";
             string jsonData = "";
             string jsonRow = "";
-            string chartHtmlId = "afwChart" + GnericController.getRandomHtmlId(cp);
+            string chartHtmlId = "afwChart" + HtmlController.getRandomHtmlId(cp);
             string captionColumn;
             string clickLink;
             //
@@ -374,6 +374,7 @@ namespace Contensive.Addons.PortalFramework
             //
             // add form
             //
+            if (_includeBodyPadding) { result = cp.Html.div(result, "", "afwBodyPad", ""); };
             if (localIncludeForm)
             {
                 if (localButtonList != "")
@@ -383,14 +384,8 @@ namespace Contensive.Addons.PortalFramework
                         + indent(localButtonList)
                         + Constants.cr + "</div>";
                 }
-                result = Constants.cr + cp.Html.Form(localButtonList + result + localButtonList + localHiddenList, "", "", "", localFormActionQueryString, "");
-                //body = ""
-                //    + cr + cp.Html.Form( localButtonList + body + localHiddenList )
-                //    + cr + "<form action=\"" + localFormAction + "\" method=\"post\" enctype=\"MULTIPART/FORM-DATA\">"
-                //    + indent(localButtonList + body + localHiddenList)
-                //    + cr + "</form>";
+                result = Constants.cr + cp.Html.Form(result + localButtonList + localHiddenList, "", "", "", localFormActionQueryString, "");
             }
-            if (_includeBodyPadding) { result = cp.Html.div(result, "", "afwBodyPad", ""); };
             if (_includeBodyColor) { result = cp.Html.div(result, "", "afwBodyColor", ""); };
             //
             // if outer container, add styles and javascript

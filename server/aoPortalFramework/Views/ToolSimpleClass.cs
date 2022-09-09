@@ -96,7 +96,7 @@ namespace Contensive.Addons.PortalFramework {
                         + indent(localButtonList)
                         + Constants.cr + "</div>";
                 }
-                result = Constants.cr + cp.Html.Form(localButtonList + result + localButtonList + localHiddenList, "", "", "", localFormActionQueryString, "");
+                result = Constants.cr + cp.Html.Form(result + localButtonList + localHiddenList, "", "", "", localFormActionQueryString, "");
             }
             //
             // if outer container, add styles and javascript

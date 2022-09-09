@@ -2,13 +2,14 @@
 /*
 * Contensive.Addons.PortalFramework assembly referenced resources
 */
-#desktop 
+.ccCon #desktop 
 {
-    background-color: #999;
+	color: #333;
+	background-color: white!important;
 }
 #afw #afwBodyFrame 
 {
-    background-color: white;
+    background-color: white!important;
 }
 #afw,#afw p,#afw div,#afw td,#afw li
 {
@@ -87,8 +88,10 @@
 	padding: 10px 10px 8px;
 	border-bottom: 1px solid #aaa;
 	background-color: #ccc;
-	border-radius: 3px;
 	clear: both;
+/*
+	border-radius: 3px;
+*/
 }
 #afw .afwButton 
 {
@@ -130,9 +133,11 @@
 	background-color: #fff;
     margin:0;
 	padding: 0;
+/*
 	border-left: 1px solid rgba(0, 0, 0, 0.1);
 	border-right: 1px solid rgba(0, 0, 0, 0.1);
 	border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+*/
 }
 #afw ul.afwNav 
 {
