@@ -236,13 +236,13 @@ namespace Contensive.Addons.PortalFramework {
             //
             if (includeBodyPadding) { result = cp.Html.div(result, "", "afwBodyPad", ""); };
             if (localIncludeForm) {
-                if (localButtonList != "") {
-                    localButtonList = ""
-                        + "<div class=\"afwButtonCon\">"
-                        + (localButtonList)
-                        + "</div>";
-                }
-                result = cp.Html.Form(result + localButtonList + localHiddenList, "", "", "", localFormActionQueryString, "");
+                //if (localButtonList != "") {
+                //    localButtonList = ""
+                //        + "<div class=\"afwButtonCon\">"
+                //        + (localButtonList)
+                //        + "</div>";
+                //}
+                result = cp.Html.Form(result + HtmlController.getButtonSection(localButtonList) + localHiddenList, "", "", "", localFormActionQueryString, "");
             }
             if (includeBodyColor) { result = cp.Html.div(result, "", "afwBodyColor", ""); };
             //
@@ -317,7 +317,8 @@ namespace Contensive.Addons.PortalFramework {
             addFormButton(buttonValue, buttonName, buttonId, "");
         }
         public void addFormButton(string buttonValue, string buttonName, string buttonId, string buttonClass) {
-            localButtonList += "<input type=\"submit\" name=\"" + buttonName + "\" value=\"" + buttonValue + "\" id=\"" + buttonId + "\" class=\"afwButton " + buttonClass + "\">";
+            localButtonList += HtmlController.getButton(buttonName, buttonValue, buttonId, buttonClass);
+            //localButtonList += "<input type=\"submit\" name=\"" + buttonName + "\" value=\"" + buttonValue + "\" id=\"" + buttonId + "\" class=\"afwButton " + buttonClass + "\">";
             localIncludeForm = true;
         }
         //

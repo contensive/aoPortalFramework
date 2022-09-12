@@ -93,7 +93,7 @@
     <Compile Include="Models\Domain\PortalDataFeatureModel.cs" />
     <Compile Include="Models\Db\AdminFrameworkReportsClass.cs" />
     <Compile Include="Models\Db\AdminFrameworkReportColumnClass.cs" />
-    <Compile Include="Models\HtmlController.cs" />
+    <Compile Include="Controllers\HtmlController.cs" />
     <Compile Include="Views\CommonClass.cs" />
     <Compile Include="Addons\PortalAddon.cs" />
     <Compile Include="Views\DevToolView.cs" />

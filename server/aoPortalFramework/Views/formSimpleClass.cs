@@ -1,32 +1,10 @@
 
 using System;
+using Contensive.Addons.PortalFramework.Controllers;
 using Contensive.BaseClasses;
 
 namespace Contensive.Addons.PortalFramework {
     public class FormSimpleClass {
-        //
-        //-------------------------------------------------
-        //
-        string localHiddenList { get; set; } = "";
-        //
-        //-------------------------------------------------
-        //
-        string localButtonList { get; set; } = "";
-        //
-        //-------------------------------------------------
-        //
-        string localFormId { get; set; } = "";
-        //
-        //-------------------------------------------------
-        //
-        string localFormActionQueryString { get; set; } = "";
-        //
-        //-------------------------------------------------
-        /// <summary>
-        /// If true, the resulting html is wrapped in a form element whose action returns execution back to this addon where is it processed here in the same code.
-        /// consider a pattern that blocks the include form if this layout is called form the portal system, where the portal methods create the entire strucuture
-        /// </summary>
-        bool localIncludeForm { get; set; } = false;
         //
         //-------------------------------------------------
         //
@@ -60,7 +38,7 @@ namespace Contensive.Addons.PortalFramework {
         //
         public string javascript => Properties.Resources.javascript;
         //
-        // ====================================================================================================
+        //-------------------------------------------------
         /// <summary>
         /// Optional. If set, this value will populate the title in the subnav of the portalbuilder
         /// </summary>
@@ -69,49 +47,23 @@ namespace Contensive.Addons.PortalFramework {
         //-------------------------------------------------
         //
         public string getHtml(CPBaseClass cp) {
-            string userErrors = cp.Utils.EncodeText(cp.UserError.GetList());
-            if (userErrors != "") {
-                warning = userErrors;
-            }
-            string result = "";
             //
-            if (body != "") { result += body; }
-            //
-            // headers
-            //
-            if (description != "") {
-                result = Constants.cr + "<p id=\"afwDescription\">" + description + "</p>" + result;
-            }
-            if (warning != "") {
-                result = Constants.cr + "<div id=\"afwWarning\">" + warning + "</div>" + result;
-            }
-            if (title != "") {
-                result = Constants.cr + "<h2 id=\"afwTitle\">" + title + "</h2>" + result;
-            }
-            //
-            // add form
-            if (includeBodyPadding) { result = cp.Html.div(result, "", "afwBodyPad", ""); };
-            if (localIncludeForm) {
-                if (localButtonList != "") {
-                    localButtonList = ""
-                        + Constants.cr + "<div class=\"afwButtonCon\">"
-                        + indent(localButtonList)
-                        + Constants.cr + "</div>";
-                }
-                result = Constants.cr + cp.Html.Form(result + localButtonList + localHiddenList, "", "", "", localFormActionQueryString, "");
-            }
-            if (includeBodyColor) { result = cp.Html.div(result, "", "afwBodyColor", ""); };
-            //
-            // if outer container, add styles and javascript
-            //
-            if (isOuterContainer) {
-                cp.Doc.AddHeadJavascript(Properties.Resources.javascript);
-                cp.Doc.AddHeadStyle(Properties.Resources.styles);
-                result = ""
-                    + Constants.cr + "<div id=\"afw\">"
-                    + indent(result)
-                    + Constants.cr + "</div>";
-            }
+            // -- construct body
+            HtmlDocRequest request = new HtmlDocRequest() {
+                body = body,
+                includeBodyPadding = includeBodyPadding,
+                includeBodyColor = includeBodyColor,
+                buttonList = buttonList,
+                csvDownloadFilename = "",
+                description = description,
+                formActionQueryString = formActionQueryString,
+                hiddenList = hiddenList,
+                includeForm = includeForm,
+                isOuterContainer = isOuterContainer,
+                title = title,
+                warning = warning
+            };
+            string result = HtmlController.getReportDoc(cp, request);
             //
             // -- set the optional title of the portal subnav
             if (!string.IsNullOrEmpty(portalSubNavTitle)) { cp.Doc.SetProperty("portalSubNavTitle", portalSubNavTitle); }
@@ -121,9 +73,15 @@ namespace Contensive.Addons.PortalFramework {
         //-------------------------------------------------
         // 
         public void addFormHidden(string Name, string Value) {
-            localHiddenList += Constants.cr + "<input type=\"hidden\" name=\"" + Name + "\" value=\"" + Value + "\">";
-            localIncludeForm = true;
+            hiddenList += Constants.cr + "<input type=\"hidden\" name=\"" + Name + "\" value=\"" + Value + "\">";
+            includeForm = true;
         }
+        private string hiddenList = "";
+        /// <summary>
+        /// If true, the resulting html is wrapped in a form element whose action returns execution back to this addon where is it processed here in the same code.
+        /// consider a pattern that blocks the include form if this layout is called form the portal system, where the portal methods create the entire strucuture
+        /// </summary>
+        private bool includeForm { get; set; } = false;
         //
         public void addFormHidden(string name, int value) => addFormHidden(name, value.ToString());
         //
@@ -145,39 +103,36 @@ namespace Contensive.Addons.PortalFramework {
             addFormButton(buttonValue, buttonName, buttonId, "");
         }
         public void addFormButton(string buttonValue, string buttonName, string buttonId, string buttonClass) {
-            localButtonList += Constants.cr + "<input type=\"submit\" name=\"" + buttonName + "\" value=\"" + buttonValue + "\" id=\"" + buttonId + "\" class=\"afwButton " + buttonClass + "\">";
-            localIncludeForm = true;
+            buttonList += HtmlController.getButton(buttonName, buttonValue, buttonId, buttonClass);
+            includeForm = true;
         }
+        private string buttonList = "";
         //
         //-------------------------------------------------
         // 
         public string formActionQueryString {
             get {
-                return localFormActionQueryString;
+                return formActionQueryString_local;
             }
             set {
-                localFormActionQueryString = value;
-                localIncludeForm = !string.IsNullOrEmpty(value);
+                formActionQueryString_local = value;
+                includeForm |= !string.IsNullOrEmpty(value);
             }
         }
+        private string formActionQueryString_local;
         public string formId {
             get {
-                return localFormId;
+                return formId_local;
             }
             set {
-                localFormId = value;
-                localIncludeForm = !string.IsNullOrEmpty(value);
+                formId_local = value;
+                includeForm |= !string.IsNullOrEmpty(value);
             }
         }
+        private string formId_local;
         //
         //-------------------------------------------------
         // 
         public string body { get; set; } = "";
-        //
-        //-------------------------------------------------
-        //
-        private string indent(string src) {
-            return src.Replace(Constants.cr, Constants.cr2);
-        }
     }
 }

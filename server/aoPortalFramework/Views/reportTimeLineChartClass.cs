@@ -5,27 +5,22 @@ using System.Text;
 using Contensive.Addons.PortalFramework.Controllers;
 using Contensive.BaseClasses;
 
-namespace Contensive.Addons.PortalFramework
-{
-    public class reportTimeLineChartClass
-    {
+namespace Contensive.Addons.PortalFramework {
+    public class reportTimeLineChartClass {
         const int columnSize = 99;
         const int rowSize = 9999;
         //
-        struct columnStruct
-        {
+        struct columnStruct {
             public string caption;
             public string captionClass;
             public string cellClass;
         }
         //
-        struct rowStruct
-        {
+        struct rowStruct {
             public DateTime date;
             public string captionClass;
         }
-        struct chartDataStruct
-        {
+        struct chartDataStruct {
             public double yValue;
             //public string clickLink;
         }
@@ -80,14 +75,11 @@ namespace Contensive.Addons.PortalFramework
         //
         //-------------------------------------------------
         //
-        public bool includeBodyPadding
-        {
-            get
-            {
+        public bool includeBodyPadding {
+            get {
                 return _includeBodyPadding;
             }
-            set
-            {
+            set {
                 _includeBodyPadding = value;
             }
         }
@@ -95,14 +87,11 @@ namespace Contensive.Addons.PortalFramework
         //
         //-------------------------------------------------
         //
-        public bool includeBodyColor
-        {
-            get
-            {
+        public bool includeBodyColor {
+            get {
                 return _includeBodyColor;
             }
-            set
-            {
+            set {
                 _includeBodyColor = value;
             }
         }
@@ -110,14 +99,11 @@ namespace Contensive.Addons.PortalFramework
         //
         //-------------------------------------------------
         //
-        public string yAxisCaption
-        {
-            get
-            {
+        public string yAxisCaption {
+            get {
                 return localYAxisCaption;
             }
-            set
-            {
+            set {
                 localYAxisCaption = value;
             }
         }
@@ -126,14 +112,11 @@ namespace Contensive.Addons.PortalFramework
         //
         //-------------------------------------------------
         //
-        public string xAxisCaption
-        {
-            get
-            {
+        public string xAxisCaption {
+            get {
                 return localXAxisCaption;
             }
-            set
-            {
+            set {
                 localXAxisCaption = value;
             }
         }
@@ -142,14 +125,11 @@ namespace Contensive.Addons.PortalFramework
         //
         //-------------------------------------------------
         //
-        public bool isOuterContainer
-        {
-            get
-            {
+        public bool isOuterContainer {
+            get {
                 return localIsOuterContainer;
             }
-            set
-            {
+            set {
                 localIsOuterContainer = value;
             }
         }
@@ -158,10 +138,8 @@ namespace Contensive.Addons.PortalFramework
         //
         //-------------------------------------------------
         //
-        public string styleSheet
-        {
-            get
-            {
+        public string styleSheet {
+            get {
                 return Properties.Resources.styles;
             }
         }
@@ -170,10 +148,8 @@ namespace Contensive.Addons.PortalFramework
         //
         //-------------------------------------------------
         //
-        public string javascript
-        {
-            get
-            {
+        public string javascript {
+            get {
                 return Properties.Resources.javascript;
             }
         }
@@ -182,8 +158,7 @@ namespace Contensive.Addons.PortalFramework
         // getResult
         //-------------------------------------------------
         //
-        public string getHtml(CPBaseClass cp)
-        {
+        public string getHtml(CPBaseClass cp) {
             string result = "";
             string row = "";
             string rowList = "";
@@ -203,8 +178,7 @@ namespace Contensive.Addons.PortalFramework
             // add user errors
             //
             userErrors = cp.Utils.EncodeText(cp.UserError.GetList());
-            if (userErrors != "")
-            {
+            if (userErrors != "") {
                 warning = userErrors;
             }
             //
@@ -212,27 +186,22 @@ namespace Contensive.Addons.PortalFramework
             //
             jsonData += Constants.cr + "data.addColumn('date', 'Date');";
             rowList = "";
-            if (gridIncludesCaptionColumn)
-            {
+            if (gridIncludesCaptionColumn) {
                 rowList += Constants.cr + "<th>" + localXAxisCaption + "</th>";
             }
-            for (colPtr = 0; colPtr <= columnMax; colPtr++)
-            {
+            for (colPtr = 0; colPtr <= columnMax; colPtr++) {
                 styleClass = columns[colPtr].captionClass;
-                if (styleClass != "")
-                {
+                if (styleClass != "") {
                     styleClass = " class=\"" + styleClass + "\"";
                 }
                 content = columns[colPtr].caption;
-                if (content == "")
-                {
+                if (content == "") {
                     content = "&nbsp;";
                 }
                 rowList += Constants.cr + "<th" + styleClass + ">" + content + "</th>";
                 jsonData += Constants.cr + "data.addColumn('number', '" + content + "');";
             }
-            if (gridIncludeHeaderRow)
-            {
+            if (gridIncludeHeaderRow) {
                 result += ""
                     + Constants.cr + "<thead>"
                     + Constants.cr2 + "<tr>"
@@ -246,11 +215,9 @@ namespace Contensive.Addons.PortalFramework
             //
             rowList = "";
             jsonRowList = "";
-            if (localIsEmptyReport)
-            {
+            if (localIsEmptyReport) {
                 styleClass = columns[0].cellClass;
-                if (styleClass != "")
-                {
+                if (styleClass != "") {
                     styleClass = " class=\"" + styleClass + "\"";
                 }
                 row = Constants.cr + "<td style=\"text-align:left\" " + styleClass + " colspan=\"" + (columnMax + 1) + "\">[empty]</td>";
@@ -258,23 +225,18 @@ namespace Contensive.Addons.PortalFramework
                     + Constants.cr + "<tr>"
                     + indent(row)
                     + Constants.cr + "</tr>";
-            }
-            else
-            {
-                for (rowPtr = 0; rowPtr <= rowCnt; rowPtr++)
-                {
+            } else {
+                for (rowPtr = 0; rowPtr <= rowCnt; rowPtr++) {
                     row = "";
                     //
                     // first column is the date
                     //
                     DateTime rowDate;
                     rowDate = rows[rowPtr].date;
-                    jsonRow = "new Date(" + rowDate.Year + "," + (rowDate.Month-1) + "," + rowDate.Day + ")";
-                    if (gridIncludesCaptionColumn)
-                    {
+                    jsonRow = "new Date(" + rowDate.Year + "," + (rowDate.Month - 1) + "," + rowDate.Day + ")";
+                    if (gridIncludesCaptionColumn) {
                         captionColumn = rows[rowPtr].date.ToShortDateString();
-                        if (captionColumn == "")
-                        {
+                        if (captionColumn == "") {
                             captionColumn = "&nbsp;";
                         }
                         row += Constants.cr + "<th class=\"" + rows[rowPtr].captionClass + "\">" + captionColumn + "</th>";
@@ -282,23 +244,18 @@ namespace Contensive.Addons.PortalFramework
                     //
                     // additional columns are numeric
                     //
-                    for (colPtr = 0; colPtr <= columnMax; colPtr++)
-                    {
+                    for (colPtr = 0; colPtr <= columnMax; colPtr++) {
                         styleClass = columns[colPtr].cellClass;
-                        if (styleClass != "")
-                        {
+                        if (styleClass != "") {
                             styleClass = " class=\"" + styleClass + "\"";
                         }
                         row += Constants.cr + "<td" + styleClass + ">" + chartData[rowPtr, colPtr].yValue + "</td>";
                         jsonRow += "," + chartData[rowPtr, colPtr].yValue;
                     }
                     jsonRowList += "," + Constants.cr + "[" + jsonRow + "]";
-                    if (rowPtr % 2 == 0)
-                    {
+                    if (rowPtr % 2 == 0) {
                         styleClass = "";
-                    }
-                    else
-                    {
+                    } else {
                         styleClass = " class=\"afwOdd\"";
                     }
                     rowList += ""
@@ -307,8 +264,7 @@ namespace Contensive.Addons.PortalFramework
                         + Constants.cr + "</tr>";
                 }
             }
-            if (jsonRowList != "")
-            {
+            if (jsonRowList != "") {
                 jsonData += Constants.cr + "data.addRows([" + jsonRowList.Substring(1) + "]);";
             }
             result += ""
@@ -335,11 +291,10 @@ namespace Contensive.Addons.PortalFramework
             //
             result = ""
                 + Constants.cr + "<div class=\"afwReportCon\">"
-                + indent( result )
+                + indent(result)
                 + Constants.cr + "</div>";
             //
-            if (localHtmlLeftOfTable != "")
-            {
+            if (localHtmlLeftOfTable != "") {
                 result = ""
                     + Constants.cr + "<div class=\"afwLeftSideHtml\">"
                     + indent(localHtmlLeftOfTable)
@@ -350,15 +305,13 @@ namespace Contensive.Addons.PortalFramework
                     + Constants.cr + "<div style=\"clear:both\"></div>"
                     + "";
             }
-            if (localHtmlBeforeTable != "")
-            {
+            if (localHtmlBeforeTable != "") {
                 result = ""
                     + localHtmlBeforeTable
                     + result
                     + "";
             }
-            if (localHtmlAfterTable != "")
-            {
+            if (localHtmlAfterTable != "") {
                 result = ""
                     + result
                     + localHtmlAfterTable
@@ -367,32 +320,27 @@ namespace Contensive.Addons.PortalFramework
             //
             // headers
             //
-            if (localDescription != "")
-            {
+            if (localDescription != "") {
                 result = Constants.cr + "<p id=\"afwDescription\">" + localDescription + "</p>" + result;
             }
-            if (localWarning != "")
-            {
+            if (localWarning != "") {
                 result = Constants.cr + "<div id=\"afwWarning\">" + localWarning + "</div>" + result;
             }
-            if (localTitle != "")
-            {
+            if (localTitle != "") {
                 result = Constants.cr + "<h2 id=\"afwTitle\">" + localTitle + "</h2>" + result;
             }
             //
             // add form
             //
             if (_includeBodyPadding) { result = cp.Html.div(result, "", "afwBodyPad", ""); };
-            if (localIncludeForm)
-            {
-                if (localButtonList != "")
-                {
-                    localButtonList = ""
-                        + Constants.cr + "<div class=\"afwButtonCon\">"
-                        + indent(localButtonList)
-                        + Constants.cr + "</div>";
-                }
-                result = Constants.cr + cp.Html.Form(result + localButtonList + localHiddenList, "", "", "", localFormActionQueryString, "");
+            if (localIncludeForm) {
+                //if (localButtonList != "") {
+                //    localButtonList = ""
+                //        + Constants.cr + "<div class=\"afwButtonCon\">"
+                //        + indent(localButtonList)
+                //        + Constants.cr + "</div>";
+                //}
+                result = Constants.cr + cp.Html.Form(result + HtmlController.getButtonSection(localButtonList) + localHiddenList, "", "", "", localFormActionQueryString, "");
                 //body = ""
                 //    + cr + cp.Html.Form( localButtonList + body + localHiddenList )
                 //    + cr + "<form action=\"" + localFormAction + "\" method=\"post\" enctype=\"MULTIPART/FORM-DATA\">"
@@ -403,8 +351,7 @@ namespace Contensive.Addons.PortalFramework
             //
             // if outer container, add styles and javascript
             //
-            if (localIsOuterContainer)
-            {
+            if (localIsOuterContainer) {
                 cp.Doc.AddHeadJavascript(Properties.Resources.javascript);
                 cp.Doc.AddHeadStyle(Properties.Resources.styles);
                 result = ""
@@ -414,7 +361,7 @@ namespace Contensive.Addons.PortalFramework
             }
             returnHeadJs += ""
                 + Constants.cr + "function drawChart() {"
-                + Constants.cr + "var data = new google.visualization.DataTable();" 
+                + Constants.cr + "var data = new google.visualization.DataTable();"
                 + jsonData
                 + Constants.cr + "var options={title:'" + localTitle + "',hAxis:{title:'" + localXAxisCaption + "',titleTextStyle:{color: 'red'}},displayAnnotations: true};"
                 + Constants.cr + "var chart = new google.visualization.AnnotatedTimeLine(document.getElementById('" + chartHtmlId + "'));"
@@ -437,38 +384,29 @@ namespace Contensive.Addons.PortalFramework
         // add html blocks
         //-------------------------------------------------
         //
-        public string htmlLeftOfTable
-        {
-            get
-            {
+        public string htmlLeftOfTable {
+            get {
                 return localHtmlLeftOfTable;
             }
-            set
-            {
+            set {
                 localHtmlLeftOfTable = value;
             }
         }
         //
-        public string htmlBeforeTable
-        {
-            get
-            {
+        public string htmlBeforeTable {
+            get {
                 return localHtmlBeforeTable;
             }
-            set
-            {
+            set {
                 localHtmlBeforeTable = value;
             }
         }
         //
-        public string htmlAfterTable
-        {
-            get
-            {
+        public string htmlAfterTable {
+            get {
                 return localHtmlAfterTable;
             }
-            set
-            {
+            set {
                 localHtmlAfterTable = value;
             }
         }
@@ -477,8 +415,7 @@ namespace Contensive.Addons.PortalFramework
         // add a form hidden
         //-------------------------------------------------
         //
-        public void addFormHidden(string Name, string Value)
-        {
+        public void addFormHidden(string Name, string Value) {
             localHiddenList += Constants.cr + "<input type=\"hidden\" name=\"" + Name + "\" value=\"" + Value + "\">";
             localIncludeForm = true;
         }
@@ -495,21 +432,18 @@ namespace Contensive.Addons.PortalFramework
         // add a form button
         //-------------------------------------------------
         //
-        public void addFormButton(string buttonValue)
-        {
+        public void addFormButton(string buttonValue) {
             addFormButton(buttonValue, "button", "", "");
         }
-        public void addFormButton(string buttonValue, string buttonName)
-        {
+        public void addFormButton(string buttonValue, string buttonName) {
             addFormButton(buttonValue, buttonName, "", "");
         }
-        public void addFormButton(string buttonValue, string buttonName, string buttonId)
-        {
+        public void addFormButton(string buttonValue, string buttonName, string buttonId) {
             addFormButton(buttonValue, buttonName, buttonId, "");
         }
-        public void addFormButton(string buttonValue, string buttonName, string buttonId, string buttonClass)
-        {
-            localButtonList += Constants.cr + "<input type=\"submit\" name=\"" + buttonName + "\" value=\"" + buttonValue + "\" id=\"" + buttonId + "\" class=\"afwButton " + buttonClass + "\">";
+        public void addFormButton(string buttonValue, string buttonName, string buttonId, string buttonClass) {
+            localButtonList += HtmlController.getButton(buttonName, buttonValue, buttonId, buttonClass);
+            //localButtonList += Constants.cr + "<input type=\"submit\" name=\"" + buttonName + "\" value=\"" + buttonValue + "\" id=\"" + buttonId + "\" class=\"afwButton " + buttonClass + "\">";
             localIncludeForm = true;
         }
         //
@@ -517,26 +451,20 @@ namespace Contensive.Addons.PortalFramework
         // setForm
         //-------------------------------------------------
         //
-        public string formActionQueryString
-        {
-            get
-            {
+        public string formActionQueryString {
+            get {
                 return localFormActionQueryString;
             }
-            set
-            {
+            set {
                 localFormActionQueryString = value;
                 localIncludeForm = true;
             }
         }
-        public string formId
-        {
-            get
-            {
+        public string formId {
+            get {
                 return localFormId;
             }
-            set
-            {
+            set {
                 localFormId = value;
                 localIncludeForm = true;
             }
@@ -562,14 +490,11 @@ namespace Contensive.Addons.PortalFramework
         // Title
         //-------------------------------------------------
         //
-        public string title
-        {
-            get
-            {
+        public string title {
+            get {
                 return localTitle;
             }
-            set
-            {
+            set {
                 localTitle = value;
             }
         }
@@ -578,14 +503,11 @@ namespace Contensive.Addons.PortalFramework
         // Warning
         //-------------------------------------------------
         //
-        public string warning
-        {
-            get
-            {
+        public string warning {
+            get {
                 return localWarning;
             }
-            set
-            {
+            set {
                 localWarning = value;
             }
         }
@@ -594,14 +516,11 @@ namespace Contensive.Addons.PortalFramework
         // Description
         //-------------------------------------------------
         //
-        public string description
-        {
-            get
-            {
+        public string description {
+            get {
                 return localDescription;
             }
-            set
-            {
+            set {
                 localDescription = value;
             }
         }
@@ -610,17 +529,13 @@ namespace Contensive.Addons.PortalFramework
         // column properties
         //-------------------------------------------------
         //
-        public string columnCaption
-        {
-            get
-            {
+        public string columnCaption {
+            get {
                 checkColumnPtr();
                 return columns[columnPtr].caption;
             }
-            set
-            {
-                if (value != "")
-                {
+            set {
+                if (value != "") {
                     checkColumnPtr();
                     gridIncludeHeaderRow = true;
                     columns[columnPtr].caption = value;
@@ -632,17 +547,13 @@ namespace Contensive.Addons.PortalFramework
         // set the caption class for this column
         //-------------------------------------------------
         //
-        public string columnCaptionClass
-        {
-            get
-            {
+        public string columnCaptionClass {
+            get {
                 checkColumnPtr();
                 return columns[columnPtr].captionClass;
             }
-            set
-            {
-                if (value != "")
-                {
+            set {
+                if (value != "") {
                     gridIncludeHeaderRow = true;
                     checkColumnPtr();
                     columns[columnPtr].captionClass = value;
@@ -654,15 +565,12 @@ namespace Contensive.Addons.PortalFramework
         // set the cell class for this column
         //-------------------------------------------------
         //
-        public string columnCellClass
-        {
-            get
-            {
+        public string columnCellClass {
+            get {
                 checkColumnPtr();
                 return columns[columnPtr].cellClass;
             }
-            set
-            {
+            set {
                 checkColumnPtr();
                 columns[columnPtr].cellClass = value;
             }
@@ -672,16 +580,13 @@ namespace Contensive.Addons.PortalFramework
         // add a column
         //-------------------------------------------------
         //
-        public void addColumn()
-        {
-            if (columnPtr < columnSize)
-            {
+        public void addColumn() {
+            if (columnPtr < columnSize) {
                 columnPtr += 1;
                 columns[columnPtr].caption = "";
                 columns[columnPtr].captionClass = "";
                 columns[columnPtr].cellClass = "";
-                if (columnPtr > columnMax)
-                {
+                if (columnPtr > columnMax) {
                     columnMax = columnPtr;
                 }
             }
@@ -691,15 +596,12 @@ namespace Contensive.Addons.PortalFramework
         // row Caption for grid
         //-------------------------------------------------
         //
-        public DateTime rowDate
-        {
-            get
-            {
+        public DateTime rowDate {
+            get {
                 checkRowCnt();
                 return rows[rowCnt].date;
             }
-            set
-            {
+            set {
                 checkRowCnt();
                 rows[rowCnt].date = value;
                 gridIncludesCaptionColumn = true;
@@ -710,17 +612,13 @@ namespace Contensive.Addons.PortalFramework
         // row Caption Class for grid
         //-------------------------------------------------
         //
-        public string rowCaptionClass
-        {
-            get
-            {
+        public string rowCaptionClass {
+            get {
                 checkRowCnt();
                 return rows[rowCnt].captionClass;
             }
-            set
-            {
-                if (value != "")
-                {
+            set {
+                if (value != "") {
                     checkRowCnt();
                     rows[rowCnt].captionClass = value;
                     gridIncludesCaptionColumn = true;
@@ -732,14 +630,11 @@ namespace Contensive.Addons.PortalFramework
         // chart width
         //-------------------------------------------------
         //
-        public int chartWidth
-        {
-            get
-            {
+        public int chartWidth {
+            get {
                 return localChartWidth;
             }
-            set
-            {
+            set {
                 localChartWidth = value;
             }
         }
@@ -748,14 +643,11 @@ namespace Contensive.Addons.PortalFramework
         // chart height
         //-------------------------------------------------
         //
-        public int chartHeight
-        {
-            get
-            {
+        public int chartHeight {
+            get {
                 return localChartHeight;
             }
-            set
-            {
+            set {
                 localChartHeight = value;
             }
         }
@@ -764,11 +656,9 @@ namespace Contensive.Addons.PortalFramework
         // add a row
         //-------------------------------------------------
         //
-        public void addRow()
-        {
+        public void addRow() {
             localIsEmptyReport = false;
-            if (rowCnt < rowSize)
-            {
+            if (rowCnt < rowSize) {
                 rowCnt += 1;
             }
             checkColumnPtr();
@@ -779,15 +669,13 @@ namespace Contensive.Addons.PortalFramework
         // populate a cell
         //-------------------------------------------------
         //
-        public void setCell(double yValue)
-        {
+        public void setCell(double yValue) {
             localIsEmptyReport = false;
             checkColumnPtr();
             checkRowCnt();
             chartData[rowCnt, columnPtr].yValue = yValue;
             //chartData[rowCnt, columnPtr].clickLink = clickLink;
-            if (columnPtr < columnMax)
-            {
+            if (columnPtr < columnMax) {
                 columnPtr += 1;
             }
         }
@@ -796,8 +684,7 @@ namespace Contensive.Addons.PortalFramework
         //
         //-------------------------------------------------
         //
-        private string indent(string src)
-        {
+        private string indent(string src) {
             return src.Replace(Constants.cr, Constants.cr2);
         }
         //
@@ -805,10 +692,8 @@ namespace Contensive.Addons.PortalFramework
         //
         //-------------------------------------------------
         //
-        private void checkColumnPtr()
-        {
-            if (columnPtr < 0)
-            {
+        private void checkColumnPtr() {
+            if (columnPtr < 0) {
                 addColumn();
             }
         }
@@ -817,10 +702,8 @@ namespace Contensive.Addons.PortalFramework
         //
         //-------------------------------------------------
         //
-        private void checkRowCnt()
-        {
-            if (rowCnt < 0)
-            {
+        private void checkRowCnt() {
+            if (rowCnt < 0) {
                 addRow();
             }
         }

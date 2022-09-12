@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Contensive.Addons.PortalFramework.Controllers;
 using Contensive.Addons.PortalFramework.Models.Domain;
 using Contensive.BaseClasses;
 
@@ -155,7 +156,7 @@ namespace Contensive.Addons.PortalFramework {
                 includeBodyPadding_Local = value;
             }
         }
-        bool includeBodyPadding_Local = true;
+        private bool includeBodyPadding_Local = true;
         //
         //====================================================================================================
         //
@@ -167,7 +168,7 @@ namespace Contensive.Addons.PortalFramework {
                 includeBodyColor_Local = value;
             }
         }
-        bool includeBodyColor_Local = true;
+        private bool includeBodyColor_Local = true;
         //
         //====================================================================================================
         //
@@ -210,11 +211,11 @@ namespace Contensive.Addons.PortalFramework {
         public string getHtml(CPBaseClass cp) {
             int hint = 0;
             try {
+                //
+                // -- set the optional title of the portal subnav
+                if (!string.IsNullOrEmpty(portalSubNavTitle)) { cp.Doc.SetProperty("portalSubNavTitle", portalSubNavTitle); }
+                //
                 StringBuilder rowBuilder = new StringBuilder("");
-                //string classAttribute;
-                //string content;
-                //string userErrors;
-                string sortLink;
                 string columnSort = cp.Doc.GetText("columnSort");
                 string csvDownloadContent = "";
                 DateTime rightNow = DateTime.Now;
@@ -224,10 +225,10 @@ namespace Contensive.Addons.PortalFramework {
                     refreshQueryString = cp.Doc.RefreshQueryString;
                 }
                 if (!localFormActionQueryStringSet) {
+                    //
                     // set locals not public property bc public also sets the includeForm
                     formActionQueryString_Local = frameRqs_Local;
                     localFormActionQueryStringSet = true;
-                    //formActionQueryString = localFrameRqs;
                 }
                 //
                 // add user errors
@@ -256,6 +257,7 @@ namespace Contensive.Addons.PortalFramework {
                             if (content == "") {
                                 content = "&nbsp;";
                             } else if (columns[colPtr].sortable) {
+                                string sortLink;
                                 if (frameRqsSet_Local) {
                                     sortLink = "?" + frameRqs_Local + "&columnSort=" + sortField;
                                 } else {
@@ -270,7 +272,6 @@ namespace Contensive.Addons.PortalFramework {
                             if (columns[colPtr].columnWidthPercent > 0) {
                                 styleAttribute = " style=\"width:" + columns[colPtr].columnWidthPercent.ToString() + "%;\"";
                             }
-                            //row += Constants.cr + "<td" + classAttribute + styleAttribute + ">" + localReportCells[rowPtr, colPtr] + "</td>";
                             rowBuilder.Append(Constants.cr + "<th" + classAttribute + styleAttribute + ">" + content + "</th>");
                         }
                     }
@@ -306,21 +307,13 @@ namespace Contensive.Addons.PortalFramework {
                         + Constants.cr + "<tr>"
                         + Constants.cr + "<td style=\"text-align:left\" colspan=\"" + (columnMax + 1) + "\">[empty]</td>"
                         + Constants.cr + "</tr>");
-                    //string classAttribute = columns[0].cellClass;
-                    //if (classAttribute != "") {
-                    //    classAttribute = " class=\"" + classAttribute + "\"";
-                    //}
-                    //rowBuilder.Append(""
-                    //    + Constants.cr + "<tr>"
-                    //    + Constants.cr + "<td style=\"text-align:left\" " + classAttribute + " colspan=\"" + (columnMax + 1) + "\">[empty]</td>"
-                    //    + Constants.cr + "</tr>");
                 } else if (ReportTooLong) {
+                    //
                     // -- report is too long
                     string classAttribute = columns[0].cellClass;
                     if (classAttribute != "") {
                         classAttribute = " class=\"" + classAttribute + "\"";
                     }
-                    //row = Constants.cr + "<td style=\"text-align:left\" " + classAttribute + " colspan=\"" + (columnMax + 1) + "\">There are too many rows in this report. Please consider filtering the data.</td>";
                     rowBuilder.Append(""
                         + Constants.cr + "<tr>"
                         + Constants.cr + "<td style=\"text-align:left\" " + classAttribute + " colspan=\"" + (columnMax + 1) + "\">There are too many rows in this report. Please consider filtering the data.</td>"
@@ -432,57 +425,22 @@ namespace Contensive.Addons.PortalFramework {
                 if (htmlBeforeTable != "") { result.Insert(0, "<div class=\"afwBeforeHtml\">" + htmlBeforeTable + "</div>"); }
                 if (htmlAfterTable != "") { result.Append("<div class=\"afwAfterHtml\">" + htmlAfterTable + "</div>"); }
                 //
-                // headers
-                //
-                if (addCsvDownloadCurrentPage && (!string.IsNullOrEmpty(csvDownloadFilename))) {
-                    result = new StringBuilder(Constants.cr + "<p id=\"afwDescription\"><a href=\"" + cp.Http.CdnFilePathPrefix + csvDownloadFilename + "\">Click here</a> to download the data.</p>" + result.ToString());
-                }
-                if (description != "") {
-                    result = new StringBuilder(Constants.cr + "<p id=\"afwDescription\">" + description + "</p>" + result.ToString());
-                }
-                if (warning != "") {
-                    result = new StringBuilder(Constants.cr + "<div id=\"afwWarning\">" + warning + "</div>" + result.ToString());
-                }
-                if (title != "") {
-                    result = new StringBuilder(Constants.cr + "<h2 id=\"afwTitle\">" + title + "</h2>" + result.ToString());
-                }
-                hint = 80;
-                //
-                // add form
-                //
-                if (includeBodyPadding_Local) { result = new StringBuilder(cp.Html.div(result.ToString(), "", "afwBodyPad", "")); };
-                if (includeForm_Local) {
-                    if (!string.IsNullOrEmpty(buttonList_Local)) {
-                        buttonList_Local = ""
-                            + Constants.cr + "<div class=\"afwButtonCon\">"
-                            + indent(buttonList_Local)
-                            + Constants.cr + "</div>";
-                    }
-                    result.Append(buttonList_Local);
-                    result.Append(hiddenList_Local);
-                    if (!blockFormTag) {
-                        //
-                        // -- add form wrap
-                        result = new StringBuilder(Constants.cr + cp.Html.Form(result.ToString(), "", "", "", formActionQueryString_Local, ""));
-                    }
-                }
-                if (includeBodyColor_Local) { result = new StringBuilder(cp.Html.div(result.ToString(), "", "afwBodyColor", "")); };
-                hint = 90;
-                //
-                // if outer container, add styles and javascript
-                //
-                if (localIsOuterContainer) {
-                    cp.Doc.AddHeadJavascript(Properties.Resources.javascript);
-                    cp.Doc.AddHeadStyle(Properties.Resources.styles);
-                    result = new StringBuilder(""
-                        + Constants.cr + "<div id=\"afw\">"
-                        + indent(result.ToString())
-                        + Constants.cr + "</div>");
-                }
-                //
-                // -- set the optional title of the portal subnav
-                if (!string.IsNullOrEmpty(portalSubNavTitle)) { cp.Doc.SetProperty("portalSubNavTitle", portalSubNavTitle); }
-                return result.ToString();
+                // -- construct report
+                HtmlDocRequest request = new HtmlDocRequest() {
+                    body = result.ToString(),
+                    includeBodyPadding = includeBodyPadding,
+                    includeBodyColor = includeBodyColor,
+                    buttonList = buttonList,
+                    csvDownloadFilename = csvDownloadFilename,
+                    description = description,
+                    formActionQueryString = formActionQueryString,
+                    hiddenList = hiddenList,
+                    includeForm = includeForm,
+                    isOuterContainer = isOuterContainer,
+                    title = title,
+                    warning = warning
+                };
+                return HtmlController.getReportDoc(cp, request);
             } catch (Exception ex) {
                 cp.Site.ErrorReport(ex, "hint [" + hint + "]");
                 throw;
@@ -527,8 +485,8 @@ namespace Contensive.Addons.PortalFramework {
         /// <param name="Name"></param>
         /// <param name="Value"></param>
         public void addFormHidden(string Name, string Value) {
-            hiddenList_Local += Constants.cr + "<input type=\"hidden\" name=\"" + Name + "\" value=\"" + Value + "\">";
-            includeForm_Local = includeForm_Local || !string.IsNullOrEmpty(Value);
+            hiddenList += Constants.cr + "<input type=\"hidden\" name=\"" + Name + "\" value=\"" + Value + "\">";
+            includeForm = includeForm || !string.IsNullOrEmpty(Value);
         }
         /// <summary>
         /// Add a form hidden.
@@ -562,7 +520,7 @@ namespace Contensive.Addons.PortalFramework {
         /// <summary>
         /// local list of hidden form elements
         /// </summary>
-        private string hiddenList_Local = "";
+        private string hiddenList = "";
         //
         //====================================================================================================
         //
@@ -602,10 +560,10 @@ namespace Contensive.Addons.PortalFramework {
         /// <param name="buttonId"></param>
         /// <param name="buttonClass"></param>
         public void addFormButton(string buttonValue, string buttonName, string buttonId, string buttonClass) {
-            buttonList_Local += Constants.cr + "<input type=\"submit\" name=\"" + buttonName + "\" value=\"" + buttonValue + "\" id=\"" + buttonId + "\" class=\"afwButton " + buttonClass + "\">";
-            includeForm_Local = true;
+            buttonList += HtmlController.getButton(buttonName, buttonValue, buttonId, buttonClass);
+            includeForm = true;
         }
-        private string buttonList_Local = "";
+        private string buttonList = "";
         //
         //====================================================================================================
         //
@@ -620,17 +578,17 @@ namespace Contensive.Addons.PortalFramework {
             set {
                 formActionQueryString_Local = value;
                 localFormActionQueryStringSet = true;
-                includeForm_Local = !string.IsNullOrEmpty(value);
+                includeForm = !string.IsNullOrEmpty(value);
             }
         }
-        string formActionQueryString_Local = "";
-        bool localFormActionQueryStringSet = false;
+        private string formActionQueryString_Local = "";
+        private bool localFormActionQueryStringSet = false;
         //
         /// <summary>
         /// If true, the resulting html is wrapped in a form element whose action returns execution back to this addon where is it processed here in the same code.
         /// consider a pattern that blocks the include form if this layout is called form the portal system, where the portal methods create the entire strucuture
         /// </summary>
-        private bool includeForm_Local { get; set; } = false;
+        private bool includeForm { get; set; } = false;
         //
         //====================================================================================================
         /// <summary>
@@ -645,8 +603,8 @@ namespace Contensive.Addons.PortalFramework {
                 frameRqsSet_Local = true;
             }
         }
-        string frameRqs_Local = "";
-        bool frameRqsSet_Local = false;
+        private string frameRqs_Local = "";
+        private bool frameRqsSet_Local = false;
         //
         //====================================================================================================
         /// <summary>
@@ -1011,7 +969,7 @@ namespace Contensive.Addons.PortalFramework {
             }
             set {
                 localFormId_Local = value;
-                includeForm_Local = !string.IsNullOrEmpty(value);
+                includeForm = !string.IsNullOrEmpty(value);
             }
         }
         private string localFormId_Local = "";

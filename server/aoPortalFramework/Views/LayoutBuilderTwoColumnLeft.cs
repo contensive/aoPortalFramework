@@ -30,13 +30,18 @@ namespace Contensive.Addons.PortalFramework {
         /// </summary>
         public string portalSubNavTitle { get; set; }
         //
-        public string buttonList { get; set; }
-        //
-        public bool hasButtonList {
+        public string buttonSection {
             get {
-                return !string.IsNullOrEmpty(buttonList);
+                return HtmlController.getButtonSection(buttonList);
             }
         }
+        private string buttonList { get; set; }
+        ////
+        //public bool hasButtonList {
+        //    get {
+        //        return !string.IsNullOrEmpty(buttonList);
+        //    }
+        //}
         //
         //====================================================================================================
         //
@@ -60,17 +65,28 @@ namespace Contensive.Addons.PortalFramework {
         /// <param name="cp"></param>
         /// <returns></returns>
         public string getHtml(CPBaseClass cp) {
-            string userErrors = cp.Utils.EncodeText(cp.UserError.GetList());
-            if (!string.IsNullOrWhiteSpace(userErrors)) {
-                warningMessage += userErrors;
-            }
             //
             // -- set the optional title of the portal subnav
             if (!string.IsNullOrEmpty(portalSubNavTitle)) { cp.Doc.SetProperty("portalSubNavTitle", portalSubNavTitle); }
             //
             // -- render layout
             string layout = cp.Layout.GetLayout(Constants.guidLayoutAdminUITwoColumnLeft, Constants.nameLayoutAdminUITwoColumnLeft, Constants.pathFilenameLayoutAdminUITwoColumnLeft);
-            return cp.Mustache.Render(layout, this) + inputHiddenList;
+            //
+            HtmlDocRequest docRequest = new HtmlDocRequest() {
+                body = cp.Mustache.Render(layout, this),
+                buttonList = buttonList,
+                csvDownloadFilename = "",
+                description = description,
+                formActionQueryString = "",
+                hiddenList = inputHiddenList,
+                includeBodyColor = true,
+                includeBodyPadding = true,
+                includeForm = (!string.IsNullOrEmpty(inputHiddenList) || !string.IsNullOrEmpty(buttonList)),
+                isOuterContainer = true,
+                title = headline,
+                warning = warningMessage
+            };
+            return HtmlController.getReportDoc(cp, docRequest);
         }
         //
         // ====================================================================================================
@@ -82,7 +98,7 @@ namespace Contensive.Addons.PortalFramework {
         /// <param name="buttonId"></param>
         /// <param name="buttonClass"></param>
         public void addFormButton(string buttonValue, string buttonName, string buttonId, string buttonClass) {
-            buttonList += Constants.cr + HtmlController.getButton(buttonName, buttonValue, buttonId, buttonClass );
+            buttonList += HtmlController.getButton(buttonName, buttonValue, buttonId, buttonClass);
         }
     }
 }

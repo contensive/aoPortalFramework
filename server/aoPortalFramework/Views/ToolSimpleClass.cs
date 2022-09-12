@@ -1,4 +1,5 @@
 
+using Contensive.Addons.PortalFramework.Controllers;
 using Contensive.BaseClasses;
 using System;
 
@@ -68,6 +69,9 @@ namespace Contensive.Addons.PortalFramework {
         //-------------------------------------------------
         //
         public string getHtml(CPBaseClass cp) {
+
+
+
             string userErrors = cp.Utils.EncodeText(cp.UserError.GetList());
             if (!string.IsNullOrWhiteSpace(userErrors)) {
                 warningMessage += userErrors;
@@ -107,6 +111,10 @@ namespace Contensive.Addons.PortalFramework {
                     + indent(result)
                     + Constants.cr + "</div>";
             }
+
+
+            //string result = HtmlController.getDoc(cp, body, "", description, warning, title, includeBodyPadding, buttonList, hiddenList, includeForm, includeBodyColor, formActionQueryString, isOuterContainer);
+
             if (!string.IsNullOrEmpty(portalSubNavTitle)) { cp.Doc.SetProperty("portalSubNavTitle", portalSubNavTitle); }
             return result;
         }
@@ -199,7 +207,8 @@ namespace Contensive.Addons.PortalFramework {
         //-------------------------------------------------
         // 
         public void addFormButton(string buttonValue, string buttonName, string buttonId, string buttonClass) {
-            localButtonList += Constants.cr + "<input type=\"submit\" name=\"" + buttonName + "\" value=\"" + buttonValue + "\" id=\"" + buttonId + "\" class=\"afwButton " + buttonClass + "\">";
+            localButtonList += HtmlController.getButton(buttonName, buttonValue, buttonId, buttonClass);
+            //localButtonList += Constants.cr + "<input type=\"submit\" name=\"" + buttonName + "\" value=\"" + buttonValue + "\" id=\"" + buttonId + "\" class=\"afwButton " + buttonClass + "\">";
             localIncludeForm = true;
         }
         //
