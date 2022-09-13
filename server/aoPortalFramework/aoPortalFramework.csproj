@@ -100,6 +100,7 @@
     <Compile Include="Views\LayoutBuilderTwoColumnLeft.cs" />
     <Compile Include="Views\LayoutBuilderTwoColumnRight.cs" />
     <Compile Include="Views\FeatureListView.cs" />
+    <Compile Include="Views\LayoutBuilderBaseClass.cs" />
     <Compile Include="Views\ToolSimpleClass.cs" />
     <Compile Include="Views\PortalBuilderClass.cs" />
     <Compile Include="Views\FormNameValueRowsClass.cs" />

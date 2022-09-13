@@ -35,25 +35,34 @@ namespace Contensive.Addons.PortalFramework.Controllers {
         }
         //
         public static string getReportDoc(CPBaseClass cp, HtmlDocRequest request) {
-
             string result = "";
             if (!string.IsNullOrEmpty(request.title)) {
                 result += "<h2 id=\"afwTitle\">" + request.title + "</h2>";
             }
-            string userErrors = cp.UserError.GetList();
-            if (!string.IsNullOrEmpty(userErrors)) {
-                result += "<div id=\"afwWarning\">" + request.warning + "</div>";
-            }
             if (!string.IsNullOrEmpty(request.warning)) {
                 result += "<div id=\"afwWarning\">" + request.warning + "</div>";
             }
-            if (request.description != "") {
+            string userErrors = cp.UserError.GetList();
+            if (!string.IsNullOrEmpty(userErrors)) {
+                result += "<div id=\"afwWarning\">" + userErrors + "</div>";
+            }
+            if (!string.IsNullOrEmpty(request.description )) {
                 result += "<p id=\"afwDescription\">" + request.description + "</p>";
             }
             if (!string.IsNullOrEmpty(request.csvDownloadFilename)) {
                 result += "<p id=\"afwDescription\"><a href=\"" + cp.Http.CdnFilePathPrefix + request.csvDownloadFilename + "\">Click here</a> to download the data.</p>";
             }
-            result += request.body;
+            string resultBody = request.body;
+            if (!string.IsNullOrEmpty(request.htmlLeftOfBody)) {
+                resultBody = ""
+                    + "<div class=\"afwLeftSideHtml\">" + request.htmlLeftOfBody + "</div>"
+                    + "<div class=\"afwRightSideHtml\">" + resultBody + "</div>"
+                    + "<div style=\"clear:both\"></div>"
+                    + "";
+            }
+            if (!string.IsNullOrEmpty(request.htmlBeforeBody )) { resultBody = "<div class=\"afwBeforeHtml\">" + request.htmlBeforeBody + "</div>" + resultBody; }
+            if (!string.IsNullOrEmpty(request.htmlAfterBody )) { resultBody += "<div class=\"afwAfterHtml\">" + request.htmlAfterBody + "</div>"; }
+            result += resultBody;
             //
             // -- add padding
             if (request.includeBodyPadding) {
@@ -66,8 +75,9 @@ namespace Contensive.Addons.PortalFramework.Controllers {
             }
             //
             // -- add form
-            if (request.includeForm) {
-                result =  cp.Html.Form(result + request.hiddenList, "", "", "", request.formActionQueryString, "");
+            if (request.includeForm && !request.blockFormTag) {
+                string action = !string.IsNullOrEmpty(request.formActionQueryString) ? request.formActionQueryString : (!string.IsNullOrEmpty(request.refreshQueryString) ? request.refreshQueryString : cp.Doc.RefreshQueryString); 
+                result = cp.Html.Form(result + request.hiddenList, "", "", "", action, "");
             }
             //
             // -- add background color
@@ -82,65 +92,78 @@ namespace Contensive.Addons.PortalFramework.Controllers {
             }
             return result;
         }
-        //
-        public static string getDoc(CPBaseClass cp, string body, string csvDownloadFilename, string description, string warning, string title, bool includeBodyPadding, string buttonList, string hiddenList, bool includeForm, bool includeBodyColor, string formActionQueryString_Local, bool isOuterContainer) {
-            //
-            // headers
-            if (!string.IsNullOrEmpty(csvDownloadFilename)) {
-                body = "<p id=\"afwDescription\"><a href=\"" + cp.Http.CdnFilePathPrefix + csvDownloadFilename + "\">Click here</a> to download the data.</p>" + body;
-            }
-            if (description != "") {
-                body = "<p id=\"afwDescription\">" + description + "</p>" + body;
-            }
-            if (warning != "") {
-                body = "<div id=\"afwWarning\">" + warning + "</div>" + body;
-            }
-            if (title != "") {
-                body = "<h2 id=\"afwTitle\">" + title + "</h2>" + body;
-            }
-            //
-            // -- add padding
-            if (includeBodyPadding) {
-                body = cp.Html.div(body, "", "afwBodyPad", "");
-            };
-            //
-            // -- add buttons
-            if (!string.IsNullOrEmpty(buttonList)) {
-                body = HtmlController.getButtonSection(buttonList) + body + HtmlController.getButtonSection(buttonList);
-            }
-            //
-            // -- add form
-            if (includeForm) {
-                body = cp.Html.Form(body + hiddenList, "", "", "", formActionQueryString_Local, "");
-            }
-            //
-            // -- add background color
-            if (includeBodyColor) {
-                body = cp.Html.div(body, "", "afwBodyColor", "");
-            };
-            //
-            if (isOuterContainer) {
-                cp.Doc.AddHeadJavascript(Properties.Resources.javascript);
-                cp.Doc.AddHeadStyle(Properties.Resources.styles);
-                body = "<div id=\"afw\">" + body + "</div>";
-            }
-            return body;
-        }
     }
     //
     public class HtmlDocRequest {
+        /// <summary>
+        /// The body of the document
+        /// </summary>
         public string body { get; set; }
+        /// <summary>
+        /// if not empty, this download will be included below the description
+        /// </summary>
         public string csvDownloadFilename { get; set; }
+        /// <summary>
+        /// if text description
+        /// </summary>
         public string description { get; set; }
+        /// <summary>
+        /// an optional warning at the top
+        /// </summary>
         public string warning { get; set; }
+        /// <summary>
+        /// the document headline
+        /// </summary>
         public string title { get; set; }
+        /// <summary>
+        /// if true, include padding around the doc (but not the buttons)
+        /// </summary>
         public bool includeBodyPadding { get; set; }
+        /// <summary>
+        /// A list of htm tags that will be placed in the button sections
+        /// </summary>
         public string buttonList { get; set; }
+        /// <summary>
+        /// a list of html tags that will be placed at the end of the form
+        /// </summary>
         public string hiddenList { get; set; }
+        /// <summary>
+        /// if true a form will be added
+        /// </summary>
         public bool includeForm { get; set; }
+        /// <summary>
+        /// if true, background color will be added
+        /// </summary>
         public bool includeBodyColor { get; set; }
+        /// <summary>
+        /// the querystring to be added to the optional form
+        /// </summary>
         public string formActionQueryString { get; set; }
+        /// <summary>
+        /// the querystring that will be used as the basis for links to the view
+        /// </summary>
+        public string refreshQueryString { get; set; }    
+        /// <summary>
+        /// if true, the outer htmlid, styles and javascript will be added
+        /// </summary>
         public bool isOuterContainer { get; set; }
+        /// <summary>
+        /// html elements that will be displayed to the left of the body
+        /// </summary>
+        public string htmlLeftOfBody { get; set; }
+        /// <summary>
+        /// html elements that will be displayed before the body
+        /// </summary>
+        public string htmlBeforeBody { get; set; }
+        /// <summary>
+        /// html elements that will be displayed after the body
+        /// </summary>
+        public string htmlAfterBody { get; set; }
+        /// <summary>
+        /// if true, the form tag will not be added
+        /// </summary>
+        public bool blockFormTag { get; set; }
 
     }
 }
+

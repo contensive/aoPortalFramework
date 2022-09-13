@@ -7,7 +7,7 @@ using Contensive.Addons.PortalFramework.Models.Domain;
 using Contensive.BaseClasses;
 
 namespace Contensive.Addons.PortalFramework {
-    public class ReportListClass {
+    public class ReportListClass : LayoutBuilderBaseClass {
         //
         /// <summary>
         /// default constructor
@@ -129,12 +129,12 @@ namespace Contensive.Addons.PortalFramework {
         /// create csv download as form is build
         /// </summary>
         public bool addCsvDownloadCurrentPage { get; set; } = false;
-        //
-        // ====================================================================================================
-        /// <summary>
-        /// Optional. If set, this value will populate the title in the subnav of the portalbuilder
-        /// </summary>
-        public string portalSubNavTitle { get; set; }
+        ////
+        //// ====================================================================================================
+        ///// <summary>
+        ///// Optional. If set, this value will populate the title in the subnav of the portalbuilder
+        ///// </summary>
+        //public string portalSubNavTitle { get; set; }
         //
         //====================================================================================================
         /// <summary>
@@ -145,61 +145,61 @@ namespace Contensive.Addons.PortalFramework {
                 return rowSize;
             }
         }
-        //
-        //====================================================================================================
-        //
-        public bool includeBodyPadding {
-            get {
-                return includeBodyPadding_Local;
-            }
-            set {
-                includeBodyPadding_Local = value;
-            }
-        }
-        private bool includeBodyPadding_Local = true;
-        //
-        //====================================================================================================
-        //
-        public bool includeBodyColor {
-            get {
-                return includeBodyColor_Local;
-            }
-            set {
-                includeBodyColor_Local = value;
-            }
-        }
-        private bool includeBodyColor_Local = true;
-        //
-        //====================================================================================================
-        //
-        /// <summary>
-        /// if true, this report is part of a larger layout and the internal styles and js should NOT be added
-        /// </summary>
-        public bool isOuterContainer {
-            get {
-                return localIsOuterContainer;
-            }
-            set {
-                localIsOuterContainer = value;
-            }
-        }
-        private bool localIsOuterContainer = false;
-        //
-        //====================================================================================================
-        //
-        public string styleSheet {
-            get {
-                return Properties.Resources.styles;
-            }
-        }
-        //
-        //====================================================================================================
-        //
-        public string javascript {
-            get {
-                return Properties.Resources.javascript;
-            }
-        }
+        ////
+        ////====================================================================================================
+        ////
+        //public bool includeBodyPadding {
+        //    get {
+        //        return includeBodyPadding_Local;
+        //    }
+        //    set {
+        //        includeBodyPadding_Local = value;
+        //    }
+        //}
+        //private bool includeBodyPadding_Local = true;
+        ////
+        ////====================================================================================================
+        ////
+        //public bool includeBodyColor {
+        //    get {
+        //        return includeBodyColor_Local;
+        //    }
+        //    set {
+        //        includeBodyColor_Local = value;
+        //    }
+        //}
+        //private bool includeBodyColor_Local = true;
+        ////
+        ////====================================================================================================
+        ////
+        ///// <summary>
+        ///// if true, this report is part of a larger layout and the internal styles and js should NOT be added
+        ///// </summary>
+        //public bool isOuterContainer {
+        //    get {
+        //        return localIsOuterContainer;
+        //    }
+        //    set {
+        //        localIsOuterContainer = value;
+        //    }
+        //}
+        //private bool localIsOuterContainer = false;
+        ////
+        ////====================================================================================================
+        ////
+        //public string styleSheet {
+        //    get {
+        //        return Properties.Resources.styles;
+        //    }
+        //}
+        ////
+        ////====================================================================================================
+        ////
+        //public string javascript {
+        //    get {
+        //        return Properties.Resources.javascript;
+        //    }
+        //}
         //
         //====================================================================================================
         //
@@ -208,28 +208,18 @@ namespace Contensive.Addons.PortalFramework {
         /// </summary>
         /// <param name="cp"></param>
         /// <returns></returns>
-        public string getHtml(CPBaseClass cp) {
+        public new string getHtml(CPBaseClass cp) {
             int hint = 0;
             try {
-                //
-                // -- set the optional title of the portal subnav
-                if (!string.IsNullOrEmpty(portalSubNavTitle)) { cp.Doc.SetProperty("portalSubNavTitle", portalSubNavTitle); }
+                ////
+                //// -- set the optional title of the portal subnav
+                //if (!string.IsNullOrEmpty(portalSubNavTitle)) { cp.Doc.SetProperty("portalSubNavTitle", portalSubNavTitle); }
                 //
                 StringBuilder rowBuilder = new StringBuilder("");
                 string columnSort = cp.Doc.GetText("columnSort");
                 string csvDownloadContent = "";
                 DateTime rightNow = DateTime.Now;
                 hint = 10;
-                //
-                if (!frameRqsSet_Local) {
-                    refreshQueryString = cp.Doc.RefreshQueryString;
-                }
-                if (!localFormActionQueryStringSet) {
-                    //
-                    // set locals not public property bc public also sets the includeForm
-                    formActionQueryString_Local = frameRqs_Local;
-                    localFormActionQueryStringSet = true;
-                }
                 //
                 // add user errors
                 //
@@ -246,6 +236,7 @@ namespace Contensive.Addons.PortalFramework {
                 //
                 if (captionIncluded) {
                     rowBuilder = new StringBuilder("");
+                    string refreshQueryString = (!string.IsNullOrEmpty(base.refreshQueryString) ? base.refreshQueryString : cp.Doc.RefreshQueryString);
                     for (colPtr = 0; colPtr <= columnMax; colPtr++) {
                         if (columns[colPtr].visible) {
                             string classAttribute = columns[colPtr].captionClass;
@@ -258,11 +249,7 @@ namespace Contensive.Addons.PortalFramework {
                                 content = "&nbsp;";
                             } else if (columns[colPtr].sortable) {
                                 string sortLink;
-                                if (frameRqsSet_Local) {
-                                    sortLink = "?" + frameRqs_Local + "&columnSort=" + sortField;
-                                } else {
-                                    sortLink = "?" + cp.Doc.RefreshQueryString + "&columnSort=" + sortField;
-                                }
+                                sortLink = "?" + base.refreshQueryString + "&columnSort=" + sortField;
                                 if (columnSort == sortField) {
                                     sortLink += "Desc";
                                 }
@@ -415,196 +402,199 @@ namespace Contensive.Addons.PortalFramework {
                     + Constants.cr + "</tbody>"
                     + "");
                 result = new StringBuilder(Constants.cr + "<table class=\"afwListReportTable\">" + indent(result.ToString()) + Constants.cr + "</table>");
-                if (htmlLeftOfTable != "") {
-                    result = new StringBuilder(""
-                        + Constants.cr + "<div class=\"afwLeftSideHtml\">" + indent(htmlLeftOfTable) + Constants.cr + "</div>"
-                        + Constants.cr + "<div class=\"afwRightSideHtml\">" + indent(result.ToString()) + Constants.cr + "</div>"
-                        + Constants.cr + "<div style=\"clear:both\"></div>"
-                        + "");
-                }
-                if (htmlBeforeTable != "") { result.Insert(0, "<div class=\"afwBeforeHtml\">" + htmlBeforeTable + "</div>"); }
-                if (htmlAfterTable != "") { result.Append("<div class=\"afwAfterHtml\">" + htmlAfterTable + "</div>"); }
-                //
-                // -- construct report
-                HtmlDocRequest request = new HtmlDocRequest() {
-                    body = result.ToString(),
-                    includeBodyPadding = includeBodyPadding,
-                    includeBodyColor = includeBodyColor,
-                    buttonList = buttonList,
-                    csvDownloadFilename = csvDownloadFilename,
-                    description = description,
-                    formActionQueryString = formActionQueryString,
-                    hiddenList = hiddenList,
-                    includeForm = includeForm,
-                    isOuterContainer = isOuterContainer,
-                    title = title,
-                    warning = warning
-                };
-                return HtmlController.getReportDoc(cp, request);
+                base.body = result.ToString();
+                return base.getHtml(cp);
+
+                //if (htmlLeftOfTable != "") {
+                //    result = new StringBuilder(""
+                //        + Constants.cr + "<div class=\"afwLeftSideHtml\">" + indent(htmlLeftOfTable) + Constants.cr + "</div>"
+                //        + Constants.cr + "<div class=\"afwRightSideHtml\">" + indent(result.ToString()) + Constants.cr + "</div>"
+                //        + Constants.cr + "<div style=\"clear:both\"></div>"
+                //        + "");
+                //}
+                //if (htmlBeforeTable != "") { result.Insert(0, "<div class=\"afwBeforeHtml\">" + htmlBeforeTable + "</div>"); }
+                //if (htmlAfterTable != "") { result.Append("<div class=\"afwAfterHtml\">" + htmlAfterTable + "</div>"); }
+                ////
+                //// -- construct report
+                //HtmlDocRequest request = new HtmlDocRequest() {
+                //    body = result.ToString(),
+                //    includeBodyPadding = includeBodyPadding,
+                //    includeBodyColor = includeBodyColor,
+                //    buttonList = buttonList,
+                //    csvDownloadFilename = csvDownloadFilename,
+                //    description = description,
+                //    formActionQueryString = formActionQueryString,
+                //    hiddenList = hiddenList,
+                //    includeForm = includeForm,
+                //    isOuterContainer = isOuterContainer,
+                //    title = title,
+                //    warning = warning
+                //};
+                //return HtmlController.getReportDoc(cp, request);
             } catch (Exception ex) {
                 cp.Site.ErrorReport(ex, "hint [" + hint + "]");
                 throw;
             }
         }
-        //
-        //====================================================================================================
-        //
-        /// <summary>
-        /// An html block added to the left of the table. Typically used for filters.
-        /// </summary>
-        public string htmlLeftOfTable { get; set; } = "";
-        //
-        //====================================================================================================
-        //
-        /// <summary>
-        /// An html block added above the table. Typically used for filters.
-        /// </summary>
-        public string htmlBeforeTable { get; set; } = "";
-        //
-        //====================================================================================================
-        //
-        /// <summary>
-        /// An html block added below the table. Typically used for filters.
-        /// </summary>
-        public string htmlAfterTable { get; set; } = "";
-        //
-        //====================================================================================================
-        //
-        /// <summary>
-        /// set true will block the addition of a form tag around the final html.
-        /// The form tag is automatically added if you add a button, hidden or formActionRefreshString
-        /// </summary>
-        public bool blockFormTag { get; set; } = false;
-        //
-        //====================================================================================================
-        //
-        /// <summary>
-        /// Add a form hidden element. 
-        /// Adding also wraps the html with a form tag. Block the form tag with blockFormTag.
-        /// </summary>
-        /// <param name="Name"></param>
-        /// <param name="Value"></param>
-        public void addFormHidden(string Name, string Value) {
-            hiddenList += Constants.cr + "<input type=\"hidden\" name=\"" + Name + "\" value=\"" + Value + "\">";
-            includeForm = includeForm || !string.IsNullOrEmpty(Value);
-        }
-        /// <summary>
-        /// Add a form hidden.
-        /// Adding also wraps the html with a form tag. Block the form tag with blockFormTag.
-        /// </summary>
-        /// <param name="name"></param>
-        /// <param name="value"></param>
-        public void addFormHidden(string name, int value) => addFormHidden(name, value.ToString());
-        /// <summary>
-        /// Add a form hidden.
-        /// Adding also wraps the html with a form tag. Block the form tag with blockFormTag.
-        /// </summary>
-        /// <param name="name"></param>
-        /// <param name="value"></param>
-        public void addFormHidden(string name, double value) => addFormHidden(name, value.ToString());
-        /// <summary>
-        /// Add a form hidden.
-        /// Adding also wraps the html with a form tag. Block the form tag with blockFormTag.
-        /// </summary>
-        /// <param name="name"></param>
-        /// <param name="value"></param>
-        public void addFormHidden(string name, DateTime value) => addFormHidden(name, value.ToString());
-        /// <summary>
-        /// Add a form hidden.
-        /// Adding also wraps the html with a form tag. Block the form tag with blockFormTag.
-        /// </summary>
-        /// <param name="name"></param>
-        /// <param name="value"></param>
-        public void addFormHidden(string name, bool value) => addFormHidden(name, value.ToString());
+        ////
+        ////====================================================================================================
+        ////
+        ///// <summary>
+        ///// An html block added to the left of the table. Typically used for filters.
+        ///// </summary>
+        //public string htmlLeftOfTable { get; set; } = "";
+        ////
+        ////====================================================================================================
+        ////
+        ///// <summary>
+        ///// An html block added above the table. Typically used for filters.
+        ///// </summary>
+        //public string htmlBeforeTable { get; set; } = "";
+        ////
+        ////====================================================================================================
+        ////
+        ///// <summary>
+        ///// An html block added below the table. Typically used for filters.
+        ///// </summary>
+        //public string htmlAfterTable { get; set; } = "";
+        ////
+        ////====================================================================================================
+        ////
+        ///// <summary>
+        ///// set true will block the addition of a form tag around the final html.
+        ///// The form tag is automatically added if you add a button, hidden or formActionRefreshString
+        ///// </summary>
+        //public bool blockFormTag { get; set; } = false;
+        ////
+        ////====================================================================================================
+        ////
+        ///// <summary>
+        ///// Add a form hidden element. 
+        ///// Adding also wraps the html with a form tag. Block the form tag with blockFormTag.
+        ///// </summary>
+        ///// <param name="Name"></param>
+        ///// <param name="Value"></param>
+        //public void addFormHidden(string Name, string Value) {
+        //    hiddenList += Constants.cr + "<input type=\"hidden\" name=\"" + Name + "\" value=\"" + Value + "\">";
+        //    includeForm = includeForm || !string.IsNullOrEmpty(Value);
+        //}
+        ///// <summary>
+        ///// Add a form hidden.
+        ///// Adding also wraps the html with a form tag. Block the form tag with blockFormTag.
+        ///// </summary>
+        ///// <param name="name"></param>
+        ///// <param name="value"></param>
+        //public void addFormHidden(string name, int value) => addFormHidden(name, value.ToString());
+        ///// <summary>
+        ///// Add a form hidden.
+        ///// Adding also wraps the html with a form tag. Block the form tag with blockFormTag.
+        ///// </summary>
+        ///// <param name="name"></param>
+        ///// <param name="value"></param>
+        //public void addFormHidden(string name, double value) => addFormHidden(name, value.ToString());
+        ///// <summary>
+        ///// Add a form hidden.
+        ///// Adding also wraps the html with a form tag. Block the form tag with blockFormTag.
+        ///// </summary>
+        ///// <param name="name"></param>
+        ///// <param name="value"></param>
+        //public void addFormHidden(string name, DateTime value) => addFormHidden(name, value.ToString());
+        ///// <summary>
+        ///// Add a form hidden.
+        ///// Adding also wraps the html with a form tag. Block the form tag with blockFormTag.
+        ///// </summary>
+        ///// <param name="name"></param>
+        ///// <param name="value"></param>
+        //public void addFormHidden(string name, bool value) => addFormHidden(name, value.ToString());
         //
         /// <summary>
         /// local list of hidden form elements
         /// </summary>
-        private string hiddenList = "";
-        //
-        //====================================================================================================
-        //
-        /// <summary>
-        /// Add a form button. 
-        /// Adding also wraps the html with a form tag. Block the form tag with blockFormTag.
-        /// </summary>
-        /// <param name="buttonValue"></param>
-        public void addFormButton(string buttonValue) {
-            addFormButton(buttonValue, "button", "", "");
-        }
-        /// <summary>
-        /// Add a form button. 
-        /// Adding a form button also wraps the html with a form tag. Block the form tag with blockFormTag.
-        /// </summary>
-        /// <param name="buttonValue"></param>
-        /// <param name="buttonName"></param>
-        public void addFormButton(string buttonValue, string buttonName) {
-            addFormButton(buttonValue, buttonName, "", "");
-        }
-        /// <summary>
-        /// Add a form button. 
-        /// Adding a form button also wraps the html with a form tag. Block the form tag with blockFormTag.
-        /// </summary>
-        /// <param name="buttonValue"></param>
-        /// <param name="buttonName"></param>
-        /// <param name="buttonId"></param>
-        public void addFormButton(string buttonValue, string buttonName, string buttonId) {
-            addFormButton(buttonValue, buttonName, buttonId, "");
-        }
-        /// <summary>
-        /// Add a form button. 
-        /// Adding also wraps the html with a form tag. Block the form tag with blockFormTag.
-        /// </summary>
-        /// <param name="buttonValue"></param>
-        /// <param name="buttonName"></param>
-        /// <param name="buttonId"></param>
-        /// <param name="buttonClass"></param>
-        public void addFormButton(string buttonValue, string buttonName, string buttonId, string buttonClass) {
-            buttonList += HtmlController.getButton(buttonName, buttonValue, buttonId, buttonClass);
-            includeForm = true;
-        }
-        private string buttonList = "";
-        //
-        //====================================================================================================
-        //
-        /// <summary>
-        /// Set the same as the refresh query string, except exclude all form inputs within the form. For instance, if the form has a filter that include 'dateTo', add dateTo to the RQS so heading sorts retain the value, but do not add it to formAction because the input box in the filter already has that value.
-        /// Setting also wraps the html with a form tag. Block the form tag with blockFormTag.
-        /// </summary>
-        public string formActionQueryString {
-            get {
-                return formActionQueryString_Local;
-            }
-            set {
-                formActionQueryString_Local = value;
-                localFormActionQueryStringSet = true;
-                includeForm = !string.IsNullOrEmpty(value);
-            }
-        }
-        private string formActionQueryString_Local = "";
-        private bool localFormActionQueryStringSet = false;
+        //private string hiddenList = "";
+        ////
+        ////====================================================================================================
+        ////
+        ///// <summary>
+        ///// Add a form button. 
+        ///// Adding also wraps the html with a form tag. Block the form tag with blockFormTag.
+        ///// </summary>
+        ///// <param name="buttonValue"></param>
+        //public void addFormButton(string buttonValue) {
+        //    addFormButton(buttonValue, "button", "", "");
+        //}
+        ///// <summary>
+        ///// Add a form button. 
+        ///// Adding a form button also wraps the html with a form tag. Block the form tag with blockFormTag.
+        ///// </summary>
+        ///// <param name="buttonValue"></param>
+        ///// <param name="buttonName"></param>
+        //public void addFormButton(string buttonValue, string buttonName) {
+        //    addFormButton(buttonValue, buttonName, "", "");
+        //}
+        ///// <summary>
+        ///// Add a form button. 
+        ///// Adding a form button also wraps the html with a form tag. Block the form tag with blockFormTag.
+        ///// </summary>
+        ///// <param name="buttonValue"></param>
+        ///// <param name="buttonName"></param>
+        ///// <param name="buttonId"></param>
+        //public void addFormButton(string buttonValue, string buttonName, string buttonId) {
+        //    addFormButton(buttonValue, buttonName, buttonId, "");
+        //}
+        ///// <summary>
+        ///// Add a form button. 
+        ///// Adding also wraps the html with a form tag. Block the form tag with blockFormTag.
+        ///// </summary>
+        ///// <param name="buttonValue"></param>
+        ///// <param name="buttonName"></param>
+        ///// <param name="buttonId"></param>
+        ///// <param name="buttonClass"></param>
+        //public void addFormButton(string buttonValue, string buttonName, string buttonId, string buttonClass) {
+        //    buttonList += HtmlController.getButton(buttonName, buttonValue, buttonId, buttonClass);
+        //    includeForm = true;
+        //}
+        //private string buttonList = "";
+        ////
+        ////====================================================================================================
+        ////
+        ///// <summary>
+        ///// Set the same as the refresh query string, except exclude all form inputs within the form. For instance, if the form has a filter that include 'dateTo', add dateTo to the RQS so heading sorts retain the value, but do not add it to formAction because the input box in the filter already has that value.
+        ///// Setting also wraps the html with a form tag. Block the form tag with blockFormTag.
+        ///// </summary>
+        //public string formActionQueryString {
+        //    get {
+        //        return formActionQueryString_Local;
+        //    }
+        //    set {
+        //        formActionQueryString_Local = value;
+        //        localFormActionQueryStringSet = true;
+        //        includeForm = !string.IsNullOrEmpty(value);
+        //    }
+        //}
+        //private string formActionQueryString_Local = "";
+        //private bool localFormActionQueryStringSet = false;
         //
         /// <summary>
         /// If true, the resulting html is wrapped in a form element whose action returns execution back to this addon where is it processed here in the same code.
         /// consider a pattern that blocks the include form if this layout is called form the portal system, where the portal methods create the entire strucuture
         /// </summary>
         private bool includeForm { get; set; } = false;
-        //
-        //====================================================================================================
-        /// <summary>
-        /// Include all nameValue pairs required to refresh the page if someone clicks on a header. For example, if there is a filter dateTo that is not empty, add dateTo=1/1/2000 to the RQS
-        /// </summary>
-        public string refreshQueryString {
-            get {
-                return frameRqs_Local;
-            }
-            set {
-                frameRqs_Local = value;
-                frameRqsSet_Local = true;
-            }
-        }
-        private string frameRqs_Local = "";
-        private bool frameRqsSet_Local = false;
+        ////
+        ////====================================================================================================
+        ///// <summary>
+        ///// Include all nameValue pairs required to refresh the page if someone clicks on a header. For example, if there is a filter dateTo that is not empty, add dateTo=1/1/2000 to the RQS
+        ///// </summary>
+        //public string refreshQueryString {
+        //    get {
+        //        return refreshQueryString_Local;
+        //    }
+        //    set {
+        //        refreshQueryString_Local = value;
+        //        refreshQueryStringSet_Local = true;
+        //    }
+        //}
+        //private string refreshQueryString_Local = "";
+        //private bool refreshQueryStringSet_Local = false;
         //
         //====================================================================================================
         /// <summary>
@@ -619,24 +609,24 @@ namespace Contensive.Addons.PortalFramework {
         /// </summary>
         [Obsolete("deprecated. Had previously been the name of the saved report record.", false)]
         public string name { get; set; } = "";
-        //
-        //====================================================================================================
-        /// <summary>
-        /// The headline of the generated html document
-        /// </summary>
-        public string title { get; set; } = "";
-        //
-        //====================================================================================================
-        /// <summary>
-        /// Optional warning text displayed at the top of the html document. Typically used to warn the user of an issue.
-        /// </summary>
-        public string warning { get; set; } = "";
-        //
-        //====================================================================================================
-        /// <summary>
-        /// Optional description displayed below the title at the top of the html document
-        /// </summary>
-        public string description { get; set; } = "";
+        ////
+        ////====================================================================================================
+        ///// <summary>
+        ///// The headline of the generated html document
+        ///// </summary>
+        //public string title { get; set; } = "";
+        ////
+        ////====================================================================================================
+        ///// <summary>
+        ///// Optional warning text displayed at the top of the html document. Typically used to warn the user of an issue.
+        ///// </summary>
+        //public string warning { get; set; } = "";
+        ////
+        ////====================================================================================================
+        ///// <summary>
+        ///// Optional description displayed below the title at the top of the html document
+        ///// </summary>
+        //public string description { get; set; } = "";
         //
         //====================================================================================================
         /// <summary>

@@ -123,8 +123,8 @@
 #afw .afwBodyPad 
 {
 	clear: both;
-    margin:0;
-	padding: 20px;
+    margin:20px;
+	padding: 0;
 }
 #afw .afwBodyColor
 {

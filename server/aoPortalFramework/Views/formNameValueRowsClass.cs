@@ -65,8 +65,6 @@ namespace Contensive.Addons.PortalFramework {
         /// </summary>
         rowStruct[] rows = new rowStruct[rowSize];
         //
-        private string localBody = "";
-        private string localFormId = "";
         //
         //-------------------------------------------------
         /// <summary>
@@ -77,11 +75,11 @@ namespace Contensive.Addons.PortalFramework {
         //
         // ====================================================================================================
         //
-        public bool includeBodyPadding { get; set; }
+        public bool includeBodyPadding { get; set; } = true;
         //
         // ====================================================================================================
         //
-        public bool includeBodyColor { get; set; }
+        public bool includeBodyColor { get; set; } = true;
         //
         // ====================================================================================================
         //
@@ -169,7 +167,7 @@ namespace Contensive.Addons.PortalFramework {
             }
             //
             // -- add body
-            result += localBody;
+            result += body;
             for (int rowPtr = 0; rowPtr <= rowCnt; rowPtr++) {
                 //
                 // -- check for fieldSetOpens
@@ -215,7 +213,7 @@ namespace Contensive.Addons.PortalFramework {
                 buttonList = buttonList,
                 csvDownloadFilename = "",
                 description = description,
-                formActionQueryString = formActionQueryString,
+                formActionQueryString = formAction,
                 hiddenList = hiddenList,
                 includeForm = includeForm,
                 isOuterContainer = isOuterContainer,
@@ -266,41 +264,35 @@ namespace Contensive.Addons.PortalFramework {
         // setForm
         //-------------------------------------------------
         //
-        public string formActionQueryString {
+        public string formAction {
             get {
-                return localFormActionQueryString;
+                return formAction_Local;
             }
             set {
-                localFormActionQueryString = value;
+                formAction_Local = value;
                 includeForm = !string.IsNullOrEmpty(value);
             }
         }
-        private string localFormActionQueryString = "";
+        private string formAction_Local = "";
         //
         //
 
         public string formId {
             get {
-                return localFormId;
+                return formId_local;
             }
             set {
-                localFormId = value;
+                formId_local = value;
                 includeForm = !string.IsNullOrEmpty(value);
             }
         }
+        private string formId_local = "";
         //
         //-------------------------------------------------
         // body
         //-------------------------------------------------
         //
-        public string body {
-            get {
-                return localBody;
-            }
-            set {
-                localBody = value;
-            }
-        }
+        public string body { get; set; }
         //
         //-------------------------------------------------
         // add a row
