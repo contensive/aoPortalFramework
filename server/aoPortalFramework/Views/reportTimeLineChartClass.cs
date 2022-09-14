@@ -6,27 +6,27 @@ using Contensive.Addons.PortalFramework.Controllers;
 using Contensive.BaseClasses;
 
 namespace Contensive.Addons.PortalFramework {
-    public class reportTimeLineChartClass {
+    public class ReportTimeLineChartClass {
         const int columnSize = 99;
         const int rowSize = 9999;
         //
-        struct columnStruct {
+        struct ColumnStruct {
             public string caption;
             public string captionClass;
             public string cellClass;
         }
         //
-        struct rowStruct {
+        struct RowStruct {
             public DateTime date;
             public string captionClass;
         }
-        struct chartDataStruct {
+        struct ChartDataStruct {
             public double yValue;
             //public string clickLink;
         }
-        chartDataStruct[,] chartData = new chartDataStruct[rowSize, columnSize];
-        columnStruct[] columns = new columnStruct[columnSize];
-        rowStruct[] rows = new rowStruct[rowSize];
+        private readonly ChartDataStruct[,] chartData = new ChartDataStruct[rowSize, columnSize];
+        private readonly ColumnStruct[] columns = new ColumnStruct[columnSize];
+        private readonly RowStruct[] rows = new RowStruct[rowSize];
         //
         bool gridIncludeHeaderRow = false;
         bool gridIncludesCaptionColumn = false;
@@ -159,48 +159,35 @@ namespace Contensive.Addons.PortalFramework {
         //-------------------------------------------------
         //
         public string getHtml(CPBaseClass cp) {
-            string result = "";
-            string row = "";
-            string rowList = "";
-            int rowPtr = 0;
-            int colPtr = 0;
-            string styleClass;
-            string content;
-            string userErrors;
-            string returnHeadJs = "";
-            string jsonData = "";
-            string jsonRow = "";
-            string chartHtmlId = "afwChart" + HtmlController.getRandomHtmlId(cp);
-            string captionColumn;
-            //string clickLink;
-            string jsonRowList = "";
             //
             // add user errors
             //
-            userErrors = cp.Utils.EncodeText(cp.UserError.GetList());
+            string userErrors = cp.Utils.EncodeText(cp.UserError.GetList());
             if (userErrors != "") {
                 warning = userErrors;
             }
             //
             // headers
             //
-            jsonData += Constants.cr + "data.addColumn('date', 'Date');";
-            rowList = "";
+            string jsonData = Constants.cr + "data.addColumn('date', 'Date');";
+            string rowList = "";
             if (gridIncludesCaptionColumn) {
                 rowList += Constants.cr + "<th>" + localXAxisCaption + "</th>";
             }
-            for (colPtr = 0; colPtr <= columnMax; colPtr++) {
+            string styleClass;
+            for (int colPtr = 0; colPtr <= columnMax; colPtr++) {
                 styleClass = columns[colPtr].captionClass;
                 if (styleClass != "") {
                     styleClass = " class=\"" + styleClass + "\"";
                 }
-                content = columns[colPtr].caption;
+                string content = columns[colPtr].caption;
                 if (content == "") {
                     content = "&nbsp;";
                 }
                 rowList += Constants.cr + "<th" + styleClass + ">" + content + "</th>";
                 jsonData += Constants.cr + "data.addColumn('number', '" + content + "');";
             }
+            string result = "";
             if (gridIncludeHeaderRow) {
                 result += ""
                     + Constants.cr + "<thead>"
@@ -214,28 +201,29 @@ namespace Contensive.Addons.PortalFramework {
             // body
             //
             rowList = "";
-            jsonRowList = "";
+            //string clickLink;
+            string jsonRowList = "";
             if (localIsEmptyReport) {
                 styleClass = columns[0].cellClass;
                 if (styleClass != "") {
                     styleClass = " class=\"" + styleClass + "\"";
                 }
-                row = Constants.cr + "<td style=\"text-align:left\" " + styleClass + " colspan=\"" + (columnMax + 1) + "\">[empty]</td>";
+                string row = Constants.cr + "<td style=\"text-align:left\" " + styleClass + " colspan=\"" + (columnMax + 1) + "\">[empty]</td>";
                 rowList += ""
                     + Constants.cr + "<tr>"
                     + indent(row)
                     + Constants.cr + "</tr>";
             } else {
-                for (rowPtr = 0; rowPtr <= rowCnt; rowPtr++) {
-                    row = "";
+                for (int rowPtr = 0; rowPtr <= rowCnt; rowPtr++) {
+                    string row = "";
                     //
                     // first column is the date
                     //
                     DateTime rowDate;
                     rowDate = rows[rowPtr].date;
-                    jsonRow = "new Date(" + rowDate.Year + "," + (rowDate.Month - 1) + "," + rowDate.Day + ")";
+                    string jsonRow = "new Date(" + rowDate.Year + "," + (rowDate.Month - 1) + "," + rowDate.Day + ")";
                     if (gridIncludesCaptionColumn) {
-                        captionColumn = rows[rowPtr].date.ToShortDateString();
+                        string captionColumn = rows[rowPtr].date.ToShortDateString();
                         if (captionColumn == "") {
                             captionColumn = "&nbsp;";
                         }
@@ -244,7 +232,7 @@ namespace Contensive.Addons.PortalFramework {
                     //
                     // additional columns are numeric
                     //
-                    for (colPtr = 0; colPtr <= columnMax; colPtr++) {
+                    for (int colPtr = 0; colPtr <= columnMax; colPtr++) {
                         styleClass = columns[colPtr].cellClass;
                         if (styleClass != "") {
                             styleClass = " class=\"" + styleClass + "\"";
@@ -280,6 +268,7 @@ namespace Contensive.Addons.PortalFramework {
                 + Constants.cr + "<div class=\"afwGridCon\">"
                 + indent(result)
                 + Constants.cr + "</div>";
+            string chartHtmlId = "afwChart" + HtmlController.getRandomHtmlId();
             //
             // chart
             //
@@ -359,6 +348,7 @@ namespace Contensive.Addons.PortalFramework {
                     + indent(result)
                     + Constants.cr + "</div>";
             }
+            string returnHeadJs = "";
             returnHeadJs += ""
                 + Constants.cr + "function drawChart() {"
                 + Constants.cr + "var data = new google.visualization.DataTable();"

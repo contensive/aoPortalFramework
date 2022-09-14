@@ -170,7 +170,7 @@ namespace Contensive.Addons.PortalFramework {
             string returnHeadJs = "";
             string jsonData = "";
             string jsonRow = "";
-            string chartHtmlId = "afwChart" + HtmlController.getRandomHtmlId(cp);
+            string chartHtmlId = "afwChart" + HtmlController.getRandomHtmlId();
             string captionColumn;
             string clickLink;
             //

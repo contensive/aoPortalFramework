@@ -11,10 +11,53 @@ namespace Contensive.Addons.PortalFramework.Controllers {
     /// </summary>
     class HtmlController {
         //
+        [Obsolete("Use getRandomHtmlId with no argument.", false)]
         public static string getRandomHtmlId(CPBaseClass cp) {
+            return getRandomHtmlId();
+        }
+        //
+        public static string getRandomHtmlId() {
             return Guid.NewGuid().ToString().Replace("{", "").Replace("-", "").Replace("}", "").ToLowerInvariant();
         }
         //
+        /// <summary>
+        /// Create a button with a link that does not submit a form. When clicked it anchors to the link
+        /// </summary>
+        /// <param name="link"></param>
+        /// <returns></returns>
+        public static string a(string buttonCaption, string link) {
+            return a(buttonCaption,link, "", "");
+        }
+        //
+        /// <summary>
+        /// Create a button with a link that does not submit a form. When clicked it anchors to the link
+        /// </summary>
+        /// <param name="link"></param>
+        /// <param name="htmlId"></param>
+        /// <returns></returns>
+        public static string a(string buttonCaption, string link, string htmlId) {
+            return a(buttonCaption, link, htmlId, "");
+        }
+        //
+        /// <summary>
+        /// Create a button with a link that does not submit a form. When clicked it anchors to the link
+        /// </summary>
+        /// <param name="link"></param>
+        /// <param name="htmlId"></param>
+        /// <param name="htmlClass"></param>
+        /// <returns></returns>
+        public static string a(string buttonCaption, string link, string htmlId, string htmlClass) {
+            return "<a href=\"" + link + "\" id=\"" + htmlId + "\" class=\"btn btn-primary mr-1 btn-sm " + htmlClass + "\">" + buttonCaption + "</a>";
+        }
+        //
+        /// <summary>
+        /// Create a form button that submits a form.
+        /// </summary>
+        /// <param name="buttonName"></param>
+        /// <param name="buttonValue"></param>
+        /// <param name="buttonId"></param>
+        /// <param name="buttonClass"></param>
+        /// <returns></returns>
         public static string getButton(string buttonName, string buttonValue, string buttonId, string buttonClass) {
             //afwButton 
             return "<input type=\"submit\" name=\"" + buttonName + "\" value=\"" + buttonValue + "\" id=\"" + buttonId + "\" class=\"btn btn-primary mr-1 btn-sm " + buttonClass + "\">";
@@ -46,7 +89,7 @@ namespace Contensive.Addons.PortalFramework.Controllers {
             if (!string.IsNullOrEmpty(userErrors)) {
                 result += "<div id=\"afwWarning\">" + userErrors + "</div>";
             }
-            if (!string.IsNullOrEmpty(request.description )) {
+            if (!string.IsNullOrEmpty(request.description)) {
                 result += "<p id=\"afwDescription\">" + request.description + "</p>";
             }
             if (!string.IsNullOrEmpty(request.csvDownloadFilename)) {
@@ -60,8 +103,8 @@ namespace Contensive.Addons.PortalFramework.Controllers {
                     + "<div style=\"clear:both\"></div>"
                     + "";
             }
-            if (!string.IsNullOrEmpty(request.htmlBeforeBody )) { resultBody = "<div class=\"afwBeforeHtml\">" + request.htmlBeforeBody + "</div>" + resultBody; }
-            if (!string.IsNullOrEmpty(request.htmlAfterBody )) { resultBody += "<div class=\"afwAfterHtml\">" + request.htmlAfterBody + "</div>"; }
+            if (!string.IsNullOrEmpty(request.htmlBeforeBody)) { resultBody = "<div class=\"afwBeforeHtml\">" + request.htmlBeforeBody + "</div>" + resultBody; }
+            if (!string.IsNullOrEmpty(request.htmlAfterBody)) { resultBody += "<div class=\"afwAfterHtml\">" + request.htmlAfterBody + "</div>"; }
             result += resultBody;
             //
             // -- add padding
@@ -76,7 +119,7 @@ namespace Contensive.Addons.PortalFramework.Controllers {
             //
             // -- add form
             if (request.includeForm && !request.blockFormTag) {
-                string action = !string.IsNullOrEmpty(request.formActionQueryString) ? request.formActionQueryString : (!string.IsNullOrEmpty(request.refreshQueryString) ? request.refreshQueryString : cp.Doc.RefreshQueryString); 
+                string action = !string.IsNullOrEmpty(request.formActionQueryString) ? request.formActionQueryString : (!string.IsNullOrEmpty(request.refreshQueryString) ? request.refreshQueryString : cp.Doc.RefreshQueryString);
                 result = cp.Html.Form(result + request.hiddenList, "", "", "", action, "");
             }
             //
@@ -142,7 +185,7 @@ namespace Contensive.Addons.PortalFramework.Controllers {
         /// <summary>
         /// the querystring that will be used as the basis for links to the view
         /// </summary>
-        public string refreshQueryString { get; set; }    
+        public string refreshQueryString { get; set; }
         /// <summary>
         /// if true, the outer htmlid, styles and javascript will be added
         /// </summary>

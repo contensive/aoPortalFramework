@@ -4,7 +4,7 @@ using Contensive.BaseClasses;
 using System;
 
 namespace Contensive.Addons.PortalFramework {
-    public class LayoutBuilderTwoColumnLeft {
+    public class LayoutBuilderTwoColumnLeft : LayoutBuilderBaseClass {
         //
         //====================================================================================================
         //
@@ -16,47 +16,24 @@ namespace Contensive.Addons.PortalFramework {
         //
         //====================================================================================================
         //
-        public string headline { get; set; } = "";
-        //
-        //====================================================================================================
-        public string warningMessage { get; set; } = "";
-        //
-        //====================================================================================================
-        public string description { get; set; } = "";
-        //
-        // ====================================================================================================
-        /// <summary>
-        /// Optional. If set, this value will populate the title in the subnav of the portalbuilder
-        /// </summary>
-        public string portalSubNavTitle { get; set; }
-        //
-        public string buttonSection {
+        [Obsolete("deprecated, Use title",false)] public string headline {
             get {
-                return HtmlController.getButtonSection(buttonList);
+                return base.title;
+            } 
+            set {
+                base.title = value; 
             }
         }
-        private string buttonList { get; set; }
-        ////
-        //public bool hasButtonList {
-        //    get {
-        //        return !string.IsNullOrEmpty(buttonList);
-        //    }
-        //}
         //
         //====================================================================================================
-        //
-        public void addFormHidden(string Name, string Value) {
-            inputHiddenList += Constants.cr + "<input type=\"hidden\" name=\"" + Name + "\" value=\"" + Value + "\">";
+        [Obsolete("deprecated, Use warning",false)] public string warningMessage {
+            get {
+                return base.warning;
+            }
+            set { 
+                base.warning = value;   
+            } 
         }
-        private string inputHiddenList = "";
-        //
-        public void addFormHidden(string name, int value) => addFormHidden(name, value.ToString());
-        //
-        public void addFormHidden(string name, double value) => addFormHidden(name, value.ToString());
-        //
-        public void addFormHidden(string name, DateTime value) => addFormHidden(name, value.ToString());
-        //
-        public void addFormHidden(string name, bool value) => addFormHidden(name, value.ToString());
         //
         //====================================================================================================
         /// <summary>
@@ -64,41 +41,13 @@ namespace Contensive.Addons.PortalFramework {
         /// </summary>
         /// <param name="cp"></param>
         /// <returns></returns>
-        public string getHtml(CPBaseClass cp) {
-            //
-            // -- set the optional title of the portal subnav
-            if (!string.IsNullOrEmpty(portalSubNavTitle)) { cp.Doc.SetProperty("portalSubNavTitle", portalSubNavTitle); }
+        public new string getHtml(CPBaseClass cp) {
             //
             // -- render layout
             string layout = cp.Layout.GetLayout(Constants.guidLayoutAdminUITwoColumnLeft, Constants.nameLayoutAdminUITwoColumnLeft, Constants.pathFilenameLayoutAdminUITwoColumnLeft);
+            body = cp.Mustache.Render(layout, this);
             //
-            HtmlDocRequest docRequest = new HtmlDocRequest() {
-                body = cp.Mustache.Render(layout, this),
-                buttonList = buttonList,
-                csvDownloadFilename = "",
-                description = description,
-                formActionQueryString = "",
-                hiddenList = inputHiddenList,
-                includeBodyColor = true,
-                includeBodyPadding = true,
-                includeForm = (!string.IsNullOrEmpty(inputHiddenList) || !string.IsNullOrEmpty(buttonList)),
-                isOuterContainer = true,
-                title = headline,
-                warning = warningMessage
-            };
-            return HtmlController.getReportDoc(cp, docRequest);
-        }
-        //
-        // ====================================================================================================
-        /// <summary>
-        /// add a button to the form
-        /// </summary>
-        /// <param name="buttonValue"></param>
-        /// <param name="buttonName"></param>
-        /// <param name="buttonId"></param>
-        /// <param name="buttonClass"></param>
-        public void addFormButton(string buttonValue, string buttonName, string buttonId, string buttonClass) {
-            buttonList += HtmlController.getButton(buttonName, buttonValue, buttonId, buttonClass);
+            return base.getHtml(cp);
         }
     }
 }

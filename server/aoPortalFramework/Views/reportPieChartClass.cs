@@ -182,7 +182,7 @@ namespace Contensive.Addons.PortalFramework {
                 + "<div class=\"afwGridCon\">"
                 + grid
                 + "</div>";
-            string chartHtmlId = "afwChart" + HtmlController.getRandomHtmlId(cp);
+            string chartHtmlId = "afwChart" + HtmlController.getRandomHtmlId();
             string result = ""
                 + "<div class=\"afwChartCon\" style=\"width:" + chartWidth + "px;\">"
                 + "<div id=\"" + chartHtmlId + "\"></div>"

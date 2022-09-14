@@ -141,6 +141,33 @@ namespace Contensive.Addons.PortalFramework {
         /// <param name="value"></param>
         public void addFormHidden(string name, bool value) => addFormHidden(name, value.ToString());
         //
+        /// <summary>
+        /// Create a button with a link that does not submit a form. When clicked it anchors to the link
+        /// </summary>
+        /// <param name="link"></param>
+        public void addLinkButton(string buttonCaption, string link ) {
+            buttonList += HtmlController.a(buttonCaption, link);
+        }
+        //
+        /// <summary>
+        /// Create a button with a link that does not submit a form. When clicked it anchors to the link
+        /// </summary>
+        /// <param name="link"></param>
+        /// <param name="htmlId"></param>
+        public void addLinkButton(string buttonCaption, string link, string htmlId ) {
+            buttonList += HtmlController.a(buttonCaption, link, htmlId);
+        }
+        //
+        /// <summary>
+        /// Create a button with a link that does not submit a form. When clicked it anchors to the link
+        /// </summary>
+        /// <param name="link"></param>
+        /// <param name="htmlId"></param>
+        /// <param name="htmlClass"></param>
+        public void addLinkButton(string buttonCaption, string link, string htmlId, string htmlClass) {
+            buttonList += HtmlController.a(buttonCaption, link, htmlId, htmlClass);
+        }
+        //
         //-------------------------------------------------
         /// <summary>
         /// add a form button to the layout. This will also create a form around the layout. Set blockForm to true to block the automatic form.
@@ -149,6 +176,7 @@ namespace Contensive.Addons.PortalFramework {
         public void addFormButton(string buttonValue) {
             addFormButton(buttonValue, "button", "", "");
         }
+        //
         /// <summary>
         /// add a form button to the layout. This will also create a form around the layout. Set blockForm to true to block the automatic form.
         /// </summary>
@@ -157,6 +185,7 @@ namespace Contensive.Addons.PortalFramework {
         public void addFormButton(string buttonValue, string buttonName) {
             addFormButton(buttonValue, buttonName, "", "");
         }
+        //
         /// <summary>
         /// add a form button to the layout. This will also create a form around the layout. Set blockForm to true to block the automatic form.
         /// </summary>

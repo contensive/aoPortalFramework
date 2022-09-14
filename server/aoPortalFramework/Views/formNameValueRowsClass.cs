@@ -24,7 +24,7 @@ namespace Contensive.Addons.PortalFramework {
         /// <summary>
         /// the structure of data saved to each field
         /// </summary>
-        struct fieldSetStruct {
+        struct FieldSetStruct {
             public string caption;
             public int rowOpen;
             public int rowClose;
@@ -33,12 +33,12 @@ namespace Contensive.Addons.PortalFramework {
         /// <summary>
         /// fieldsets are used to group fields visually with ah html fieldset element
         /// </summary>
-        private readonly fieldSetStruct[] fieldSets = new fieldSetStruct[fieldSetSize];
+        private readonly FieldSetStruct[] fieldSets = new FieldSetStruct[fieldSetSize];
         //
         /// <summary>
         /// fieldsets are used to group fields visually with ah html fieldset element
         /// </summary>
-        private Stack fieldSetPtrStack = new Stack();
+        private readonly Stack fieldSetPtrStack = new Stack();
         //
         /// <summary>
         /// the max number of row
@@ -53,7 +53,7 @@ namespace Contensive.Addons.PortalFramework {
         /// <summary>
         /// the structure of stored rows
         /// </summary>
-        struct rowStruct {
+        struct RowStruct {
             public string name;
             public string value;
             public string help;
@@ -63,7 +63,7 @@ namespace Contensive.Addons.PortalFramework {
         /// <summary>
         /// the stored rows to be rendered
         /// </summary>
-        rowStruct[] rows = new rowStruct[rowSize];
+        private readonly RowStruct[]  rows = new RowStruct[rowSize];
         //
         //
         //-------------------------------------------------
@@ -226,34 +226,75 @@ namespace Contensive.Addons.PortalFramework {
         //-------------------------------------------------
         // add a form hidden
         //-------------------------------------------------
-        //
+        /// <summary>
+        /// Add hidden field. Also creates a form element wrapping the layout.
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="value"></param>
         public void addFormHidden(string name, string value) {
             hiddenList += Constants.cr + "<input type=\"hidden\" name=\"" + name + "\" value=\"" + value + "\">";
             includeForm = true;
         }
         private string hiddenList = "";
-        //
+        /// <summary>
+        /// Add hidden field. Also creates a form element wrapping the layout.
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="value"></param>
         public void addFormHidden(string name, int value) => addFormHidden(name, value.ToString());
-        //
+        /// <summary>
+        /// Add hidden field. Also creates a form element wrapping the layout.
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="value"></param>
         public void addFormHidden(string name, double value) => addFormHidden(name, value.ToString());
-        //
+        /// <summary>
+        /// Add hidden field. Also creates a form element wrapping the layout.
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="value"></param>
         public void addFormHidden(string name, DateTime value) => addFormHidden(name, value.ToString());
-        //
+        /// <summary>
+        /// Add hidden field. Also creates a form element wrapping the layout.
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="value"></param>
         public void addFormHidden(string name, bool value) => addFormHidden(name, value.ToString());
         //
         //-------------------------------------------------
         // add a form button
         //-------------------------------------------------
-        //
+        /// <summary>
+        /// Adds a button to the button panel. Also creates a form element wrapping the layout.
+        /// </summary>
+        /// <param name="buttonValue"></param>
         public void addFormButton(string buttonValue) {
             addFormButton(buttonValue, "button", "", "");
         }
+        /// <summary>
+        /// Adds a button to the button panel. Also creates a form element wrapping the layout.
+        /// </summary>
+        /// <param name="buttonValue"></param>
+        /// <param name="buttonName"></param>
         public void addFormButton(string buttonValue, string buttonName) {
             addFormButton(buttonValue, buttonName, "", "");
         }
+        /// <summary>
+        /// Adds a button to the button panel. Also creates a form element wrapping the layout.
+        /// </summary>
+        /// <param name="buttonValue"></param>
+        /// <param name="buttonName"></param>
+        /// <param name="buttonId"></param>
         public void addFormButton(string buttonValue, string buttonName, string buttonId) {
             addFormButton(buttonValue, buttonName, buttonId, "");
         }
+        /// <summary>
+        /// Adds a button to the button panel. Also creates a form element wrapping the layout.
+        /// </summary>
+        /// <param name="buttonValue"></param>
+        /// <param name="buttonName"></param>
+        /// <param name="buttonId"></param>
+        /// <param name="buttonClass"></param>
         public void addFormButton(string buttonValue, string buttonName, string buttonId, string buttonClass) {
             buttonList += HtmlController.getButton(buttonName, buttonValue, buttonId, buttonClass);
             includeForm = true;
@@ -264,6 +305,9 @@ namespace Contensive.Addons.PortalFramework {
         // setForm
         //-------------------------------------------------
         //
+        /// <summary>
+        /// Sets the action attribute to the layout's form.
+        /// </summary>
         public string formAction {
             get {
                 return formAction_Local;
@@ -275,18 +319,6 @@ namespace Contensive.Addons.PortalFramework {
         }
         private string formAction_Local = "";
         //
-        //
-
-        public string formId {
-            get {
-                return formId_local;
-            }
-            set {
-                formId_local = value;
-                includeForm = !string.IsNullOrEmpty(value);
-            }
-        }
-        private string formId_local = "";
         //
         //-------------------------------------------------
         // body
@@ -376,12 +408,17 @@ namespace Contensive.Addons.PortalFramework {
             }
         }
         //
-        //-------------------------------------------------
-        //
-        //-------------------------------------------------
-        //
-        private string indent(string src) {
-            return src.Replace(Constants.cr, Constants.cr2);
+        [Obsolete("deprecated. Add a hidden input tag with addFormHidden.")]
+        public string formId {
+            get {
+                return formId_local;
+            }
+            set {
+                addFormHidden("formid", value);
+                formId_local = value;
+            }
         }
+        private string formId_local = "";
+
     }
 }
