@@ -18,6 +18,6 @@
         </dependencies>
     </metadata>
     <files>
-        <file src="bin\Debug\PortalFramework.dll" target="lib\net472\PortalFramework.dll" />
+        <file src="bin\Debug\net472\PortalFramework.dll" target="lib\net472\PortalFramework.dll" />
     </files>
 </package>

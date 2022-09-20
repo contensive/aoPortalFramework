@@ -7,6 +7,10 @@ using Contensive.Addons.PortalFramework.Models.Domain;
 using Contensive.BaseClasses;
 
 namespace Contensive.Addons.PortalFramework {
+    //
+    /// <summary>
+    /// Create a layout with a data grid
+    /// </summary>
     public class ReportListClass : LayoutBuilderBaseClass {
         //
         /// <summary>

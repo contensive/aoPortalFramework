@@ -36,11 +36,25 @@ namespace Contensive.Addons.PortalFramework {
         /// </summary>
         public string title { get; set; } = "";
         //
-        //-------------------------------------------------
         /// <summary>
-        /// set to a message and the warning will appear at the top, between the subhead and the description copy
+        /// message displayed as a warning message. Not an error, but an issue of some type
         /// </summary>
-        public string warning { get; set; } = "";
+        public string warningMessage { get; set; } = "";
+        //
+        /// <summary>
+        /// message displayed as a fail message. Data is wrong
+        /// </summary>
+        public string failMessage { get; set; } = "";
+        //
+        /// <summary>
+        /// message displayed as an informational message. Nothing is wrong, but the user should know
+        /// </summary>
+        public string infoMessage { get; set; } = "";
+        //
+        /// <summary>
+        /// message displayed as a success message.
+        /// </summary>
+        public string successMessage { get; set; } = "";
         //
         //-------------------------------------------------
         /// <summary>
@@ -88,7 +102,10 @@ namespace Contensive.Addons.PortalFramework {
                 includeForm = includeForm,
                 isOuterContainer = isOuterContainer,
                 title = title,
-                warning = warning,
+                warningMessage = warningMessage,
+                failMessage = failMessage,
+                infoMessage = infoMessage,
+                successMessage = successMessage,
                 htmlAfterBody = htmlAfterTable,
                 htmlBeforeBody = htmlBeforeTable,
                 htmlLeftOfBody = htmlLeftOfTable,
@@ -107,33 +124,78 @@ namespace Contensive.Addons.PortalFramework {
         /// </summary>
         /// <param name="Name"></param>
         /// <param name="Value"></param>
-        public void addFormHidden(string Name, string Value) {
-            hiddenList += Constants.cr + "<input type=\"hidden\" name=\"" + Name + "\" value=\"" + Value + "\">";
+        /// <param name="htmlId"></param>
+        public void addFormHidden(string Name, string Value, string htmlId) {
+            hiddenList += "<input type=\"hidden\" name=\"" + Name + "\" value=\"" + Value + "\" id=\"" + htmlId + "\">";
             includeForm = true;
         }
+        //
         private string hiddenList = "";
         /// <summary>
         /// add a form hidden input to the layout. This will also create a form around the layout. Set blockForm to true to block the automatic form.
         /// </summary>
         private bool includeForm { get; set; } = false;
+        //
+        /// <summary>
+        /// add a form hidden input to the layout. This will also create a form around the layout. Set blockForm to true to block the automatic form.
+        /// </summary>
+        /// <param name="Name"></param>
+        /// <param name="Value"></param>
+        public void addFormHidden(string Name, string Value) => addFormHidden(Name, Value, "");
+        //
         /// <summary>
         /// add a form hidden input to the layout. This will also create a form around the layout. Set blockForm to true to block the automatic form.
         /// </summary>
         /// <param name="name"></param>
         /// <param name="value"></param>
-        public void addFormHidden(string name, int value) => addFormHidden(name, value.ToString());
+        /// <param name="htmlId"></param>
+        public void addFormHidden(string name, int value, string htmlId) => addFormHidden(name, value.ToString(), htmlId);
+        //
+        /// <summary>
+        /// add a form hidden input to the layout. This will also create a form around the layout. Set blockForm to true to block the automatic form.
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="value"></param>
+        public void addFormHidden(string name, int value) => addFormHidden(name, value.ToString(), "");
+        //
+        /// <summary>
+        /// add a form hidden input to the layout. This will also create a form around the layout. Set blockForm to true to block the automatic form.
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="value"></param>
+        /// <param name="htmlId"></param>
+        public void addFormHidden(string name, double value, string htmlId) => addFormHidden(name, value.ToString(), htmlId);
+        //
         /// <summary>
         /// add a form hidden input to the layout. This will also create a form around the layout. Set blockForm to true to block the automatic form.
         /// </summary>
         /// <param name="name"></param>
         /// <param name="value"></param>
         public void addFormHidden(string name, double value) => addFormHidden(name, value.ToString());
+        //
+        /// <summary>
+        /// add a form hidden input to the layout. This will also create a form around the layout. Set blockForm to true to block the automatic form.
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="value"></param>
+        /// <param name="htmlId"></param>
+        public void addFormHidden(string name, DateTime value, string htmlId) => addFormHidden(name, value.ToString(), htmlId);
+        //
         /// <summary>
         /// add a form hidden input to the layout. This will also create a form around the layout. Set blockForm to true to block the automatic form.
         /// </summary>
         /// <param name="name"></param>
         /// <param name="value"></param>
         public void addFormHidden(string name, DateTime value) => addFormHidden(name, value.ToString());
+        //
+        /// <summary>
+        /// add a form hidden input to the layout. This will also create a form around the layout. Set blockForm to true to block the automatic form.
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="value"></param>
+        /// <param name="htmlId"></param>
+        public void addFormHidden(string name, bool value, string htmlId) => addFormHidden(name, value.ToString(), htmlId);
+        //
         /// <summary>
         /// add a form hidden input to the layout. This will also create a form around the layout. Set blockForm to true to block the automatic form.
         /// </summary>
@@ -144,23 +206,26 @@ namespace Contensive.Addons.PortalFramework {
         /// <summary>
         /// Create a button with a link that does not submit a form. When clicked it anchors to the link
         /// </summary>
+        /// <param name="buttonCaption"></param>
         /// <param name="link"></param>
-        public void addLinkButton(string buttonCaption, string link ) {
+        public void addLinkButton(string buttonCaption, string link) {
             buttonList += HtmlController.a(buttonCaption, link);
         }
         //
         /// <summary>
         /// Create a button with a link that does not submit a form. When clicked it anchors to the link
         /// </summary>
+        /// <param name="buttonCaption"></param>
         /// <param name="link"></param>
         /// <param name="htmlId"></param>
-        public void addLinkButton(string buttonCaption, string link, string htmlId ) {
+        public void addLinkButton(string buttonCaption, string link, string htmlId) {
             buttonList += HtmlController.a(buttonCaption, link, htmlId);
         }
         //
         /// <summary>
         /// Create a button with a link that does not submit a form. When clicked it anchors to the link
         /// </summary>
+        /// <param name="buttonCaption"></param>
         /// <param name="link"></param>
         /// <param name="htmlId"></param>
         /// <param name="htmlClass"></param>
@@ -264,7 +329,50 @@ namespace Contensive.Addons.PortalFramework {
             }
         }
         private string refreshQueryString_Local = "";
-        //private bool refreshQueryStringSet_Local = false;
+        //
+        //-------------------------------------------------
+        /// <summary>
+        /// deprecated. Use warningMessage instead
+        /// </summary>
+        [Obsolete("deprecated. Use warningMessage instead", false)]
+        public string warning { 
+            get {
+                return warningMessage;
+            }
+            set {
+                warningMessage = value;
+            }
+        }
+        //
+        //-------------------------------------------------
+        /// <summary>
+        /// deprecated. Use htmlAfterTable instead
+        /// </summary>
+        [Obsolete("deprecated. Use htmlAfterTable instead", false)]
+        public string footer {
+            get {
+                return htmlAfterTable;
+            }
+            set {
+                htmlAfterTable = value;
+            }
+        }
+        //
+        //-------------------------------------------------
+        /// <summary>
+        /// deprecated. Use warningMessage instead
+        /// </summary>
+        [Obsolete("deprecated. Use addFormHidden instead", false)]
+        public string formid {
+            get {
+                return formid_local;
+            }
+            set {
+                addFormHidden("formId", value);
+                formid_local = value;
+            }
+        }
+        private string formid_local;
 
     }
 }

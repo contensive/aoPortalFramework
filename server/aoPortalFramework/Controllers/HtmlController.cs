@@ -23,6 +23,7 @@ namespace Contensive.Addons.PortalFramework.Controllers {
         /// <summary>
         /// Create a button with a link that does not submit a form. When clicked it anchors to the link
         /// </summary>
+        /// <param name="buttonCaption"></param>
         /// <param name="link"></param>
         /// <returns></returns>
         public static string a(string buttonCaption, string link) {
@@ -32,6 +33,7 @@ namespace Contensive.Addons.PortalFramework.Controllers {
         /// <summary>
         /// Create a button with a link that does not submit a form. When clicked it anchors to the link
         /// </summary>
+        /// <param name="buttonCaption"></param>
         /// <param name="link"></param>
         /// <param name="htmlId"></param>
         /// <returns></returns>
@@ -42,6 +44,7 @@ namespace Contensive.Addons.PortalFramework.Controllers {
         /// <summary>
         /// Create a button with a link that does not submit a form. When clicked it anchors to the link
         /// </summary>
+        /// <param name="buttonCaption"></param>
         /// <param name="link"></param>
         /// <param name="htmlId"></param>
         /// <param name="htmlClass"></param>
@@ -79,19 +82,19 @@ namespace Contensive.Addons.PortalFramework.Controllers {
         //
         public static string getReportDoc(CPBaseClass cp, HtmlDocRequest request) {
             string result = "";
-            if (!string.IsNullOrEmpty(request.title)) {
-                result += "<h2 id=\"afwTitle\">" + request.title + "</h2>";
+            //
+            string warningMessage = request.warningMessage;
+            string userErrors = cp.Utils.EncodeText(cp.UserError.GetList());
+            if (!string.IsNullOrWhiteSpace(userErrors)) {
+                warningMessage += userErrors;
             }
-            if (!string.IsNullOrEmpty(request.warning)) {
-                result += "<div id=\"afwWarning\">" + request.warning + "</div>";
-            }
-            string userErrors = cp.UserError.GetList();
-            if (!string.IsNullOrEmpty(userErrors)) {
-                result += "<div id=\"afwWarning\">" + userErrors + "</div>";
-            }
-            if (!string.IsNullOrEmpty(request.description)) {
-                result += "<p id=\"afwDescription\">" + request.description + "</p>";
-            }
+            //
+            result += (string.IsNullOrWhiteSpace(request.title) ? "" : Constants.cr + "<h2>" + request.title + "</h2>");
+            result += (string.IsNullOrWhiteSpace(request.successMessage) ? "" : Constants.cr + "<div class=\"p-3 mb-2 bg-success text-white\">" + request.successMessage + "</div>");
+            result += (string.IsNullOrWhiteSpace(request.infoMessage) ? "" : Constants.cr + "<div class=\"p-3 mb-2 bg-info text-white\">" + request.infoMessage + "</div>");
+            result += (string.IsNullOrWhiteSpace(request.warningMessage) ? "" : Constants.cr + "<div class=\"p-3 mb-2 bg-warning text-white\">" + warningMessage + "</div>");
+            result += (string.IsNullOrWhiteSpace(request.failMessage) ? "" : Constants.cr + "<div class=\"p-3 mb-2 bg-danger text-white\">" + request.failMessage + "</div>");
+            result += (string.IsNullOrWhiteSpace(request.description) ? "" : Constants.cr + "<p>" + request.description + "</p>");
             if (!string.IsNullOrEmpty(request.csvDownloadFilename)) {
                 result += "<p id=\"afwDescription\"><a href=\"" + cp.Http.CdnFilePathPrefix + request.csvDownloadFilename + "\">Click here</a> to download the data.</p>";
             }
@@ -106,10 +109,38 @@ namespace Contensive.Addons.PortalFramework.Controllers {
             if (!string.IsNullOrEmpty(request.htmlBeforeBody)) { resultBody = "<div class=\"afwBeforeHtml\">" + request.htmlBeforeBody + "</div>" + resultBody; }
             if (!string.IsNullOrEmpty(request.htmlAfterBody)) { resultBody += "<div class=\"afwAfterHtml\">" + request.htmlAfterBody + "</div>"; }
             result += resultBody;
+            //result += (string.IsNullOrWhiteSpace(request.footer) ? "" : Constants.cr + "<footer>" + request.footer + "</footer>");
+            //if (!string.IsNullOrEmpty(request.title)) {
+            //    result += "<h2 id=\"afwTitle\">" + request.title + "</h2>";
+            //}
+            //if (!string.IsNullOrEmpty(request.warning)) {
+            //    result += "<div id=\"afwWarning\">" + request.warning + "</div>";
+            //}
+            //string userErrors = cp.UserError.GetList();
+            //if (!string.IsNullOrEmpty(userErrors)) {
+            //    result += "<div id=\"afwWarning\">" + userErrors + "</div>";
+            //}
+            //if (!string.IsNullOrEmpty(request.description)) {
+            //    result += "<p id=\"afwDescription\">" + request.description + "</p>";
+            //}
+            //if (!string.IsNullOrEmpty(request.csvDownloadFilename)) {
+            //    result += "<p id=\"afwDescription\"><a href=\"" + cp.Http.CdnFilePathPrefix + request.csvDownloadFilename + "\">Click here</a> to download the data.</p>";
+            //}
+            //string resultBody = request.body;
+            //if (!string.IsNullOrEmpty(request.htmlLeftOfBody)) {
+            //    resultBody = ""
+            //        + "<div class=\"afwLeftSideHtml\">" + request.htmlLeftOfBody + "</div>"
+            //        + "<div class=\"afwRightSideHtml\">" + resultBody + "</div>"
+            //        + "<div style=\"clear:both\"></div>"
+            //        + "";
+            //}
+            //if (!string.IsNullOrEmpty(request.htmlBeforeBody)) { resultBody = "<div class=\"afwBeforeHtml\">" + request.htmlBeforeBody + "</div>" + resultBody; }
+            //if (!string.IsNullOrEmpty(request.htmlAfterBody)) { resultBody += "<div class=\"afwAfterHtml\">" + request.htmlAfterBody + "</div>"; }
+            //result += resultBody;
             //
             // -- add padding
             if (request.includeBodyPadding) {
-                result = cp.Html.div(result, "", "afwBodyPad", "");
+                result = cp.Html.div(result, "", "m-4", "");
             };
             //
             // -- add buttons
@@ -125,7 +156,7 @@ namespace Contensive.Addons.PortalFramework.Controllers {
             //
             // -- add background color
             if (request.includeBodyColor) {
-                result = cp.Html.div(result, "", "afwBodyColor", "");
+                result = cp.Html.div(result, "", "bg-light", "");
             };
             //
             if (request.isOuterContainer) {
@@ -150,10 +181,27 @@ namespace Contensive.Addons.PortalFramework.Controllers {
         /// if text description
         /// </summary>
         public string description { get; set; }
+        // 
         /// <summary>
-        /// an optional warning at the top
+        /// message displayed as a success message
         /// </summary>
-        public string warning { get; set; }
+        public string successMessage { get; set; } = "";
+        // 
+        /// <summary>
+        /// message displayed as an informational message. Not a warning and not success, but something happened that the user needs to know about the results.
+        /// </summary>
+        public string infoMessage { get; set; } = "";
+        // 
+        /// <summary>
+        /// message displayed as a warning message. Not an error, but an issue of some type
+        /// </summary>
+        public string warningMessage { get; set; } = "";
+        // 
+        /// <summary>
+        /// message displayed as a fail message. The data is not correct
+        /// </summary>
+        public string failMessage { get; set; } = "";
+
         /// <summary>
         /// the document headline
         /// </summary>
@@ -206,7 +254,9 @@ namespace Contensive.Addons.PortalFramework.Controllers {
         /// if true, the form tag will not be added
         /// </summary>
         public bool blockFormTag { get; set; }
-
+        //
+        [Obsolete("deprecated. Use warningMessage instead", false)]
+        public string warning { get; set; }
     }
 }
 

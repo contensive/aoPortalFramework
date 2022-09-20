@@ -1,184 +1,28 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="12.0">
-  <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>8.0.50727</ProductVersion>
-    <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{BC682012-AFBD-4A22-BEC8-E9CACBE8B7D6}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Contensive.Addons.PortalFramework</RootNamespace>
-    <AssemblyName>PortalFramework</AssemblyName>
-    <SccProjectName>
-    </SccProjectName>
-    <SccLocalPath>
-    </SccLocalPath>
-    <SccAuxPath>
-    </SccAuxPath>
-    <SccProvider>
-    </SccProvider>
-    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
-    <FileUpgradeFlags>
-    </FileUpgradeFlags>
-    <UpgradeBackupLocation>
-    </UpgradeBackupLocation>
-    <OldToolsVersion>2.0</OldToolsVersion>
-    <TargetFrameworkProfile />
-    <IsWebBootstrapper>false</IsWebBootstrapper>
-    <PublishUrl>publish\</PublishUrl>
-    <Install>true</Install>
-    <InstallFrom>Disk</InstallFrom>
-    <UpdateEnabled>false</UpdateEnabled>
-    <UpdateMode>Foreground</UpdateMode>
-    <UpdateInterval>7</UpdateInterval>
-    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
-    <UpdatePeriodically>false</UpdatePeriodically>
-    <UpdateRequired>false</UpdateRequired>
-    <MapFileExtensions>true</MapFileExtensions>
-    <ApplicationRevision>0</ApplicationRevision>
-    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
-    <UseApplicationTrust>false</UseApplicationTrust>
-    <BootstrapperEnabled>true</BootstrapperEnabled>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <Prefer32Bit>false</Prefer32Bit>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <Prefer32Bit>false</Prefer32Bit>
-  </PropertyGroup>
-  <PropertyGroup>
-    <SignAssembly>true</SignAssembly>
-  </PropertyGroup>
-  <PropertyGroup>
-    <AssemblyOriginatorKeyFile>adminFramework-1-0-12.snk</AssemblyOriginatorKeyFile>
-  </PropertyGroup>
-  <ItemGroup>
-    <Reference Include="ContensiveDbModels, Version=4.1.2.0, Culture=neutral, PublicKeyToken=c014b235a9c6bb22, processorArchitecture=MSIL">
-      <HintPath>..\packages\Contensive.DbModels.21.9.29.2\lib\net472\ContensiveDbModels.dll</HintPath>
-    </Reference>
-    <Reference Include="CPBase, Version=4.1.2.0, Culture=neutral, PublicKeyToken=10b3c53389b845fb, processorArchitecture=MSIL">
-      <HintPath>..\packages\Contensive.CPBaseClass.21.9.29.2\lib\net472\CPBase.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.VisualBasic" />
-    <Reference Include="System" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Web.Extensions" />
-    <Reference Include="System.Xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Addons\InstallAddon.cs" />
-    <Compile Include="Constants.cs" />
-    <Compile Include="Controllers\GenericController.cs" />
-    <Compile Include="Models\Domain\ElllipseMenu.cs" />
-    <Compile Include="Models\Domain\PortalBuilderViewModel.cs" />
-    <Compile Include="Models\Domain\PortalBuilderNavItemViewModel.cs" />
-    <Compile Include="Models\Domain\PortalBuilderSubNavItemViewModel.cs" />
-    <Compile Include="Models\Domain\PortalDataModel.cs" />
-    <Compile Include="Models\Db\PortalModel.cs" />
-    <Compile Include="Models\Db\PortalFeatureModel.cs" />
-    <Compile Include="Models\Domain\PortalDataFeatureModel.cs" />
-    <Compile Include="Models\Db\AdminFrameworkReportsClass.cs" />
-    <Compile Include="Models\Db\AdminFrameworkReportColumnClass.cs" />
-    <Compile Include="Controllers\HtmlController.cs" />
-    <Compile Include="Views\CommonClass.cs" />
-    <Compile Include="Addons\PortalAddon.cs" />
-    <Compile Include="Views\DevToolView.cs" />
-    <Compile Include="Views\LayoutBuilderTwoColumnLeft.cs" />
-    <Compile Include="Views\LayoutBuilderTwoColumnRight.cs" />
-    <Compile Include="Views\FeatureListView.cs" />
-    <Compile Include="Views\LayoutBuilderBaseClass.cs" />
-    <Compile Include="Views\ToolSimpleClass.cs" />
-    <Compile Include="Views\PortalBuilderClass.cs" />
-    <Compile Include="Views\FormNameValueRowsClass.cs" />
-    <Compile Include="Models\Db\_blankModel.cs" />
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
-    <Compile Include="Views\ReportBarChartClass.cs" />
-    <Compile Include="Views\ReportTimeLineChartClass.cs" />
-    <Compile Include="Views\ReportPieChartClass.cs" />
-    <Compile Include="Resource1.Designer.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Resource1.resx</DependentUpon>
-    </Compile>
-    <Compile Include="Views\FormSimpleClass.cs" />
-    <Compile Include="Views\ContentWithTabsClass.cs" />
-    <Compile Include="Views\ReportListClass.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Properties\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Resource1.resx">
-      <SubType>Designer</SubType>
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resource1.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="adminFrameword.snk" />
-    <None Include="adminFramework-1-0-12.snk" />
-    <None Include="packages.config" />
-    <None Include="Resources\styles.css" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\javascript.js" />
-  </ItemGroup>
-  <ItemGroup>
-    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
-      <Visible>False</Visible>
-      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
-      <Install>false</Install>
-    </BootstrapperPackage>
-    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
-      <Visible>False</Visible>
-      <ProductName>.NET Framework 3.5 SP1</ProductName>
-      <Install>true</Install>
-    </BootstrapperPackage>
-    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
-      <Visible>False</Visible>
-      <ProductName>Windows Installer 3.1</ProductName>
-      <Install>true</Install>
-    </BootstrapperPackage>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Resources\ellipseMenu.html" />
-  </ItemGroup>
-  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
-  <ProjectExtensions>
-    <VisualStudio>
-      <UserProperties BuildVersion_UseGlobalSettings="True" />
-    </VisualStudio>
-  </ProjectExtensions>
-  <PropertyGroup>
-    <PostBuildEvent>
-    </PostBuildEvent>
-  </PropertyGroup>
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target>
-  <Target Name="AfterBuild">
-  </Target>
-  -->
+﻿<Project Sdk="Microsoft.NET.Sdk">
+	<PropertyGroup>
+		<TargetFramework>net472</TargetFramework>
+		<GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+		<RootNamespace>Contensive.Addons.PortalFramework</RootNamespace>
+		<SignAssembly>true</SignAssembly>
+		<AssemblyOriginatorKeyFile>adminFramework-1-0-12.snk</AssemblyOriginatorKeyFile>
+		<DelaySign>false</DelaySign>
+		<AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+		<GenerateBindingRedirectsOutputType>true</GenerateBindingRedirectsOutputType>
+		<OptionStrict>On</OptionStrict>
+		<GenerateDocumentationFile>true</GenerateDocumentationFile>
+		<AssemblyName>PortalFramework</AssemblyName>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+		<WarningsAsErrors>41999,42016,42017,42018,42019,42020,42021,42022,42032,42036</WarningsAsErrors>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+		<WarningsAsErrors>41999,42016,42017,42018,42019,42020,42021,42022,42032,42036</WarningsAsErrors>
+	</PropertyGroup>
+	<ItemGroup>
+	  <PackageReference Include="Contensive.CPBaseClass" Version="22.8.16.1" />
+	  <PackageReference Include="Contensive.DbModels" Version="22.8.16.1" />
+	</ItemGroup>
+	<ItemGroup>
+	  <Reference Include="System.Web.Extensions" />
+	</ItemGroup>
 </Project>

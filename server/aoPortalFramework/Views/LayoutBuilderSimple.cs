@@ -6,9 +6,8 @@ using System;
 namespace Contensive.Addons.PortalFramework {
     //
     /// <summary>
-    /// Deprecated. Use LayoutBuilderSimple
+    /// Create a simple layout where the body is an html element you create manually
     /// </summary>
-    [Obsolete("deprecated. Use LayoutBuilderSimple", false)]
-    public class ToolSimpleClass : LayoutBuilderBaseClass {
+    public class LayoutBuilderSimple : LayoutBuilderBaseClass {
     }
 }

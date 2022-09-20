@@ -31,13 +31,13 @@ set collectionPath=..\collections\Portal Framework\
 rem -- name of the solution. SHOULD include ao prefix
 set solutionName=aoPortalFramework.sln
 
-rem -- name of the solution. SHOULD include ao prefix
-set binPath=..\server\aoPortalFramework\bin\debug\
+rem -- path to the compiled project files
+set binPath=..\server\aoPortalFramework\bin\debug\net472\
 
-rem -- name of the solution. SHOULD include ao prefix
+rem -- path to msbuild
 set msbuildLocation=C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\MSBuild\Current\Bin\
 
-rem -- name of the solution. SHOULD include ao prefix
+rem -- deployment folder, where final collection and created nuget packages will be copied
 set deploymentFolderRoot=C:\Deployments\aoPortalFramework\Dev\
 
 rem -- folder where nuget packages are copied
@@ -93,6 +93,8 @@ if errorlevel 1 (
    pause
    exit /b %errorlevel%
 )
+
+pause
 
 rem "%msbuildLocation%msbuild.exe" %solutionName%
 rem if errorlevel 1 (

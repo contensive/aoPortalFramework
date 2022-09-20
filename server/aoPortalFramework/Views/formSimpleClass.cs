@@ -1,8 +1,12 @@
 
+using System;
+
 namespace Contensive.Addons.PortalFramework {
+    //
     /// <summary>
-    /// A simple form implementing the base LayoutBuilder elements
+    /// Deprecated. Use LayoutBuilderSimple
     /// </summary>
+    [Obsolete("deprecated. Use LayoutBuilderSimple", false)]
     public class FormSimpleClass : LayoutBuilderBaseClass {
     }
 }
