@@ -4,6 +4,9 @@ using Contensive.BaseClasses;
 using System;
 
 namespace Contensive.Addons.PortalFramework {
+    /// <summary>
+    /// layout split right and left, right larger
+    /// </summary>
     public class LayoutBuilderTwoColumnRight : LayoutBuilderBaseClass {
         //
         //====================================================================================================

@@ -218,7 +218,7 @@ namespace Contensive.Addons.PortalFramework {
                 includeForm = includeForm,
                 isOuterContainer = isOuterContainer,
                 title = title,
-                warning = warning
+                failMessage = warning
             };
             return HtmlController.getReportDoc(cp, request);
         }
