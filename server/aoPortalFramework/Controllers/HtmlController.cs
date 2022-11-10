@@ -72,19 +72,19 @@ namespace Contensive.Addons.PortalFramework.Controllers {
             foreach (var button in buttons) {
                 result.Append(button);
             }
-            return "<div class=\"bg-white p-2\">" + result.ToString() + "</div>";
+            return "<div class=\"bg-light p-2\">" + result.ToString() + "</div>";
         }
         //
         public static string getButtonSection(string buttons) {
             if (string.IsNullOrEmpty(buttons)) { return ""; }
-            return "<div class=\"bg-white p-2\">" + buttons + "</div>";
+            return "<div class=\"bg-light p-2\">" + buttons + "</div>";
         }
         //
         public static string getReportDoc(CPBaseClass cp, HtmlDocRequest request) {
             string result = "";
             //
             string warningMessage = request.warningMessage;
-            string userErrors = cp.Utils.EncodeText(cp.UserError.GetList());
+            string userErrors = cp.Utils.ConvertHTML2Text(cp.UserError.GetList());
             if (!string.IsNullOrWhiteSpace(userErrors)) {
                 warningMessage += userErrors;
             }
@@ -109,34 +109,6 @@ namespace Contensive.Addons.PortalFramework.Controllers {
             if (!string.IsNullOrEmpty(request.htmlBeforeBody)) { resultBody = "<div class=\"afwBeforeHtml\">" + request.htmlBeforeBody + "</div>" + resultBody; }
             if (!string.IsNullOrEmpty(request.htmlAfterBody)) { resultBody += "<div class=\"afwAfterHtml\">" + request.htmlAfterBody + "</div>"; }
             result += resultBody;
-            //result += (string.IsNullOrWhiteSpace(request.footer) ? "" : Constants.cr + "<footer>" + request.footer + "</footer>");
-            //if (!string.IsNullOrEmpty(request.title)) {
-            //    result += "<h2 id=\"afwTitle\">" + request.title + "</h2>";
-            //}
-            //if (!string.IsNullOrEmpty(request.warning)) {
-            //    result += "<div id=\"afwWarning\">" + request.warning + "</div>";
-            //}
-            //string userErrors = cp.UserError.GetList();
-            //if (!string.IsNullOrEmpty(userErrors)) {
-            //    result += "<div id=\"afwWarning\">" + userErrors + "</div>";
-            //}
-            //if (!string.IsNullOrEmpty(request.description)) {
-            //    result += "<p id=\"afwDescription\">" + request.description + "</p>";
-            //}
-            //if (!string.IsNullOrEmpty(request.csvDownloadFilename)) {
-            //    result += "<p id=\"afwDescription\"><a href=\"" + cp.Http.CdnFilePathPrefix + request.csvDownloadFilename + "\">Click here</a> to download the data.</p>";
-            //}
-            //string resultBody = request.body;
-            //if (!string.IsNullOrEmpty(request.htmlLeftOfBody)) {
-            //    resultBody = ""
-            //        + "<div class=\"afwLeftSideHtml\">" + request.htmlLeftOfBody + "</div>"
-            //        + "<div class=\"afwRightSideHtml\">" + resultBody + "</div>"
-            //        + "<div style=\"clear:both\"></div>"
-            //        + "";
-            //}
-            //if (!string.IsNullOrEmpty(request.htmlBeforeBody)) { resultBody = "<div class=\"afwBeforeHtml\">" + request.htmlBeforeBody + "</div>" + resultBody; }
-            //if (!string.IsNullOrEmpty(request.htmlAfterBody)) { resultBody += "<div class=\"afwAfterHtml\">" + request.htmlAfterBody + "</div>"; }
-            //result += resultBody;
             //
             // -- add padding
             if (request.includeBodyPadding) {

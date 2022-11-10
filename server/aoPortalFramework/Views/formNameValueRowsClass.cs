@@ -161,9 +161,9 @@ namespace Contensive.Addons.PortalFramework {
             string rowValue;
             //
             // -- add user errors
-            string userErrors = cp.Utils.EncodeText(cp.UserError.GetList());
+            string userErrors = cp.Utils.ConvertHTML2Text(cp.UserError.GetList());
             if (!string.IsNullOrEmpty(userErrors)) {
-                warning = userErrors;
+                warning += userErrors;
             }
             //
             // -- add body

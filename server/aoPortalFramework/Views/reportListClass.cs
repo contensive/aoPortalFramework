@@ -227,9 +227,9 @@ namespace Contensive.Addons.PortalFramework {
                 //
                 // add user errors
                 //
-                string userErrors = cp.Utils.EncodeText(cp.UserError.GetList());
+                string userErrors = cp.Utils.ConvertHTML2Text(cp.UserError.GetList());
                 if (!string.IsNullOrEmpty(userErrors)) {
-                    warning = userErrors;
+                    warningMessage += userErrors;
                 }
                 int colPtr;
                 int colPtrDownload;
@@ -408,33 +408,6 @@ namespace Contensive.Addons.PortalFramework {
                 result = new StringBuilder(Constants.cr + "<table class=\"afwListReportTable\">" + indent(result.ToString()) + Constants.cr + "</table>");
                 base.body = result.ToString();
                 return base.getHtml(cp);
-
-                //if (htmlLeftOfTable != "") {
-                //    result = new StringBuilder(""
-                //        + Constants.cr + "<div class=\"afwLeftSideHtml\">" + indent(htmlLeftOfTable) + Constants.cr + "</div>"
-                //        + Constants.cr + "<div class=\"afwRightSideHtml\">" + indent(result.ToString()) + Constants.cr + "</div>"
-                //        + Constants.cr + "<div style=\"clear:both\"></div>"
-                //        + "");
-                //}
-                //if (htmlBeforeTable != "") { result.Insert(0, "<div class=\"afwBeforeHtml\">" + htmlBeforeTable + "</div>"); }
-                //if (htmlAfterTable != "") { result.Append("<div class=\"afwAfterHtml\">" + htmlAfterTable + "</div>"); }
-                ////
-                //// -- construct report
-                //HtmlDocRequest request = new HtmlDocRequest() {
-                //    body = result.ToString(),
-                //    includeBodyPadding = includeBodyPadding,
-                //    includeBodyColor = includeBodyColor,
-                //    buttonList = buttonList,
-                //    csvDownloadFilename = csvDownloadFilename,
-                //    description = description,
-                //    formActionQueryString = formActionQueryString,
-                //    hiddenList = hiddenList,
-                //    includeForm = includeForm,
-                //    isOuterContainer = isOuterContainer,
-                //    title = title,
-                //    warning = warning
-                //};
-                //return HtmlController.getReportDoc(cp, request);
             } catch (Exception ex) {
                 cp.Site.ErrorReport(ex, "hint [" + hint + "]");
                 throw;

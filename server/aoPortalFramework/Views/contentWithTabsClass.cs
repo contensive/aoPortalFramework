@@ -6,14 +6,11 @@ using System.Resources;
 using System.IO;
 using Contensive.BaseClasses;
 
-namespace Contensive.Addons.PortalFramework
-{
-    public class ContentWithTabsClass
-    {
+namespace Contensive.Addons.PortalFramework {
+    public class ContentWithTabsClass {
         //
         const int tabSize = 99;
-        struct navStruct
-        {
+        struct navStruct {
             public string caption;
             public string link;
             public bool active;
@@ -26,7 +23,6 @@ namespace Contensive.Addons.PortalFramework
         string localBody = "";
         string localTitle = "";
         string localWarning = "";
-        string localDescription = "";
         bool localIsOuterContainer = false;
         //
         // ====================================================================================================
@@ -39,14 +35,11 @@ namespace Contensive.Addons.PortalFramework
         //
         //-------------------------------------------------
         //
-        public bool isOuterContainer
-        {
-            get
-            {
+        public bool isOuterContainer {
+            get {
                 return localIsOuterContainer;
             }
-            set
-            {
+            set {
                 localIsOuterContainer = value;
             }
         }
@@ -55,11 +48,9 @@ namespace Contensive.Addons.PortalFramework
         //
         //-------------------------------------------------
         //
-        private void checkTabPtr()
-        {
+        private void checkTabPtr() {
 
-            if (tabPtr < 0)
-            {
+            if (tabPtr < 0) {
                 addTab();
             }
         }
@@ -68,10 +59,8 @@ namespace Contensive.Addons.PortalFramework
         //
         //-------------------------------------------------
         //
-        public string styleSheet
-        {
-            get
-            {
+        public string styleSheet {
+            get {
                 return Properties.Resources.styles;
             }
         }
@@ -80,10 +69,8 @@ namespace Contensive.Addons.PortalFramework
         //
         //-------------------------------------------------
         //
-        public string javascript
-        {
-            get
-            {
+        public string javascript {
+            get {
                 return Properties.Resources.javascript;
             }
         }
@@ -92,14 +79,11 @@ namespace Contensive.Addons.PortalFramework
         // body
         //-------------------------------------------------
         //
-        public string body
-        {
-            get
-            {
+        public string body {
+            get {
                 return localBody;
             }
-            set
-            {
+            set {
                 localBody = value;
             }
         }
@@ -108,14 +92,11 @@ namespace Contensive.Addons.PortalFramework
         // Title
         //-------------------------------------------------
         //
-        public string title
-        {
-            get
-            {
+        public string title {
+            get {
                 return localTitle;
             }
-            set
-            {
+            set {
                 localTitle = value;
             }
         }
@@ -124,14 +105,11 @@ namespace Contensive.Addons.PortalFramework
         // Warning
         //-------------------------------------------------
         //
-        public string warning
-        {
-            get
-            {
+        public string warning {
+            get {
                 return localWarning;
             }
-            set
-            {
+            set {
                 localWarning = value;
             }
         }
@@ -140,31 +118,26 @@ namespace Contensive.Addons.PortalFramework
         // Description
         //-------------------------------------------------
         //
-        public string description
-        {
-            get
-            {
+        public string description {
+            get {
                 return localDescription;
             }
-            set
-            {
+            set {
                 localDescription = value;
             }
         }
+        private string localDescription = "";
         //
         //-------------------------------------------------
         // 
         //-------------------------------------------------
         //
-        public string tabCaption
-        {
-            get
-            {
+        public string tabCaption {
+            get {
                 checkTabPtr();
                 return navs[tabPtr].caption;
             }
-            set
-            {
+            set {
                 checkTabPtr();
                 navs[tabPtr].caption = value;
             }
@@ -174,15 +147,12 @@ namespace Contensive.Addons.PortalFramework
         // 
         //-------------------------------------------------
         //
-        public string tabStyleClass
-        {
-            get
-            {
+        public string tabStyleClass {
+            get {
                 checkTabPtr();
                 return navs[tabPtr].styleClass;
             }
-            set
-            {
+            set {
                 checkTabPtr();
                 navs[tabPtr].styleClass = value;
             }
@@ -192,15 +162,12 @@ namespace Contensive.Addons.PortalFramework
         // 
         //-------------------------------------------------
         //
-        public string tabLink
-        {
-            get
-            {
+        public string tabLink {
+            get {
                 checkTabPtr();
                 return navs[tabPtr].link;
             }
-            set
-            {
+            set {
                 checkTabPtr();
                 navs[tabPtr].link = value;
             }
@@ -210,13 +177,10 @@ namespace Contensive.Addons.PortalFramework
         // 
         //-------------------------------------------------
         //
-        public void setActiveTab(string caption)
-        {
+        public void setActiveTab(string caption) {
             int ptr = 0;
-            for (ptr = 0; ptr <= tabMax; ptr++)
-            {
-                if (navs[ptr].caption.ToLower() == caption.ToLower())
-                {
+            for (ptr = 0; ptr <= tabMax; ptr++) {
+                if (navs[ptr].caption.ToLower() == caption.ToLower()) {
                     navs[ptr].active = true;
                 }
             }
@@ -229,16 +193,13 @@ namespace Contensive.Addons.PortalFramework
         /// <summary>
         /// Add a navigation entry. The navCaption and navLink should be set after creating a new entry. The first nav entry does not need to be added.
         /// </summary>
-        public void addTab()
-        {
-            if (tabPtr < tabSize)
-            {
+        public void addTab() {
+            if (tabPtr < tabSize) {
                 tabPtr += 1;
                 navs[tabPtr].caption = "";
                 navs[tabPtr].link = "";
                 navs[tabPtr].active = false;
-                if (tabPtr > tabMax)
-                {
+                if (tabPtr > tabMax) {
                     tabMax = tabPtr;
                 }
             }
@@ -248,54 +209,37 @@ namespace Contensive.Addons.PortalFramework
         // get
         //-------------------------------------------------
         //
-        public string getHtml(CPBaseClass cp)
-        {
+        public string getHtml(CPBaseClass cp) {
             string result = "";
             string list = "";
             string item = "";
-            string userErrors;
             string tabStyleClass;
             //
             // if outer container, add styles and javascript
             //
-            if (localIsOuterContainer)
-            {
+            if (localIsOuterContainer) {
                 cp.Doc.AddHeadJavascript(Properties.Resources.javascript);
                 cp.Doc.AddHeadStyle(Properties.Resources.styles);
             }
             //
-            // add user errors
-            //
-            userErrors = cp.Utils.EncodeText(cp.UserError.GetList());
-            if (userErrors != "")
-            {
-                warning = userErrors;
-            }
-            //
-            for (tabPtr = 0; tabPtr <= tabMax; tabPtr++)
-            {
+            for (tabPtr = 0; tabPtr <= tabMax; tabPtr++) {
                 item = navs[tabPtr].caption;
-                if (item != "")
-                {
+                if (item != "") {
                     tabStyleClass = navs[tabPtr].styleClass;
-                    if (navs[tabPtr].link != "")
-                    {
+                    if (navs[tabPtr].link != "") {
                         item = "<a href=\"" + navs[tabPtr].link + "\">" + item + "</a>";
                     }
-                    if (navs[tabPtr].active)
-                    {
+                    if (navs[tabPtr].active) {
                         tabStyleClass += " afwTabActive";
                     }
-                    if (tabStyleClass != "")
-                    {
+                    if (tabStyleClass != "") {
                         tabStyleClass = " class=\"" + tabStyleClass + "\"";
                     }
-                    item = Constants.cr + "<li"+tabStyleClass+">" + item + "</li>";
+                    item = Constants.cr + "<li" + tabStyleClass + ">" + item + "</li>";
                     list += item;
                 }
             }
-            if (list != "")
-            {
+            if (list != "") {
                 result += ""
                     + Constants.cr + "<ul class=\"afwBodyTabs\">"
                     + indent(list)
@@ -304,20 +248,20 @@ namespace Contensive.Addons.PortalFramework
             //
             // headers
             //
-            if (localDescription != "")
-            {
-                result = Constants.cr + "<p id=\"afwDescription\">" + localDescription + "</p>" + result;
+            if (description != "") {
+                result = Constants.cr + "<p id=\"afwDescription\">" + description + "</p>" + result;
             }
-            if (localWarning != "")
-            {
-                result = Constants.cr + "<div id=\"afwWarning\">" + localWarning + "</div>" + result;
+            if (string.IsNullOrEmpty(warning)) {
+                string userErrors = cp.Utils.ConvertHTML2Text(cp.UserError.GetList());
+                if (userErrors != "") { warning = userErrors; }
             }
-            if (localTitle != "")
-            {
+            if (!string.IsNullOrEmpty(warning)) {
+                result = Constants.cr + "<div id=\"afwWarning\">" + warning + "</div>" + result;
+            }
+            if (localTitle != "") {
                 result = Constants.cr + "<h2 id=\"afwTitle\">" + localTitle + "</h2>" + result;
             }
-            if (localBody != "")
-            {
+            if (localBody != "") {
                 result += localBody;
             }
             result = ""
@@ -327,8 +271,7 @@ namespace Contensive.Addons.PortalFramework
             //
             // if outer container, add styles and javascript
             //
-            if (localIsOuterContainer)
-            {
+            if (localIsOuterContainer) {
                 cp.Doc.AddHeadJavascript(Properties.Resources.javascript);
                 cp.Doc.AddHeadStyle(Properties.Resources.styles);
                 result = ""
@@ -346,8 +289,7 @@ namespace Contensive.Addons.PortalFramework
         //
         //-------------------------------------------------
         //
-        private string indent(string src)
-        {
+        private string indent(string src) {
             return src.Replace(Constants.cr, Constants.cr2);
         }
     }

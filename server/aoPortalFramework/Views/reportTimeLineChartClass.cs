@@ -162,7 +162,7 @@ namespace Contensive.Addons.PortalFramework {
             //
             // add user errors
             //
-            string userErrors = cp.Utils.EncodeText(cp.UserError.GetList());
+            string userErrors = cp.Utils.ConvertHTML2Text(cp.UserError.GetList());
             if (userErrors != "") {
                 warning = userErrors;
             }

@@ -166,7 +166,7 @@ namespace Contensive.Addons.PortalFramework {
                 PortalBuilderViewModel viewModel = new PortalBuilderViewModel {
                     navList = new List<PortalBuilderNavItemViewModel>(),
                     subNavList = new List<PortalBuilderSubNavItemViewModel>(),
-                    warning = cp.Utils.EncodeText(cp.UserError.GetList()),
+                    warning = cp.Utils.ConvertHTML2Text(cp.UserError.GetList()),
                     title = title,
                     description = description,
                     body = body,

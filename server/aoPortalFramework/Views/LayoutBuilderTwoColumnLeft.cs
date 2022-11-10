@@ -26,12 +26,12 @@ namespace Contensive.Addons.PortalFramework {
         }
         //
         //====================================================================================================
-        [Obsolete("deprecated, Use warning",false)] public string warningMessage {
+        public string warningMessage {
             get {
-                return base.warning;
+                return base.warningMessage;
             }
             set { 
-                base.warning = value;   
+                base.warningMessage = value;   
             } 
         }
         //

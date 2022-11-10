@@ -43,12 +43,8 @@
     font:normal bold 13px/20px Arial, san-serif;
     margin: 15px 0 5px 0;
 }
-#afw .afwManagerTitle {
-	/* 2202 redesign
-	background-color: #343a40;
-	border-top: 1px solid #282828;
-	border-left: 1px solid #282828;
-	*/
+#afw .afwManagerTitle
+{
 	background-color: #1F70BD;
 	color: #FFFFFF;
 	font-size: 15px;
@@ -89,9 +85,6 @@
 	border-bottom: 1px solid #aaa;
 	background-color: #ccc;
 	clear: both;
-/*
-	border-radius: 3px;
-*/
 }
 #afw .afwButton 
 {
@@ -133,11 +126,6 @@
 	background-color: #fff;
     margin:0;
 	padding: 0;
-/*
-	border-left: 1px solid rgba(0, 0, 0, 0.1);
-	border-right: 1px solid rgba(0, 0, 0, 0.1);
-	border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-*/
 }
 #afw ul.afwNav 
 {
@@ -179,20 +167,16 @@
     background-color: #1F70BD;
 	border-left: 1px solid #1F70BD;
 }
-	#afw ul.afwNav li.afwPortalLink a {
-		color: #666;
-		border-left: 1px solid #7799bb;
-		border-left: 1px solid #1F70BD;
-	}
+#afw ul.afwNav li.afwPortalLink a {
+	color: #666;
+	border-left: 1px solid #7799bb;
+	border-left: 1px solid #1F70BD;
+}
 /*
 * Tabbed Body
 */
 #afw .afwTabbedBody 
 {
-	/*
-	padding:0;
-	margin: 0;
-	*/
 	padding: 20px 20px 0 20px;
 	margin: 0;
 	background-color: #eee;
@@ -217,9 +201,6 @@
 }
 #afw ul.afwBodyTabs li a 
 {
-	/*
-	background-color: #f8f8f8;
-	*/
 	background-color: #d4d4d4;
     border-radius: 10px 5px 0 0;
     color: #222;
@@ -269,10 +250,10 @@
     padding: 5px 10px;
     vertical-align: middle;
 }
-    #afw .afwFormRowValue .afwFormRowValueHelp {
-        margin: 10px 0 10px 40px;
-        padding: 5px 0 0 20px;
-    }
+#afw .afwFormRowValue .afwFormRowValueHelp {
+    margin: 10px 0 10px 40px;
+    padding: 5px 0 0 20px;
+}
 #afw .afwFormRowValue input[type="text"] 
 {
 	/* width: 200px; */
@@ -308,15 +289,15 @@
 	margin: 0 auto 20px auto;
 }
 #afw .afwBeforeHtml {
-	padding: 20px 0 0;
+	margin: 20px 0 0;
 }
 #afw .afwAfterHtml {
-	padding: 0 0 20px;
+	margin: 0 0 20px;
 }
 #afw .afwLeftSideHtml {
 	float: left;
 	overflow: hidden;
-	padding: 0 0 20px 0;
+	margin: 0 0 20px 0;
 	width: 160px;
 }
 #afw .afwRightSideHtml 
