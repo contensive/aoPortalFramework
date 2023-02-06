@@ -59,39 +59,6 @@ namespace Contensive.Addons.PortalFramework {
                 resourceCulture = value;
             }
         }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to 
-        ////*
-        ///* Contensive.Addons.PortalFramework assembly referenced resources
-        ///*/
-        ///#desktop 
-        ///{
-        ///    background-color: #999;
-        ///}
-        ///#afw #afwBodyFrame 
-        ///{
-        ///    background-color: white;
-        ///}
-        ///#afw,#afw p,#afw div,#afw td,#afw li
-        ///{
-        ///    font-family: arial;   
-        ///    font-size: 13px;    
-        ///    font-weight: normal;
-        ///    line-height: 20px;
-        ///}
-        ///#afw h1,#afw h2,#afw h3,#afw h3
-        ///{
-        ///    font-family: arial;   
-        ///    font-weight: bold;
-        ///}
-        ///#afw h1
-        ///{
-        ///    font:normal bold 20px/30px Arial, san-serif;
-        ///    margin: 20px 0 10px 0;
-        ///}
-        ///#afw h2 [rest of string was truncated]&quot;;.
-        /// </summary>
         internal static string styles {
             get {
                 return ResourceManager.GetString("styles", resourceCulture);

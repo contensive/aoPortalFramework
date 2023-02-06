@@ -920,7 +920,19 @@ namespace Contensive.Addons.PortalFramework {
         /// populate a cell.
         /// To define a column, first call addColumn(), then set its name, caption, captionclass, cellclass, visible, sortable, width, downloadable. When columns are defined, use addRow() to create a row, then addCell() repeately to create a cell for each column.
         /// </summary>
+        public void setCell(DateTime? content) => setCell((content == null) ? "" : content.ToString(), content.ToString());
+        // 
+        /// <summary>
+        /// populate a cell.
+        /// To define a column, first call addColumn(), then set its name, caption, captionclass, cellclass, visible, sortable, width, downloadable. When columns are defined, use addRow() to create a row, then addCell() repeately to create a cell for each column.
+        /// </summary>
         public void setCell(DateTime content, DateTime downloadContent) => setCell(content.ToString(), downloadContent.ToString());
+        // 
+        /// <summary>
+        /// populate a cell.
+        /// To define a column, first call addColumn(), then set its name, caption, captionclass, cellclass, visible, sortable, width, downloadable. When columns are defined, use addRow() to create a row, then addCell() repeately to create a cell for each column.
+        /// </summary>
+        public void setCell(DateTime? content, DateTime downloadContent) => setCell((content == null) ? "" : content.ToString(), downloadContent.ToString());
         //
         //====================================================================================================
         //

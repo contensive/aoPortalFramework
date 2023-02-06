@@ -13,44 +13,44 @@
 }
 #afw,#afw p,#afw div,#afw td,#afw li
 {
-    font-family: arial;   
-    font-size: 13px;    
+    /*font-family: arial;*/     
     font-weight: normal;
-    line-height: 20px;
+    /*font-size: 13px;*/  
+    /*line-height: 20px;*/
 }
 #afw h1,#afw h2,#afw h3,#afw h3
 {
-    font-family: arial;   
-    font-weight: bold;
+    /*font-family: arial;*/   
+    /*font-weight: bold;*/
 }
 #afw h1
 {
-    font:normal bold 20px/30px Arial, san-serif;
     margin: 20px 0 10px 0;
+/*    font:normal bold 20px/30px Arial, san-serif;*/
 }
 #afw h2
 {
-    font:normal bold 18px/24px Arial, san-serif;
     margin: 15px 0 5px 0;
+   /* font:normal bold 18px/24px Arial, san-serif;*/
 }
 #afw h3
 {
-    font:normal bold 15px/20px Arial, san-serif;
     margin: 15px 0 5px 0;
+   /* font:normal bold 15px/20px Arial, san-serif;*/
 }
 #afw h4
 {
-    font:normal bold 13px/20px Arial, san-serif;
     margin: 15px 0 5px 0;
+   /* font:normal bold 13px/20px Arial, san-serif;*/
 }
 #afw .afwManagerTitle
 {
 	background-color: #1F70BD;
 	color: #FFFFFF;
-	font-size: 15px;
 	font-weight: bold;
 	padding: 10px;
 	margin: 0;
+	/*font-size: 15px;*/
 }
 #afw .afwManagerDescription 
 {
@@ -507,7 +507,7 @@
 	padding: 0;
 	margin: 0 0 10px 0;
 	color: #666;
-	font-size: 13px;
+	/*font-size: 13px;*/
 }
 #afw li.afwFilterInput{
 	margin:0;
