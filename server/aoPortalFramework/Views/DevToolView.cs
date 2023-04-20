@@ -21,7 +21,7 @@ namespace Contensive.Addons.PortalFramework {
                 //
                 // this is a feature list, display the feature list
                 //
-                FormSimpleClass content = new FormSimpleClass {
+                LayoutBuilderSimple content = new LayoutBuilderSimple {
                     title = "Developer Tool",
                     body = ""
                 };

@@ -79,6 +79,12 @@ namespace Contensive.Addons.PortalFramework {
         /// Optional. If set, this value will populate the title in the subnav of the portalbuilder
         /// </summary>
         public string portalSubNavTitle { get; set; }
+        //
+        //-------------------------------------------------
+        /// <summary>
+        /// A virtual filename to a download of the report data. Leave blank to prevent download file
+        /// </summary>
+        public string csvDownloadFilename { get; set;  }
         // 
         //-------------------------------------------------
         /// <summary>
@@ -94,7 +100,7 @@ namespace Contensive.Addons.PortalFramework {
                 includeBodyPadding = includeBodyPadding,
                 includeBodyColor = includeBodyColor,
                 buttonList = buttonList,
-                csvDownloadFilename = "",
+                csvDownloadFilename = csvDownloadFilename,
                 description = description,
                 formActionQueryString = formActionQueryString,
                 refreshQueryString = refreshQueryString,

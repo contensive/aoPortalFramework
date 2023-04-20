@@ -45,7 +45,7 @@ namespace Contensive.Addons.PortalFramework {
                         }
                     }
                 }
-                FormSimpleClass content = new FormSimpleClass {
+                LayoutBuilderSimple content = new LayoutBuilderSimple {
                     title = feature.heading,
                     body = "<ul class=\"afwButtonList\">" + items + "</ul>"
                 };

@@ -188,7 +188,7 @@ namespace Contensive.Addons.PortalFramework {
                             // this is a data content feature -- should not be here, link should have taken them to the content
                             //
                             CP.Response.Redirect("?cid=" + dstDataFeature.dataContentId.ToString());
-                            FormSimpleClass content = new FormSimpleClass {
+                            LayoutBuilderSimple content = new LayoutBuilderSimple {
                                 title = dstDataFeature.heading,
                                 body = "Redirecting to content"
                             };
@@ -240,7 +240,7 @@ namespace Contensive.Addons.PortalFramework {
                         }
                     }
                     if (string.IsNullOrEmpty(body)) {
-                        FormSimpleClass simple = new FormSimpleClass {
+                        LayoutBuilderSimple simple = new LayoutBuilderSimple {
                             body = "This portal feature has no content."
                         };
                         body = simple.getHtml(CP);

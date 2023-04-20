@@ -380,7 +380,6 @@ namespace Contensive.Addons.PortalFramework {
                     }
                 }
                 hint = 60;
-                string csvDownloadFilename = string.Empty;
                 if (addCsvDownloadCurrentPage) {
                     //
                     // todo implement cp.db.CreateCsv()

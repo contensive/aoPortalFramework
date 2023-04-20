@@ -24,16 +24,16 @@ namespace Contensive.Addons.PortalFramework {
                 base.title = value; 
             }
         }
-        //
-        //====================================================================================================
-        public string warningMessage {
-            get {
-                return base.warningMessage;
-            }
-            set { 
-                base.warningMessage = value;   
-            } 
-        }
+        ////
+        ////====================================================================================================
+        //public string warningMessage {
+        //    get {
+        //        return base.warningMessage;
+        //    }
+        //    set { 
+        //        base.warningMessage = value;   
+        //    } 
+        //}
         //
         //====================================================================================================
         /// <summary>

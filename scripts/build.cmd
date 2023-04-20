@@ -89,7 +89,7 @@ cd ..\server
 
 dotnet build aoPortalFramework/aoPortalFramework.csproj --configuration Debug --no-dependencies /property:Version=%versionNumber% /property:AssemblyVersion=%versionNumber% /property:FileVersion=%versionNumber%
 if errorlevel 1 (
-   echo failure building catalog
+   echo failure building aoPortalFramework
    pause
    exit /b %errorlevel%
 )
