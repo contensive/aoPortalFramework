@@ -1,11 +1,11 @@
 <div id="afw">
-  <nav class="afwNavbar navbar navbar-expand-lg navbar-dark bg-dark" style="border-top: 1px solid #282828;border-left: 1px solid #282828;">
+  <nav class="afwNavbar navbar navbar-expand-lg navbar-dark bg-dark px-4" style="border-top: 1px solid #282828;border-left: 1px solid #282828;">
     <a class="navbar-brand" href="#">{{title}}</a>
-    <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbarSupportedContent" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>  
     <div class="navbar-collapse collapse" id="navbarSupportedContent" style="">
-      <ul class="navbar-nav mr-auto">
+      <ul class="navbar-nav mr-auto" me-auto">
         {{#navList}}
           {{#navFlyoutListEmpty}}
           <li class="nav-item {{#active}}active{{/active}} {{#isPortalLink}}afwNavPortalLink{{/isPortalLink}}">
@@ -19,7 +19,7 @@
           {{/navFlyoutListEmpty}}
           {{^navFlyoutListEmpty}}
           <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{caption}}</a>
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{caption}}</a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
               {{#navFlyoutList}}
                 {{#subLink}}
@@ -38,15 +38,15 @@
   </nav>
   
   {{^subNavListEmpty}}
-  <nav class="navbar navbar-expand-lg navbar-light bg-gray-light pb-0">
+  <nav class="navbar navbar-expand-lg navbar-light bg-gray-light px-4 pb-0">
     <a class="navbar-brand" href="#">{{subNavTitle}}</a>
   </nav>
-  <nav class="afwSubNavbar navbar navbar-expand-lg navbar-light bg-gray-light pt-0">
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#subnav" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+  <nav class="afwSubNavbar navbar navbar-expand-lg navbar-light bg-gray-light px-4 pt-0">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-bs-toggle="collapse" data-target="#subnav" data-bs-target="#subnav" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="subnav">
-      <ul class="navbar-nav mr-auto">
+      <ul class="navbar-nav mr-auto" me-auto">
         {{#subNavList}}
         <li class="nav-item {{#subActive}}active{{/subActive}} {{#subIsPortalLink}}afwNavPortalLink{{/subIsPortalLink}}">
           {{#subLink}}

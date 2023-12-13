@@ -94,7 +94,7 @@ if errorlevel 1 (
    exit /b %errorlevel%
 )
 
-pause
+rem pause
 
 rem "%msbuildLocation%msbuild.exe" %solutionName%
 rem if errorlevel 1 (
@@ -103,6 +103,8 @@ rem    pause
 rem    exit /b %errorlevel%
 rem )
 cd ..\scripts
+
+rem pause
 
 rem ==============================================================
 rem
@@ -124,6 +126,8 @@ del "%collectionName%.zip" /Q
 xcopy "%collectionName%.zip" "%deploymentFolderRoot%%versionNumber%" /Y
 cd ..\..\scripts
 
+rem pause
+
 rem ==============================================================
 rem
 echo build api Nuget
@@ -142,6 +146,7 @@ xcopy "Contensive.PortalApi.%versionNumber%.nupkg" "%NuGetLocalPackagesFolder%" 
 xcopy "Contensive.PortalApi.%versionNumber%.nupkg" "%deploymentFolderRoot%%versionNumber%" /Y
 cd ..\..\scripts
 
+rem pause
 
 rem ==============================================================
 rem
@@ -156,4 +161,6 @@ del *.dll
 rem -- leave collection zip so it can be installed -- del *.zip
 
 cd ..\..\scripts
+
+rem pause
 

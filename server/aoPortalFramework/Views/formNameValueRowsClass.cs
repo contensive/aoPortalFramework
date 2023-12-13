@@ -95,6 +95,10 @@ namespace Contensive.Addons.PortalFramework {
         //
         // ====================================================================================================
         //
+        public string successMessage { get; set; }
+        //
+        // ====================================================================================================
+        //
         public string description { get; set; }
         //
         // ====================================================================================================
@@ -218,7 +222,8 @@ namespace Contensive.Addons.PortalFramework {
                 includeForm = includeForm,
                 isOuterContainer = isOuterContainer,
                 title = title,
-                failMessage = warning
+                failMessage = warning,
+                successMessage = successMessage
             };
             return HtmlController.getReportDoc(cp, request);
         }

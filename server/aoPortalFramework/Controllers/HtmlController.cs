@@ -50,7 +50,7 @@ namespace Contensive.Addons.PortalFramework.Controllers {
         /// <param name="htmlClass"></param>
         /// <returns></returns>
         public static string a(string buttonCaption, string link, string htmlId, string htmlClass) {
-            return "<a href=\"" + link + "\" id=\"" + htmlId + "\" class=\"btn btn-primary mr-1 btn-sm " + htmlClass + "\">" + buttonCaption + "</a>";
+            return "<a href=\"" + link + "\" id=\"" + htmlId + "\" class=\"btn btn-primary mr-1 me-1 btn-sm " + htmlClass + "\">" + buttonCaption + "</a>";
         }
         //
         /// <summary>
@@ -63,7 +63,7 @@ namespace Contensive.Addons.PortalFramework.Controllers {
         /// <returns></returns>
         public static string getButton(string buttonName, string buttonValue, string buttonId, string buttonClass) {
             //afwButton 
-            return "<input type=\"submit\" name=\"" + buttonName + "\" value=\"" + buttonValue + "\" id=\"" + buttonId + "\" class=\"btn btn-primary mr-1 btn-sm " + buttonClass + "\">";
+            return "<input type=\"submit\" name=\"" + buttonName + "\" value=\"" + buttonValue + "\" id=\"" + buttonId + "\" class=\"btn btn-primary mr-1 me-1 btn-sm " + buttonClass + "\">";
         }
         //
         public static string getButtonBar(List<string> buttons) {
@@ -72,12 +72,12 @@ namespace Contensive.Addons.PortalFramework.Controllers {
             foreach (var button in buttons) {
                 result.Append(button);
             }
-            return "<div class=\"bg-light p-2\">" + result.ToString() + "</div>";
+            return "<div class=\"border bg-white p-2\">" + result.ToString() + "</div>";
         }
         //
         public static string getButtonSection(string buttons) {
             if (string.IsNullOrEmpty(buttons)) { return ""; }
-            return "<div class=\"bg-light p-2\">" + buttons + "</div>";
+            return "<div class=\"border bg-white p-2\">" + buttons + "</div>";
         }
         //
         public static string getReportDoc(CPBaseClass cp, HtmlDocRequest request) {
@@ -92,7 +92,7 @@ namespace Contensive.Addons.PortalFramework.Controllers {
             result += (string.IsNullOrWhiteSpace(request.title) ? "" : Constants.cr + "<h2>" + request.title + "</h2>");
             result += (string.IsNullOrWhiteSpace(request.successMessage) ? "" : Constants.cr + "<div class=\"p-3 mb-2 bg-success text-white\">" + request.successMessage + "</div>");
             result += (string.IsNullOrWhiteSpace(request.infoMessage) ? "" : Constants.cr + "<div class=\"p-3 mb-2 bg-info text-white\">" + request.infoMessage + "</div>");
-            result += (string.IsNullOrWhiteSpace(request.warningMessage) ? "" : Constants.cr + "<div class=\"p-3 mb-2 bg-warning text-white\">" + warningMessage + "</div>");
+            result += (string.IsNullOrWhiteSpace(request.warningMessage) ? "" : Constants.cr + "<div class=\"p-3 mb-2 bg-warning text-dark\">" + warningMessage + "</div>");
             result += (string.IsNullOrWhiteSpace(request.failMessage) ? "" : Constants.cr + "<div class=\"p-3 mb-2 bg-danger text-white\">" + request.failMessage + "</div>");
             result += (string.IsNullOrWhiteSpace(request.description) ? "" : Constants.cr + "<p>" + request.description + "</p>");
             if (!string.IsNullOrEmpty(request.csvDownloadFilename)) {

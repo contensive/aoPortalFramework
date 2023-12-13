@@ -2,10 +2,10 @@
 <Collection name="Portal Framework" guid="{87249f75-a065-4f2f-8dcd-fbbf2ca0dccd}" system="No" updatable="Yes" blockNavigatorNode="No" onInstallAddonGuid="{C299048C-775A-48E9-9B47-8CB8B7CE16DB}">
 	<HelpLink></HelpLink>
 	<Help></Help>
-	<Addon name="Portal Install" guid="{C299048C-775A-48E9-9B47-8CB8B7CE16DB}" type="Tool">
+	<Addon name="Portal Install" guid="{C299048C-775A-48E9-9B47-8CB8B7CE16DB}" type="Addon">
 		<DotNetClass><![CDATA[Contensive.Addons.PortalFramework.InstallAddon]]></DotNetClass>
 	</Addon>
-	<Addon name="Portal" guid="{A1BCA00C-2657-42A1-8F98-BED1E5A42025}" type="Tool">
+	<Addon name="Portal" guid="{A1BCA00C-2657-42A1-8F98-BED1E5A42025}" type="Addon">
 		<DotNetClass><![CDATA[Contensive.Addons.PortalFramework.PortalAddon]]></DotNetClass>
 		<ArgumentList><![CDATA[Portal=[listid(portals)]]]></ArgumentList>
 		<IncludeAddon name="jQuery BlockUI" guid="{F6087787-E01E-4E09-AC02-502D0387E048}"/>
@@ -14,10 +14,7 @@
 		<!-- convert to files when portal moves to c5 because html generated follows nuget, not addon install -->
 		<JSHeadScriptSrc></JSHeadScriptSrc>
 		<styleslinkhref></styleslinkhref>
-		<!-- 
-		<JSHeadScriptSrc>/portalframework/scripts.js</JSHeadScriptSrc>
-		<styleslinkhref>/portalframework/styles.css</styleslinkhref>
-		-->
+		<admin>0</admin>
 	</Addon>
 	<CDef Name="Admin Framework Report Columns" Active="True" AdminOnly="False" AllowAdd="True" AllowCalendarEvents="0" AllowContentChildTool="0" AllowContentTracking="0" AllowDelete="True" AllowMetaContent="0" AllowTopicRules="0" AllowWorkflowAuthoring="0" AuthoringDataSourceName="Default" AuthoringTableName="adminFrameworkReportColumns" ContentDataSourceName="Default" ContentTableName="adminFrameworkReportColumns" DefaultSortMethod="By Name" DeveloperOnly="False" DropDownFieldList="Name" EditorGroupName="" Parent="" IconLink="" IconHeight="0" IconWidth="0" IconSprites="0" isbasecontent="0" guid="{9BE04402-D81B-4648-8EF4-6A53CDF6595B}" >
 		<Field Name="Name" active="True" AdminOnly="False" Authorable="True" Caption="Name" DeveloperOnly="False" EditSortPriority="110" FieldType="Text" HTMLContent="False" IndexColumn="10" IndexSortDirection="" IndexSortOrder="99" IndexWidth="21" RedirectID="0" RedirectPath="" Required="False" TextBuffered="False" UniqueName="False" DefaultValue="" RSSTitle="False" RSSDescription="False" MemberSelectGroup="" EditTab="" Scramble="False" LookupList="" NotEditable="False" Password="False" ReadOnly="True" ManyToManyRulePrimaryField="" ManyToManyRuleSecondaryField="" IsModified="False" IsBaseField="False" LookupContent="" RedirectContent="" ManyToManyContent="" ManyToManyRuleContent="" >
