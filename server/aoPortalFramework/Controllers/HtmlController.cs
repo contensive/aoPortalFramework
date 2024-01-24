@@ -72,12 +72,12 @@ namespace Contensive.Addons.PortalFramework.Controllers {
             foreach (var button in buttons) {
                 result.Append(button);
             }
-            return "<div class=\"border bg-white p-2\">" + result.ToString() + "</div>";
+            return "<div class=\"border-bottom bg-white p-2\">" + result.ToString() + "</div>";
         }
         //
         public static string getButtonSection(string buttons) {
             if (string.IsNullOrEmpty(buttons)) { return ""; }
-            return "<div class=\"border bg-white p-2\">" + buttons + "</div>";
+            return "<div class=\"border-bottom bg-white p-2\">" + buttons + "</div>";
         }
         //
         public static string getReportDoc(CPBaseClass cp, HtmlDocRequest request) {
