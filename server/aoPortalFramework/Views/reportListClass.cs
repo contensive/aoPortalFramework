@@ -13,10 +13,95 @@ namespace Contensive.Addons.PortalFramework {
     /// </summary>
     public class ReportListClass : LayoutBuilderBaseClass {
         //
+        // ====================================================================================================
+        // constructors
+        //
         /// <summary>
-        /// default constructor
+        /// prefered constructor
         /// </summary>
-        public ReportListClass() { }
+        /// <param name="cp"></param>
+        public ReportListClass(CPBaseClass cp) { 
+            this.cp = cp;
+        }
+        //
+        /// <summary>
+        /// legacy constructor, without cp. (cp needed for pagination)
+        /// </summary>
+        [Obsolete("Use constructor with cp arguemnt, New ReportListClass(cp)", false)] public ReportListClass() { }
+        //
+        // ====================================================================================================
+        // privates
+        /// <summary>
+        /// used for pagination and export
+        /// </summary>
+        private CPBaseClass cp { get; }
+        //
+        //
+        // ====================================================================================================
+        // publics
+        //
+        /// <summary>
+        /// if set true, the pageSie and pageNumber will control pagination
+        /// The grid will include pagination controls, and the client application should read pageSize and pageNumber when setting up the query
+        /// </summary>
+        public bool allowPagination { get; set; }
+        //
+        /// <summary>
+        /// Only valid if allowPagination is set to true.
+        /// Set the pageSize used by default.
+        /// The user may select a different page size.
+        /// </summary>
+        public int paginationPageSizeDefault { 
+            get {
+                if(_paginationPageSizeDefault!= null ) { return (int)_paginationPageSizeDefault; }
+                _paginationPageSizeDefault = 50;
+                return (int)_paginationPageSizeDefault;
+            }
+            set {
+                _paginationPageSizeDefault = value;
+            } 
+        }
+        private int? _paginationPageSizeDefault;
+        //
+        /// <summary>
+        /// if allowPagination false, this will will be 9999999. 
+        /// If allowPagination true, this is the number of rows in the display, and should be used as the pageSize in the query
+        /// </summary>
+        public int paginationPageSize {
+            get {
+                if (_paginationPageSize != null) { return (int)_paginationPageSize; }
+                _paginationPageSize = paginationPageSizeDefault;
+                return (int)_paginationPageSize;
+            }
+            set {
+                if (value < 1) { value = 1; }
+                if (value > 9999999) { value = 9999999; }
+                _paginationPageSize = value;
+            }
+        }
+        private int? _paginationPageSize;
+        //
+        /// <summary>
+        /// The 0-based page number being displayed
+        /// if allowPagination false, this will will be 0 (the first page). 
+        /// If allowPagination true, this is the page shown in the display, and should be used as the pageNumber in the query
+        /// </summary>
+        public int paginationPageNumber {
+            get {
+                if (_paginationPageNumber != null) { return (int)_paginationPageNumber; }
+                if (!allowPagination || cp == null) {
+                    return 0;
+                }
+                _paginationPageNumber = cp.Request.GetInteger("paginationPageNumber");
+                return (int)_paginationPageSize;
+            }
+            set {
+                if (value < 0) { value = 0; }
+                if (value > 9999999) { value = 9999999; }
+                _paginationPageNumber = value;
+            }
+        }
+        private int? _paginationPageNumber;
         //
         /// <summary>
         /// Add an ellipse menu entry for the current row
@@ -951,12 +1036,6 @@ namespace Contensive.Addons.PortalFramework {
             }
         }
         private string localFormId_Local = "";
-        //
-        /// <summary>
-        /// legacy constructor
-        /// </summary>
-        /// <param name="cp"></param>
-        [Obsolete("Use parameterless constructor, New ReportListClass()", false)] public ReportListClass(CPBaseClass cp) { }
     }
     //
     //====================================================================================================
