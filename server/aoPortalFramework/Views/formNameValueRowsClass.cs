@@ -4,6 +4,7 @@ using System;
 using System.Collections;
 
 namespace Contensive.Addons.PortalFramework {
+    [Obsolete("Deprecated. Use cp.AdminUI.createLayoutNameValueRows",false)]
     public class FormNameValueRowsClass {
         //
         /// <summary>

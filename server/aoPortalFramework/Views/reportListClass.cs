@@ -20,6 +20,7 @@ namespace Contensive.Addons.PortalFramework {
         /// prefered constructor
         /// </summary>
         /// <param name="cp"></param>
+        [Obsolete("Deprecated. Use cp.AdminUI.CreateLayoutBuilderList()", false)]
         public ReportListClass(CPBaseClass cp) { 
             this.cp = cp;
         }
@@ -27,7 +28,8 @@ namespace Contensive.Addons.PortalFramework {
         /// <summary>
         /// legacy constructor, without cp. (cp needed for pagination)
         /// </summary>
-        [Obsolete("Use constructor with cp arguemnt, New ReportListClass(cp)", false)] public ReportListClass() { }
+        [Obsolete("Deprecated. Use cp.AdminUI.CreateLayoutBuilderList()", false)]
+        public ReportListClass() { }
         //
         // ====================================================================================================
         // privates
