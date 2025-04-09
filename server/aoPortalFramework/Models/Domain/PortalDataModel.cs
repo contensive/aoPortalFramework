@@ -118,9 +118,9 @@ namespace Contensive.Addons.PortalFramework.Models {
                                         CP.Site.ErrorReport("Portal Error, 2 portal features with the same guid [" + featureGuid + "]");
                                     } else {
                                         result.featureList.Add(featureGuid, feature);
-                                        if (result.defaultFeature == null) {
-                                            result.defaultFeature = feature;
-                                        }
+                                        //if (result.defaultFeature == null) {
+                                        //    result.defaultFeature = feature;
+                                        //}
                                         if (portalDefaultFeatureId == feature.id) {
                                             result.defaultFeature = feature;
                                         }

@@ -2,7 +2,7 @@
 rem all paths are relative to the git scripts folder
 
 rem -- the application on the local server where this collection will be installed
-set appName=lydiakidwell
+set appName=veronica
 
 call build.cmd
 

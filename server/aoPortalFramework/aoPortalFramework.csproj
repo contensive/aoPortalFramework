@@ -19,8 +19,8 @@
 		<WarningsAsErrors>41999,42016,42017,42018,42019,42020,42021,42022,42032,42036</WarningsAsErrors>
 	</PropertyGroup>
 	<ItemGroup>
-	  <PackageReference Include="Contensive.CPBaseClass" Version="22.8.16.1" />
-	  <PackageReference Include="Contensive.DbModels" Version="22.8.16.1" />
+	  <PackageReference Include="Contensive.CPBaseClass" Version="25.4.9.2" />
+	  <PackageReference Include="Contensive.DbModels" Version="25.4.9.2" />
 	</ItemGroup>
 	<ItemGroup>
 	  <Reference Include="System.Web.Extensions" />

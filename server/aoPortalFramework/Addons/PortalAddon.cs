@@ -240,10 +240,13 @@ namespace Contensive.Addons.PortalFramework {
                         }
                     }
                     if (string.IsNullOrEmpty(body)) {
-                        LayoutBuilderSimple simple = new LayoutBuilderSimple {
-                            body = "This portal feature has no content."
-                        };
-                        body = simple.getHtml(CP);
+                        //
+                        // -- if no default feature set, display dashboard for this portal
+                        body = CP.AdminUI.GetWidgetDashboard(portalData.guid);
+                        //LayoutBuilderSimple simple = new LayoutBuilderSimple {
+                        //    body = "This portal feature has no content."
+                        //};
+                        //body = simple.getHtml(CP);
                     }
                 }
                 portalBuilder.setActiveNav(activeNavHeading);
