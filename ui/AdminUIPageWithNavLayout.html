@@ -1,69 +1,131 @@
 <!-- portalframework-AdminUIPageWithNavLayout -->
+ <style>
+  .navbar {
+      position: relative;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.3rem 1rem;
+    }
+    .navbar-nav {
+      display: flex;
+      flex-direction: column;
+      padding-left: 0;
+      margin-bottom: 0;
+      list-style: none;
+    }
+
+    .navbar-nav .nav-link {
+      padding-right: 0;
+      padding-left: 0;
+      font-family: "Poppins", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+    }
+
+    .navbar-nav .dropdown-menu {
+      position: static;
+      float: none;
+    }
+
+    .navbar-collapse {
+      flex-basis: 100%;
+      flex-grow: 1;
+      align-items: center;
+    }
+
+    .navbar-toggler {
+      padding: 0.25rem 0.em;
+      font-size: 1.25rem;
+      line-height: 1;
+      background-color: transparent;
+      border: 1px solid transparent;
+      border-radius: 0.35rem;
+      box-shadow: none !important;
+    }
+
+    .navbar-toggler:hover, .navbar-toggler:focus {
+      text-decoration: none;
+    }
+
+    .navbar.border.border-light {
+      border: 1px solid rgba(0,0,0,.175) !important;
+    }
+
+    .nav-item.active .nav-link{
+      color: black !important;
+    }
+ </style>
 <div id="afw">
-  <nav class="afwNavbar navbar navbar-expand-lg navbar-dark bg-dark px-4" style="border-top: 1px solid #282828;border-left: 1px solid #282828;">
-    <a class="navbar-brand" href="#">{{title}}</a>
-    <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbarSupportedContent" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>  
-    <div class="navbar-collapse collapse" id="navbarSupportedContent" style="">
-      <ul class="navbar-nav mr-auto" me-auto">
-        {{#navList}}
-          {{#navFlyoutListEmpty}}
-          <li class="nav-item {{#active}}active{{/active}} {{#isPortalLink}}afwNavPortalLink{{/isPortalLink}}">
-            {{#link}}
-            <a class="nav-link " href="{{link}}" target="{{linkTarget}}">{{caption}}</a>
-            {{/link}}
-            {{^link}}
-            <a class="nav-link " href="#" onclick="return false">{{caption}}</a>
-            {{/link}}
-          </li>
-          {{/navFlyoutListEmpty}}
-          {{^navFlyoutListEmpty}}
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{caption}}</a>
-            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-              {{#navFlyoutList}}
-                {{#subLink}}
-                <a class="dropdown-item " href="{{subLink}}" target="{{subLinkTarget}}" >{{subCaption}}</a>
-                {{/subLink}}
-                {{^subLink}}
-                <a class="dropdown-item"  href="#" onclick="return false">{{subCaption}}</a>
-                {{/subLink}}
-              {{/navFlyoutList}}
-            </div>
-          </li>
-          {{/navFlyoutListEmpty}}
-        {{/navList}}
-      </ul>
-  </div>
-  </nav>
-  
-  {{^subNavListEmpty}}
-  <nav class="navbar navbar-expand-lg navbar-light bg-gray-light px-4 pb-0">
-    <a class="navbar-brand" href="#">{{subNavTitle}}</a>
-  </nav>
-  <nav class="afwSubNavbar navbar navbar-expand-lg navbar-light bg-gray-light px-4 pt-0">
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-bs-toggle="collapse" data-target="#subnav" data-bs-target="#subnav" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="subnav">
-      <ul class="navbar-nav mr-auto" me-auto">
-        {{#subNavList}}
-        <li class="nav-item {{#subActive}}active{{/subActive}} {{#subIsPortalLink}}afwNavPortalLink{{/subIsPortalLink}}">
-          {{#subLink}}
-          <a class="nav-link " href="{{subLink}}" target="{{subLinkTarget}}">{{subCaption}}</a>
-          {{/subLink}}
-          {{^subLink}}
-          <a class="nav-link " href="#" onclick="return false">{{subCaption}}</a>
-          {{/subLink}}
-        </li>
-      {{/subNavList}}
-      </ul>
+  <div class="px-3 mb-4">
+    <div class="container-fluid">
+      <nav class="afwNavbar navbar navbar-expand-lg bg-light rounded-2 border border-light shadow-sm">
+        <!-- <a class="navbar-brand" href="#">{{title}}</a> -->
+        
+          <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbarSupportedContent" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>  
+          <div class="navbar-collapse collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav">
+              {{#navList}}
+                {{#navFlyoutListEmpty}}
+                <li class="nav-item {{#active}}active{{/active}} {{#isPortalLink}}afwNavPortalLink{{/isPortalLink}}">
+                  {{#link}}
+                  <a class="nav-link " href="{{link}}" target="{{linkTarget}}">{{caption}}</a>
+                  {{/link}}
+                  {{^link}}
+                  <a class="nav-link " href="#" onclick="return false">{{caption}}</a>
+                  {{/link}}
+                </li>
+                {{/navFlyoutListEmpty}}
+                {{^navFlyoutListEmpty}}
+                <li class="nav-item dropdown">
+                  <a class="nav-link" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{caption}}</a>
+                  <div class="dropdown-menu dropdown-menu-start" aria-labelledby="navbarDropdown">
+                    {{#navFlyoutList}}
+                      {{#subLink}}
+                      <a class="dropdown-item " href="{{subLink}}" target="{{subLinkTarget}}" >{{subCaption}}</a>
+                      {{/subLink}}
+                      {{^subLink}}
+                      <a class="dropdown-item"  href="#" onclick="return false">{{subCaption}}</a>
+                      {{/subLink}}
+                    {{/navFlyoutList}}
+                  </div>
+                </li>
+                {{/navFlyoutListEmpty}}
+              {{/navList}}
+            </ul>
+          </div>
+        
+      </nav>
     </div>
-  </nav>
-  {{/subNavListEmpty}}
+    {{^subNavListEmpty}}
+    <nav class="navbar navbar-expand-lg navbar-light bg-gray-light px-4 pb-0">
+      <a class="navbar-brand" href="#">{{subNavTitle}}</a>
+    </nav>
+    <nav class="afwSubNavbar navbar navbar-expand-lg navbar-light bg-gray-light px-4 pt-0">
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-bs-toggle="collapse" data-target="#subnav" data-bs-target="#subnav" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="subnav">
+        <ul class="navbar-nav mr-auto" me-auto">
+          {{#subNavList}}
+          <li class="nav-item {{#subActive}}active{{/subActive}} {{#subIsPortalLink}}afwNavPortalLink{{/subIsPortalLink}}">
+            {{#subLink}}
+            <a class="nav-link " href="{{subLink}}" target="{{subLinkTarget}}">{{subCaption}}</a>
+            {{/subLink}}
+            {{^subLink}}
+            <a class="nav-link " href="#" onclick="return false">{{subCaption}}</a>
+            {{/subLink}}
+          </li>
+        {{/subNavList}}
+        </ul>
+      </div>
+    </nav>
+    {{/subNavListEmpty}}
+  </div>
 
   <div>
     {{{body}}}
   </div>
+
 </div>
