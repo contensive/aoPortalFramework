@@ -87,16 +87,6 @@
     <div class="container-fluid">
       <div class="d-flex align-items-center justify-content-between mb-3">
         {{#title}}<h1 class="h3 m-0 text-tertiary">{{title}}</h1>{{/title}}
-        <div class="dropdown">
-          <a href="#" class="btn btn-sm btn-primary shadow-sm" id="dropdownMenuButton1" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-            <i class="fa-solid fa-plus text-white"></i>
-          </a>
-          <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-            {{#addWidgetList}}
-            <li><a class="dropdown-item add-widget" href="#" data-addonGuid="{{guid}}">{{name}}</a></li>
-            {{/addWidgetList}}
-          </ul>
-        </div>
       </div>
       <nav class="afwNavbar navbar navbar-expand-lg bg-light rounded-2 border border-light shadow-sm">      
           <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbarSupportedContent" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
