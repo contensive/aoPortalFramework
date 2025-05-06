@@ -1,4 +1,4 @@
-<!-- portalframework-AdminUIPageWithNavLayout -->
+
  <style>
   .navbar {
       position: relative;
@@ -56,31 +56,651 @@
     }
     .dropdown-toggle.no-caret::after {
         display: none;
-      }
-
-      .dropdown-menu {
-        position: absolute;
-        top: 100%;
-        left: 0;
-        z-index: 1000;
-        display: none;
-        float: left;
-        min-width: 10rem;
-        padding: 0.5rem 0;
-        margin: 0.125rem 0 0;
-        font-size: 0.85rem;
-        color: #858796;
-        text-align: left;
-        list-style: none;
-        background-color: #fff;
-        background-clip: padding-box;
-        border: 1px solid #e3e6f0;
-        border-radius: 0.35rem;
-      }
-      .navbar-nav .dropdown-menu {
-      position: static;
-      float: none;
     }
+
+    .dropdown-menu {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      z-index: 1000;
+      display: none;
+      float: left;
+      min-width: 10rem;
+      padding: 0.5rem 0;
+      margin: 0.125rem 0 0;
+      font-size: 0.85rem;
+      color: #858796;
+      text-align: left;
+      list-style: none;
+      background-color: #fff;
+      background-clip: padding-box;
+      border: 1px solid #e3e6f0;
+      border-radius: 0.35rem;
+    }
+    .navbar-nav .dropdown-menu {
+    position: static;
+    float: none;
+  }
+
+/*
+  portal styles
+*/
+
+/*
+* Contensive.Addons.PortalFramework assembly referenced resources
+*/
+.ccCon #desktop 
+{
+	color: #333;
+	background-color: white!important;
+}
+#afw #afwBodyFrame 
+{
+    background-color: white!important;
+}
+#afw,#afw p,#afw div,#afw td,#afw li
+{
+    /*font-family: arial;*/     
+    font-weight: normal;
+    /*font-size: 13px;*/  
+    /*line-height: 20px;*/
+}
+#afw h1,#afw h2,#afw h3,#afw h3
+{
+    /*font-family: arial;*/   
+    /*font-weight: bold;*/
+}
+#afw h1
+{
+    margin: 20px 0 10px 0;
+/*    font:normal bold 20px/30px Arial, san-serif;*/
+}
+#afw h2
+{
+    margin: 15px 0 5px 0;
+   /* font:normal bold 18px/24px Arial, san-serif;*/
+}
+#afw h3
+{
+    margin: 15px 0 5px 0;
+   /* font:normal bold 15px/20px Arial, san-serif;*/
+}
+#afw h4
+{
+    margin: 15px 0 5px 0;
+   /* font:normal bold 13px/20px Arial, san-serif;*/
+}
+#afw .afwManagerTitle
+{
+	background-color: #1F70BD;
+	color: #FFFFFF;
+	font-weight: bold;
+	padding: 10px;
+	margin: 0;
+	/*font-size: 15px;*/
+}
+#afw .afwManagerDescription 
+{
+    background-color: #bbb;
+    color: #444;
+    padding: 20px;
+    margin: 20px;
+}
+#afw #afwTitle 
+{
+}
+#afw #afwDescription
+{
+}
+#afw #afwWarning
+{
+	border: 1px dashed red;
+	padding: 10px;
+	margin: 5px 0 5px 0;
+	background-color: #EEE;
+}
+#afw #afwWarning p.ccError
+{
+	margin-top: 5px;
+}
+#afw #afwSubTitle 
+{
+}
+#afw .afwButtonCon 
+{
+	padding: 10px 10px 8px;
+	border-bottom: 1px solid #aaa;
+	background-color: #ccc;
+	clear: both;
+}
+#afw .afwButton 
+{
+    background-color: #f8f8f8;
+    border-color: #eee #bbb #bbb #eee;
+    border-style: solid;
+    border-width: 1px;
+	border-radius: 2px;
+    color: #666;
+    font-family: "Lucida Grande",Tahoma,Arial,Verdana,sans-serif;
+    font-size: 12px;
+    font-weight: bold;
+    line-height: 130%;
+    margin: 0 2px 0 0;
+    padding: 4px 8px 5px 6px;
+    cursor: pointer;
+    display: inline-block;
+}
+#afw .afwButton:hover
+{
+    background-color: #27c;
+    border-color: #27c;
+    color: #fff;
+}
+#afw .afwButton.afwButtonDisable {
+    color: #bbb;
+    background-color: #eee;
+}
+#afw .afwBodyPad 
+{
+	clear: both;
+    margin:20px;
+	padding: 0;
+}
+#afw .afwBodyColor
+{
+	clear: both;
+	color: #444;
+	background-color: #fff;
+    margin:0;
+	padding: 0;
+}
+#afw ul.afwNav 
+{
+	list-style-type: none; 
+	padding: 0; 
+	margin: 0;
+	height: 30px;
+}
+#afw ul.afwNav li {
+    float: left;
+    padding: 0;
+    min-width: 63px;
+    margin: auto;
+    text-align: center;
+}
+#afw ul.afwNav li a 
+{ 
+	background-color: #f8f8f8;
+	color: #666;
+	border-left: 1px solid #99BBDD;
+	display: block;
+	line-height: 14px;
+	padding: 8px 10px;
+	text-decoration: none;
+	border-radius: 0 0 5px 5px;
+	box-shadow: 1px 1px .5px .5px rgba(0, 0, 0, 0.4);
+	font-weight: bold;
+    min-width: 70px;
+}
+#afw ul.afwNav li a:hover 
+{
+    color: #fff;
+    background-color: #1F70BD;
+	border-left: 1px solid #1F70BD;
+}
+#afw ul.afwNav li.afwNavActive a 
+{
+    color: #f8f8f8;
+    background-color: #1F70BD;
+	border-left: 1px solid #1F70BD;
+}
+#afw ul.afwNav li.afwPortalLink a {
+	color: #666;
+	border-left: 1px solid #7799bb;
+	border-left: 1px solid #1F70BD;
+}
+/*
+* Tabbed Body
+*/
+#afw .afwTabbedBody 
+{
+	padding: 20px 20px 0 20px;
+	margin: 0;
+	background-color: #eee;
+}
+#afw .afwTabbedBody>h2
+{
+	color: #555;
+	margin-top: 0;
+}
+#afw ul.afwBodyTabs 
+{
+	list-style-type: none; 
+	padding: 0; 
+	margin: 0;
+	height: 30px;
+}
+#afw ul.afwBodyTabs li 
+{
+	float: left;
+	padding: 0;
+	margin: 0;
+}
+#afw ul.afwBodyTabs li a 
+{
+	background-color: #d4d4d4;
+    border-radius: 10px 5px 0 0;
+    color: #222;
+    display: block;
+    line-height: 30px;
+    padding: 0 10px;
+    margin: 0 1px 0 0;
+    text-decoration: none;
+	border-left: 1px solid rgba(0, 0, 0, 0.1);
+}
+#afw .afwTabbedBody li a:hover 
+{
+    color: #fff;
+    background-color: #1F70BD;
+}
+#afw .afwTabbedBody li.afwTabActive a 
+{
+    color: #f8f8f8;
+    background-color: #1F70BD;
+}
+/*
+* name-value forms
+*/
+#afw .afwFormRow 
+{
+	display: table;
+	width:100%;
+    min-height: 30px;
+    vertical-align: middle;
+}
+#afw .afwFormRowName 
+{
+	line-height: 30px;
+	text-align: right;
+	padding: 5px 10px;
+	display: table-cell;
+	width: 160px;
+	vertical-align: middle;
+	font-weight: bold;
+}
+#afw .afwFormRowValue 
+{
+    background-color: #F8F8F8;
+    border-top: 2px solid #FFFFFF;
+    display: table-cell;
+    margin: 15px;
+    padding: 5px 10px;
+    vertical-align: middle;
+}
+#afw .afwFormRowValue .afwFormRowValueHelp {
+    margin: 10px 0 10px 40px;
+    padding: 5px 0 0 20px;
+}
+#afw .afwFormRowValue input[type="text"] 
+{
+	/* width: 200px; */
+}
+#afw .afwFormRowValue textarea 
+{
+	width: 100%;
+	/*height: 200px;*/
+}
+#afw .afwFormRowHelp {
+	background-color: #f8f8f8;
+	display: table-cell;
+	margin: 0;
+	padding: 0 10px 0 40px;
+}
+
+#afw .aftFieldSet 
+{
+	background-color:#f8f8f8;
+}
+/*
+* report styles
+*/
+#afw .afwListReportTable 
+{
+	width:100%;
+	border-spacing: 0;
+	margin: 20px 0 !important;
+}
+#afw .afwListReportTableCollapse
+{
+	border-spacing: 0;
+	margin: 0 auto 20px auto;
+}
+#afw .afwBeforeHtml {
+	margin: 20px 0 0;
+}
+#afw .afwAfterHtml {
+	margin: 0 0 20px;
+}
+#afw .afwLeftSideHtml {
+	float: left;
+	overflow: hidden;
+	margin: 0 0 20px 0;
+	width: 160px;
+}
+#afw .afwRightSideHtml 
+{
+	margin: 0 0 0 170px;
+}
+#afw .afwListReportTable > thead
+,#afw .afwListReportTableCollapse > thead
+ 
+{
+}
+#afw .afwListReportTable > thead > tr > th 
+,#afw .afwListReportTableCollapse > thead > tr > th 
+{
+	padding: 4px 8px;
+	border-bottom: 1px solid #f8f8f8;
+	border-right: 1px solid white;
+	background-color:#888;
+	color:#eee;
+	font-weight:bold;
+	white-space: nowrap;
+}
+#afw .afwListReportTable > thead > tr > th > a
+,#afw .afwListReportTableCollapse > thead > tr > th > a:visited
+,#afw .afwListReportTableCollapse > thead > tr > th > a:hover
+{
+	color:#fff;
+	text-decoration: underline;
+}
+
+#afw .afwListReportTable > tfoot > tr > td 
+,#afw .afwListReportTable > tfoot > tr > th 
+,#afw .afwListReportTableCollapse > tfoot > tr > td 
+,#afw .afwListReportTableCollapse > tfoot > tr > th 
+{
+	padding: 4px 8px;
+	border-top: 1px solid #444;
+	border-right: 1px solid white;
+	font-weight:bold;
+}
+#afw .afwListReportTable > tbody 
+,#afw .afwListReportTableCollapse > tbody 
+{
+	background-color: #f8f8f8;
+}
+#afw .afwListReportTable > tbody > tr.afwOdd 
+,#afw .afwListReportTableCollapse > tbody > tr.afwOdd 
+{
+	background-color: #e8e8e8;
+}
+#afw .afwListReportTable > tbody > tr > th
+,#afw .afwListReportTableCollapse > tbody > tr > th
+{
+	padding: 4px 8px;
+	border-bottom: 1px solid #f8f8f8;
+	border-right: 1px solid white;
+	font-weight:bold;
+}
+#afw .afwListReportTable > tbody > tr > td 
+,#afw .afwListReportTableCollapse > tbody > tr > td 
+{
+	padding: 4px 8px;
+	border-bottom: 1px solid #f8f8f8;
+	border-right: 1px solid white;
+}
+#afw .afwListReportCon h2.afwTitle 
+{
+}
+#afw .afwListReportCon p.afwDescription 
+{
+}
+/*
+* Manager table cell widths
+*/
+#afw .afwDisplayNone { display:none; }
+/* */
+#afw .afwWidth10 { width: 10% }
+#afw .afwWidth20 { width: 20% }
+#afw .afwWidth30 { width: 30% }
+#afw .afwWidth40 { width: 40% }
+#afw .afwWidth50 { width: 50% }
+#afw .afwWidth60 { width: 60% }
+#afw .afwWidth70 { width: 70% }
+#afw .afwWidth80 { width: 80% }
+#afw .afwWidth90 { width: 90% }
+#afw .afwWidth100 { width: 100% }
+/*
+*/
+#afw .afwWidth10px { width: 10px }
+#afw .afwWidth20px { width: 20px }
+#afw .afwWidth30px { width: 30px }
+#afw .afwWidth40px { width: 40px }
+#afw .afwWidth50px { width: 50px }
+#afw .afwWidth60px { width: 60px }
+#afw .afwWidth70px { width: 70px }
+#afw .afwWidth80px { width: 80px }
+#afw .afwWidth90px { width: 90px }
+
+#afw .afwWidth100px { width: 100px }
+#afw .afwWidth200px { width: 200px }
+#afw .afwWidth300px { width: 300px }
+#afw .afwWidth400px { width: 400px }
+#afw .afwWidth500px { width: 500px }
+/*
+*/
+#afw .afwMarginLeft100px { margin-left: 100px }
+#afw .afwMarginLeft200px { margin-left: 200px }
+#afw .afwMarginLeft300px { margin-left: 300px }
+#afw .afwMarginLeft400px { margin-left: 400px }
+#afw .afwMarginLeft500px { margin-left: 500px }
+/*
+*/
+#afw .afwTextAlignRight { text-align:right }
+#afw .afwTextAlignLeft { text-align:left }
+#afw .afwTextAlignCenter { text-align:center }
+/*
+* Reports with Charts and Grids (Pie, Bar, Line)
+*/
+#afw .afwChartCon {
+	margin: 0 auto 40px auto;
+	}
+#afw .afwGridCon {
+	padding: 0 0 40px;
+}
+#afw .afwPieCon {
+	/*padding: 20px;*/
+}
+#afw .afwPieChart {
+    margin: 0 auto;
+    width: 500px;}
+#afw .afwPieData {
+    margin: 0 auto;
+    width: 500px;}
+#afw .afwPieDataRow {}
+#afw .afwPieTotalRow {
+    border-top: 1px solid #888888;
+    margin: 5px 0 0;
+    padding: 5px 0 0;
+}
+#afw .afwPieTotalRow .afwPieDataValue {}
+#afw .afwPieDataValue {
+    display: inline-block;
+    padding: 0 10px 0 0;
+    text-align: right;
+    width: 100px;
+	}
+#afw .afwPieDataCaption {
+    display: inline-block;
+    padding: 0;
+    text-align: left;
+    width: 280px;
+	}
+/*
+    report filters
+*/
+.afwFilterHead 
+{
+}
+.afwFilterCaption
+{
+}
+.afwFilterRow label
+{
+    vertical-align: middle;
+}
+.afwFilterRow input.afwFilterDate
+{
+	width: 105px;
+	margin: 4px 4px 0 4px;
+	text-align: left;
+}
+.afwFilterRow input.afwFilterNumber
+{
+	width: 90px;
+	margin: 4px 4px 0 4px;
+	text-align: right;
+}
+.afwFilterRow input.afwFilterText
+{
+	width: 123px;
+	margin: 4px 4px 0 10px;
+}
+.afwFilterRow select
+{
+	width: 140px;
+	margin: 4px 4px 0 10px;
+}
+
+.afwFilterRow label
+{
+	width: 30px;
+	display: inline-block;
+	margin: 0 0 0 10px;
+	text-align: right;
+	overflow: hidden;
+}
+/*
+* Report Filter List
+*/
+#afw ul.afwFilterList {
+	background-color: #eee;
+	border: 1px solid #fff;
+	padding: 10px 5px;
+    border-radius: 5px;
+}
+#afw ul.afwFilterList h3 {
+	padding: 0;
+	margin: 0 0 10px 0;
+	color: #666;
+	/*font-size: 13px;*/
+}
+#afw li.afwFilterInput{
+	margin:0;
+	padding:0;
+	width:100%;
+}
+#afw li.afwFilterInput input[type="text"] {
+	margin:0;
+	padding:0;
+	width:100%;
+}
+#afw li.afwFilterInput input[type="checkbox"] {
+	margin:0;
+	padding:0;
+}
+#afw ul.afwFilterList li select {
+	margin:0;
+	padding:0;
+	width:100%;
+}
+#afw ul.afwButtonList 
+{
+	list-style: none;
+}
+#afw ul.afwButtonList li {
+	width: 280px;
+	display: inline-block;
+	vertical-align: top;
+}
+#afw ul.afwButtonList li a {
+	text-decoration: none;
+	color: #666;
+	background-color: #f8f8f8;
+	border: 1px solid #bbb;
+	border-radius: 5px;
+	padding: 15px;
+	margin: 5px;
+	display: block;
+	width: 200px;
+    font-weight: bold;
+}
+#afw ul.afwButtonList li a:hover {
+    color: #fff;
+    background-color: #1F70BD;
+    border: 1px solid #1F70BD;
+}
+/*
+* Edit form inputs
+*/
+#afw input[type="date"] {
+    max-width: 400px;
+}
+/*
+* nav and subnav
+*/
+@media only screen and (min-width: 992px) {
+	.afwNavbar .navbar-nav .nav-item .nav-link {
+		padding: 0 0.75em;
+	}
+
+	.afwNavbar .navbar-nav .nav-item:not(:last-child) .nav-link {
+		border-right: 1px solid rgba(255,255,255,.3);
+	}
+
+	.afwSubNavbar .navbar-nav .nav-item .nav-link {
+		padding: 0 0.75em;
+	}
+
+	.afwSubNavbar .navbar-nav .nav-item:not(:last-child) .nav-link {
+		border-right: 1px solid rgba(0,0,0,.3);
+	}
+
+	.afwSubNavbar {
+		border-bottom: 1px solid #888 !important;
+	}
+}
+/*
+	bootstrap colors additions
+*/
+.border-top-gray-light {
+	border-bottom: 1px solid rgb(0,0,0,0.1);
+}
+
+.border-right-gray-light {
+	border-bottom: 1px solid rgb(0,0,0,0.1);
+}
+
+.border-bottom-gray-light {
+	border-bottom: 1px solid rgb(0,0,0,0.1);
+}
+
+.border-bottom-left-light {
+	border-bottom: 1px solid rgb(0,0,0,0.1);
+}
+
+.bg-gray-light {
+	background-color: #F0F0F0;
+}
+
+.bg-gray-medium {
+	background-color: #c8c8c8;
+}
+
+.bg-gray-dark {
+	background-color: #888;
+}
  </style>
 <div id="afw">
   <div class="px-3 mb-4">
@@ -200,3 +820,42 @@
     {{{body}}}
   </div>
 </div>
+<script>
+  //
+  // adminFramework assembly referenced js
+  //
+  if (typeof google !== 'object') {
+      document.write('<scr' + 'ipt type="text/javascript" src="https://www.google.com/jsapi"></scr' + 'ipt>');
+  }
+  function cjFrameSubmitForm(remoteMethodName, frameHtmlId, formHtmlId) {
+      jQuery('#' + frameHtmlId).block();
+      cj.ajax.addon(
+          remoteMethodName
+          , 'frameName=' + frameHtmlId
+          , formHtmlId
+          , frameHtmlId
+      );
+  }
+  function cjFrameUpdate(remoteMethodName, frameHtmlId, qs) {
+      jQuery('#' + frameHtmlId).block();
+      cj.ajax.addon(
+          remoteMethodName
+          , qs + '&frameName=' + frameHtmlId
+          , ''
+          , frameHtmlId
+      );
+  }
+  //
+  // attach this to the contensive cj object
+  //
+  function cjFrame() {
+      this.submitForm = cjFrameSubmitForm;
+      this.update = cjFrameUpdate;
+  }
+  cj.frame = new cjFrame();
+  //
+  // legacy names
+  //
+  function afwPostFrame(remoteMethodName, formHtmlId, frameHtmlId) { cj.frame.submitForm(remoteMethodName, frameHtmlId, formHtmlId) }
+  function afwUpdateFrame(remoteMethodName, qs, frameHtmlId) { cj.frame.update(remoteMethodName, frameHtmlId, qs) }
+</script>
