@@ -192,7 +192,7 @@ namespace Contensive.Addons.PortalFramework {
                                 title = dstDataFeature.heading,
                                 body = "Redirecting to content"
                             };
-                            body = content.getHtml(CP);
+                            body = content.getHtml();
                         } else {
                             //
                             // this is a feature list, display the feature list
@@ -246,7 +246,7 @@ namespace Contensive.Addons.PortalFramework {
                         //LayoutBuilderSimple simple = new LayoutBuilderSimple {
                         //    body = "This portal feature has no content."
                         //};
-                        //body = simple.getHtml(CP);
+                        //body = simple.getHtml();
                     }
                 }
                 portalBuilder.setActiveNav(activeNavHeading);
@@ -256,7 +256,7 @@ namespace Contensive.Addons.PortalFramework {
                 portalBuilder.body = CP.Html.div(body, "", "", "afwBodyFrame");
                 portalBuilder.title = portalData.name;
                 portalBuilder.isOuterContainer = true;
-                string returnHtml = portalBuilder.getHtml(CP);
+                string returnHtml = portalBuilder.getHtml();
                 //
                 // assemble body
                 //
