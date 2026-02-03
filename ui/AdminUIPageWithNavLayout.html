@@ -1,6 +1,5 @@
-
  <style>
-  .afwNavbar.navbar {
+  .navbar {
       position: relative;
       display: flex;
       flex-wrap: wrap;
@@ -78,9 +77,98 @@
       border-radius: 0.35rem;
     }
     .navbar-nav .dropdown-menu {
-    position: static;
-    float: none;
-  }
+      position: static;
+      float: none;
+    }
+
+    /* subnav styles */
+    #subnav a {
+      font-size: 15px;
+    }
+    #subnav a.active {
+      font-weight: 600;
+      color: #0545a2;
+      border-bottom: #0545a2 2px solid;
+      padding-bottom: 4px;
+    }
+
+    #subnav ul{
+      flex-direction: row;
+      gap: 10px;
+    }
+
+    /* breadcrumbs */
+
+      ul.ttlBdCm {
+        list-style: none;
+        padding: 0;
+      }
+
+      /* Display list items side by side */
+      ul.ttlBdCm li {
+        display: inline;
+        font-size: 14px;
+      }
+
+      /* Add a slash symbol (/) before/behind each list item */
+      ul.ttlBdCm li+li:before {
+        padding: 8px;
+        display: inline-block;
+        content: "";
+        vertical-align: -.125em;
+        background-image: url("data:image/svg+xml,<svg viewBox='0 0 16 16'  fill='%23333' xmlns='http://www.w3.org/2000/svg'><path fill-rule='evenodd' d='M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708' clip-rule='evenodd'/></svg>");
+        background-repeat: no-repeat;
+        background-size: 1rem 1rem;
+
+      }
+
+      /* Add a color to all links inside the list */
+      ul.ttlBdCm li p {
+        background-color: rgba(31, 113, 189, 0.186);
+        border-radius: 12px;
+        color: #0545a2;
+        padding: 5px 10px;
+        margin: 0;
+        font-weight: 500;
+        text-decoration: none;
+      }
+
+      #afw .card {
+        /* max-height: 75px !important; */
+      }
+
+       #afw .card .card-body {
+          padding: 10px !important;
+      }
+
+      #afw .card .nav-pills {
+          flex-direction: row;
+          flex-wrap: nowrap;
+          overflow-x: scroll;
+      }
+      #afw .card .nav-pills .nav-item  {
+        flex: none;
+      }
+
+      #afw .card .nav-pills .nav-item a  {
+        /* color: #0545a2 !important; */
+        color: #333;
+        font-weight: 500;
+      }
+
+      #afw .card .nav-pills .nav-item a.active  {
+        background-color: #0545a2 !important;
+        color: #fff !important;
+        padding: 8px 16px !important;
+      }
+
+      /* Add a color on mouse-over */
+      /* ul.ttleBdCm li a:hover {
+        color: #01447e;
+        text-decoration: underline;
+      } */
+
+      
 
 /*
   portal styles
@@ -92,45 +180,45 @@
 .ccCon #desktop 
 {
 	color: #333;
-	background-color: white!important;
+	background-color: #f8f9fc!important;
 }
-#afw #afwBodyFrame 
+.afw #afwBodyFrame 
 {
     background-color: white!important;
 }
-#afw,#afw p,#afw div,#afw td,#afw li
+.afw,.afw p,.afw div,.afw td,.afw li
 {
     /*font-family: arial;*/     
     font-weight: normal;
     /*font-size: 13px;*/  
     /*line-height: 20px;*/
 }
-#afw h1,#afw h2,#afw h3,#afw h3
+.afw h1,.afw h2,.afw h3,.afw h3
 {
     /*font-family: arial;*/   
     /*font-weight: bold;*/
 }
-#afw h1
+.afw h1
 {
     margin: 20px 0 10px 0;
 /*    font:normal bold 20px/30px Arial, san-serif;*/
 }
-#afw h2
+.afw h2
 {
     margin: 15px 0 5px 0;
    /* font:normal bold 18px/24px Arial, san-serif;*/
 }
-#afw h3
+.afw h3
 {
     margin: 15px 0 5px 0;
    /* font:normal bold 15px/20px Arial, san-serif;*/
 }
-#afw h4
+.afw h4
 {
     margin: 15px 0 5px 0;
    /* font:normal bold 13px/20px Arial, san-serif;*/
 }
-#afw .afwManagerTitle
+.afwManagerTitle
 {
 	background-color: #1F70BD;
 	color: #FFFFFF;
@@ -139,41 +227,41 @@
 	margin: 0;
 	/*font-size: 15px;*/
 }
-#afw .afwManagerDescription 
+.afwManagerDescription 
 {
     background-color: #bbb;
     color: #444;
     padding: 20px;
     margin: 20px;
 }
-#afw #afwTitle 
+.afwTitle
 {
 }
-#afw #afwDescription
+.afwDescription
 {
 }
-#afw #afwWarning
+.afwWarning
 {
 	border: 1px dashed red;
 	padding: 10px;
 	margin: 5px 0 5px 0;
 	background-color: #EEE;
 }
-#afw #afwWarning p.ccError
+.afwWarning p.ccError
 {
 	margin-top: 5px;
 }
-#afw #afwSubTitle 
+.afwSubTitle 
 {
 }
-#afw .afwButtonCon 
+.afwButtonCon 
 {
 	padding: 10px 10px 8px;
 	border-bottom: 1px solid #aaa;
 	background-color: #ccc;
 	clear: both;
 }
-#afw .afwButton 
+.afwButton 
 {
     background-color: #f8f8f8;
     border-color: #eee #bbb #bbb #eee;
@@ -190,23 +278,23 @@
     cursor: pointer;
     display: inline-block;
 }
-#afw .afwButton:hover
+.afwButton:hover
 {
     background-color: #27c;
     border-color: #27c;
     color: #fff;
 }
-#afw .afwButton.afwButtonDisable {
+.afwButton.afwButtonDisable {
     color: #bbb;
     background-color: #eee;
 }
-#afw .afwBodyPad 
+.afwBodyPad 
 {
 	clear: both;
     margin:20px;
 	padding: 0;
 }
-#afw .afwBodyColor
+.afwBodyColor
 {
 	clear: both;
 	color: #444;
@@ -214,21 +302,21 @@
     margin:0;
 	padding: 0;
 }
-#afw ul.afwNav 
+.afw ul.afwNav 
 {
 	list-style-type: none; 
 	padding: 0; 
 	margin: 0;
 	height: 30px;
 }
-#afw ul.afwNav li {
+.afw ul.afwNav li {
     float: left;
     padding: 0;
     min-width: 63px;
     margin: auto;
     text-align: center;
 }
-#afw ul.afwNav li a 
+.afw ul.afwNav li a 
 { 
 	background-color: #f8f8f8;
 	color: #666;
@@ -242,19 +330,19 @@
 	font-weight: bold;
     min-width: 70px;
 }
-#afw ul.afwNav li a:hover 
+.afw ul.afwNav li a:hover 
 {
     color: #fff;
     background-color: #1F70BD;
 	border-left: 1px solid #1F70BD;
 }
-#afw ul.afwNav li.afwNavActive a 
+.afw ul.afwNav li.afwNavActive a 
 {
     color: #f8f8f8;
     background-color: #1F70BD;
 	border-left: 1px solid #1F70BD;
 }
-#afw ul.afwNav li.afwPortalLink a {
+.afw ul.afwNav li.afwPortalLink a {
 	color: #666;
 	border-left: 1px solid #7799bb;
 	border-left: 1px solid #1F70BD;
@@ -262,31 +350,30 @@
 /*
 * Tabbed Body
 */
-#afw .afwTabbedBody 
+.afwTabbedBody 
 {
 	padding: 20px 20px 0 20px;
 	margin: 0;
-	background-color: #eee;
 }
-#afw .afwTabbedBody>h2
+.afwTabbedBody>h2
 {
 	color: #555;
 	margin-top: 0;
 }
-#afw ul.afwBodyTabs 
+.afw ul.afwBodyTabs 
 {
 	list-style-type: none; 
 	padding: 0; 
 	margin: 0;
 	height: 30px;
 }
-#afw ul.afwBodyTabs li 
+.afw ul.afwBodyTabs li 
 {
 	float: left;
 	padding: 0;
 	margin: 0;
 }
-#afw ul.afwBodyTabs li a 
+.afw ul.afwBodyTabs li a 
 {
 	background-color: #d4d4d4;
     border-radius: 10px 5px 0 0;
@@ -298,27 +385,27 @@
     text-decoration: none;
 	border-left: 1px solid rgba(0, 0, 0, 0.1);
 }
-#afw .afwTabbedBody li a:hover 
+.afwTabbedBody li a:hover 
 {
     color: #fff;
     background-color: #1F70BD;
 }
-#afw .afwTabbedBody li.afwTabActive a 
+.afwTabbedBody li.afwTabActive a 
 {
-    color: #f8f8f8;
-    background-color: #1F70BD;
+    color: #f8f8f8 ! important;
+    background-color: #1F70BD ! important;
 }
 /*
 * name-value forms
 */
-#afw .afwFormRow 
+.afwFormRow 
 {
 	display: table;
 	width:100%;
     min-height: 30px;
     vertical-align: middle;
 }
-#afw .afwFormRowName 
+.afwFormRowName 
 {
 	line-height: 30px;
 	text-align: right;
@@ -328,7 +415,7 @@
 	vertical-align: middle;
 	font-weight: bold;
 }
-#afw .afwFormRowValue 
+.afwFormRowValue 
 {
     background-color: #F8F8F8;
     border-top: 2px solid #FFFFFF;
@@ -337,67 +424,67 @@
     padding: 5px 10px;
     vertical-align: middle;
 }
-#afw .afwFormRowValue .afwFormRowValueHelp {
+.afwFormRowValue .afwFormRowValueHelp {
     margin: 10px 0 10px 40px;
     padding: 5px 0 0 20px;
 }
-#afw .afwFormRowValue input[type="text"] 
+.afwFormRowValue input[type="text"] 
 {
 	/* width: 200px; */
 }
-#afw .afwFormRowValue textarea 
+.afwFormRowValue textarea 
 {
 	width: 100%;
 	/*height: 200px;*/
 }
-#afw .afwFormRowHelp {
+.afwFormRowHelp {
 	background-color: #f8f8f8;
 	display: table-cell;
 	margin: 0;
 	padding: 0 10px 0 40px;
 }
 
-#afw .aftFieldSet 
+.afw .aftFieldSet 
 {
 	background-color:#f8f8f8;
 }
 /*
 * report styles
 */
-#afw .afwListReportTable 
+.afwListReportTable 
 {
 	width:100%;
 	border-spacing: 0;
 	margin: 20px 0 !important;
 }
-#afw .afwListReportTableCollapse
+.afwListReportTableCollapse
 {
 	border-spacing: 0;
 	margin: 0 auto 20px auto;
 }
-#afw .afwBeforeHtml {
+.afwBeforeHtml {
 	margin: 20px 0 0;
 }
-#afw .afwAfterHtml {
+.afwAfterHtml {
 	margin: 0 0 20px;
 }
-#afw .afwLeftSideHtml {
+.afwLeftSideHtml {
 	float: left;
 	overflow: hidden;
 	margin: 0 0 20px 0;
 	width: 160px;
 }
-#afw .afwRightSideHtml 
+.afwRightSideHtml 
 {
 	margin: 0 0 0 170px;
 }
-#afw .afwListReportTable > thead
-,#afw .afwListReportTableCollapse > thead
+.afwListReportTable > thead
+,.afwListReportTableCollapse > thead
  
 {
 }
-#afw .afwListReportTable > thead > tr > th 
-,#afw .afwListReportTableCollapse > thead > tr > th 
+.afwListReportTable > thead > tr > th 
+,.afwListReportTableCollapse > thead > tr > th 
 {
 	padding: 4px 8px;
 	border-bottom: 1px solid #f8f8f8;
@@ -407,131 +494,131 @@
 	font-weight:bold;
 	white-space: nowrap;
 }
-#afw .afwListReportTable > thead > tr > th > a
-,#afw .afwListReportTableCollapse > thead > tr > th > a:visited
-,#afw .afwListReportTableCollapse > thead > tr > th > a:hover
+.afwListReportTable > thead > tr > th > a
+,.afwListReportTableCollapse > thead > tr > th > a:visited
+,.afwListReportTableCollapse > thead > tr > th > a:hover
 {
 	color:#fff;
 	text-decoration: underline;
 }
 
-#afw .afwListReportTable > tfoot > tr > td 
-,#afw .afwListReportTable > tfoot > tr > th 
-,#afw .afwListReportTableCollapse > tfoot > tr > td 
-,#afw .afwListReportTableCollapse > tfoot > tr > th 
+.afwListReportTable > tfoot > tr > td 
+,.afwListReportTable > tfoot > tr > th 
+,.afwListReportTableCollapse > tfoot > tr > td 
+,.afwListReportTableCollapse > tfoot > tr > th 
 {
 	padding: 4px 8px;
 	border-top: 1px solid #444;
 	border-right: 1px solid white;
 	font-weight:bold;
 }
-#afw .afwListReportTable > tbody 
-,#afw .afwListReportTableCollapse > tbody 
+.afwListReportTable > tbody 
+,.afwListReportTableCollapse > tbody 
 {
 	background-color: #f8f8f8;
 }
-#afw .afwListReportTable > tbody > tr.afwOdd 
-,#afw .afwListReportTableCollapse > tbody > tr.afwOdd 
+.afwListReportTable > tbody > tr.afwOdd 
+,.afwListReportTableCollapse > tbody > tr.afwOdd 
 {
 	background-color: #e8e8e8;
 }
-#afw .afwListReportTable > tbody > tr > th
-,#afw .afwListReportTableCollapse > tbody > tr > th
+.afwListReportTable > tbody > tr > th
+,.afwListReportTableCollapse > tbody > tr > th
 {
 	padding: 4px 8px;
 	border-bottom: 1px solid #f8f8f8;
 	border-right: 1px solid white;
 	font-weight:bold;
 }
-#afw .afwListReportTable > tbody > tr > td 
-,#afw .afwListReportTableCollapse > tbody > tr > td 
+.afwListReportTable > tbody > tr > td 
+,.afwListReportTableCollapse > tbody > tr > td 
 {
 	padding: 4px 8px;
 	border-bottom: 1px solid #f8f8f8;
 	border-right: 1px solid white;
 }
-#afw .afwListReportCon h2.afwTitle 
+.afwListReportCon h2.afwTitle 
 {
 }
-#afw .afwListReportCon p.afwDescription 
+.afwListReportCon p.afwDescription 
 {
 }
 /*
 * Manager table cell widths
 */
-#afw .afwDisplayNone { display:none; }
+.afwDisplayNone { display:none; }
 /* */
-#afw .afwWidth10 { width: 10% }
-#afw .afwWidth20 { width: 20% }
-#afw .afwWidth30 { width: 30% }
-#afw .afwWidth40 { width: 40% }
-#afw .afwWidth50 { width: 50% }
-#afw .afwWidth60 { width: 60% }
-#afw .afwWidth70 { width: 70% }
-#afw .afwWidth80 { width: 80% }
-#afw .afwWidth90 { width: 90% }
-#afw .afwWidth100 { width: 100% }
+.afwWidth10 { width: 10% }
+.afwWidth20 { width: 20% }
+.afwWidth30 { width: 30% }
+.afwWidth40 { width: 40% }
+.afwWidth50 { width: 50% }
+.afwWidth60 { width: 60% }
+.afwWidth70 { width: 70% }
+.afwWidth80 { width: 80% }
+.afwWidth90 { width: 90% }
+.afwWidth100 { width: 100% }
 /*
 */
-#afw .afwWidth10px { width: 10px }
-#afw .afwWidth20px { width: 20px }
-#afw .afwWidth30px { width: 30px }
-#afw .afwWidth40px { width: 40px }
-#afw .afwWidth50px { width: 50px }
-#afw .afwWidth60px { width: 60px }
-#afw .afwWidth70px { width: 70px }
-#afw .afwWidth80px { width: 80px }
-#afw .afwWidth90px { width: 90px }
+.afwWidth10px { width: 10px }
+.afwWidth20px { width: 20px }
+.afwWidth30px { width: 30px }
+.afwWidth40px { width: 40px }
+.afwWidth50px { width: 50px }
+.afwWidth60px { width: 60px }
+.afwWidth70px { width: 70px }
+.afwWidth80px { width: 80px }
+.afwWidth90px { width: 90px }
 
-#afw .afwWidth100px { width: 100px }
-#afw .afwWidth200px { width: 200px }
-#afw .afwWidth300px { width: 300px }
-#afw .afwWidth400px { width: 400px }
-#afw .afwWidth500px { width: 500px }
+.afwWidth100px { width: 100px }
+.afwWidth200px { width: 200px }
+.afwWidth300px { width: 300px }
+.afwWidth400px { width: 400px }
+.afwWidth500px { width: 500px }
 /*
 */
-#afw .afwMarginLeft100px { margin-left: 100px }
-#afw .afwMarginLeft200px { margin-left: 200px }
-#afw .afwMarginLeft300px { margin-left: 300px }
-#afw .afwMarginLeft400px { margin-left: 400px }
-#afw .afwMarginLeft500px { margin-left: 500px }
+.afwMarginLeft100px { margin-left: 100px }
+.afwMarginLeft200px { margin-left: 200px }
+.afwMarginLeft300px { margin-left: 300px }
+.afwMarginLeft400px { margin-left: 400px }
+.afwMarginLeft500px { margin-left: 500px }
 /*
 */
-#afw .afwTextAlignRight { text-align:right }
-#afw .afwTextAlignLeft { text-align:left }
-#afw .afwTextAlignCenter { text-align:center }
+.afwTextAlignRight { text-align:right }
+.afwTextAlignLeft { text-align:left }
+.afwTextAlignCenter { text-align:center }
 /*
 * Reports with Charts and Grids (Pie, Bar, Line)
 */
-#afw .afwChartCon {
+.afwChartCon {
 	margin: 0 auto 40px auto;
 	}
-#afw .afwGridCon {
+.afwGridCon {
 	padding: 0 0 40px;
 }
-#afw .afwPieCon {
+.afwPieCon {
 	/*padding: 20px;*/
 }
-#afw .afwPieChart {
+.afwPieChart {
     margin: 0 auto;
     width: 500px;}
-#afw .afwPieData {
+.afwPieData {
     margin: 0 auto;
     width: 500px;}
-#afw .afwPieDataRow {}
-#afw .afwPieTotalRow {
+.afwPieDataRow {}
+.afwPieTotalRow {
     border-top: 1px solid #888888;
     margin: 5px 0 0;
     padding: 5px 0 0;
 }
-#afw .afwPieTotalRow .afwPieDataValue {}
-#afw .afwPieDataValue {
+.afwPieTotalRow .afwPieDataValue {}
+.afwPieDataValue {
     display: inline-block;
     padding: 0 10px 0 0;
     text-align: right;
     width: 100px;
 	}
-#afw .afwPieDataCaption {
+.afwPieDataCaption {
     display: inline-block;
     padding: 0;
     text-align: left;
@@ -584,47 +671,47 @@
 /*
 * Report Filter List
 */
-#afw ul.afwFilterList {
+.afw ul.afwFilterList {
 	background-color: #eee;
 	border: 1px solid #fff;
 	padding: 10px 5px;
     border-radius: 5px;
 }
-#afw ul.afwFilterList h3 {
+.afw ul.afwFilterList h3 {
 	padding: 0;
 	margin: 0 0 10px 0;
 	color: #666;
 	/*font-size: 13px;*/
 }
-#afw li.afwFilterInput{
+.afw li.afwFilterInput{
 	margin:0;
 	padding:0;
 	width:100%;
 }
-#afw li.afwFilterInput input[type="text"] {
+.afw li.afwFilterInput input[type="text"] {
 	margin:0;
 	padding:0;
 	width:100%;
 }
-#afw li.afwFilterInput input[type="checkbox"] {
+.afw li.afwFilterInput input[type="checkbox"] {
 	margin:0;
 	padding:0;
 }
-#afw ul.afwFilterList li select {
+.afw ul.afwFilterList li select {
 	margin:0;
 	padding:0;
 	width:100%;
 }
-#afw ul.afwButtonList 
+.afw ul.afwButtonList 
 {
 	list-style: none;
 }
-#afw ul.afwButtonList li {
+.afw ul.afwButtonList li {
 	width: 280px;
 	display: inline-block;
 	vertical-align: top;
 }
-#afw ul.afwButtonList li a {
+.afw ul.afwButtonList li a {
 	text-decoration: none;
 	color: #666;
 	background-color: #f8f8f8;
@@ -636,7 +723,7 @@
 	width: 200px;
     font-weight: bold;
 }
-#afw ul.afwButtonList li a:hover {
+.afw ul.afwButtonList li a:hover {
     color: #fff;
     background-color: #1F70BD;
     border: 1px solid #1F70BD;
@@ -644,7 +731,7 @@
 /*
 * Edit form inputs
 */
-#afw input[type="date"] {
+.afw input[type="date"] {
     max-width: 400px;
 }
 /*
@@ -655,21 +742,17 @@
 		padding: 0 0.75em;
 	}
 
-	.afwNavbar .navbar-nav .nav-item:not(:last-child) .nav-link {
+	/* .afwNavbar .navbar-nav .nav-item:not(:last-child) .nav-link {
 		border-right: 1px solid rgba(255,255,255,.3);
-	}
+	} */
 
 	.afwSubNavbar .navbar-nav .nav-item .nav-link {
 		padding: 0 0.75em;
 	}
 
-	.afwSubNavbar .navbar-nav .nav-item:not(:last-child) .nav-link {
+	/* .afwSubNavbar .navbar-nav .nav-item:not(:last-child) .nav-link {
 		border-right: 1px solid rgba(0,0,0,.3);
-	}
-
-	.afwSubNavbar {
-		border-bottom: 1px solid #888 !important;
-	}
+	} */
 }
 /*
 	bootstrap colors additions
@@ -703,18 +786,18 @@
 }
  </style>
 <div id="afw">
-  <div class="mb-4">
-    <div class="container-fluid px-4">
-      <div class="d-flex align-items-center justify-content-between mb-3 px-1">
-        {{#title}}<h1 class="h3 m-0 text-secondary">{{title}}</h1>{{/title}}
+  <div class="px-3 my-4">
+    <div class="container-fluid">
+      <div class="d-flex align-items-center justify-content-between mb-2">
+        {{#title}}<h1 class="h2 m-0">{{title}}</h1>{{/title}}
       </div>
-      <nav class="afwNavbar navbar navbar-expand-lg bg-light rounded-2 border border-light shadow-sm mb-4">      
+      <nav class="afwNavbar navbar navbar-expand-lg bg-white rounded-2 border border-light shadow-sm">      
           <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbarSupportedContent" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>  
           <div class="navbar-collapse collapse" id="navbarSupportedContent">
             <ul class="navbar-nav">
-              {{#navList}}
+              {{#navItemList}}
                 {{#navFlyoutListEmpty}}
                 <li class="nav-item {{#active}}active{{/active}} {{#isPortalLink}}afwNavPortalLink{{/isPortalLink}}">
                   {{#link}}
@@ -731,153 +814,175 @@
                   <div class="dropdown-menu dropdown-menu-start" aria-labelledby="navbarDropdown">
                     {{#navFlyoutList}}
                       {{#subLink}}
-                      <a class="dropdown-item " href="{{subLink}}" target="{{subLinkTarget}}" >{{subCaption}}</a>
+                      <a class="dropdown-item " href="{{subLink}}" target="{{subLinkTarget}}">{{subCaption}}</a>
                       {{/subLink}}
                       {{^subLink}}
-                      <a class="dropdown-item"  href="#" onclick="return false">{{subCaption}}</a>
+                      <a class="dropdown-item" href="#" onclick="return false">{{subCaption}}</a>
                       {{/subLink}}
                     {{/navFlyoutList}}
                   </div>
                 </li>
                 {{/navFlyoutListEmpty}}
-              {{/navList}}
+              {{/navItemList}}
             </ul>
           </div>
         
       </nav>
-    </div>
-    {{^subNavListEmpty}}
-    <nav class="navbar navbar-expand-lg navbar-light bg-gray-light px-4 pb-0">
-      <a class="navbar-brand" href="#">{{subNavTitle}}</a>
-    </nav>
-    <nav class="afwSubNavbar navbar navbar-expand-lg navbar-light bg-gray-light px-4 pt-0">
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-bs-toggle="collapse" data-target="#subnav" data-bs-target="#subnav" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="subnav">
-        <ul class="navbar-nav mr-auto me-auto">
-          {{#navList}}
-          {{#subNavList}}
-          <li class="nav-item {{#subActive}}active{{/subActive}} {{#subIsPortalLink}}afwNavPortalLink{{/subIsPortalLink}}">
-            {{#subLink}}
-            <a class="nav-link " href="{{subLink}}" target="{{subLinkTarget}}">{{subCaption}}</a>
-            {{/subLink}}
-            {{^subLink}}
-            <a class="nav-link " href="#" onclick="return false">{{subCaption}}</a>
-            {{/subLink}}
-          </li>
-          {{/subNavList}}
-          {{^subNavList}}
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{caption}}</a>
-            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-              {{#navFlyoutList}}
+    </div> 
+
+  {{^subNavItemListEmpty}}
+    <div class="row d-flex align-items-center justify-content-between mt-3 py-2 px-3">
+      <div class="col-md-2">
+        <ul class="ttlBdCm d-flex align-items-center mb-0">
+          {{#subNavTitleList}}
+            <li class="d-flex align-items-center">
+              <p>{{.}}</p>
+            </li>
+          {{/subNavTitleList}}
+        </ul>
+      </div>
+
+      <div class="col-md-10">
+        <div class="card">
+          <div class="card-body">
+            <ul class="nav nav-pills align-items-center">
+              {{#subNavItemList}}
+              <li class="nav-item {{#subIsPortalLink}}afwNavPortalLink{{/subIsPortalLink}}">
                 {{#subLink}}
-                <a class="dropdown-item " href="{{subLink}}" target="{{subLinkTarget}}" >{{subCaption}}</a>
+                <a class="nav-link py-0 {{#subActive}}active{{/subActive}}" href="{{subLink}}" target="{{subLinkTarget}}">{{subCaption}}</a>
                 {{/subLink}}
                 {{^subLink}}
-                <a class="dropdown-item"  href="#" onclick="return false">{{subCaption}}</a>
+                <a class="nav-link py-0 {{#subActive}}active{{/subActive}}" href="#" onclick="return false">{{subCaption}}</a>
                 {{/subLink}}
-              {{/navFlyoutList}}
-            </div>
-          </li>
-          {{/subNavList}}
-          {{/navList}}
-        </ul>
+              </li>
+              {{/subNavItemList}}
+            </ul>
+          </div>
+        </div>
       </div>
-  </nav>
-  {{/subNavListEmpty}}
--->  
-  
-  {{^subNavListEmpty}}
-  <nav class="navbar navbar-expand-lg navbar-light bg-gray-light px-4 pb-0">
-    <a class="navbar-brand" href="#">{{subNavTitle}}</a>
-  </nav>
-  <nav class="afwSubNavbar navbar navbar-expand-lg navbar-light bg-gray-light px-4 pt-0">
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-bs-toggle="collapse" data-target="#subnav" data-bs-target="#subnav" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="subnav">
-      <ul class="navbar-nav mr-auto" me-auto">
-        {{#subNavList}}
-        <li class="nav-item {{#subActive}}active{{/subActive}} {{#subIsPortalLink}}afwNavPortalLink{{/subIsPortalLink}}">
-          {{#subLink}}
-          <a class="nav-link " href="{{subLink}}" target="{{subLinkTarget}}">{{subCaption}}</a>
-          {{/subLink}}
-          {{^subLink}}
-          <a class="nav-link " href="#" onclick="return false">{{subCaption}}</a>
-          {{/subLink}}
-        </li>
-      {{/subNavList}}
-      </ul>
     </div>
-    {{^subNavListEmpty}}
-    <nav class="navbar navbar-expand-lg navbar-light bg-gray-light px-4 pb-0">
-      <a class="navbar-brand" href="#">{{subNavTitle}}</a>
-    </nav>
-    <nav class="afwSubNavbar navbar navbar-expand-lg navbar-light bg-gray-light px-4 pt-0">
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-bs-toggle="collapse" data-target="#subnav" data-bs-target="#subnav" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="subnav">
-        <ul class="navbar-nav mr-auto" me-auto">
-          {{#subNavList}}
-          <li class="nav-item {{#subActive}}active{{/subActive}} {{#subIsPortalLink}}afwNavPortalLink{{/subIsPortalLink}}">
-            {{#subLink}}
-            <a class="nav-link " href="{{subLink}}" target="{{subLinkTarget}}">{{subCaption}}</a>
-            {{/subLink}}
-            {{^subLink}}
-            <a class="nav-link " href="#" onclick="return false">{{subCaption}}</a>
-            {{/subLink}}
-          </li>
-        {{/subNavList}}
-        </ul>
+
+    {{#childSubNavItemLists}}
+   
+      <div class="d-flex justify-content-md-end mb-2 pb-2 px-3">
+          <div id="subnav">
+            <ul class="nav navbar-nav me-auto">
+              {{#childSubNavItemList}}
+              <li class="nav-item {{#subIsPortalLink}}afwNavPortalLink{{/subIsPortalLink}}">
+                <a class="nav-link py-0 {{#subActive}}active{{/subActive}} " href="{{subLink}}{{^subLink}}#{{/subLink}}" target="{{subLinkTarget}}" onclick="{{^subLink}}return false{{/subLink}}">{{subCaption}}</a>
+              </li>
+              {{/childSubNavItemList}}
+            </ul>
+          </div>
       </div>
-    </nav>
-    {{/subNavListEmpty}}
-  </div>
+    {{/childSubNavItemLists}}
+
+  {{/subNavItemListEmpty}}
 
   <div>
     {{{body}}}
   </div>
-
 </div>
-<script>
-  //
-  // adminFramework assembly referenced js
-  //
-  if (typeof google !== 'object') {
-      document.write('<scr' + 'ipt type="text/javascript" src="https://www.google.com/jsapi"></scr' + 'ipt>');
-  }
-  function cjFrameSubmitForm(remoteMethodName, frameHtmlId, formHtmlId) {
-      jQuery('#' + frameHtmlId).block();
-      cj.ajax.addon(
-          remoteMethodName
-          , 'frameName=' + frameHtmlId
-          , formHtmlId
-          , frameHtmlId
-      );
-  }
-  function cjFrameUpdate(remoteMethodName, frameHtmlId, qs) {
-      jQuery('#' + frameHtmlId).block();
-      cj.ajax.addon(
-          remoteMethodName
-          , qs + '&frameName=' + frameHtmlId
-          , ''
-          , frameHtmlId
-      );
-  }
-  //
-  // attach this to the contensive cj object
-  //
-  function cjFrame() {
-      this.submitForm = cjFrameSubmitForm;
-      this.update = cjFrameUpdate;
-  }
-  cj.frame = new cjFrame();
-  //
-  // legacy names
-  //
-  function afwPostFrame(remoteMethodName, formHtmlId, frameHtmlId) { cj.frame.submitForm(remoteMethodName, frameHtmlId, formHtmlId) }
-  function afwUpdateFrame(remoteMethodName, qs, frameHtmlId) { cj.frame.update(remoteMethodName, frameHtmlId, qs) }
-</script>
+  <script>
+    //
+    // adminFramework assembly referenced js
+    //
+    if (typeof google !== 'object') {
+        document.write('<scr' + 'ipt type="text/javascript" src="https://www.google.com/jsapi"></scr' + 'ipt>');
+    }
+    function cjFrameSubmitForm(remoteMethodName, frameHtmlId, formHtmlId) {
+        jQuery('#' + frameHtmlId).block();
+        cj.ajax.addon(
+            remoteMethodName
+            , 'frameName=' + frameHtmlId
+            , formHtmlId
+            , frameHtmlId
+        );
+    }
+    function cjFrameUpdate(remoteMethodName, frameHtmlId, qs) {
+        jQuery('#' + frameHtmlId).block();
+        cj.ajax.addon(
+            remoteMethodName
+            , qs + '&frameName=' + frameHtmlId
+            , ''
+            , frameHtmlId
+        );
+    }
+    //
+    // attach this to the contensive cj object
+    //
+    function cjFrame() {
+        this.submitForm = cjFrameSubmitForm;
+        this.update = cjFrameUpdate;
+    }
+    cj.frame = new cjFrame();
+    //
+    // legacy names
+    //
+    function afwPostFrame(remoteMethodName, formHtmlId, frameHtmlId) { cj.frame.submitForm(remoteMethodName, frameHtmlId, formHtmlId) }
+    function afwUpdateFrame(remoteMethodName, qs, frameHtmlId) { cj.frame.update(remoteMethodName, frameHtmlId, qs) }
+
+    //
+    // Scroll to active nav-item on page load
+    //
+    document.addEventListener('DOMContentLoaded', function() {
+      // Find all nav-pills containers that might have horizontal scroll
+      var navContainers = document.querySelectorAll('#afw .card .nav-pills');
+      
+      navContainers.forEach(function(navContainer) {
+        // Find the active nav-link within this container
+        var activeLink = navContainer.querySelector('.nav-link.active');
+        
+        if (activeLink) {
+          // Get the parent nav-item
+          var activeNavItem = activeLink.closest('.nav-item');
+          
+          if (activeNavItem) {
+            // Calculate scroll position to center the active item
+            var containerWidth = navContainer.offsetWidth;
+            var itemOffset = activeNavItem.offsetLeft;
+            var itemWidth = activeNavItem.offsetWidth;
+            
+            // Scroll to position the active item in view (centered if possible)
+            var scrollPosition = itemOffset - (containerWidth / 2) + (itemWidth / 2);
+            
+            // Smooth scroll to the active item
+            navContainer.scrollTo({
+              left: Math.max(0, scrollPosition),
+              behavior: 'smooth'
+            });
+          }
+        }
+      });
+
+      // Also handle the subnav items
+      var subnavContainers = document.querySelectorAll('#subnav .navbar-nav');
+      
+      subnavContainers.forEach(function(subnavContainer) {
+        var activeLink = subnavContainer.querySelector('.nav-link.active');
+        
+        if (activeLink) {
+          var activeNavItem = activeLink.closest('.nav-item');
+          
+          if (activeNavItem) {
+            // Scroll the parent container if it has overflow
+            var scrollContainer = subnavContainer.closest('.navbar-collapse');
+            
+            if (scrollContainer) {
+              var containerWidth = scrollContainer.offsetWidth;
+              var itemOffset = activeNavItem.offsetLeft;
+              var itemWidth = activeNavItem.offsetWidth;
+              
+              var scrollPosition = itemOffset - (containerWidth / 2) + (itemWidth / 2);
+              
+              scrollContainer.scrollTo({
+                left: Math.max(0, scrollPosition),
+                behavior: 'smooth'
+              });
+            }
+          }
+        }
+      });
+    });
+  </script>
+</div>
