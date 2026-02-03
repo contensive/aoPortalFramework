@@ -2,7 +2,7 @@
 
 namespace Contensive.Addons.PortalFramework.Models {
     /// <summary>
-    /// mustache view model for list of nav
+    /// This represents a single item in the main nav
     /// </summary>
     public class PortalBuilderNavItemViewModel {
         /// <summary>
@@ -21,8 +21,13 @@ namespace Contensive.Addons.PortalFramework.Models {
         /// if true, this nav goes to another portal
         /// </summary>
         public bool isPortalLink { get; set; }
-        //
+        /// <summary>
+        /// if the main nav has a flyout, this is the list of items in the flyout
+        /// </summary>
         public List<PortalBuilderSubNavItemViewModel> navFlyoutList { get; set; } = new List<PortalBuilderSubNavItemViewModel>();
+        /// <summary>
+        /// if true, there is no flyout to this main nav
+        /// </summary>
         public bool navFlyoutListEmpty {
             get {
                 return navFlyoutList.Count == 0;

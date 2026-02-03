@@ -15,13 +15,16 @@ namespace Contensive.Addons.PortalFramework.Models {
         /// this portals main features - features with no parent feature
         /// </summary>
         public List<PortalBuilderNavItemViewModel> navList { get; set; }
+        /// <summary>
+        /// true ifthe main nav has no items
+        /// </summary>
         public bool navListEmpty {
             get {
                 return navList.Count == 0;
             }
         }
         /// <summary>
-        /// current body's sibling features, this is the list to be used as subnav under the main nav
+        /// if for example the user clicks on the Account entry in the main nav, this Account section will display. The accoutn section has several subsections. Those subsections are listed here.
         /// </summary>
         public List<PortalBuilderSubNavItemViewModel> subNavList { get; set; }
         /// <summary>
