@@ -192,7 +192,7 @@ namespace Contensive.Addons.PortalFramework {
                                 title = dstDataFeature.heading,
                                 body = "Redirecting to content"
                             };
-                            body = content.getHtml();
+                            body = content.getHtml(CP);
                         } else {
                             //
                             // this is a feature list, display the feature list
@@ -256,7 +256,7 @@ namespace Contensive.Addons.PortalFramework {
                 portalBuilder.body = CP.Html.div(body, "", "", "afwBodyFrame");
                 portalBuilder.title = portalData.name;
                 portalBuilder.isOuterContainer = true;
-                string returnHtml = portalBuilder.getHtml();
+                string returnHtml = portalBuilder.getHtml(CP);
                 //
                 // assemble body
                 //
