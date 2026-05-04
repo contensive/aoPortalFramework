@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="windows-1252"?>
-<Collection name="Portal Framework" guid="{87249f75-a065-4f2f-8dcd-fbbf2ca0dccd}" system="No" updatable="Yes" blockNavigatorNode="No" onInstallAddonGuid="{C299048C-775A-48E9-9B47-8CB8B7CE16DB}">
+<Collection name="Portal Framework" guid="{87249f75-a065-4f2f-8dcd-fbbf2ca0dccd}" system="No" updatable="Yes" blockNavigatorNode="No" onInstallAddonGuid="{C299048C-775A-48E9-9B47-8CB8B7CE16DB}"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:noNamespaceSchemaLocation="https://contensive.s3.amazonaws.com/xsd/Collection.xsd"
+>
 	<!-- moved to base collection -->
 </Collection>
